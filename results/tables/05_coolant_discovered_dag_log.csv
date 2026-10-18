@@ -1,0 +1,17 @@
+source,target,action,graph_id
+CLF_A_700307,LP_A_700301,dropped (undirected),discovered
+HP_A_700304,LT_A_700317,dropped (undirected),discovered
+HP_Pump_Ok,HP_Pump_isOff,dropped (undirected),discovered
+LT_Level_Ok,LT_Pump_Ok,dropped (undirected),discovered
+CLF_A_700307,LP_A_700301,dropped (undirected),discovered_without_exp_22
+CLF_A_700307,LP_A_700301,dropped (undirected),discovered_without_exp_27
+HP_A_700304,LT_A_700317,dropped (undirected),discovered_without_exp_27
+HP_Pump_Ok,HP_Pump_isOff,dropped (undirected),discovered_without_exp_27
+LT_Level_Ok,LT_Pump_Ok,dropped (undirected),discovered_without_exp_27
+CLF_A_700307,LP_A_700301,dropped (undirected),discovered_without_exp_28
+HP_A_700304,LT_A_700317,dropped (undirected),discovered_without_exp_28
+HP_Pump_Ok,HP_Pump_isOff,dropped (undirected),discovered_without_exp_28
+LT_Level_Ok,LT_Pump_Ok,dropped (undirected),discovered_without_exp_28
+HP_A_700304,LT_A_700317,dropped (undirected),discovered_without_exp_35
+HP_Pump_Ok,HP_Pump_isOff,dropped (undirected),discovered_without_exp_35
+LT_Level_Ok,LT_Pump_Ok,dropped (undirected),discovered_without_exp_35

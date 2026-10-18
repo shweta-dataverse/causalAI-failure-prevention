@@ -1,0 +1,52 @@
+scope,check,expected,observed,passed
+full,nodes (csv),92,92,True
+full,edges (csv),104,104,True
+full,gml nodes equal csv nodes,True,True,True
+full,gml edges equal csv edges,True,True,True
+full,normal recordings,170,170,True
+full,fault runs,100,100,True
+full,scenarios,19,19,True
+full,distinct diagnoses,10,10,True
+full,distinct causing variables,14,14,True
+full,runs with ordered causes.json timestamps,100,97,False
+full,description exp_id equals folder,[],[],True
+full,description group equals subsystem,[],[],True
+coolant,nodes (csv),15,15,True
+coolant,edges (csv),10,10,True
+coolant,gml nodes equal csv nodes,True,True,True
+coolant,gml edges equal csv edges,True,True,True
+coolant,nodes missing from full graph,[],[],True
+coolant,edges missing from full graph,[],[],True
+coolant,fault runs,25,25,True
+coolant,scenarios,4,4,True
+coolant,distinct diagnoses,2,2,True
+coolant,distinct causing variables,6,6,True
+coolant,manipulated vars missing from graph,[],[],True
+coolant,alarms missing from graph,[],[],True
+coolant,diagnosis state vars missing from graph,[],[],True
+hydraulics,nodes (csv),17,17,True
+hydraulics,edges (csv),18,18,True
+hydraulics,gml nodes equal csv nodes,True,True,True
+hydraulics,gml edges equal csv edges,True,True,True
+hydraulics,nodes missing from full graph,[],[],True
+hydraulics,edges missing from full graph,[],[],True
+hydraulics,fault runs,41,41,True
+hydraulics,scenarios,9,9,True
+hydraulics,distinct diagnoses,5,5,True
+hydraulics,distinct causing variables,6,6,True
+hydraulics,manipulated vars missing from graph,[],[],True
+hydraulics,alarms missing from graph,[],[],True
+hydraulics,diagnosis state vars missing from graph,[],[],True
+probe,nodes (csv),11,11,True
+probe,edges (csv),15,15,True
+probe,gml nodes equal csv nodes,True,True,True
+probe,gml edges equal csv edges,True,True,True
+probe,nodes missing from full graph,[],[],True
+probe,edges missing from full graph,[],[],True
+probe,fault runs,34,34,True
+probe,scenarios,6,6,True
+probe,distinct diagnoses,3,3,True
+probe,distinct causing variables,2,2,True
+probe,manipulated vars missing from graph,[],[],True
+probe,alarms missing from graph,[],[],True
+probe,diagnosis state vars missing from graph,[],[],True

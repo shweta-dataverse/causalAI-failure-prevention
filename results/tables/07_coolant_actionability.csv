@@ -1,0 +1,16 @@
+variable,actionable,kind,allowed_values,reason
+CLF_A_700307,False,alarm,,"alarm: observable outcome, never an action"
+CLF_Filter_Ok,True,maintenance,1,clean or replace the fine-particle coolant filter
+CLT_A_700310,False,alarm,,"alarm: observable outcome, never an action"
+CLT_Level_lt_Min,True,maintenance,0,refill the coolant tank above the minimum level
+F_A_700313,False,alarm,,"alarm: observable outcome, never an action"
+F_Filter_Ok,True,maintenance,1,replace the empty fleece filter
+HP_A_700304,False,alarm,,"alarm: observable outcome, never an action"
+HP_Pump_Ok,True,maintenance,1,repair the high-pressure pump / reset its motor protection
+HP_Pump_isOff,False,not actionable,,"feedback state of the high-pressure pump, set by the plc logic (derived)"
+LP_A_700301,False,alarm,,"alarm: observable outcome, never an action"
+LP_Pump_Ok,True,maintenance,1,repair the low-pressure pump / reset its motor protection
+LP_Pump_On,True,control,"0, 1",command the low-pressure pump on or off (plc output)
+LT_A_700317,False,alarm,,"alarm: observable outcome, never an action"
+LT_Level_Ok,True,maintenance,1,clear the lifting-tank overflow
+LT_Pump_Ok,False,not actionable,,supervision feedback of the lifting-tank pump (derived)

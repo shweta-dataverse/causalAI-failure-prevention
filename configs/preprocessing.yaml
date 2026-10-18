@@ -1,0 +1,18 @@
+# preprocessing settings; paths are relative to the repository root
+raw_dir: data/raw/causRCA
+output_dir: data/processed
+report_dir: results/tables/preprocessing
+
+# grid of the archival state table (not a final modelling choice, see
+# results/tables/preprocessing/sampling_sensitivity.csv and notebook 02)
+sampling_interval_s: 1.0
+sensitivity_intervals_s: [0.1, 0.25, 0.5, 1.0, 2.0, 5.0]
+
+# events with the same (recording, node, time_s): last | first | error
+duplicate_policy: last
+
+# reject binary/alarm values other than true/false/1/0
+strict_binary: true
+
+# model views: use within-recording differences of counters instead of dropping them
+counter_first_differences: false

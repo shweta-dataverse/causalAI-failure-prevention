@@ -1,0 +1,210 @@
+{
+  "config": {
+    "raw_dir": "data/raw/causRCA",
+    "output_dir": "data/processed",
+    "report_dir": "results/tables/preprocessing",
+    "sampling_interval_s": 1.0,
+    "sensitivity_intervals_s": [
+      0.1,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      5.0
+    ],
+    "duplicate_policy": "last",
+    "strict_binary": true,
+    "counter_first_differences": false
+  },
+  "policies": {
+    "timestamps": "OPC UA publish times; ties broken by file row order, not interpreted causally",
+    "duplicates": "same (recording, node, time_s): keep last",
+    "state": "zero-order hold (forward fill) within a recording; NA before first event; no backfill",
+    "grid": "t_k = k * interval_s from 0 to the first grid point at or after the last event",
+    "categorical": "kept as strings, never converted to numbers"
+  },
+  "recordings": {
+    "total": 270,
+    "by_source": {
+      "dig_twin": 100,
+      "real_op": 170
+    },
+    "by_subsystem": {
+      "coolant": 25,
+      "hydraulics": 41,
+      "probe": 34
+    },
+    "naming_notes": [
+      {
+        "recording_id": "probe_exp_2_3_run_1",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      },
+      {
+        "recording_id": "probe_exp_2_3_run_2",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      },
+      {
+        "recording_id": "probe_exp_2_3_run_3",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      },
+      {
+        "recording_id": "probe_exp_2_3_run_4",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      },
+      {
+        "recording_id": "probe_exp_2_3_run_5",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      },
+      {
+        "recording_id": "probe_exp_2_3_run_6",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      },
+      {
+        "recording_id": "probe_exp_2_3_run_7",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      },
+      {
+        "recording_id": "probe_exp_2_3_run_8",
+        "naming_note": "file name refers to exp2; folder exp_2_3 is used as experiment_id"
+      }
+    ]
+  },
+  "duration_s": {
+    "dig_twin": {
+      "min": 140.447,
+      "median": 218.811,
+      "max": 364.063
+    },
+    "real_op": {
+      "min": 80.136,
+      "median": 599.5165,
+      "max": 613.727
+    }
+  },
+  "events": {
+    "total_after_duplicate_policy": 508466,
+    "duplicate_events": 0,
+    "duplicates_dropped": 0,
+    "out_of_order_rows": 0,
+    "share_sharing_timestamp_with_other_node": 0.7343180956187322,
+    "repeat_events_without_change": 79
+  },
+  "variable_types": {
+    "Alarm": 18,
+    "Binary": 64,
+    "Categorical": 4,
+    "Continuous": 7,
+    "Counter": 3
+  },
+  "boolean_raw_encodings": {
+    "False": 53056,
+    "True": 53135
+  },
+  "numeric_looking_categoricals": [
+    "Prog_LineNo"
+  ],
+  "nodes": {
+    "n_total": 96,
+    "without_t0_snapshot": [],
+    "by_source": {
+      "dig_twin": {
+        "n_recordings": 100,
+        "n_nodes_observed": 90,
+        "nodes_missing_in_some_recordings": [
+          "CLF_A_700307",
+          "CLF_Filter_Ok",
+          "CLT_A_700310",
+          "CLT_Level_lt_Min",
+          "ExU_On",
+          "ExU_isOff",
+          "F_A_700313",
+          "F_Filter_Ok",
+          "HP_A_700304",
+          "HP_Pump_Ok",
+          "Hyd_A_700202",
+          "Hyd_A_700203",
+          "Hyd_A_700204",
+          "Hyd_A_700205",
+          "Hyd_A_700206",
+          "Hyd_A_700207",
+          "Hyd_A_700208",
+          "Hyd_Filter_Ok",
+          "Hyd_IsEnabled",
+          "Hyd_Level_Ok",
+          "Hyd_Pressure",
+          "Hyd_Pump_Ok",
+          "Hyd_Pump_On",
+          "Hyd_Pump_isOff",
+          "Hyd_Temp_lt_70",
+          "Hyd_Temp_lt_80",
+          "Hyd_Valve_P_Up",
+          "LP_A_700301",
+          "LP_Pump_Ok",
+          "LT_A_700317",
+          "LT_Level_Ok",
+          "LT_Pump_Ok",
+          "Lubr_On",
+          "Lubr_P_Ok",
+          "MPA_A_701124",
+          "MPA_A_701125",
+          "M_ErrorActive",
+          "M_Lifebit",
+          "M_WarnActive",
+          "Prog_A_701330",
+          "SL_Yellow",
+          "SRL_Locked",
+          "SRL_Unlocked",
+          "SRL_lock",
+          "SRL_unlock",
+          "SR_tighten",
+          "TL_Locked"
+        ],
+        "nodes_never_changing": []
+      },
+      "real_op": {
+        "n_recordings": 170,
+        "n_nodes_observed": 80,
+        "nodes_missing_in_some_recordings": [
+          "Prog_A_701330",
+          "SR_A_67040",
+          "T_A_701309",
+          "WC_collet_inPos",
+          "WC_finPart_inPos",
+          "WC_inTendingPos",
+          "WC_rawPart_inPos"
+        ],
+        "nodes_never_changing": [
+          "CLF_Filter_Ok",
+          "CLT_Level_lt_Min",
+          "F_Filter_Ok",
+          "HP_Pump_Ok",
+          "Hyd_Filter_Ok",
+          "Hyd_Level_Ok",
+          "Hyd_Pump_Ok",
+          "Hyd_Pump_On",
+          "Hyd_Pump_isOff",
+          "Hyd_Temp_lt_70",
+          "Hyd_Temp_lt_80",
+          "LP_Pump_Ok",
+          "WC_collet_inPos",
+          "WC_finPart_inPos",
+          "WC_inTendingPos",
+          "WC_rawPart_inPos"
+        ]
+      }
+    }
+  },
+  "counter_resets": {
+    "Prog_CuttingTime": 9,
+    "Prog_CycleTime": 429
+  },
+  "verification": {
+    "interval_s": 1.0,
+    "n_recordings": 270,
+    "n_cells_checked": 11668992,
+    "n_mismatches": 0,
+    "n_grid_errors": 0,
+    "examples": [],
+    "passed": true
+  }
+}

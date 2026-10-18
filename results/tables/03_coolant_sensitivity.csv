@@ -1,0 +1,11 @@
+variant,interval_s,tau_max_s,pc_alpha,fdr_method,max_conds_dim,max_conds_px,max_conds_py,apply_fdr_to_graph,support_threshold,tau_max,label,edges,oriented,jaccard_with_primary,runtime_s
+primary,0.5,10.0,0.01,fdr_bh,3,3,3,True,0.5,20,dt0.5_tau10s_alpha0.01,10,6,1.0,29.1
+grid 1 s,1.0,10.0,0.01,fdr_bh,3,3,3,True,0.5,10,dt1_tau10s_alpha0.01,13,10,0.5333333333333333,10.1
+tau_max 5 s,0.5,5.0,0.01,fdr_bh,3,3,3,True,0.5,10,dt0.5_tau5s_alpha0.01,10,6,1.0,14.5
+tau_max 20 s,0.5,20.0,0.01,fdr_bh,3,3,3,True,0.5,40,dt0.5_tau20s_alpha0.01,10,7,0.8181818181818182,56.6
+alpha 0.001,0.5,10.0,0.001,fdr_bh,3,3,3,True,0.5,20,dt0.5_tau10s_alpha0.001,9,5,0.9,25.5
+alpha 0.05,0.5,10.0,0.05,fdr_bh,3,3,3,True,0.5,20,dt0.5_tau10s_alpha0.05,13,5,0.6428571428571429,33.4
+no fdr filter,0.5,10.0,0.01,fdr_bh,3,3,3,False,0.5,20,dt0.5_tau10s_alpha0.01_nofdrfilter,13,10,0.6428571428571429,29.4
+support ≥ 0.25,0.5,10.0,0.01,fdr_bh,3,3,3,True,0.25,20,dt0.5_tau10s_alpha0.01,10,6,1.0,0.0
+support ≥ 0.75,0.5,10.0,0.01,fdr_bh,3,3,3,True,0.75,20,dt0.5_tau10s_alpha0.01,8,5,0.6363636363636364,0.0
+support ≥ 1,0.5,10.0,0.01,fdr_bh,3,3,3,True,1.0,20,dt0.5_tau10s_alpha0.01,8,5,0.6363636363636364,0.0

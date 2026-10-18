@@ -1,0 +1,4 @@
+comparison,mean_difference,runs_different,wilcoxon_p
+expert vs discovered,0.0,0,
+expert vs empty,0.0,0,
+discovered vs empty,0.0,0,

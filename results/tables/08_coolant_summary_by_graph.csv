@@ -1,0 +1,4 @@
+graph,runs,valid,mean_validity_probability,mean_improvement,mean_actions,mean_proximity_s,feasible,action_precision_vs_truth,action_recall_vs_truth,min_abduction_consistency
+expert,25.0,1.0,0.9551999999999999,0.36009887486790193,1.48,85.18,1.0,1.0,0.66,1.0
+discovered,25.0,1.0,0.9556,0.3603685810685912,1.48,85.18,1.0,1.0,0.66,1.0
+empty,25.0,0.0,0.0,0.0,1.0,67.08,1.0,1.0,0.46,1.0

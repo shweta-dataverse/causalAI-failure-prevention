@@ -1,0 +1,9 @@
+{
+  "interval_s": 1.0,
+  "n_recordings": 270,
+  "n_cells_checked": 11668992,
+  "n_mismatches": 0,
+  "n_grid_errors": 0,
+  "examples": [],
+  "passed": true
+}

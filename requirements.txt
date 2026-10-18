@@ -1,0 +1,17 @@
+# install from the repository root:
+#   pip install -r requirements.txt
+numpy>=1.26
+pandas>=2.2
+pyarrow>=15
+scipy>=1.11
+scikit-learn>=1.4
+networkx>=3.2
+tigramite>=5.2
+matplotlib>=3.8
+pyyaml>=6.0
+pytest>=8
+jupyterlab>=4
+ipykernel>=6
+
+# this project as an editable package, so notebooks can `import causal_rca`
+-e .

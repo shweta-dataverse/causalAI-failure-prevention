@@ -1,0 +1,9 @@
+request,feasible,problems
+do(CLF_Filter_Ok=1),True,
+do(HP_Pump_Ok=1) + do(LT_Level_Ok=1),True,
+do(CLT_Level_lt_Min=0),True,
+do(LP_Pump_On=0),True,
+do(HP_Pump_Ok=0),False,HP_Pump_Ok may only be set to 1
+do(HP_A_700304=0),False,HP_A_700304 is not actionable
+do(HP_Pump_isOff=0),False,HP_Pump_isOff is not actionable
+do(CLF_Filter_Ok=1) + do(F_Filter_Ok=1) + do(LP_Pump_Ok=1) + do(HP_Pump_Ok=1),False,more than 3 actions

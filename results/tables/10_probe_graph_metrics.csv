@@ -1,0 +1,3 @@
+graph,n_pred_edges,n_true_edges,skeleton_tp,skeleton_precision,skeleton_recall,skeleton_f1,n_pred_directed,directed_tp,directed_precision,directed_recall,directed_f1,shd,n_undirected_pred,orientation_accuracy
+discovered,8.0,15.0,6.0,0.75,0.4,0.5217391304347827,1.0,0.0,0.0,0.0,0.0,17.0,7.0,0.0
+random (mean),8.0,15.0,2.2065,0.2758125,0.14709999999999998,0.19186956521739132,8.0,1.1195,0.1399375,0.07463333333333333,0.09734782608695652,19.674,0.0,0.5053723404255319

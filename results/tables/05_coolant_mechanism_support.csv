@@ -1,0 +1,61 @@
+fold,variable,status
+exp_22,CLF_A_700307,changes seen
+exp_22,CLF_Filter_Ok,constant in training
+exp_22,F_A_700313,changes seen
+exp_22,F_Filter_Ok,constant in training
+exp_22,HP_A_700304,changes seen
+exp_22,HP_Pump_isOff,changes seen
+exp_22,HP_Pump_Ok,constant in training
+exp_22,LT_A_700317,no training data
+exp_22,LT_Level_Ok,constant in training
+exp_22,LT_Pump_Ok,changes seen
+exp_22,LP_A_700301,changes seen
+exp_22,LP_Pump_Ok,constant in training
+exp_22,LP_Pump_On,changes seen
+exp_22,CLT_A_700310,changes seen
+exp_22,CLT_Level_lt_Min,constant in training
+exp_27,CLF_A_700307,changes seen
+exp_27,CLF_Filter_Ok,constant in training
+exp_27,F_A_700313,changes seen
+exp_27,F_Filter_Ok,constant in training
+exp_27,HP_A_700304,changes seen
+exp_27,HP_Pump_isOff,changes seen
+exp_27,HP_Pump_Ok,constant in training
+exp_27,LT_A_700317,changes seen
+exp_27,LT_Level_Ok,constant in training
+exp_27,LT_Pump_Ok,changes seen
+exp_27,LP_A_700301,changes seen
+exp_27,LP_Pump_Ok,constant in training
+exp_27,LP_Pump_On,changes seen
+exp_27,CLT_A_700310,no training data
+exp_27,CLT_Level_lt_Min,constant in training
+exp_28,CLF_A_700307,changes seen
+exp_28,CLF_Filter_Ok,constant in training
+exp_28,F_A_700313,no training data
+exp_28,F_Filter_Ok,constant in training
+exp_28,HP_A_700304,changes seen
+exp_28,HP_Pump_isOff,changes seen
+exp_28,HP_Pump_Ok,constant in training
+exp_28,LT_A_700317,changes seen
+exp_28,LT_Level_Ok,constant in training
+exp_28,LT_Pump_Ok,changes seen
+exp_28,LP_A_700301,changes seen
+exp_28,LP_Pump_Ok,constant in training
+exp_28,LP_Pump_On,changes seen
+exp_28,CLT_A_700310,changes seen
+exp_28,CLT_Level_lt_Min,constant in training
+exp_35,CLF_A_700307,changes seen
+exp_35,CLF_Filter_Ok,constant in training
+exp_35,F_A_700313,changes seen
+exp_35,F_Filter_Ok,constant in training
+exp_35,HP_A_700304,changes seen
+exp_35,HP_Pump_isOff,changes seen
+exp_35,HP_Pump_Ok,constant in training
+exp_35,LT_A_700317,changes seen
+exp_35,LT_Level_Ok,constant in training
+exp_35,LT_Pump_Ok,changes seen
+exp_35,LP_A_700301,changes seen
+exp_35,LP_Pump_Ok,constant in training
+exp_35,LP_Pump_On,changes seen
+exp_35,CLT_A_700310,changes seen
+exp_35,CLT_Level_lt_Min,constant in training

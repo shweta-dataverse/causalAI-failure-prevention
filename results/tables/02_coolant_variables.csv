@@ -1,0 +1,16 @@
+variable,declared_type,graph_kind,io,state_dtype,encoding,fault_runs_recording,normal_share_recording,kept_normal_train_only,kept_with_fault_runs
+CLF_A_700307,Alarm,Alarm,,Int8,0/1,12,0.0,False,True
+CLF_Filter_Ok,Binary,Variable,input,Int8,0/1,12,1.0,False,True
+CLT_A_700310,Alarm,Alarm,,Int8,0/1,7,0.0,False,True
+CLT_Level_lt_Min,Binary,Variable,input,Int8,0/1,7,1.0,False,True
+F_A_700313,Alarm,Alarm,,Int8,0/1,6,0.0,False,True
+F_Filter_Ok,Binary,Variable,input,Int8,0/1,6,1.0,False,True
+HP_A_700304,Alarm,Alarm,,Int8,0/1,13,0.0,False,True
+HP_Pump_Ok,Binary,Variable,input,Int8,0/1,13,1.0,False,True
+HP_Pump_isOff,Binary,Variable,input,Int8,0/1,25,1.0,True,True
+LP_A_700301,Alarm,Alarm,,Int8,0/1,12,0.0,False,True
+LP_Pump_Ok,Binary,Variable,input,Int8,0/1,12,1.0,False,True
+LP_Pump_On,Binary,Variable,output,Int8,0/1,25,1.0,True,True
+LT_A_700317,Alarm,Alarm,,Int8,0/1,6,0.0,False,True
+LT_Level_Ok,Binary,Variable,input,Int8,0/1,6,1.0,False,True
+LT_Pump_Ok,Binary,Variable,input,Int8,0/1,12,1.0,True,True
