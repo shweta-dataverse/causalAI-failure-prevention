@@ -267,6 +267,10 @@ def fit_scm(
     """
     if not nx.is_directed_acyclic_graph(graph):
         raise ValueError("the scm needs an acyclic graph (lag-0 parents enter the equations)")
+    # an undirected discovered edge must never become a parent by accident (use to_dag first)
+    undirected = [(u, v) for u, v, a in graph.edges(data=True) if a.get("oriented", True) is False]
+    if undirected:
+        raise ValueError(f"graph contains undirected edges {undirected}; convert it with graph_evaluation.to_dag")
     fills = fill_values(view_data, train_ids)
     series = {r: recording_series(view_data, r) for r in train_ids}
     mechanisms = {}

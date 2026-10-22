@@ -46,8 +46,16 @@ Facts that shape every later decision:
 
   Pooling would therefore turn "not recorded" into "independent". Inside a regime, only variables recorded in every recording and changing at least once are used.
 - **Settings:** Δ = 0.5 s, `tau_max` = 10 s (20 lags), `pc_alpha` = 0.01. Conditioning sets are capped (3 conditions, 3 lagged parents of X and of Y), because larger binary contingency tables are empty. Recordings enter as separate datasets, so lags never cross recordings.
-- **FDR:** tigramite's PCMCI+ corrects only the *reported* p-values (Benjamini–Hochberg); the graph is decided by uncorrected tests. We therefore remove links whose corrected p-value exceeds α. The uncorrected graph is reported as a sensitivity variant.
-- **Combining regimes:** a pair is *testable* in a regime when both variables are used there. A relation enters the static graph when it is found in ≥ 50% of its testable regimes. Pairs never testable are reported as **untestable**, not absent (44 of 105 coolant pairs).
+- **FDR** (verified in the tigramite 5.2.10.1 source):
+  - `run_pcmciplus` decides and orients every link with uncorrected tests at α.
+  - It then Benjamini–Hochberg-corrects only the *reported* p-values, and only those of **lagged** links (`exclude_contemporaneous=True`). The reported value per link is the largest p-value over all its tests.
+  - We therefore remove lagged links whose corrected p-value exceeds α. Lag-0 links are unaffected, since their uncorrected maximum p is ≤ α by construction.
+  - For coolant the filter removes 9 lagged links. One lag-0 orientation could have relied on a removed link; re-running that regime with the link forbidden gives the same orientation.
+  - The unfiltered graph is reported as a sensitivity variant.
+- **Combining regimes:** a pair is *testable* in a regime when both variables are used there. A relation enters the static graph when it is found in ≥ 50% of its testable regimes. Each regime counts as one vote, whatever its sample size (normal: 137k steps; fault scenarios: 3–4k). Pairs never testable are reported as **untestable**, not absent (44 of 105 coolant pairs).
+- **Conflicting evidence** is kept and reported. Pairs found in opposite directions in different regimes, or directed in some and undirected in others, are flagged (`orientation_conflict`, `mixed_marks`).
+  - Coolant: 1 pair (the `LP_Pump_On`–`HP_Pump_isOff` feedback loop).
+  - Probe: 14 and 12 pairs.
 - **Static projection:**
   - Lagged links (lag ≥ 1) become directed edges, oriented by time.
   - Lag-0 links oriented by PCMCI+ rules become directed edges.
@@ -215,9 +223,21 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 
 **Causal discovery**
 - PCMCI+ assumes causal sufficiency, faithfulness and one stationary mechanism per regime. Regime-wise discovery satisfies the last assumption better than pooling, but leaves each relation resting on one or two scenarios.
-- The G² test treats samples as independent given the conditioning set. Conditioning on the variable's own past absorbs most of the persistence of binary states, but p-values remain approximate.
+- The G² test treats samples as independent given the conditioning set and uses an asymptotic χ² approximation.
+  - In every coolant fault regime each variable changes only 12–14 times in 3,000–4,000 samples, so many contingency cells are sparse.
+  - Conditioning on the variables' own past absorbs most of the persistence of binary states, but p-values remain approximate.
+  - They are used as a ranking device for an exploratory graph. Bootstrap stability over recordings is the more reliable evidence.
+- Fault regimes are intervention regimes: the manipulated variables are forced externally, with timing set by the experiment design. Discovery is not informed of the intervention targets or times.
+  - The graph is therefore an exploratory map of dependencies made visible by the fault excitation, not an identified causal graph.
+  - Two of its extra edges (alarm–alarm) are explained by alarms co-occurring because both faults of a multi-cause scenario are triggered by design.
+- The bootstrap resamples recordings with replacement. Duplicated recordings make tests more confident than the original sample, so frequencies of weak edges are biased upward, and with 3–7 recordings per fault regime the bootstrap is coarse.
+- Prior knowledge used by discovery:
+  - the expert graph's **node set** defines each subsystem's variable universe;
+  - the **scenario membership** of runs defines the regimes.
+
+  Expert edges, ground-truth causes and `causes.json` timestamps are never used.
 - Conditioning sets are capped (3 conditions, 3 lagged parents) to keep contingency tables estimable. This can leave confounding paths open.
-- FDR control is applied after PCMCI+ (removing links with corrected p > α), because tigramite's PCMCI+ decides links with uncorrected tests. This is a pragmatic correction, not a formally FDR-controlled PCMCI+.
+- FDR control is applied after PCMCI+ and to lagged links only (tigramite does not correct lag-0 p-values in PCMCI+). This is a pragmatic correction, not a formally FDR-controlled PCMCI+.
 - The expert-edge delays were looked at in notebook 02 (marked as context). `tau_max` = 10 s was not tuned on them, and `tau_max` = 5 s gives the identical graph, but the look itself is reported.
 - Agreement with the expert graph is agreement with expert knowledge, not with a verified ground truth.
 
@@ -250,7 +270,7 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 |---|---|---|---|
 | EDA and metadata | `data.py` | 01 | implemented, executed; 50/51 metadata checks pass (the failure is a data property) |
 | Preprocessing | `preprocessing.py`, `data.py` | 02 | implemented, executed; state verification passed (0 mismatches) |
-| Causal discovery | `causal_discovery.py` | 03 | PCMCI+ (G²) per regime, FDR filter, leave-one-out graphs, bootstrap, sensitivity; executed |
+| Causal discovery | `causal_discovery.py` | 03 | PCMCI+ (G²) per regime, FDR filter, leave-one-out graphs, bootstrap, sensitivity, conflict reporting; executed; independently audited (no change to the discovered edge set) |
 | Graph evaluation | `graph_evaluation.py` | 04 | implemented, executed |
 | SCM | `scm.py` | 05 | binary transition SCM; executed; continuous mechanisms **not implemented** |
 | Root cause analysis | `root_cause_analysis.py` | 06 | mechanism-break attribution; executed |
@@ -261,4 +281,4 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 | Hydraulics | — | — | **not run**: needs continuous SCM mechanisms for `Hyd_Pressure` |
 | Second discovery algorithm | — | — | **not started**, as planned (only after the full framework works) |
 
-Tests: 49 unit and integration tests (`python -m pytest`). They cover parsing, state reconstruction, no backfill, duplicates, recording boundaries, resampling, metadata helpers, splits, graph projection and metrics, perturbations, a synthetic SCM with known structure, RCA ranking metrics with multiple causes, feasibility rules and the counterfactual API contract.
+Tests: 52 unit and integration tests (`python -m pytest`). They cover parsing, state reconstruction, no backfill, duplicates, recording boundaries, resampling, metadata helpers, splits, graph projection and metrics, perturbations, a synthetic SCM with known structure, RCA ranking metrics with multiple causes, feasibility rules, the counterfactual API contract, orientation-conflict reporting, FDR bookkeeping and the SCM's rejection of undirected edges.

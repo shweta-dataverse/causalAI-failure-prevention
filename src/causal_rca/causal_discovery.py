@@ -33,7 +33,7 @@ from tigramite.pcmci import PCMCI
 
 from causal_rca.preprocessing import ViewData
 
-LINK_COLUMNS = ["regime", "source", "target", "lag", "link", "kind", "p_value", "g_stat", "significant"]
+LINK_COLUMNS = ["regime", "source", "target", "lag", "link", "kind", "p_value", "p_corrected", "g_stat", "significant"]
 
 
 @dataclass(frozen=True)
@@ -48,8 +48,10 @@ class DiscoveryConfig:
     max_conds_dim: int | None = 3
     max_conds_px: int | None = 3
     max_conds_py: int | None = 3
-    # tigramite's pcmci+ corrects the reported p-values but decides links with uncorrected
-    # tests; with this flag links whose corrected p-value exceeds pc_alpha are removed
+    # tigramite 5.2 pcmci+ decides every link with uncorrected tests at pc_alpha and then
+    # bh-corrects only the reported p-values of *lagged* links (contemporaneous p-values
+    # stay uncorrected). with this flag lagged links whose corrected p-value exceeds
+    # pc_alpha are removed afterwards; lag-0 links are unaffected (their max p <= pc_alpha).
     apply_fdr_to_graph: bool = True
     support_threshold: float = 0.5
 
@@ -179,7 +181,8 @@ def links_table(result: RegimeResult) -> pd.DataFrame:
     kind: 'auto' (a variable's own past), 'lagged' (source at t - lag -> target at t,
     oriented by time order) or 'contemporaneous' (lag 0; link '-->' oriented by
     pcmci+ rules, 'o-o' unoriented, 'x-x' conflicting). contemporaneous links are
-    listed once per pair. p_value is fdr-corrected when the config uses an fdr method;
+    listed once per pair. p_value is the largest p-value of all tests of the link;
+    p_corrected tells whether tigramite bh-corrected it (lagged links only).
     significant = p_value <= pc_alpha.
     """
     rows = []
@@ -204,6 +207,7 @@ def links_table(result: RegimeResult) -> pd.DataFrame:
                         "link": link,
                         "kind": kind,
                         "p_value": float(result.p_matrix[i, j, lag]),
+                        "p_corrected": bool(lag > 0 and result.config.fdr_method not in (None, "none")),
                         "g_stat": float(result.val_matrix[i, j, lag]),
                         "significant": bool(result.p_matrix[i, j, lag] <= result.config.pc_alpha),
                     }
@@ -251,6 +255,10 @@ def aggregate_relations(
     the directed support reaches the threshold, as undirected when only the
     adjacency support does, and is 'untestable' when no regime could test it.
     regimes in ``exclude`` are ignored (used for leave-one-scenario-out graphs).
+
+    conflicting evidence is kept, not hidden: ``orientation_conflict`` marks pairs found
+    in both directions in different regimes, ``mixed_marks`` pairs found directed in
+    some regimes and undirected in others.
     """
     regimes = [r for r in variables_by_regime if r not in set(exclude)]
     relations = relations[relations["regime"].isin(regimes)]
@@ -274,6 +282,8 @@ def aggregate_relations(
                 "support": adjacent / n if n else np.nan,
                 "support_a_to_b": ab / n if n else np.nan,
                 "support_b_to_a": ba / n if n else np.nan,
+                "orientation_conflict": bool(ab > 0 and ba > 0),
+                "mixed_marks": bool(0 < (ab + ba) and pair[pair["relation"] == "undirected"]["regime"].nunique() > 0),
                 "lags": sorted({lag for lags in pair["lags"] for lag in lags}),
                 "regimes": sorted(pair["regime"].unique()),
             }
@@ -294,16 +304,21 @@ def aggregate_relations(
 
 
 def static_edges(pairs: pd.DataFrame) -> pd.DataFrame:
-    """edge list of the static graph: source, target, oriented (False = undirected edge)."""
+    """edge list of the static graph: source, target, oriented (False = undirected edge),
+    support, and whether some regimes found the opposite direction (orientation_conflict)."""
     rows = []
     for row in pairs.itertuples(index=False):
+        conflict = bool(getattr(row, "orientation_conflict", False))
         if row.decision in ("a -> b", "both directions"):
-            rows.append({"source": row.a, "target": row.b, "oriented": True, "support": row.support_a_to_b})
+            rows.append({"source": row.a, "target": row.b, "oriented": True, "support": row.support_a_to_b,
+                         "orientation_conflict": conflict})
         if row.decision in ("b -> a", "both directions"):
-            rows.append({"source": row.b, "target": row.a, "oriented": True, "support": row.support_b_to_a})
+            rows.append({"source": row.b, "target": row.a, "oriented": True, "support": row.support_b_to_a,
+                         "orientation_conflict": conflict})
         if row.decision == "undirected":
-            rows.append({"source": row.a, "target": row.b, "oriented": False, "support": row.support})
-    return pd.DataFrame(rows, columns=["source", "target", "oriented", "support"])
+            rows.append({"source": row.a, "target": row.b, "oriented": False, "support": row.support,
+                         "orientation_conflict": conflict})
+    return pd.DataFrame(rows, columns=["source", "target", "oriented", "support", "orientation_conflict"])
 
 
 def edges_to_graph(edges: pd.DataFrame, nodes: Sequence[str]) -> nx.DiGraph:

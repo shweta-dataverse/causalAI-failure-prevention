@@ -368,3 +368,43 @@ def test_counterfactual_contract():
     # acting on an alarm is never feasible
     bad = cfx.counterfactual(model, s, [itv.Action("a", 0.0, 30)], ["a"], 20, 20, rng, recorded=set(s))
     assert not bad.feasible and not bad.valid()
+
+
+# --- audit corrections (stage 03) --------------------------------------------
+
+
+def test_aggregation_reports_orientation_conflicts():
+    relations = pd.DataFrame([
+        {"regime": "r1", "a": "a", "b": "b", "relation": "directed", "basis": "lagged", "lags": [1]},
+        {"regime": "r2", "a": "a", "b": "b", "relation": "directed", "basis": "lagged", "lags": [2]},
+        {"regime": "r3", "a": "b", "b": "a", "relation": "directed", "basis": "lagged", "lags": [1]},
+        {"regime": "r4", "a": "a", "b": "b", "relation": "undirected", "basis": "contemporaneous (o-o)", "lags": [0]},
+    ])
+    variables = {r: ["a", "b"] for r in ["r1", "r2", "r3", "r4"]}
+    pair = cd.aggregate_relations(relations, variables, ["a", "b"], threshold=0.5).iloc[0]
+    # majority direction is kept, but the opposite evidence is reported
+    assert pair.decision == "a -> b" and pair.support_b_to_a == 0.25
+    assert pair.orientation_conflict and pair.mixed_marks
+    edges = cd.static_edges(pd.DataFrame([pair]))
+    assert edges.orientation_conflict.tolist() == [True]
+
+
+def test_links_table_marks_which_p_values_are_corrected():
+    g = np.full((2, 2, 2), "", dtype="<U3")
+    g[0, 1, 1] = "-->"
+    g[0, 1, 0], g[1, 0, 0] = "o-o", "o-o"
+    links = cd.links_table(regime_result(["a", "b"], g)).set_index("lag")
+    # tigramite bh-corrects lagged p-values only
+    assert bool(links.loc[1, "p_corrected"]) and not bool(links.loc[0, "p_corrected"])
+
+
+def test_scm_rejects_undirected_edges():
+    vd, _ = fitted_scm()
+    g = nx.DiGraph()
+    g.add_nodes_from(["a", "c", "p", "r"])
+    g.add_edge("p", "c", oriented=False)
+    with pytest.raises(ValueError):
+        sc.fit_scm(vd, g, list(vd.arrays), {}, interval_s=1.0)
+    # after to_dag the undirected edge is dropped, not oriented
+    dag, log = ge.to_dag(g)
+    assert dag.number_of_edges() == 0 and log.action.tolist() == ["dropped (undirected)"]
