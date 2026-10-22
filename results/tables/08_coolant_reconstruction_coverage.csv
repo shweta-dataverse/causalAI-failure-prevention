@@ -1,0 +1,5 @@
+factual reconstruction,cells
+"included: recorded, fitted mechanism",85888
+excluded: variable not recorded in the run,111127
+excluded: no mechanism data in the fold (unsupported),10300
+unknown states,0

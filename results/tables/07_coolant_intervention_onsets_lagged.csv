@@ -1,0 +1,7 @@
+variant,intervention,alarm,p_fires,median_delay_s,iqr_low_s,iqr_high_s,p_off_target_alarm
+discovered,do(CLF_Filter_Ok=0),CLF_A_700307,1.0,3.5,1.5,6.5,0.1125
+discovered,do(F_Filter_Ok=0),F_A_700313,1.0,3.0,1.0,6.0,0.11199999999999999
+discovered,do(CLT_Level_lt_Min=1),CLT_A_700310,1.0,1.0,0.5,1.5,0.1125
+discovered + lags,do(CLF_Filter_Ok=0),CLF_A_700307,1.0,5.0,5.0,5.5,0.1135
+discovered + lags,do(F_Filter_Ok=0),F_A_700313,1.0,5.0,5.0,5.0,0.11199999999999999
+discovered + lags,do(CLT_Level_lt_Min=1),CLT_A_700310,1.0,1.0,1.0,1.0,0.1135

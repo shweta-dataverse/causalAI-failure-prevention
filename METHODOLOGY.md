@@ -91,6 +91,20 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
   - simulated vs observed behaviour
   - bootstrap refits
 - **Reference:** the empty graph (same family, no parents) shows what the structure adds.
+- **Model roles.** The first-order SCM is the **primary framework** used throughout. The lag-aware SCM below is a **temporal extension**; both are reported side by side wherever they are compared.
+- **Temporal extension: lag-aware SCM** (discovered graph only; `fit_scm(..., lags=...)`, `causal_discovery.edge_lags`):
+  - **What it adds:** a parent also enters at its discovered lags of 2 steps or more, in addition to lags 0 and 1. The probability tables are unchanged.
+  - **Lag selection, per fold from training regimes only, using the aggregation rules of discovery:**
+    - the pair is testable in the regime;
+    - the regime found the edge in the same direction as the SCM edge;
+    - the lag's share of testable regimes reaches the support threshold (0.5).
+  - Opposite-direction lags are excluded and logged; no ±1-step neighbours are added.
+  - **Lag history:**
+    - fitting skips rows whose lagged values lie before the recording start;
+    - scoring and abduction pad them with the parent's first value, a boundary approximation;
+    - simulations that start mid-recording (the replay) read the observed earlier states.
+  - `lags=None` is the first-order model unchanged. It remains the primary model and the baseline; the expert, empty and perturbed graphs stay first-order.
+  - **Paired evaluation:** both models are scored on identical held-out rows (65,554; 6,383 for the filter alarm). Early rows without lag history are included for both.
 
 ## 7. Root cause analysis (notebook 06, `root_cause_analysis.py`)
 
@@ -114,13 +128,23 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 - **Feasibility:** actionable variables only, allowed and binary values, recorded in the run, at most 3 actions.
 - **Population-level effects:** do(X = x) replaces X's equation. Effects are averaged over simulated noise from the usual (healthy) state over 120 s.
 - **Validation against real interventions:** the digital-twin manipulations *are* interventions. They are replayed (same variables, values and onset times, same start state) in SCMs fitted without the scenario. Predicted alarm firing and delays are compared with the observed ones.
+- **Scope:** every evaluated intervention *introduces* a fault (or sets a command) and follows its propagation to the alarms.
+  - The effect matrix compares do(faulty) with do(healthy) from a healthy start, so it measures fault introduction.
+  - Recovery after repairing an already failed component is never tested; the data contain no such runs.
 
 ## 9. Counterfactual explanations (notebook 08, `counterfactuals.py`)
 
 - **Abduction → action → prediction:**
   1. Abduction samples the noise U consistent with the observed run; for x = 1, U < p, and for x = 0, U ≥ p.
-  2. Action sets actionable variables to their healthy value from the step where their mechanism break was detected.
+  2. Action sets actionable variables to their healthy value from the step where their mechanism break was located (after the incident, notebook 06).
   3. Prediction rolls the equations forward.
+- **Kind of counterfactual:** retrospective, model-based **fault prevention**.
+  - In all 56 coolant cause instances the action time coincides with the observed fault onset, so an explanation reads *had this component not failed*.
+  - It is not evidence of successful repair after a failure, of repair during the alarm delay, or of real-time fault detection.
+- **Factual reconstruction (abduction consistency):** replaying the abducted noise without action reproduces every observed cell of the recorded variables that have a fitted mechanism.
+  - Covered: 85,888 cells.
+  - Excluded: 111,127 cells of variables not recorded in the run, and 10,300 cells of three alarms without mechanism data in their fold.
+  - This is computational consistency (abduction, scoring and simulation share the equations), not validation of unobserved counterfactual outcomes.
 - **Identification:** individual counterfactuals are **not identified from data**. They rely on the assumed monotone threshold noise. All results are model-predicted.
 - **Search:** among the top-3 actionable RCA candidates, by size (1–3 actions) then rank. The first set that keeps every supported outcome alarm off in ≥ 90% of 200 abducted worlds is the explanation; otherwise the best partial set is reported.
 - **Metrics:** target improvement (alarm time), validity probability, proximity (seconds of changed values), sparsity, feasibility, and robustness (noise samples, refitted mechanisms, other graphs).
@@ -151,6 +175,16 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 - Structure raises the predicted probability of observed alarm changes in unseen scenarios from about 0.01 (no parents) to 0.40–0.49 (expert or discovered graph).
 - Quantile residuals are close to standard normal.
 - Alarms recorded in only one scenario cannot be learned when that scenario is held out.
+- **Primary first-order SCM vs temporal extension (lag-aware)**, on identical held-out rows. Only the filter alarm `CLF_A_700307` can be evaluated (2 folds, 12 recordings, 6,383 rows, 24 changes):
+
+  | `CLF_A_700307` | Empty graph | First-order (primary) | Lag-aware (extension) |
+  |---|---|---|---|
+  | Change-row log loss | 5.42 | 2.47 | 1.78 (better) |
+  | Overall log loss | 0.0245 | 0.0147 | 0.0153 (worse) |
+  | Brier score | 0.0037 | 0.0036 | 0.0041 (worse) |
+
+  - Per recording, the change-row gain is +0.33 nats [+0.12, +0.59] (better in 8 of 12); the overall log loss is unchanged within noise.
+  - The extension improves timing at a small cost in steady-state calibration (fold exp_28: 0.0177 → 0.0230; fold exp_35: 0.0123 → 0.0091).
 
 **Root cause analysis (notebook 06).**
 - MAP@3, Top-1, Recall@3 and MRR are all 1.00 for the expert, discovered **and empty** graph (chance: MAP@3 0.47, Top-1 0.47).
@@ -161,6 +195,7 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
   - Other candidates changed in training (about 840 times on average) and score at most 7.15 nats, so the margin is 5.4–7.4 nats.
 - The graph only lowers non-cause scores: mean margin 6.38 nats (empty), 6.56 (expert), 6.57 (discovered). No ranking metric changes.
 - There is no leakage and no implementation error: this is an easy setting with a saturated score.
+- The temporal extension gives identical rankings (118 candidate rows), because no RCA candidate has a lagged parent.
 - Coolant RCA is therefore a sanity check, not evidence that causal discovery improves RCA. Probe is the more informative test, but with 6 scenarios it does not establish a gain either (see the probe extension).
 
 **Interventions (notebook 07).** Replaying the real digital-twin manipulations in unseen scenarios:
@@ -175,6 +210,11 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 - The overall median hides a difference between alarms:
   - alarms that fire in the same step as their cause (`HP_A_700304`, `LP_A_700301`, 25 activations) are timed exactly;
   - the filter alarm `CLF_A_700307` fires a fixed 5–5.5 s after its cause, and both graphs predict it after 3.0 s (median error 2.0 s, 12 activations). This comes from the first-order mechanisms (see limitations), not from the graph.
+- **Primary first-order SCM vs temporal extension (lag-aware)** (same 12 held-out runs, 2 folds, paired):
+  - filter-alarm median delay error 2.0 → 0.5 s, better in 12 of 12 runs, premature onsets 12 → 0;
+  - firing probability unchanged (1.00); same-step alarms unchanged.
+  - From the healthy state, do(filter faulty) now fires the filter alarms after 5.0 s instead of 3.0–3.5 s.
+  - These results concern fault propagation timing, not the effect of repairing a failed component.
 - Scope of this check:
   - every recorded alarm fired in every run (56 positive outcomes, none negative), so firing agreement cannot reveal over-prediction, and false alarm activations cannot be measured;
   - the horizon is the rest of each run (79–196.5 s);
@@ -184,9 +224,14 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 - Expert graph:
   - every one of the 25 runs has a valid explanation (mean validity 0.955, mean 1.48 actions)
   - precision against the true causes 1.00, recall 0.66 (the remainder are causes of unsupported alarms)
-  - abduction reproduces all recorded data exactly
+  - factual reconstruction is exact on all 85,888 covered cells (computational consistency only)
 - Robustness: noise resampling gives mean validity 0.954; refitted mechanisms 0.923.
 - The discovered graph gives identical recommendations; the empty graph none.
+- **Primary first-order SCM vs temporal extension (discovered graph):**
+  - identical action sets in all 25 runs;
+  - mean validity 0.956 (first-order) vs 0.955 (lag-aware);
+  - reconstruction exact for both.
+- The explanations are fault-prevention counterfactuals at the fault onset, not evidence of post-failure repair.
 
 **Framework evaluation (notebook 09; 45 perturbed graphs).**
 - **Correlation:** downstream quality correlates positively with directed F1 (Spearman 0.31–0.66, all intervals above 0).
@@ -266,7 +311,13 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 
 **Structural causal model**
 - First-order binary transition mechanisms with parents at lag 0 and 1:
-  - delays longer than one step (the 5 s alarm delay) are approximated as constant hazards. PCMCI+ finds these lags (10–11 steps for the filter alarms, 2 steps for the coolant-level alarm), but the SCM does not use them. Alarm firing is unaffected, but the replay predicts the filter alarm about 2 s too early;
+  - delays longer than one step (the 5 s alarm delay) are approximated as constant hazards. PCMCI+ finds these lags (10–11 steps for the filter alarms, 2 steps for the coolant-level alarm), but the first-order SCM does not use them. Alarm firing is unaffected, but the replay predicts the filter alarm about 2 s too early;
+  - the **lag-aware temporal extension** fixes this timing for the one alarm that can be evaluated on held-out data (`CLF_A_700307`, 12 runs in 2 folds), at a small cost in steady-state calibration:
+    - change-row log loss 2.47 → 1.78;
+    - overall log loss 0.0147 → 0.0153;
+    - Brier score 0.0036 → 0.0041.
+
+    The evidence is limited to one alarm and two scenarios. A repair during the delay (filter healthy again, but bad L steps ago) never occurs in training, so the table falls back to the base rate there; such late repairs are not grounded in data;
   - the PLC program logic outside the subsystem graph is not modelled.
 - Lag-0 parents require an acyclic graph. Undirected discovered edges are therefore *dropped* from the SCM (not oriented), so the discovered SCM loses `HP_Pump_Ok → HP_Pump_isOff` and `LT_Level_Ok → LT_Pump_Ok`.
 - Unrecorded parents are assumed to be in their usual state. Variables never recorded in training are held at their usual state and reported as unsupported.
@@ -296,7 +347,7 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 | Preprocessing | `preprocessing.py`, `data.py` | 02 | implemented, executed; state verification passed (0 mismatches) |
 | Causal discovery | `causal_discovery.py` | 03 | PCMCI+ (G²) per regime, FDR filter, leave-one-out graphs, bootstrap, sensitivity, conflict reporting; executed; independently audited (no change to the discovered edge set) |
 | Graph evaluation | `graph_evaluation.py` | 04 | implemented, executed |
-| SCM | `scm.py` | 05 | binary transition SCM; executed; continuous mechanisms **not implemented** |
+| SCM | `scm.py` | 05 | binary transition SCM; executed; lag-aware temporal extension for the discovered graph (evaluated in 05, 07 and 08; the first-order SCM is the primary model); continuous mechanisms **not implemented** |
 | Root cause analysis | `root_cause_analysis.py` | 06 | mechanism-break attribution; executed |
 | Interventions | `interventions.py` | 07 | hard interventions, feasibility, replay validation; executed; soft interventions **not implemented** |
 | Counterfactual XAI | `counterfactuals.py` | 08 | abduction–action–prediction with recommendation search; executed |
@@ -305,4 +356,4 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 | Hydraulics | — | — | **not run**: needs continuous SCM mechanisms for `Hyd_Pressure` |
 | Second discovery algorithm | — | — | **not started**, as planned (only after the full framework works) |
 
-Tests: 52 unit and integration tests (`python -m pytest`). They cover parsing, state reconstruction, no backfill, duplicates, recording boundaries, resampling, metadata helpers, splits, graph projection and metrics, perturbations, a synthetic SCM with known structure, RCA ranking metrics with multiple causes, feasibility rules, the counterfactual API contract, orientation-conflict reporting, FDR bookkeeping and the SCM's rejection of undirected edges.
+Tests: 61 unit and integration tests (`python -m pytest`). They cover parsing, state reconstruction, no backfill, duplicates, recording boundaries, resampling, metadata helpers, splits, graph projection and metrics, perturbations, a synthetic SCM with known structure, RCA ranking metrics with multiple causes, feasibility rules, the counterfactual API contract, orientation-conflict reporting, FDR bookkeeping, the SCM's rejection of undirected edges, alarm onset detection, and the lag-aware temporal extension (baseline equivalence, fold-specific and same-direction lag selection, lag alignment, a synthetic 10-step delay, replay history, missing history, abduction and counterfactual compatibility).

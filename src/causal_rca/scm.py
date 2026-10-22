@@ -19,6 +19,15 @@ structural equation of every variable j (binary transition mechanism):
   (their usual state). such variables are never scored themselves.
 * the uniform-threshold noise makes individual counterfactuals computable, but it is
   an assumption (monotone noise), not something the data identifies.
+* optional lag-aware variant (``fit_scm(..., lags=...)``): a parent may also enter at
+  discovered lags L >= 2, i.e. p[t-L] is added to p[t] and p[t-1]. ``lags=None`` is the
+  first-order model unchanged. lagged history is handled explicitly:
+  - fitting skips rows whose lagged values lie before the recording start;
+  - scoring and abduction pad such values with the parent's first value, the same rule
+    the simulation uses when no history is passed (a boundary approximation, not
+    recovered history);
+  - a simulation that starts mid-recording takes the observed earlier states as
+    ``history`` and reads lagged parents from it.
 """
 
 from __future__ import annotations
@@ -76,6 +85,8 @@ class Mechanism:
     counts: dict[int, np.ndarray] = field(default_factory=dict)
     n_rows: dict[int, int] = field(default_factory=dict)
     n_changes: dict[int, int] = field(default_factory=dict)
+    # parent -> extra lags (>= 2 steps) used on top of the parent now and one step earlier
+    lags: dict[str, tuple[int, ...]] = field(default_factory=dict)
 
     @property
     def has_data(self) -> bool:
@@ -89,7 +100,17 @@ class Mechanism:
 
     @property
     def width(self) -> int:
-        return 2 * len(self.parents)
+        return 2 * len(self.parents) + sum(len(self.lags.get(p, ())) for p in self.parents)
+
+    @property
+    def max_lag(self) -> int:
+        """longest lag the features look back (1 for the first-order model)."""
+        return max([1, *(lag for p in self.parents for lag in self.lags.get(p, ()))])
+
+    @property
+    def parent_label(self) -> str:
+        return ", ".join(p + (f" (lags {', '.join(map(str, self.lags[p]))})" if self.lags.get(p) else "")
+                         for p in self.parents)
 
     def prob_one(self, prev: np.ndarray, features: np.ndarray) -> np.ndarray:
         """p(x[t] = 1) for each row, given the previous state and binary parent features."""
@@ -103,15 +124,29 @@ class Mechanism:
         return np.clip(out, PROB_CLIP, 1 - PROB_CLIP)
 
 
-def parent_features(series: dict[str, np.ndarray], parents: Sequence[str], fills: dict[str, float]) -> np.ndarray:
-    """rows t = 1..T-1, columns [p1[t], p1[t-1], p2[t], ...]; unknown parent values are filled."""
+def parent_features(series: dict[str, np.ndarray], parents: Sequence[str], fills: dict[str, float],
+                    lags: dict[str, tuple[int, ...]] | None = None) -> np.ndarray:
+    """rows t = 1..T-1, columns [p1[t], p1[t-1], p1[t-L] for each extra lag L of p1, p2[t], ...].
+
+    unknown parent values are filled. a lagged value before the recording start does not exist
+    and is padded with the parent's first value (boundary approximation, see ``history_rows``).
+    """
+    lags = lags or {}
     n = len(next(iter(series.values())))
+    steps = np.arange(1, n)
     columns = []
     for p in parents:
         values = np.where(np.isnan(series[p]), fills[p], series[p]) if p in series else np.full(n, fills[p])
         columns.append(values[1:])
         columns.append(values[:-1])
+        for lag in lags.get(p, ()):
+            columns.append(values[np.maximum(steps - lag, 0)])
     return np.column_stack(columns) if columns else np.zeros((n - 1, 0))
+
+
+def history_rows(n: int, max_lag: int) -> np.ndarray:
+    """rows t = 1..T-1 whose lagged parent values all lie inside the recording (t >= max_lag)."""
+    return np.arange(1, n) >= max_lag
 
 
 def fit_mechanism(
@@ -120,16 +155,21 @@ def fit_mechanism(
     training: Iterable[dict[str, np.ndarray]],
     fills: dict[str, float],
     smoothing: float = SMOOTHING,
+    lags: dict[str, tuple[int, ...]] | None = None,
 ) -> Mechanism:
-    """conditional probability table p(x[t] = 1 | x[t-1], parents now and one step earlier)."""
-    width = 2 * len(parents)
+    """conditional probability table p(x[t] = 1 | x[t-1], parents now, one step earlier and at extra lags).
+
+    rows whose lagged parent values would lie before the recording start are skipped.
+    """
+    mechanism = Mechanism(variable=variable, parents=list(parents), lags=dict(lags or {}))
+    width = mechanism.width
     if width > 20:
-        raise ValueError(f"{variable}: too many parents ({len(parents)}) for a probability table")
+        raise ValueError(f"{variable}: too many parent features ({width}) for a probability table")
     features, prev, target = [], [], []
     for series in training:
         x = series[variable]
-        f = parent_features(series, parents, fills)
-        ok = ~np.isnan(x[1:]) & ~np.isnan(x[:-1])
+        f = parent_features(series, parents, fills, mechanism.lags)
+        ok = ~np.isnan(x[1:]) & ~np.isnan(x[:-1]) & history_rows(len(x), mechanism.max_lag)
         features.append(f[ok])
         prev.append(x[:-1][ok])
         target.append(x[1:][ok])
@@ -138,7 +178,6 @@ def fit_mechanism(
     target = np.concatenate(target) if target else np.zeros(0)
     codes = (features.astype(int) @ (1 << np.arange(width))) if width else np.zeros(len(prev), dtype=int)
 
-    mechanism = Mechanism(variable=variable, parents=list(parents))
     size = 1 << width
     for state in (0, 1):
         rows = prev == state
@@ -181,7 +220,7 @@ class TemporalSCM:
         probs = np.full(len(prev), np.nan)
         ok = ~np.isnan(prev)
         if ok.any():
-            probs[ok] = mech.prob_one(prev[ok], parent_features(series, mech.parents, self.fills)[ok])
+            probs[ok] = mech.prob_one(prev[ok], parent_features(series, mech.parents, self.fills, mech.lags)[ok])
         return probs
 
     def surprise(self, series: dict[str, np.ndarray], variable: str) -> np.ndarray:
@@ -198,21 +237,35 @@ class TemporalSCM:
         noise: dict[str, np.ndarray],
         interventions: dict[str, tuple[float, int]] | None = None,
         fixed: dict[str, float] | None = None,
+        history: dict[str, np.ndarray] | None = None,
     ) -> dict[str, np.ndarray]:
         """roll the structural equations forward for many noise samples at once.
 
         ``noise[v]`` has shape (samples, steps); ``interventions`` maps a variable to
         (value, first step): from that step on its equation is replaced by the value.
         ``fixed`` holds context variables (e.g. not recorded in this run) at one value.
+        ``history[v]`` holds observed states before step 0 (most recent last); lagged
+        parents before step 0 are read from it, and padded with the initial state only
+        where it has no value (boundary approximation). unknown history states are filled.
         returns variable -> array (samples, steps).
         """
         interventions = interventions or {}
+        history = history or {}
         fixed = {**{v: self.fills[v] for v, m in self.mechanisms.items() if not m.has_data}, **(fixed or {})}
         n_samples, n_steps = next(iter(noise.values())).shape
         out = {v: np.zeros((n_samples, n_steps)) for v in self.mechanisms}
         for v in self.mechanisms:
             out[v][:, 0] = initial.get(v, self.fills[v])
         order = self.order
+
+        def past(p: str, step: int) -> np.ndarray:
+            # state of p at a step before 0: observed history if it reaches back that far, else the initial state
+            h = history.get(p)
+            if h is not None and len(h) >= -step:
+                value = h[len(h) + step]
+                return np.full(n_samples, self.fills[p] if np.isnan(value) else value)
+            return out[p][:, 0]
+
         for t in range(1, n_steps):
             for v in order:
                 if v in interventions and t >= interventions[v][1]:
@@ -225,6 +278,7 @@ class TemporalSCM:
                 columns = []
                 for p in mech.parents:
                     columns.extend([out[p][:, t], out[p][:, t - 1]])
+                    columns.extend(out[p][:, t - lag] if t >= lag else past(p, t - lag) for lag in mech.lags.get(p, ()))
                 features = np.column_stack(columns) if columns else np.zeros((n_samples, 0))
                 prob = mech.prob_one(out[v][:, t - 1], features)
                 out[v][:, t] = (noise[v][:, t] < prob).astype(float)
@@ -259,12 +313,21 @@ def fit_scm(
     manipulated: dict[str, set[str]],
     interval_s: float,
     smoothing: float = SMOOTHING,
+    lags: dict[tuple[str, str], Sequence[int]] | None = None,
 ) -> TemporalSCM:
     """fit one mechanism per graph node on the training recordings.
 
     ``manipulated[recording_id]`` lists variables intervened on in that recording; those
     recordings are skipped when fitting that variable's mechanism.
+    ``lags[(parent, child)]`` adds the parent at those lags (>= 2 steps) to the child's
+    mechanism (lag-aware variant); ``None`` is the first-order model unchanged.
     """
+    lags = {e: tuple(sorted(int(l) for l in ls)) for e, ls in (lags or {}).items() if len(ls)}
+    for (u, v), ls in lags.items():
+        if not graph.has_edge(u, v):
+            raise ValueError(f"lags given for {u} -> {v}, which is not an edge of the graph")
+        if min(ls) < 2:
+            raise ValueError(f"{u} -> {v}: extra lags must be >= 2 steps (lags 0 and 1 are always used)")
     if not nx.is_directed_acyclic_graph(graph):
         raise ValueError("the scm needs an acyclic graph (lag-0 parents enter the equations)")
     # an undirected discovered edge must never become a parent by accident (use to_dag first)
@@ -279,7 +342,8 @@ def fit_scm(
             continue
         parents = sorted(p for p in graph.predecessors(v) if p in view_data.var_names)
         training = [s for r, s in series.items() if v not in manipulated.get(r, set())]
-        mechanisms[v] = fit_mechanism(v, parents, training, fills, smoothing=smoothing)
+        mech_lags = {p: lags[(p, v)] for p in parents if (p, v) in lags}
+        mechanisms[v] = fit_mechanism(v, parents, training, fills, smoothing=smoothing, lags=mech_lags)
     return TemporalSCM(graph=graph.copy(), mechanisms=mechanisms, fills=fills, interval_s=interval_s)
 
 
@@ -313,7 +377,7 @@ def mechanism_diagnostics(scm: TemporalSCM, view_data: ViewData, recording_ids: 
         log_loss = float(-np.mean(np.log(np.where(y == 1, p, 1 - p))))
         rows.append({
             "variable": v,
-            "parents": ", ".join(mech.parents),
+            "parents": mech.parent_label,
             "n_rows": int(len(y)),
             "n_changes": int(change.sum()),
             "log_loss": log_loss,
@@ -381,7 +445,7 @@ def mechanism_table(scm: TemporalSCM) -> pd.DataFrame:
     """parents, training rows and changes, and switching probabilities of every mechanism."""
     rows = []
     for v, m in scm.mechanisms.items():
-        row = {"variable": v, "parents": ", ".join(m.parents), "has_data": m.has_data, "supported": m.supported}
+        row = {"variable": v, "parents": m.parent_label, "has_data": m.has_data, "supported": m.supported}
         for state in (0, 1):
             seen = m.counts[state] > 0
             switch = (1 - m.tables[state]) if state == 1 else m.tables[state]

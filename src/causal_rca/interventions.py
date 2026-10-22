@@ -169,7 +169,8 @@ def replay_manipulation(
 
     every manipulated variable is set to its observed post-onset value from its observed
     onset step; the simulation starts one step before the first onset from the observed
-    state, with unrecorded variables held at their usual state. returns per alarm the
+    state, with unrecorded variables held at their usual state. the observed states before
+    the start are passed as history, so lagged parents see the real past. returns per alarm the
     observed onset delay and the predicted firing probability and median delay (steps,
     relative to the first manipulation onset).
     """
@@ -179,7 +180,8 @@ def replay_manipulation(
     fixed = {v: scm.fills[v] for v in scm.mechanisms if v not in series or np.isnan(series[v]).all()}
     interventions = {v: (float(series[v][step]), step - t0) for v, step in onsets.items()}
     noise = {v: rng.uniform(size=(n_samples, n_steps)) for v in scm.mechanisms}
-    sim = scm.simulate(initial, noise, interventions=interventions, fixed=fixed)
+    history = {v: series[v][:t0] for v in scm.mechanisms if v in series and v not in fixed}
+    sim = scm.simulate(initial, noise, interventions=interventions, fixed=fixed, history=history)
     rows = []
     for a in alarms:
         if a not in series or np.isnan(series[a]).all() or a not in sim:

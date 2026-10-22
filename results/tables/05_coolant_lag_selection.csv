@@ -1,0 +1,56 @@
+source,target,lag,regimes,n_testable,lag_support,decision,graph_id
+CLF_Filter_Ok,CLF_A_700307,10,exp_28,2,0.5,selected,discovered
+CLF_Filter_Ok,CLF_A_700307,11,exp_35,2,0.5,selected,discovered
+CLT_Level_lt_Min,CLT_A_700310,2,exp_27,1,1.0,selected,discovered
+F_Filter_Ok,F_A_700313,10,exp_28,1,1.0,selected,discovered
+HP_Pump_Ok,HP_A_700304,0,"exp_22,exp_27",2,1.0,covered by lag 0/1 terms,discovered
+LP_Pump_Ok,LP_A_700301,0,"exp_28,exp_35",2,1.0,covered by lag 0/1 terms,discovered
+LP_Pump_On,HP_Pump_isOff,0,exp_22,5,0.2,covered by lag 0/1 terms,discovered
+LP_Pump_On,HP_Pump_isOff,1,"exp_28,normal",5,0.4,covered by lag 0/1 terms,discovered
+HP_Pump_isOff,LP_Pump_On,1,normal,5,0.2,excluded (opposite direction),discovered
+HP_Pump_isOff,LP_Pump_On,2,normal,5,0.2,excluded (opposite direction),discovered
+HP_Pump_isOff,LP_Pump_On,16,normal,5,0.2,excluded (opposite direction),discovered
+HP_Pump_isOff,LP_Pump_On,17,normal,5,0.2,excluded (opposite direction),discovered
+CLF_Filter_Ok,CLF_A_700307,10,exp_28,2,0.5,selected,discovered_without_exp_22
+CLF_Filter_Ok,CLF_A_700307,11,exp_35,2,0.5,selected,discovered_without_exp_22
+CLT_Level_lt_Min,CLT_A_700310,2,exp_27,1,1.0,selected,discovered_without_exp_22
+F_Filter_Ok,F_A_700313,10,exp_28,1,1.0,selected,discovered_without_exp_22
+HP_Pump_Ok,HP_A_700304,0,exp_27,1,1.0,covered by lag 0/1 terms,discovered_without_exp_22
+LP_Pump_Ok,LP_A_700301,0,"exp_28,exp_35",2,1.0,covered by lag 0/1 terms,discovered_without_exp_22
+LP_Pump_On,HP_Pump_isOff,1,"exp_28,normal",4,0.5,covered by lag 0/1 terms,discovered_without_exp_22
+HP_Pump_isOff,LP_Pump_On,1,normal,4,0.25,excluded (opposite direction),discovered_without_exp_22
+HP_Pump_isOff,LP_Pump_On,2,normal,4,0.25,excluded (opposite direction),discovered_without_exp_22
+HP_Pump_isOff,LP_Pump_On,16,normal,4,0.25,excluded (opposite direction),discovered_without_exp_22
+HP_Pump_isOff,LP_Pump_On,17,normal,4,0.25,excluded (opposite direction),discovered_without_exp_22
+CLF_Filter_Ok,CLF_A_700307,10,exp_28,2,0.5,selected,discovered_without_exp_27
+CLF_Filter_Ok,CLF_A_700307,11,exp_35,2,0.5,selected,discovered_without_exp_27
+F_Filter_Ok,F_A_700313,10,exp_28,1,1.0,selected,discovered_without_exp_27
+HP_Pump_Ok,HP_A_700304,0,exp_22,1,1.0,covered by lag 0/1 terms,discovered_without_exp_27
+LP_Pump_Ok,LP_A_700301,0,"exp_28,exp_35",2,1.0,covered by lag 0/1 terms,discovered_without_exp_27
+LP_Pump_On,HP_Pump_isOff,0,exp_22,4,0.25,covered by lag 0/1 terms,discovered_without_exp_27
+LP_Pump_On,HP_Pump_isOff,1,"exp_28,normal",4,0.5,covered by lag 0/1 terms,discovered_without_exp_27
+HP_Pump_isOff,LP_Pump_On,1,normal,4,0.25,excluded (opposite direction),discovered_without_exp_27
+HP_Pump_isOff,LP_Pump_On,2,normal,4,0.25,excluded (opposite direction),discovered_without_exp_27
+HP_Pump_isOff,LP_Pump_On,16,normal,4,0.25,excluded (opposite direction),discovered_without_exp_27
+HP_Pump_isOff,LP_Pump_On,17,normal,4,0.25,excluded (opposite direction),discovered_without_exp_27
+CLF_Filter_Ok,CLF_A_700307,11,exp_35,1,1.0,selected,discovered_without_exp_28
+CLT_Level_lt_Min,CLT_A_700310,2,exp_27,1,1.0,selected,discovered_without_exp_28
+HP_Pump_Ok,HP_A_700304,0,"exp_22,exp_27",2,1.0,covered by lag 0/1 terms,discovered_without_exp_28
+LP_Pump_Ok,LP_A_700301,0,exp_35,1,1.0,covered by lag 0/1 terms,discovered_without_exp_28
+LP_Pump_On,HP_Pump_isOff,0,exp_22,4,0.25,covered by lag 0/1 terms,discovered_without_exp_28
+LP_Pump_On,HP_Pump_isOff,1,normal,4,0.25,covered by lag 0/1 terms,discovered_without_exp_28
+HP_Pump_isOff,LP_Pump_On,1,normal,4,0.25,excluded (opposite direction),discovered_without_exp_28
+HP_Pump_isOff,LP_Pump_On,2,normal,4,0.25,excluded (opposite direction),discovered_without_exp_28
+HP_Pump_isOff,LP_Pump_On,16,normal,4,0.25,excluded (opposite direction),discovered_without_exp_28
+HP_Pump_isOff,LP_Pump_On,17,normal,4,0.25,excluded (opposite direction),discovered_without_exp_28
+CLF_Filter_Ok,CLF_A_700307,10,exp_28,1,1.0,selected,discovered_without_exp_35
+CLT_Level_lt_Min,CLT_A_700310,2,exp_27,1,1.0,selected,discovered_without_exp_35
+F_Filter_Ok,F_A_700313,10,exp_28,1,1.0,selected,discovered_without_exp_35
+HP_Pump_Ok,HP_A_700304,0,"exp_22,exp_27",2,1.0,covered by lag 0/1 terms,discovered_without_exp_35
+LP_Pump_Ok,LP_A_700301,0,exp_28,1,1.0,covered by lag 0/1 terms,discovered_without_exp_35
+LP_Pump_On,HP_Pump_isOff,0,exp_22,4,0.25,covered by lag 0/1 terms,discovered_without_exp_35
+LP_Pump_On,HP_Pump_isOff,1,"exp_28,normal",4,0.5,covered by lag 0/1 terms,discovered_without_exp_35
+HP_Pump_isOff,LP_Pump_On,1,normal,4,0.25,excluded (opposite direction),discovered_without_exp_35
+HP_Pump_isOff,LP_Pump_On,2,normal,4,0.25,excluded (opposite direction),discovered_without_exp_35
+HP_Pump_isOff,LP_Pump_On,16,normal,4,0.25,excluded (opposite direction),discovered_without_exp_35
+HP_Pump_isOff,LP_Pump_On,17,normal,4,0.25,excluded (opposite direction),discovered_without_exp_35

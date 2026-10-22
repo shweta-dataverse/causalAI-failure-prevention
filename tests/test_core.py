@@ -423,3 +423,174 @@ def test_first_activation_needs_a_rise_from_zero():
     assert np.isnan(itv.first_activation(traj, start=3)[0])
     with pytest.raises(ValueError):
         itv.first_activation(traj, start=0)
+
+
+# --- lag-aware scm variant --------------------------------------------------
+
+DELAY = 10
+DELAY_GRAPH = nx.DiGraph([("c", "a")])
+DELAY_GRAPH.add_node("z")
+
+
+def delayed_run(length=400, seed=0, drops=None):
+    """filter state c (1 = ok) with long dwell times; alarm a = 1 exactly DELAY steps after c is 0; z unrelated."""
+    rng = np.random.default_rng(seed)
+    if drops is None:
+        c, state = [], 1.0
+        while len(c) < length:
+            c.extend([state] * int(rng.integers(20, 60)))
+            state = 1.0 - state
+        c = np.array(c[:length])
+    else:
+        c = np.ones(length)
+        for start, stop in drops:
+            c[start:stop] = 0.0
+    a = np.zeros(length)
+    a[DELAY:] = (c[:-DELAY] == 0).astype(float)
+    return {"c": list(c), "a": list(a), "z": [1.0] * length}
+
+
+def delayed_models(extra_runs=None):
+    runs = {f"train_{k}": delayed_run(seed=k) for k in range(8)}
+    vd = view({**runs, **(extra_runs or {})})
+    base = sc.fit_scm(vd, DELAY_GRAPH, list(runs), {}, interval_s=1.0)
+    lagged = sc.fit_scm(vd, DELAY_GRAPH, list(runs), {}, interval_s=1.0, lags={("c", "a"): [DELAY]})
+    return vd, base, lagged
+
+
+def test_lags_none_is_the_first_order_model():
+    vd, model = fitted_scm()
+    ids = [r for r in vd.arrays if r != "train_fault"] + ["train_fault"]
+    for lags in (None, {}):
+        other = sc.fit_scm(vd, GRAPH, ids, {"train_fault": {"r"}}, interval_s=1.0, lags=lags)
+        for v, m in model.mechanisms.items():
+            o = other.mechanisms[v]
+            assert o.lags == {} and o.width == 2 * len(o.parents) and o.parent_label == ", ".join(o.parents)
+            assert all(np.array_equal(m.tables[s], o.tables[s]) and m.n_rows[s] == o.n_rows[s] for s in (0, 1))
+    s = sc.recording_series(vd, "train_0")
+    expected = np.column_stack([s["p"][1:], s["p"][:-1]])
+    assert np.array_equal(sc.parent_features(s, ["p"], model.fills), expected)
+    assert np.array_equal(sc.parent_features(s, ["p"], model.fills, lags=None), expected)
+    # history is ignored by a first-order model
+    rng = np.random.default_rng(0)
+    noise = {v: rng.uniform(size=(20, 30)) for v in model.mechanisms}
+    init = {"r": 1.0, "p": 0.0, "c": 0.0, "a": 0.0}
+    plain = model.simulate(init, noise)
+    with_history = model.simulate(init, noise, history={v: np.ones(15) for v in model.mechanisms})
+    assert all(np.array_equal(plain[v], with_history[v]) for v in plain)
+
+
+def lag_relations(rows):
+    return pd.DataFrame([{"regime": r, "a": a, "b": b, "relation": "directed", "basis": "lagged", "lags": l}
+                         for r, a, b, l in rows])
+
+
+def test_edge_lags_follow_the_aggregation_rules_and_exclude_held_out_regimes():
+    relations = lag_relations([("r1", "a", "b", [10]), ("r2", "a", "b", [10, 11])])
+    variables = {"r1": ["a", "b"], "r2": ["a", "b"], "r3": ["a", "b"], "r4": ["a"]}  # r3 testable, r4 not
+    dag = nx.DiGraph([("a", "b")])
+    lags, log = cd.edge_lags(relations, variables, dag)
+    assert lags == {("a", "b"): (10,)}  # lag 11: 1 of 3 testable regimes < 0.5
+    assert log.set_index("lag").loc[11, "decision"] == "excluded (below support threshold)"
+    assert cd.edge_lags(relations, variables, dag, exclude=["r1"])[0] == {("a", "b"): (10, 11)}
+    held_out = cd.edge_lags(relations, variables, dag, exclude=["r2"])
+    assert held_out[0] == {("a", "b"): (10,)} and not held_out[1].regimes.str.contains("r2").any()
+    # an edge that is not in the scm graph gets no lags
+    assert cd.edge_lags(relations, variables, nx.DiGraph([("b", "a")]))[0] == {}
+
+
+def test_edge_lags_use_only_the_direction_of_the_scm_edge():
+    relations = lag_relations([("r1", "a", "b", [1, 3]), ("r2", "b", "a", [5])])
+    variables = {"r1": ["a", "b"], "r2": ["a", "b"]}
+    lags, log = cd.edge_lags(relations, variables, nx.DiGraph([("a", "b")]))
+    assert lags == {("a", "b"): (3,)}
+    decisions = {(r.source, r.target, r.lag): r.decision for r in log.itertuples()}
+    assert decisions[("b", "a", 5)] == "excluded (opposite direction)"
+    assert decisions[("a", "b", 1)] == "covered by lag 0/1 terms"
+
+
+def test_lag_features_are_aligned_and_early_rows_are_explicit():
+    p = np.array([0, 0, 1, 1, 0, 1, 0, 0, 1, 1], dtype=float)
+    s = {"p": p, "x": np.zeros(10)}
+    f = sc.parent_features(s, ["p"], {"p": 0.0, "x": 0.0}, lags={"p": (3,)})
+    t = np.arange(1, 10)
+    assert np.array_equal(f[:, 0], p[t]) and np.array_equal(f[:, 1], p[t - 1])
+    assert np.array_equal(f[2:, 2], p[t[2:] - 3])  # t >= 3: the real value three steps back
+    assert np.all(f[:2, 2] == p[0])  # t < 3: padded with the first value (boundary approximation)
+    assert sc.history_rows(10, 3).tolist() == [False, False] + [True] * 7
+    mech = sc.fit_mechanism("x", ["p"], [s], {"p": 0.0, "x": 0.0}, lags={"p": (3,)})
+    assert sum(mech.n_rows.values()) == 7 and mech.width == 3 and mech.max_lag == 3
+    with pytest.raises(ValueError):
+        sc.fit_scm(view({"r": {"p": list(p), "x": [0.0] * 10}}), nx.DiGraph([("p", "x")]), ["r"], {}, 1.0, lags={("p", "x"): [1]})
+    with pytest.raises(ValueError):
+        sc.fit_scm(view({"r": {"p": list(p), "x": [0.0] * 10}}), nx.DiGraph([("p", "x")]), ["r"], {}, 1.0, lags={("x", "p"): [3]})
+
+
+def test_lag_aware_scm_reproduces_a_10_step_delay():
+    _, base, lagged = delayed_models()
+    assert lagged.mechanisms["a"].lags == {"c": (DELAY,)} and base.mechanisms["a"].lags == {}
+    initial = {"c": 1.0, "a": 0.0, "z": 1.0}
+    delays = {}
+    for name, model in (("base", base), ("lagged", lagged)):
+        resp = itv.alarm_response(model, initial, ["a"], {"c": (0.0, 5)}, 60, 300, np.random.default_rng(0))
+        delays[name] = resp.set_index("alarm").loc["a", "median_delay_steps"]
+        sim = itv.simulate_from_state(model, initial, 60, 300, np.random.default_rng(0), {"c": (0.0, 5)})
+        onset = itv.first_activation(sim["a"], start=5) - 5
+        delays[name + "_iqr"] = np.nanpercentile(onset, 75) - np.nanpercentile(onset, 25)
+    assert delays["lagged"] == DELAY and delays["lagged_iqr"] == 0
+    # the first-order model turns the fixed delay into a constant hazard
+    assert delays["base"] != DELAY and delays["base_iqr"] > 2
+
+
+def test_replay_reads_the_observed_history_before_its_start():
+    # c drops at step 12 without being manipulated; z is manipulated at 20, so the replay starts at 19
+    test = delayed_run(length=80, drops=[(12, 60)])
+    vd, _, lagged = delayed_models(extra_runs={"test": test})
+    s = sc.recording_series(vd, "test")
+    out = itv.replay_manipulation(lagged, s, {"z": 20}, ["a"], 200, np.random.default_rng(0)).set_index("alarm")
+    # observed: the alarm rises at 22, i.e. 2 steps after the first manipulation onset
+    assert out.loc["a", "observed_delay_steps"] == 2 and out.loc["a", "predicted_median_delay_steps"] == 2
+
+
+def test_missing_history_is_padded_with_the_initial_state():
+    test = delayed_run(length=80, drops=[(12, 60)])
+    vd, _, lagged = delayed_models(extra_runs={"test": test})
+    s = sc.recording_series(vd, "test")
+    t0 = 19
+    initial = {v: s[v][t0] for v in lagged.mechanisms}
+    rng = np.random.default_rng(0)
+    noise = {v: rng.uniform(size=(200, 40)) for v in lagged.mechanisms}
+    full = lagged.simulate(initial, noise, history={v: s[v][:t0] for v in lagged.mechanisms})
+    none = lagged.simulate(initial, noise)
+    short = lagged.simulate(initial, noise, history={v: s[v][t0 - 3:t0] for v in lagged.mechanisms})
+    onset = {k: np.nanmedian(itv.first_activation(w["a"], start=1)) for k, w in
+             (("full", full), ("none", none), ("short", short))}
+    assert onset["full"] == 3  # c has been 0 since step 12: the alarm is due at step 22 = t0 + 3
+    # without history c is taken as 0 for all earlier steps (its initial state): the alarm fires at once
+    assert onset["none"] == 1 and onset["short"] == 1
+
+
+def test_abduction_and_counterfactuals_with_lagged_mechanisms():
+    test = delayed_run(length=80, drops=[(30, 60)])
+    vd, _, lagged = delayed_models(extra_runs={"test": test})
+    s = sc.recording_series(vd, "test")
+    rng = np.random.default_rng(0)
+    assert cfx.abduction_consistency(lagged, s, 20, rng) == 1.0
+    itv.ACTIONABILITY["c"] = ("maintenance", 1.0, "synthetic filter")
+    try:
+        # repairing at the drop prevents the alarm
+        early = cfx.counterfactual(lagged, s, [itv.Action("c", 1.0, 30)], ["a"], 25, 100, rng, recorded=set(s))
+        assert early.valid()
+        effects = itv.effect_matrix(lagged, ["c"], ["a"], 60, 200, rng)
+        assert effects.set_index("outcome").loc["a", "effect"] > 0.9
+    finally:
+        del itv.ACTIONABILITY["c"]
+    # a failure 10 steps earlier moves the counterfactual alarm 10 steps earlier (delayed propagation)
+    noise = lagged.abduct_noise(s, 100, rng)
+    world = lagged.simulate(cfx.initial_state(lagged, s), noise, interventions={"c": (0.0, 20)})
+    assert np.nanmedian(itv.first_activation(world["a"], start=1)) == 30
+    # a repair inside the delay (filter ok now, bad 10 steps ago, alarm off) never occurs in training:
+    # the table falls back to the base rate there, so such late repairs are not grounded in data
+    mech = lagged.mechanisms["a"]
+    code = int(np.array([1, 1, 0]) @ (1 << np.arange(mech.width)))  # c[t] = 1, c[t-1] = 1, c[t-10] = 0
+    assert mech.counts[0][code] == 0

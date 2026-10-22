@@ -330,6 +330,50 @@ def edges_to_graph(edges: pd.DataFrame, nodes: Sequence[str]) -> nx.DiGraph:
     return graph
 
 
+LAG_LOG_COLUMNS = ["source", "target", "lag", "regimes", "n_testable", "lag_support", "decision"]
+
+
+def edge_lags(
+    relations: pd.DataFrame,
+    variables_by_regime: dict[str, Sequence[str]],
+    dag: nx.DiGraph,
+    exclude: Sequence[str] = (),
+    threshold: float = 0.5,
+    min_lag: int = 2,
+) -> tuple[dict[tuple[str, str], tuple[int, ...]], pd.DataFrame]:
+    """discovered lags (>= min_lag steps) for the directed edges of an scm graph, with the aggregation rules.
+
+    for an edge u -> v, a lag counts in a regime when that regime is not excluded, the pair is
+    testable there, and the regime found u -> v (same direction) at that lag. a lag is selected
+    when its share of testable regimes reaches the support threshold, as for edges. lags of the
+    opposite direction v -> u are never used; they are logged. returns {(u, v): lags} and the log.
+    """
+    regimes = [r for r in variables_by_regime if r not in set(exclude)]
+    directed = relations[(relations["relation"] == "directed") & relations["regime"].isin(regimes)]
+    selected, log = {}, []
+    for u, v in sorted(dag.edges):
+        testable = [r for r in regimes if u in variables_by_regime[r] and v in variables_by_regime[r]]
+        for (a, b), direction in (((u, v), "same"), ((v, u), "opposite")):
+            found: dict[int, set[str]] = {}
+            for row in directed[(directed["a"] == a) & (directed["b"] == b) & directed["regime"].isin(testable)].itertuples(index=False):
+                for lag in row.lags:
+                    found.setdefault(int(lag), set()).add(row.regime)
+            for lag, regs in sorted(found.items()):
+                support = len(regs) / len(testable)
+                if direction == "opposite":
+                    decision = "excluded (opposite direction)"
+                elif lag < min_lag:
+                    decision = "covered by lag 0/1 terms"
+                elif support < threshold:
+                    decision = "excluded (below support threshold)"
+                else:
+                    decision = "selected"
+                    selected.setdefault((u, v), []).append(lag)
+                log.append({"source": a, "target": b, "lag": lag, "regimes": ",".join(sorted(regs)),
+                            "n_testable": len(testable), "lag_support": support, "decision": decision})
+    return {e: tuple(sorted(l)) for e, l in selected.items()}, pd.DataFrame(log, columns=LAG_LOG_COLUMNS)
+
+
 # ---------------------------------------------------------------------------
 # full experiment helpers
 # ---------------------------------------------------------------------------
