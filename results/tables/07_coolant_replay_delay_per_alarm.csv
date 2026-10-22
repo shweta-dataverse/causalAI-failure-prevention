@@ -1,0 +1,10 @@
+graph,alarm,pairs,observed_delay_s,predicted_delay_s,median_abs_error_s
+discovered,CLF_A_700307,12,5.5,3.0,2.0
+discovered,HP_A_700304,13,13.0,13.0,0.0
+discovered,LP_A_700301,12,35.5,35.5,0.0
+empty,CLF_A_700307,12,5.5,56.0,50.625
+empty,HP_A_700304,13,13.0,40.0,24.75
+empty,LP_A_700301,12,35.5,52.375,12.375
+expert,CLF_A_700307,12,5.5,3.0,2.0
+expert,HP_A_700304,13,13.0,13.0,0.0
+expert,LP_A_700301,12,35.5,35.5,0.0

@@ -94,8 +94,11 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 
 ## 7. Root cause analysis (notebook 06, `root_cause_analysis.py`)
 
+- **Task: retrospective incident analysis.** RCA runs after the incident has played out (after the last alarm of the run), using only signals visible on the machine. It explains which variables caused the incident. It is not an online diagnosis at the first alarm: in coolant multi-cause scenarios the later causes are only injected 6.5–57.5 s after the first alarm.
 - **Method:** SCM mechanism-break attribution. An intervention replaces a variable's equation, so a root cause shows values its own mechanism cannot explain given its parents. Score = maximum surprise −log p(x_j[t] | x_j[t-1], pa_j) in the analysis window.
-- **Window:** from 60 s before the first observed alarm onset to 5 s after the last one. It is label-free; `causes.json` is never used.
+- **Window:** from 60 s before the first observed alarm onset to 5 s after the last one.
+  - It uses alarms only, so it is label-free; `causes.json` is never used.
+  - Ending after the last alarm matches the retrospective task. Coolant runs have 2–3 alarms, 10.5–57.5 s apart; probe runs have one.
 - **Candidates:** non-alarm subsystem variables recorded in the run.
 - **Ties:** broken by summed surprise, then by name.
 - **Protocol:** leave one scenario out (25 held-out runs).
@@ -151,7 +154,14 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 
 **Root cause analysis (notebook 06).**
 - MAP@3, Top-1, Recall@3 and MRR are all 1.00 for the expert, discovered **and empty** graph (chance: MAP@3 0.47, Top-1 0.47).
-- Coolant root causes never change in normal operation, so their mechanism break is maximal regardless of structure (margin ≈ 6.3 nats).
+- Why every graph scores 1.00:
+  - **Every true cause is a root node** in all three graphs, so its score cannot depend on the graph.
+  - **Every true cause never changed in its fold's training data** (0 changes in 136,839 rows: constant in normal operation, own manipulated runs skipped, not recorded in other scenarios).
+  - Its first change therefore gets the largest surprise the smoothed table allows, −log(0.5 / 136,840) = 12.52 nats, for all 56 cause instances.
+  - Other candidates changed in training (about 840 times on average) and score at most 7.15 nats, so the margin is 5.4–7.4 nats.
+- The graph only lowers non-cause scores: mean margin 6.38 nats (empty), 6.56 (expert), 6.57 (discovered). No ranking metric changes.
+- There is no leakage and no implementation error: this is an easy setting with a saturated score.
+- Coolant RCA is therefore a sanity check, not evidence that causal discovery improves RCA. Probe is the more informative test, but with 6 scenarios it does not establish a gain either (see the probe extension).
 
 **Interventions (notebook 07).** Replaying the real digital-twin manipulations in unseen scenarios:
 
@@ -162,6 +172,13 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 | empty | 0.50 | 41.5 s |
 
 These are the 37 supported alarm activations; 19 unsupported activations cannot be predicted by any graph.
+- The overall median hides a difference between alarms:
+  - alarms that fire in the same step as their cause (`HP_A_700304`, `LP_A_700301`, 25 activations) are timed exactly;
+  - the filter alarm `CLF_A_700307` fires a fixed 5–5.5 s after its cause, and both graphs predict it after 3.0 s (median error 2.0 s, 12 activations). This comes from the first-order mechanisms (see limitations), not from the graph.
+- Scope of this check:
+  - every recorded alarm fired in every run (56 positive outcomes, none negative), so firing agreement cannot reveal over-prediction, and false alarm activations cannot be measured;
+  - the horizon is the rest of each run (79–196.5 s);
+  - manipulations are replayed at their observed times, so same-step alarms test only the immediate cause → alarm response.
 
 **Counterfactual explanations (notebook 08).**
 - Expert graph:
@@ -187,7 +204,7 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 
 **Probe extension (notebook 10; 34 fault runs, 6 scenarios).** Probe root causes are arm-position sensors that also switch during normal machining.
 - **Discovery is weak:** skeleton F1 0.52 (random 0.19), directed F1 0.00. Command, position and cover changes fall into the same 0.5 s step and cannot be oriented.
-- **The expert graph matters for RCA:**
+- **RCA with and without structure:**
 
   | Graph | Top-1 | MAP@3 |
   |---|---|---|
@@ -195,8 +212,14 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
   | no structure | 0.09 [0.00, 0.21] | 0.44 |
   | chance | 0.14 | 0.21 |
 
-  - It works for work-position sensor faults (Top-1 0.83).
+  - The expert graph works for work-position sensor faults (Top-1 0.83).
   - It fails when the whole arm is stuck (MAP@3 ≤ 0.10): downstream mechanisms enter unseen states and look more broken than the sensors.
+  - **Without structure the ranking is essentially fixed.**
+    - The same three variables (the least frequently switching ones in normal training) form the top 3 in all 34 runs.
+    - Both possible root causes (the two arm sensors) are among them, so Recall@3 1.00 and MAP@3 0.44 are a base-rate effect, not a diagnosis.
+  - **The discovered graph behaves the same way:** only 2 distinct top-3 sets, Top-1 0.24, MAP@3 0.56. Its Top-1 gain over no structure comes from one scenario, so there is no measurable improvement.
+  - **Only the expert graph makes the ranking depend on the run** (30 distinct orderings in 34 runs).
+  - Scenario-level uncertainty, resampling the 6 scenarios: expert minus no structure gives Top-1 +0.35 [−0.04, 0.66] (better in 5 of 6 scenarios) and MAP@3 +0.03 [−0.33, 0.32]. This is suggestive, not established.
 - **No correlation with F1:** across the 45 perturbed probe graphs, RCA quality does not correlate with directed F1 (Spearman 0.04 [−0.27, 0.33]). Alarm replay does (0.35 [0.06, 0.57]).
 - **Not applicable:** interventions and counterfactual recommendations, because sensor repair is a soft intervention that is not implemented.
 
@@ -204,7 +227,7 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 1. Graph quality is decisive for **actionable** outputs: intervention predictions and counterfactual recommendations.
 2. Its effect on **locating** root causes depends on the subsystem:
    - none where causes are constant in normal operation (coolant);
-   - substantial but scenario-dependent and non-monotonic where they are not (probe).
+   - where they are not (probe), only the expert structure makes the ranking react to the run: Top-1 rises in 5 of 6 scenarios, which is suggestive but not statistically established. The PCMCI+ probe graph is too sparse to help.
 3. In neither case is graph F1 a sufficient predictor of downstream usefulness.
 
 ## 12. Limitations
@@ -243,14 +266,15 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 
 **Structural causal model**
 - First-order binary transition mechanisms with parents at lag 0 and 1:
-  - delays longer than one step (the 5 s alarm delay) are approximated as constant hazards;
+  - delays longer than one step (the 5 s alarm delay) are approximated as constant hazards. PCMCI+ finds these lags (10–11 steps for the filter alarms, 2 steps for the coolant-level alarm), but the SCM does not use them. Alarm firing is unaffected, but the replay predicts the filter alarm about 2 s too early;
   - the PLC program logic outside the subsystem graph is not modelled.
 - Lag-0 parents require an acyclic graph. Undirected discovered edges are therefore *dropped* from the SCM (not oriented), so the discovered SCM loses `HP_Pump_Ok → HP_Pump_isOff` and `LT_Level_Ok → LT_Pump_Ok`.
 - Unrecorded parents are assumed to be in their usual state. Variables never recorded in training are held at their usual state and reported as unsupported.
 - Only binary variables are supported. Continuous mechanisms (hydraulics `Hyd_Pressure`) are not implemented, so hydraulics was not run.
 
 **Root cause analysis**
-- On coolant the method saturates (perfect for every graph), because injected fault variables never change in normal operation. It therefore cannot discriminate between graphs on this subsystem.
+- On coolant the method saturates (perfect for every graph), because injected fault variables never change in normal operation. Their first change gets the score ceiling of 12.52 nats, and they are root nodes in every graph. It therefore cannot discriminate between graphs on this subsystem.
+- The task is retrospective. An online diagnosis at the first alarm would need a time-aware ground truth (only causes already injected), which is not evaluated.
 - Mechanism-break attribution assumes that only the intervened mechanism breaks. When a fault drives the system into states never seen in training (probe: arm stuck), downstream mechanisms also look broken and can be ranked above the cause.
 - The first-order mechanisms also miss slow, uncommanded sensor drops (probe initial-position faults).
 - The analysis window needs at least one observed alarm. Runs without alarms could not be scored (none occurred).

@@ -100,10 +100,14 @@ def simulate_from_state(
 
 
 def first_activation(trajectory: np.ndarray, start: int = 1) -> np.ndarray:
-    """per sample: first step >= start at which the variable is 1 after being 0 at start - 1 (nan if never)."""
-    on = trajectory[:, start:] == 1
-    first = np.where(on.any(axis=1), on.argmax(axis=1) + start, np.nan)
-    return first
+    """per sample: first step >= start with a 0 -> 1 transition (nan if never).
+
+    an alarm that is already active stays unactivated until it has gone back to 0 and risen again.
+    """
+    if start < 1:
+        raise ValueError("start must be >= 1 (a transition needs the previous step)")
+    rises = (trajectory[:, start:] == 1) & (trajectory[:, start - 1:-1] == 0)
+    return np.where(rises.any(axis=1), rises.argmax(axis=1) + start, np.nan)
 
 
 def alarm_response(

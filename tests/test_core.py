@@ -408,3 +408,18 @@ def test_scm_rejects_undirected_edges():
     # after to_dag the undirected edge is dropped, not oriented
     dag, log = ge.to_dag(g)
     assert dag.number_of_edges() == 0 and log.action.tolist() == ["dropped (undirected)"]
+
+
+def test_first_activation_needs_a_rise_from_zero():
+    traj = np.array([
+        [0, 0, 1, 1, 0],  # rises at step 2
+        [1, 1, 1, 1, 1],  # active from the start: never activated
+        [1, 1, 0, 0, 1],  # active, clears, rises again at step 4
+        [0, 0, 0, 0, 0],  # never on
+    ], dtype=float)
+    onset = itv.first_activation(traj, start=1)
+    assert onset[0] == 2 and np.isnan(onset[1]) and onset[2] == 4 and np.isnan(onset[3])
+    # a later start ignores earlier rises
+    assert np.isnan(itv.first_activation(traj, start=3)[0])
+    with pytest.raises(ValueError):
+        itv.first_activation(traj, start=0)

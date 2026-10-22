@@ -1,0 +1,4 @@
+graph,runs,distinct_orderings,distinct_top3_sets,most_common_top3,runs_with_most_common_top3
+expert,34,30,15,"MPA_toInitPos, MPC_close, MP_Inactive",7
+discovered,34,3,2,"MPA_InitPos, MPA_WorkPos, MPA_toInitPos",22
+empty,34,4,1,"MPA_InitPos, MPA_WorkPos, MP_Inactive",34
