@@ -153,6 +153,11 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 
 - **Graphs:** the expert graph, the discovered graph (leave one scenario out), the empty graph, and 45 perturbed expert graphs. The perturbations are deletion, insertion and reversal, each at 10/25/50% of the edges with 5 seeds, all kept acyclic.
 - **Pipeline:** for each graph the whole pipeline is rerun. Notebook 10 repeats discovery, graph evaluation, SCM, RCA and the perturbation study (without interventions and counterfactuals) on the probe subsystem. Downstream quality is related to graph quality with Spearman correlations (bootstrap intervals over graphs), plus paired Wilcoxon tests against the expert graph per run.
+- **Statistical dependence:**
+  - the five replicates of each level share their directed F1, so there are nine distinct levels;
+  - all graphs use the same 25 recordings, which form **four fault-scenario clusters**.
+
+  Correlations are therefore also computed over the nine level means, and differences to the expert graph are reported per scenario with counts of scenarios that improve, deteriorate or tie. All p-values (45-graph, nine-level, per-run Wilcoxon) are **exploratory**, not confirmatory.
 
 ## 11. Results
 
@@ -222,10 +227,18 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 
 **Counterfactual explanations (notebook 08).**
 - Expert graph:
-  - every one of the 25 runs has a valid explanation (mean validity 0.955, mean 1.48 actions)
+  - every one of the 25 runs has a valid explanation **for its supported alarms** (mean validity 0.955, mean 1.48 actions)
+  - coverage: 37 of the 56 observed alarm activations have a fitted mechanism. The 19 unsupported ones (`LT_A_700317`, `CLT_A_700310`, `F_A_700313`) are listed, never counted as prevented. Every observed alarm is covered in only 6 of 25 recordings, so "valid" is model-based validity for the supported alarms, not prevention of all observed alarms
   - precision against the true causes 1.00, recall 0.66 (the remainder are causes of unsupported alarms)
   - factual reconstruction is exact on all 85,888 covered cells (computational consistency only)
-- Robustness: noise resampling gives mean validity 0.954; refitted mechanisms 0.923.
+- Uncertainty, by source:
+  - **Monte Carlo, given the fitted SCM:** the selected action sets were re-evaluated (not reselected) with 2,000 fresh abducted worlds each.
+    - Mean validity 0.9545, minimum 0.913, mean predicted alarm reduction 0.360.
+    - All 25 point estimates are at or above 0.90, and 24 have 95% intervals entirely above it; one interval reaches 0.900.
+    - Threshold sensitivity: 25/25 valid at 0.85 and 0.90, 11/25 at 0.95 (where most intervals straddle the threshold).
+    - Five noise seeds at 200 samples: mean 0.954, per-recording SD 0.012 (binomial).
+  - **Mechanism estimation:** bootstrap-refitted mechanisms give mean 0.923 (minimum 0.76), with per-recording SD 0.019 and a 0.031 downward shift. This is the larger source.
+  - **Real-world effect:** unverified, since there are no counterfactual control runs. A point estimate above 0.90 does not prove validity above 0.90.
 - The discovered graph gives identical recommendations; the empty graph none.
 - **Primary first-order SCM vs temporal extension (discovered graph):**
   - identical action sets in all 25 runs;
@@ -234,13 +247,22 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 - The explanations are fault-prevention counterfactuals at the fault onset, not evidence of post-failure repair.
 
 **Framework evaluation (notebook 09; 45 perturbed graphs).**
-- **Correlation:** downstream quality correlates positively with directed F1 (Spearman 0.31–0.66, all intervals above 0).
+- **Correlation:** downstream quality correlates positively with directed F1.
+  - Over 45 graphs: Spearman 0.31–0.66; the intervals are too narrow because replicates are dependent.
+  - Over the nine level means: 0.46–0.79, e.g. valid share 0.65 (p 0.057), replay 0.77 (p 0.016).
+  - All of these are exploratory.
 - **RCA:** reacts only to reversed edges (MAP@3 0.91 at 50%).
 - **Actionable explanations:** collapse under deleted and reversed edges. At 50% perturbation:
   - deletion: valid share 0.39, recommendation stability 0.52
   - reversal: valid share 0.50, recommendation stability 0.54
 - **Inserted false edges** are nearly harmless (0.90 and 1.00 at 50%), because the fitted mechanisms ignore uninformative parents.
-- **Not a uniform relationship:** a lower-F1 graph (insert 50%) can be more useful than a higher-F1 graph (delete 25%).
+- **Deleted and reversed edges hurt more only from 25% upward:**
+  - at 10% no kind changes validity by more than 0.025 in any scenario;
+  - at 25% deletion and reversal hurt in two of four scenarios (exp_28, exp_35: −0.35 to −0.39);
+  - at 50% in all four.
+
+  With four scenarios, a uniform sign still gives a sign-test p of only 0.125.
+- **Not a uniform relationship:** a lower-F1 graph (insert 50%) can be more useful than a higher-F1 graph (delete 25%). At equal F1 (0.80), insert 50% and reverse 25% give mean validity 0.944 vs 0.775; the gap comes from exp_28 and exp_35, while exp_22 and exp_27 are essentially tied (differences ≤ 0.003).
 
 **Answer to the research question (coolant).**
 - Graph quality hardly affects *locating* the root cause, because mechanism-break attribution needs little structure when causes are constant in normal operation.

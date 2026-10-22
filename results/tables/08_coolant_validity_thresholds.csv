@@ -1,0 +1,4 @@
+threshold,valid_200,valid_2000,classification_changes,ci_entirely_above,ci_straddles
+0.85,25,25,0,25,0
+0.9,25,25,0,24,1
+0.95,12,11,3,7,11
