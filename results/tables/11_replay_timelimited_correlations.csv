@@ -1,0 +1,17 @@
+analysis,unit,quality,downstream,spearman,p_exploratory,n,subsystem
+replay sustained,45 graphs,directed_f1,p_fires_all_sustained,0.6573818780662868,9.310439585131631e-07,45,coolant
+replay sustained,45 graphs,directed_f1,p_fires_supported_sustained,0.6573818780662868,9.310439585131631e-07,45,coolant
+replay sustained,9 level means,directed_f1,p_fires_all_sustained,0.7668115805072326,0.015911829926829782,9,coolant
+replay sustained,9 level means,directed_f1,p_fires_supported_sustained,0.7668115805072326,0.015911829926829782,9,coolant
+replay limited,45 graphs,directed_f1,p_fires_all_limited,0.6573818780662868,9.310439585131631e-07,45,coolant
+replay limited,45 graphs,directed_f1,p_fires_supported_limited,0.6573818780662868,9.310439585131631e-07,45,coolant
+replay limited,9 level means,directed_f1,p_fires_all_limited,0.7668115805072326,0.015911829926829782,9,coolant
+replay limited,9 level means,directed_f1,p_fires_supported_limited,0.7668115805072326,0.015911829926829782,9,coolant
+replay sustained,45 graphs,directed_f1,p_fires_all_sustained,0.35423772149912847,0.01696723432334238,45,probe
+replay sustained,45 graphs,directed_f1,p_fires_supported_sustained,0.35423772149912847,0.01696723432334238,45,probe
+replay sustained,9 level means,directed_f1,p_fires_all_sustained,0.4666666666666666,0.2053863511058121,9,probe
+replay sustained,9 level means,directed_f1,p_fires_supported_sustained,0.4666666666666666,0.2053863511058121,9,probe
+replay limited,45 graphs,directed_f1,p_fires_all_limited,-0.2044503970740511,0.17792190387471013,45,probe
+replay limited,45 graphs,directed_f1,p_fires_supported_limited,-0.2044503970740511,0.17792190387471013,45,probe
+replay limited,9 level means,directed_f1,p_fires_all_limited,-0.41666666666666663,0.26458604674749636,9,probe
+replay limited,9 level means,directed_f1,p_fires_supported_limited,-0.41666666666666663,0.26458604674749636,9,probe

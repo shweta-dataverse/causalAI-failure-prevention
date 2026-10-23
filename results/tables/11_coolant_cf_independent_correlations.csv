@@ -1,0 +1,9 @@
+analysis,unit,quality,downstream,spearman,p_exploratory,n
+counterfactual selection,45 graphs,directed_f1,valid_share_selection,0.5037474975484532,0.00041920111627115553,45
+counterfactual selection,45 graphs,directed_f1,validity_mean_selection,0.5016947578551263,0.00044641820267186813,45
+counterfactual selection,9 level means,directed_f1,valid_share_selection,0.6527253788294639,0.056676692165527745,9
+counterfactual selection,9 level means,directed_f1,validity_mean_selection,0.6527253788294639,0.056676692165527745,9
+counterfactual independent,45 graphs,directed_f1,valid_share_independent,0.5969098507002659,1.5046362834934584e-05,45
+counterfactual independent,45 graphs,directed_f1,validity_mean_independent,0.4788655150610371,0.0008756338888493851,45
+counterfactual independent,9 level means,directed_f1,valid_share_independent,0.7438343052617368,0.021574694372806912,9
+counterfactual independent,9 level means,directed_f1,validity_mean_independent,0.8166666666666667,0.0072247852463587885,9

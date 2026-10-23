@@ -1,0 +1,225 @@
+alarm,observed_fired,observed_delay_steps,p_fires_sustained,predicted_median_delay_steps_sustained,alarm_supported,p_fires_limited,predicted_median_delay_steps_limited,fold,recording_id,graph
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_1,expert
+LT_A_700317,True,38.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_1,expert
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_2,expert
+LT_A_700317,True,115.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_2,expert
+HP_A_700304,True,1.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_3,expert
+LT_A_700317,True,90.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_3,expert
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_4,expert
+LT_A_700317,True,67.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_4,expert
+HP_A_700304,True,1.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_5,expert
+LT_A_700317,True,41.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_5,expert
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_6,expert
+LT_A_700317,True,71.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_6,expert
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_1,expert
+HP_A_700304,True,30.0,1.0,30.0,True,1.0,30.0,exp_27,coolant_exp_27_run_1,expert
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_2,expert
+HP_A_700304,True,35.0,1.0,35.0,True,1.0,35.0,exp_27,coolant_exp_27_run_2,expert
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_3,expert
+HP_A_700304,True,26.0,1.0,26.0,True,1.0,26.0,exp_27,coolant_exp_27_run_3,expert
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_4,expert
+HP_A_700304,True,29.0,1.0,29.0,True,1.0,29.0,exp_27,coolant_exp_27_run_4,expert
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_5,expert
+HP_A_700304,True,30.0,1.0,30.0,True,1.0,30.0,exp_27,coolant_exp_27_run_5,expert
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_6,expert
+HP_A_700304,True,37.0,1.0,37.0,True,1.0,37.0,exp_27,coolant_exp_27_run_6,expert
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_7,expert
+HP_A_700304,True,32.0,1.0,31.0,True,1.0,31.0,exp_27,coolant_exp_27_run_7,expert
+CLF_A_700307,True,11.0,1.0,7.5,True,1.0,7.5,exp_28,coolant_exp_28_run_1,expert
+F_A_700313,True,44.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_1,expert
+LP_A_700301,True,95.0,1.0,95.0,True,1.0,95.0,exp_28,coolant_exp_28_run_1,expert
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_2,expert
+F_A_700313,True,95.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_2,expert
+LP_A_700301,True,61.0,1.0,61.0,True,1.0,61.0,exp_28,coolant_exp_28_run_2,expert
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_3,expert
+F_A_700313,True,47.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_3,expert
+LP_A_700301,True,109.0,1.0,110.0,True,1.0,110.0,exp_28,coolant_exp_28_run_3,expert
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_4,expert
+F_A_700313,True,117.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_4,expert
+LP_A_700301,True,69.0,1.0,69.0,True,1.0,69.0,exp_28,coolant_exp_28_run_4,expert
+CLF_A_700307,True,11.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_5,expert
+F_A_700313,True,48.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_5,expert
+LP_A_700301,True,99.0,1.0,100.0,True,1.0,100.0,exp_28,coolant_exp_28_run_5,expert
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_6,expert
+F_A_700313,True,33.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_6,expert
+LP_A_700301,True,92.0,1.0,92.0,True,1.0,92.0,exp_28,coolant_exp_28_run_6,expert
+CLF_A_700307,True,11.0,1.0,5.0,True,1.0,5.0,exp_35,coolant_exp_35_run_1,expert
+LP_A_700301,True,32.0,1.0,32.0,True,1.0,32.0,exp_35,coolant_exp_35_run_1,expert
+CLF_A_700307,True,11.0,1.0,6.0,True,1.0,6.0,exp_35,coolant_exp_35_run_2,expert
+LP_A_700301,True,52.0,1.0,52.0,True,1.0,52.0,exp_35,coolant_exp_35_run_2,expert
+CLF_A_700307,True,10.0,1.0,5.5,True,1.0,5.5,exp_35,coolant_exp_35_run_3,expert
+LP_A_700301,True,70.0,1.0,70.0,True,1.0,70.0,exp_35,coolant_exp_35_run_3,expert
+CLF_A_700307,True,11.0,1.0,6.0,True,1.0,6.0,exp_35,coolant_exp_35_run_4,expert
+LP_A_700301,True,74.0,1.0,75.0,True,1.0,75.0,exp_35,coolant_exp_35_run_4,expert
+CLF_A_700307,True,11.0,1.0,8.0,True,1.0,8.0,exp_35,coolant_exp_35_run_5,expert
+LP_A_700301,True,33.0,1.0,34.0,True,1.0,34.0,exp_35,coolant_exp_35_run_5,expert
+CLF_A_700307,True,11.0,1.0,7.0,True,1.0,7.0,exp_35,coolant_exp_35_run_6,expert
+LP_A_700301,True,72.0,1.0,72.0,True,1.0,72.0,exp_35,coolant_exp_35_run_6,expert
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_1,discovered
+LT_A_700317,True,38.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_1,discovered
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_2,discovered
+LT_A_700317,True,115.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_2,discovered
+HP_A_700304,True,1.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_3,discovered
+LT_A_700317,True,90.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_3,discovered
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_4,discovered
+LT_A_700317,True,67.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_4,discovered
+HP_A_700304,True,1.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_5,discovered
+LT_A_700317,True,41.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_5,discovered
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_6,discovered
+LT_A_700317,True,71.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_6,discovered
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_1,discovered
+HP_A_700304,True,30.0,1.0,30.0,True,1.0,30.0,exp_27,coolant_exp_27_run_1,discovered
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_2,discovered
+HP_A_700304,True,35.0,1.0,35.0,True,1.0,35.0,exp_27,coolant_exp_27_run_2,discovered
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_3,discovered
+HP_A_700304,True,26.0,1.0,26.0,True,1.0,26.0,exp_27,coolant_exp_27_run_3,discovered
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_4,discovered
+HP_A_700304,True,29.0,1.0,29.0,True,1.0,29.0,exp_27,coolant_exp_27_run_4,discovered
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_5,discovered
+HP_A_700304,True,30.0,1.0,30.0,True,1.0,30.0,exp_27,coolant_exp_27_run_5,discovered
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_6,discovered
+HP_A_700304,True,37.0,1.0,37.0,True,1.0,37.0,exp_27,coolant_exp_27_run_6,discovered
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_7,discovered
+HP_A_700304,True,32.0,1.0,31.0,True,1.0,31.0,exp_27,coolant_exp_27_run_7,discovered
+CLF_A_700307,True,11.0,1.0,7.5,True,1.0,7.5,exp_28,coolant_exp_28_run_1,discovered
+F_A_700313,True,44.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_1,discovered
+LP_A_700301,True,95.0,1.0,95.0,True,1.0,95.0,exp_28,coolant_exp_28_run_1,discovered
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_2,discovered
+F_A_700313,True,95.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_2,discovered
+LP_A_700301,True,61.0,1.0,61.0,True,1.0,61.0,exp_28,coolant_exp_28_run_2,discovered
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_3,discovered
+F_A_700313,True,47.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_3,discovered
+LP_A_700301,True,109.0,1.0,110.0,True,1.0,110.0,exp_28,coolant_exp_28_run_3,discovered
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_4,discovered
+F_A_700313,True,117.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_4,discovered
+LP_A_700301,True,69.0,1.0,69.0,True,1.0,69.0,exp_28,coolant_exp_28_run_4,discovered
+CLF_A_700307,True,11.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_5,discovered
+F_A_700313,True,48.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_5,discovered
+LP_A_700301,True,99.0,1.0,100.0,True,1.0,100.0,exp_28,coolant_exp_28_run_5,discovered
+CLF_A_700307,True,10.0,1.0,6.0,True,1.0,6.0,exp_28,coolant_exp_28_run_6,discovered
+F_A_700313,True,33.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_6,discovered
+LP_A_700301,True,92.0,1.0,92.0,True,1.0,92.0,exp_28,coolant_exp_28_run_6,discovered
+CLF_A_700307,True,11.0,1.0,5.0,True,1.0,5.0,exp_35,coolant_exp_35_run_1,discovered
+LP_A_700301,True,32.0,1.0,32.0,True,1.0,32.0,exp_35,coolant_exp_35_run_1,discovered
+CLF_A_700307,True,11.0,1.0,6.0,True,1.0,6.0,exp_35,coolant_exp_35_run_2,discovered
+LP_A_700301,True,52.0,1.0,52.0,True,1.0,52.0,exp_35,coolant_exp_35_run_2,discovered
+CLF_A_700307,True,10.0,1.0,5.5,True,1.0,5.5,exp_35,coolant_exp_35_run_3,discovered
+LP_A_700301,True,70.0,1.0,70.0,True,1.0,70.0,exp_35,coolant_exp_35_run_3,discovered
+CLF_A_700307,True,11.0,1.0,6.0,True,1.0,6.0,exp_35,coolant_exp_35_run_4,discovered
+LP_A_700301,True,74.0,1.0,75.0,True,1.0,75.0,exp_35,coolant_exp_35_run_4,discovered
+CLF_A_700307,True,11.0,1.0,8.0,True,1.0,8.0,exp_35,coolant_exp_35_run_5,discovered
+LP_A_700301,True,33.0,1.0,34.0,True,1.0,34.0,exp_35,coolant_exp_35_run_5,discovered
+CLF_A_700307,True,11.0,1.0,7.0,True,1.0,7.0,exp_35,coolant_exp_35_run_6,discovered
+LP_A_700301,True,72.0,1.0,72.0,True,1.0,72.0,exp_35,coolant_exp_35_run_6,discovered
+HP_A_700304,True,0.0,0.55,108.0,True,0.55,108.0,exp_22,coolant_exp_22_run_1,empty
+LT_A_700317,True,38.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_1,empty
+HP_A_700304,True,0.0,0.555,144.0,True,0.555,144.0,exp_22,coolant_exp_22_run_2,empty
+LT_A_700317,True,115.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_2,empty
+HP_A_700304,True,1.0,0.525,144.0,True,0.525,144.0,exp_22,coolant_exp_22_run_3,empty
+LT_A_700317,True,90.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_3,empty
+HP_A_700304,True,0.0,0.55,145.5,True,0.55,145.5,exp_22,coolant_exp_22_run_4,empty
+LT_A_700317,True,67.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_4,empty
+HP_A_700304,True,1.0,0.595,147.0,True,0.595,147.0,exp_22,coolant_exp_22_run_5,empty
+LT_A_700317,True,41.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_5,empty
+HP_A_700304,True,0.0,0.565,152.0,True,0.565,152.0,exp_22,coolant_exp_22_run_6,empty
+LT_A_700317,True,71.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_6,empty
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_1,empty
+HP_A_700304,True,30.0,0.335,69.0,True,0.335,69.0,exp_27,coolant_exp_27_run_1,empty
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_2,empty
+HP_A_700304,True,35.0,0.33,80.0,True,0.33,80.0,exp_27,coolant_exp_27_run_2,empty
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_3,empty
+HP_A_700304,True,26.0,0.37,75.5,True,0.37,75.5,exp_27,coolant_exp_27_run_3,empty
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_4,empty
+HP_A_700304,True,29.0,0.345,64.0,True,0.345,64.0,exp_27,coolant_exp_27_run_4,empty
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_5,empty
+HP_A_700304,True,30.0,0.355,74.0,True,0.355,74.0,exp_27,coolant_exp_27_run_5,empty
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_6,empty
+HP_A_700304,True,37.0,0.335,78.0,True,0.335,78.0,exp_27,coolant_exp_27_run_6,empty
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_7,empty
+HP_A_700304,True,32.0,0.345,67.0,True,0.345,67.0,exp_27,coolant_exp_27_run_7,empty
+CLF_A_700307,True,11.0,0.49,105.5,True,0.49,105.5,exp_28,coolant_exp_28_run_1,empty
+F_A_700313,True,44.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_1,empty
+LP_A_700301,True,95.0,0.45,108.0,True,0.45,108.0,exp_28,coolant_exp_28_run_1,empty
+CLF_A_700307,True,10.0,0.465,97.0,True,0.465,97.0,exp_28,coolant_exp_28_run_2,empty
+F_A_700313,True,95.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_2,empty
+LP_A_700301,True,61.0,0.46,90.0,True,0.46,90.0,exp_28,coolant_exp_28_run_2,empty
+CLF_A_700307,True,10.0,0.535,120.0,True,0.535,120.0,exp_28,coolant_exp_28_run_3,empty
+F_A_700313,True,47.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_3,empty
+LP_A_700301,True,109.0,0.495,113.0,True,0.495,113.0,exp_28,coolant_exp_28_run_3,empty
+CLF_A_700307,True,10.0,0.525,128.0,True,0.525,128.0,exp_28,coolant_exp_28_run_4,empty
+F_A_700313,True,117.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_4,empty
+LP_A_700301,True,69.0,0.41,93.5,True,0.41,93.5,exp_28,coolant_exp_28_run_4,empty
+CLF_A_700307,True,11.0,0.51,113.5,True,0.51,113.5,exp_28,coolant_exp_28_run_5,empty
+F_A_700313,True,48.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_5,empty
+LP_A_700301,True,99.0,0.45,105.0,True,0.45,105.0,exp_28,coolant_exp_28_run_5,empty
+CLF_A_700307,True,10.0,0.51,106.0,True,0.51,106.0,exp_28,coolant_exp_28_run_6,empty
+F_A_700313,True,33.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_6,empty
+LP_A_700301,True,92.0,0.46,102.0,True,0.46,102.0,exp_28,coolant_exp_28_run_6,empty
+CLF_A_700307,True,11.0,0.6,112.5,True,0.6,112.5,exp_35,coolant_exp_35_run_1,empty
+LP_A_700301,True,32.0,0.5,115.0,True,0.5,115.0,exp_35,coolant_exp_35_run_1,empty
+CLF_A_700307,True,11.0,0.6,112.0,True,0.6,112.0,exp_35,coolant_exp_35_run_2,empty
+LP_A_700301,True,52.0,0.5,104.5,True,0.5,104.5,exp_35,coolant_exp_35_run_2,empty
+CLF_A_700307,True,10.0,0.69,112.0,True,0.69,112.0,exp_35,coolant_exp_35_run_3,empty
+LP_A_700301,True,70.0,0.52,95.0,True,0.52,95.0,exp_35,coolant_exp_35_run_3,empty
+CLF_A_700307,True,11.0,0.635,107.0,True,0.635,107.0,exp_35,coolant_exp_35_run_4,empty
+LP_A_700301,True,74.0,0.54,82.0,True,0.54,82.0,exp_35,coolant_exp_35_run_4,empty
+CLF_A_700307,True,11.0,0.615,119.0,True,0.615,119.0,exp_35,coolant_exp_35_run_5,empty
+LP_A_700301,True,33.0,0.525,139.0,True,0.525,139.0,exp_35,coolant_exp_35_run_5,empty
+CLF_A_700307,True,11.0,0.6,91.0,True,0.6,91.0,exp_35,coolant_exp_35_run_6,empty
+LP_A_700301,True,72.0,0.5,113.0,True,0.5,113.0,exp_35,coolant_exp_35_run_6,empty
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_1,discovered + lags
+LT_A_700317,True,38.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_1,discovered + lags
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_2,discovered + lags
+LT_A_700317,True,115.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_2,discovered + lags
+HP_A_700304,True,1.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_3,discovered + lags
+LT_A_700317,True,90.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_3,discovered + lags
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_4,discovered + lags
+LT_A_700317,True,67.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_4,discovered + lags
+HP_A_700304,True,1.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_5,discovered + lags
+LT_A_700317,True,41.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_5,discovered + lags
+HP_A_700304,True,0.0,1.0,0.0,True,1.0,0.0,exp_22,coolant_exp_22_run_6,discovered + lags
+LT_A_700317,True,71.0,0.0,,False,0.0,,exp_22,coolant_exp_22_run_6,discovered + lags
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_1,discovered + lags
+HP_A_700304,True,30.0,1.0,30.0,True,1.0,30.0,exp_27,coolant_exp_27_run_1,discovered + lags
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_2,discovered + lags
+HP_A_700304,True,35.0,1.0,35.0,True,1.0,35.0,exp_27,coolant_exp_27_run_2,discovered + lags
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_3,discovered + lags
+HP_A_700304,True,26.0,1.0,26.0,True,1.0,26.0,exp_27,coolant_exp_27_run_3,discovered + lags
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_4,discovered + lags
+HP_A_700304,True,29.0,1.0,29.0,True,1.0,29.0,exp_27,coolant_exp_27_run_4,discovered + lags
+CLT_A_700310,True,3.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_5,discovered + lags
+HP_A_700304,True,30.0,1.0,30.0,True,1.0,30.0,exp_27,coolant_exp_27_run_5,discovered + lags
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_6,discovered + lags
+HP_A_700304,True,37.0,1.0,37.0,True,1.0,37.0,exp_27,coolant_exp_27_run_6,discovered + lags
+CLT_A_700310,True,2.0,0.0,,False,0.0,,exp_27,coolant_exp_27_run_7,discovered + lags
+HP_A_700304,True,32.0,1.0,31.0,True,1.0,31.0,exp_27,coolant_exp_27_run_7,discovered + lags
+CLF_A_700307,True,11.0,1.0,11.0,True,1.0,11.0,exp_28,coolant_exp_28_run_1,discovered + lags
+F_A_700313,True,44.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_1,discovered + lags
+LP_A_700301,True,95.0,1.0,95.0,True,1.0,95.0,exp_28,coolant_exp_28_run_1,discovered + lags
+CLF_A_700307,True,10.0,1.0,11.0,True,1.0,11.0,exp_28,coolant_exp_28_run_2,discovered + lags
+F_A_700313,True,95.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_2,discovered + lags
+LP_A_700301,True,61.0,1.0,61.0,True,1.0,61.0,exp_28,coolant_exp_28_run_2,discovered + lags
+CLF_A_700307,True,10.0,1.0,11.0,True,1.0,11.0,exp_28,coolant_exp_28_run_3,discovered + lags
+F_A_700313,True,47.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_3,discovered + lags
+LP_A_700301,True,109.0,1.0,110.0,True,1.0,110.0,exp_28,coolant_exp_28_run_3,discovered + lags
+CLF_A_700307,True,10.0,1.0,11.0,True,1.0,11.0,exp_28,coolant_exp_28_run_4,discovered + lags
+F_A_700313,True,117.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_4,discovered + lags
+LP_A_700301,True,69.0,1.0,69.0,True,1.0,69.0,exp_28,coolant_exp_28_run_4,discovered + lags
+CLF_A_700307,True,11.0,1.0,11.0,True,1.0,11.0,exp_28,coolant_exp_28_run_5,discovered + lags
+F_A_700313,True,48.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_5,discovered + lags
+LP_A_700301,True,99.0,1.0,100.0,True,1.0,100.0,exp_28,coolant_exp_28_run_5,discovered + lags
+CLF_A_700307,True,10.0,1.0,11.0,True,1.0,11.0,exp_28,coolant_exp_28_run_6,discovered + lags
+F_A_700313,True,33.0,0.0,,False,0.0,,exp_28,coolant_exp_28_run_6,discovered + lags
+LP_A_700301,True,92.0,1.0,92.0,True,1.0,92.0,exp_28,coolant_exp_28_run_6,discovered + lags
+CLF_A_700307,True,11.0,1.0,10.0,True,1.0,10.0,exp_35,coolant_exp_35_run_1,discovered + lags
+LP_A_700301,True,32.0,1.0,32.0,True,1.0,32.0,exp_35,coolant_exp_35_run_1,discovered + lags
+CLF_A_700307,True,11.0,1.0,10.0,True,1.0,10.0,exp_35,coolant_exp_35_run_2,discovered + lags
+LP_A_700301,True,52.0,1.0,52.0,True,1.0,52.0,exp_35,coolant_exp_35_run_2,discovered + lags
+CLF_A_700307,True,10.0,1.0,10.0,True,1.0,10.0,exp_35,coolant_exp_35_run_3,discovered + lags
+LP_A_700301,True,70.0,1.0,70.0,True,1.0,70.0,exp_35,coolant_exp_35_run_3,discovered + lags
+CLF_A_700307,True,11.0,1.0,10.0,True,1.0,10.0,exp_35,coolant_exp_35_run_4,discovered + lags
+LP_A_700301,True,74.0,1.0,75.0,True,1.0,75.0,exp_35,coolant_exp_35_run_4,discovered + lags
+CLF_A_700307,True,11.0,1.0,10.0,True,1.0,10.0,exp_35,coolant_exp_35_run_5,discovered + lags
+LP_A_700301,True,33.0,1.0,34.0,True,1.0,34.0,exp_35,coolant_exp_35_run_5,discovered + lags
+CLF_A_700307,True,11.0,1.0,10.0,True,1.0,10.0,exp_35,coolant_exp_35_run_6,discovered + lags
+LP_A_700301,True,72.0,1.0,72.0,True,1.0,72.0,exp_35,coolant_exp_35_run_6,discovered + lags

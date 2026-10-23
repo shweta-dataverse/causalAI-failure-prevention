@@ -223,3 +223,41 @@ def explain_runs(
                 "abduction_consistency": abduction_consistency(model, series, 20, rng),
             })
     return pd.DataFrame(run_rows), pd.DataFrame(tried_rows)
+
+
+def wilson_interval(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
+    """wilson score interval for a binomial share (monte carlo uncertainty only)."""
+    if n == 0:
+        return np.nan, np.nan
+    p = k / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+    return float(centre - half), float(centre + half)
+
+
+def reevaluate_validity(
+    scm: TemporalSCM,
+    series: dict[str, np.ndarray],
+    actions: Sequence[Action],
+    outcome_alarms: Sequence[str],
+    outcome_start: int,
+    recorded: set[str],
+    seed_sequence: np.random.SeedSequence,
+    n_batches: int = 10,
+    batch_size: int = 200,
+) -> dict[str, float]:
+    """independent validity of an already selected action set with fresh abducted worlds.
+
+    the set is not reselected. each batch uses its own child stream of ``seed_sequence``, which is
+    separate from the stream used during selection. the interval covers monte carlo error given
+    the fitted scm only, not graph, mechanism or scenario uncertainty.
+    """
+    valid = 0
+    for child in seed_sequence.spawn(n_batches):
+        res = counterfactual(scm, series, actions, outcome_alarms, outcome_start, batch_size,
+                             np.random.default_rng(child), recorded)
+        valid += int(round(res.validity_probability * batch_size))
+    n = n_batches * batch_size
+    low, high = wilson_interval(valid, n)
+    return {"n_worlds": n, "n_valid_worlds": valid, "validity_independent": valid / n,
+            "wilson_low": low, "wilson_high": high}

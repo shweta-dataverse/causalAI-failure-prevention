@@ -1,0 +1,5 @@
+graph,identical_before_release,pairs_fired,pairs_fired_supported,p_fires_all_sustained,p_fires_supported_sustained,median_abs_delay_error_s_sustained,never_predicted_sustained,p_fires_all_limited,p_fires_supported_limited,median_abs_delay_error_s_limited,never_predicted_limited,pairs_with_different_p_fires,max_abs_p_fires_difference
+expert,True,56,37,0.6607142857142857,1.0,0.5,0,0.6607142857142857,1.0,0.5,0,0,0.0
+discovered,True,56,37,0.6607142857142857,1.0,0.5,0,0.6607142857142857,1.0,0.5,0,0,0.0
+empty,True,56,37,0.3275,0.49567567567567555,41.5,0,0.3275,0.49567567567567555,41.5,0,0,0.0
+discovered + lags,True,56,37,0.6607142857142857,1.0,0.0,0,0.6607142857142857,1.0,0.0,0,0,0.0

@@ -1,0 +1,1201 @@
+graph,kind,fraction,seed,fold,recording_id,status_selection,actions,validity_selection,n_worlds,n_valid_worlds,validity_independent,wilson_low,wilson_high,feasible,valid_selection,valid_independent
+expert,expert,0.0,-1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+expert,expert,0.0,-1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1885,0.9425,0.931423506198168,0.9518798447253781,True,True,True
+expert,expert,0.0,-1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1867,0.9335,0.921728133147533,0.9436097258928223,True,True,True
+expert,expert,0.0,-1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+expert,expert,0.0,-1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1875,0.9375,0.926029488270428,0.9472930338291233,True,True,True
+expert,expert,0.0,-1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+expert,expert,0.0,-1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+expert,expert,0.0,-1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+expert,expert,0.0,-1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+expert,expert,0.0,-1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+expert,expert,0.0,-1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1980,0.99,0.9846039417177715,0.9935172830337259,True,True,True
+expert,expert,0.0,-1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+expert,expert,0.0,-1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1994,0.997,0.9934699962513178,0.9986243888537725,True,True,True
+expert,expert,0.0,-1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+expert,expert,0.0,-1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1918,0.959,0.9493934473954164,0.9668466386473127,True,True,True
+expert,expert,0.0,-1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+expert,expert,0.0,-1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+expert,expert,0.0,-1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+expert,expert,0.0,-1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+expert,expert,0.0,-1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,False,True
+expert,expert,0.0,-1,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1874,0.937,0.9254911725624734,0.9468332666546785,True,True,True
+expert,expert,0.0,-1,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,True,True
+expert,expert,0.0,-1,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1838,0.919,0.9062236928798773,0.9301697625708931,True,True,True
+expert,expert,0.0,-1,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+expert,expert,0.0,-1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1843,0.9215,0.9088879973315139,0.9324958725312537,True,False,True
+discovered,discovered,,-1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.98,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+discovered,discovered,,-1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.95,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+discovered,discovered,,-1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.93,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+discovered,discovered,,-1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.94,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+discovered,discovered,,-1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.91,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,True,True
+discovered,discovered,,-1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.96,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+discovered,discovered,,-1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+discovered,discovered,,-1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.98,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+discovered,discovered,,-1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),1.0,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+discovered,discovered,,-1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+discovered,discovered,,-1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+discovered,discovered,,-1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+discovered,discovered,,-1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+discovered,discovered,,-1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.99,2000,1916,0.958,0.9482954037452289,0.9659485165327013,True,True,True
+discovered,discovered,,-1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1922,0.961,0.9515937245556543,0.9686386930166728,True,True,True
+discovered,discovered,,-1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+discovered,discovered,,-1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+discovered,discovered,,-1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.92,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+discovered,discovered,,-1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1920,0.96,0.9504928712535343,0.9677433805539937,True,True,True
+discovered,discovered,,-1,exp_35,coolant_exp_35_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+discovered,discovered,,-1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,False,True
+discovered,discovered,,-1,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1853,0.9265,0.9142272217720009,0.9371374769147616,True,True,True
+discovered,discovered,,-1,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+discovered,discovered,,-1,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,True,True
+discovered,discovered,,-1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.86,2000,1864,0.932,0.9201180659341153,0.9422255444590417,True,False,True
+empty,empty,1.0,-1,exp_22,coolant_exp_22_run_1,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_22,coolant_exp_22_run_2,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_22,coolant_exp_22_run_3,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_22,coolant_exp_22_run_4,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_22,coolant_exp_22_run_5,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_22,coolant_exp_22_run_6,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_27,coolant_exp_27_run_1,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_27,coolant_exp_27_run_2,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_27,coolant_exp_27_run_3,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_27,coolant_exp_27_run_4,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_27,coolant_exp_27_run_5,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_27,coolant_exp_27_run_6,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_27,coolant_exp_27_run_7,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+empty,empty,1.0,-1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.1 s0,delete,0.1,0,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1880,0.94,0.9287239719834315,0.949588964528117,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1911,0.9555,0.9455560351259518,0.963697470739981,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1820,0.91,0.8966589128425922,0.9217690507249873,True,False,True
+delete 0.1 s0,delete,0.1,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1845,0.9225,0.9099546866470177,0.933425348980549,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1828,0.914,0.900904969873453,0.9255076567533225,True,True,True
+delete 0.1 s0,delete,0.1,0,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1863,0.9315,0.9195817187018887,0.9417638088088687,True,False,True
+delete 0.1 s1,delete,0.1,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1879,0.9395,0.9281846805316479,0.9491301730975011,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1912,0.956,0.9461032742038248,0.9641483145445074,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1872,0.936,0.9244151051347421,0.9459131683176109,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1994,0.997,0.9934699962513178,0.9986243888537725,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1834,0.917,0.9040946609667939,0.9283064629543785,True,False,True
+delete 0.1 s1,delete,0.1,1,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1861,0.9305,0.9185095267044423,0.9408398350415161,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1837,0.9185,0.9056912372938143,0.9297041352745564,True,True,True
+delete 0.1 s1,delete,0.1,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1846,0.923,0.9104882434766716,0.9338898750332946,True,False,True
+delete 0.1 s2,delete,0.1,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1872,0.936,0.9244151051347421,0.9459131683176109,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1918,0.959,0.9493934473954164,0.9668466386473127,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1923,0.9615,0.9521447034789788,0.9690857969757479,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1911,0.9555,0.9455560351259518,0.963697470739981,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,False,True
+delete 0.1 s2,delete,0.1,2,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1867,0.9335,0.921728133147533,0.9436097258928223,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1801,0.9005,0.8866034936593209,0.9128608951426683,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,True,True
+delete 0.1 s2,delete,0.1,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1870,0.935,0.9233397761657081,0.9449923315218458,True,False,True
+delete 0.1 s3,delete,0.1,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1880,0.94,0.9287239719834315,0.949588964528117,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1879,0.9395,0.9281846805316479,0.9491301730975011,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1868,0.934,0.9222651699594729,0.944070771963282,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1864,0.932,0.9201180659341153,0.9422255444590417,True,False,True
+delete 0.1 s3,delete,0.1,3,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1849,0.9245,0.9120897778248941,0.9352825893322704,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1847,0.9235,0.9110219434264912,0.9343542579658743,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1831,0.9155,0.9024992477870031,0.9269076274869708,True,True,True
+delete 0.1 s3,delete,0.1,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1845,0.9225,0.9099546866470177,0.933425348980549,True,False,True
+delete 0.1 s4,delete,0.1,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1977,0.9885,0.9828021470402394,0.9923248290640597,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1919,0.9595,0.9499429837911436,0.9672951851339852,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1874,0.937,0.9254911725624734,0.9468332666546785,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1911,0.9555,0.9455560351259518,0.963697470739981,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1845,0.9225,0.9099546866470177,0.933425348980549,True,False,True
+delete 0.1 s4,delete,0.1,4,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1876,0.938,0.9265679947593196,0.9477526102226309,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1837,0.9185,0.9056912372938143,0.9297041352745564,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,True,True
+delete 0.1 s4,delete,0.1,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1868,0.934,0.9222651699594729,0.944070771963282,True,False,True
+delete 0.25 s0,delete,0.25,0,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1915,0.9575,0.9477468849007025,0.9654989524948283,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1979,0.9895,0.984000976488557,0.993122165380541,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,False,True
+delete 0.25 s0,delete,0.25,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1856,0.928,0.9158319015451982,0.9385270457887628,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1857,0.9285,0.9163671066454404,0.93898992357092,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1848,0.924,0.9115557877758631,0.9348184964989021,True,True,True
+delete 0.25 s0,delete,0.25,0,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,False,True
+delete 0.25 s1,delete,0.25,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1995,0.9975,0.9941607609565954,0.9989317070308943,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1980,0.99,0.9846039417177715,0.9935172830337259,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1980,0.99,0.9846039417177715,0.9935172830337259,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+delete 0.25 s1,delete,0.25,1,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1) + do(F_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1) + do(F_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1) + do(F_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1) + do(F_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s1,delete,0.25,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s2,delete,0.25,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1870,0.935,0.9233397761657081,0.9449923315218458,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1904,0.952,0.9417337026074779,0.9605332230816583,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,False,True
+delete 0.25 s2,delete,0.25,2,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1862,0.931,0.9190455395176288,0.9413019051107293,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1841,0.9205,0.9078218656421078,0.9315658384558609,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1834,0.917,0.9040946609667939,0.9283064629543785,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1836,0.918,0.9051589141739098,0.9292383755120615,True,True,True
+delete 0.25 s2,delete,0.25,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1870,0.935,0.9233397761657081,0.9449923315218458,True,False,True
+delete 0.25 s3,delete,0.25,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1875,0.9375,0.926029488270428,0.9472930338291233,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1877,0.9385,0.9271066941696094,0.9482119936947407,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1973,0.9865,0.9804290754423747,0.9907055691323264,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.25 s3,delete,0.25,3,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s3,delete,0.25,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.25 s4,delete,0.25,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1914,0.957,0.9471986939284612,0.9650490605846699,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1876,0.938,0.9265679947593196,0.9477526102226309,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1995,0.9975,0.9941607609565954,0.9989317070308943,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1918,0.959,0.9493934473954164,0.9668466386473127,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1922,0.961,0.9515937245556543,0.9686386930166728,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1879,0.9395,0.9281846805316479,0.9491301730975011,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1870,0.935,0.9233397761657081,0.9449923315218458,True,False,True
+delete 0.25 s4,delete,0.25,4,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1836,0.918,0.9051589141739098,0.9292383755120615,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1858,0.929,0.9169024701620524,0.9394526429367077,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1838,0.919,0.9062236928798773,0.9301697625708931,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+delete 0.25 s4,delete,0.25,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1861,0.9305,0.9185095267044423,0.9408398350415161,True,False,True
+delete 0.5 s0,delete,0.5,0,exp_22,coolant_exp_22_run_1,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_22,coolant_exp_22_run_2,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_22,coolant_exp_22_run_3,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_22,coolant_exp_22_run_4,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_22,coolant_exp_22_run_5,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_22,coolant_exp_22_run_6,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_27,coolant_exp_27_run_1,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_27,coolant_exp_27_run_2,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_27,coolant_exp_27_run_3,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_27,coolant_exp_27_run_4,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_27,coolant_exp_27_run_5,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_27,coolant_exp_27_run_6,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_27,coolant_exp_27_run_7,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1) + do(F_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1) + do(F_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s0,delete,0.5,0,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_22,coolant_exp_22_run_1,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_22,coolant_exp_22_run_2,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_22,coolant_exp_22_run_3,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_22,coolant_exp_22_run_4,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_22,coolant_exp_22_run_5,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_22,coolant_exp_22_run_6,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_27,coolant_exp_27_run_1,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_27,coolant_exp_27_run_2,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_27,coolant_exp_27_run_3,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_27,coolant_exp_27_run_4,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_27,coolant_exp_27_run_5,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_27,coolant_exp_27_run_6,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_27,coolant_exp_27_run_7,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s1,delete,0.5,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1914,0.957,0.9471986939284612,0.9650490605846699,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1868,0.934,0.9222651699594729,0.944070771963282,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1876,0.938,0.9265679947593196,0.9477526102226309,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1995,0.9975,0.9941607609565954,0.9989317070308943,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+delete 0.5 s2,delete,0.5,2,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s2,delete,0.5,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1880,0.94,0.9287239719834315,0.949588964528117,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1904,0.952,0.9417337026074779,0.9605332230816583,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1885,0.9425,0.931423506198168,0.9518798447253781,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1876,0.938,0.9265679947593196,0.9477526102226309,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.5 s3,delete,0.5,3,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s3,delete,0.5,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+delete 0.5 s4,delete,0.5,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1867,0.9335,0.921728133147533,0.9436097258928223,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1872,0.936,0.9244151051347421,0.9459131683176109,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1917,0.9585,0.9488442560070109,0.9663977471533187,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1925,0.9625,0.9532478001579565,0.9699788660615691,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1921,0.9605,0.9510431160282957,0.9681912186616319,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1866,0.933,0.9211912714025889,0.9431485047553669,True,False,True
+delete 0.5 s4,delete,0.5,4,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1858,0.929,0.9169024701620524,0.9394526429367077,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1867,0.9335,0.921728133147533,0.9436097258928223,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1848,0.924,0.9115557877758631,0.9348184964989021,True,True,True
+delete 0.5 s4,delete,0.5,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,False,True
+insert 0.1 s0,insert,0.1,0,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1912,0.956,0.9461032742038248,0.9641483145445074,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1877,0.9385,0.9271066941696094,0.9482119936947407,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1979,0.9895,0.984000976488557,0.993122165380541,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1914,0.957,0.9471986939284612,0.9650490605846699,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,False,True
+insert 0.1 s0,insert,0.1,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1861,0.9305,0.9185095267044423,0.9408398350415161,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1815,0.9075,0.894008921953218,0.9194286272023638,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1835,0.9175,0.9046267224246429,0.9287724843789287,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1834,0.917,0.9040946609667939,0.9283064629543785,True,True,True
+insert 0.1 s0,insert,0.1,0,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1858,0.929,0.9169024701620524,0.9394526429367077,True,False,True
+insert 0.1 s1,insert,0.1,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1972,0.986,0.9798402800868613,0.9902962816054401,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1911,0.9555,0.9455560351259518,0.963697470739981,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+insert 0.1 s1,insert,0.1,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.79,2000,1625,0.8125,0.7948006140749126,0.8290011874247667,True,False,False
+insert 0.1 s1,insert,0.1,1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.81,2000,1617,0.8085,0.7906698687199123,0.8251472697205713,True,False,False
+insert 0.1 s1,insert,0.1,1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.74,2000,1595,0.7975,0.7793248910840038,0.8145344239436909,True,False,False
+insert 0.1 s1,insert,0.1,1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.73,2000,1578,0.789,0.7705723191053989,0.8063195869215046,True,False,False
+insert 0.1 s1,insert,0.1,1,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.8,2000,1626,0.813,0.7953171621099848,0.829482722272094,True,False,False
+insert 0.1 s1,insert,0.1,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.79,2000,1626,0.813,0.7953171621099848,0.829482722272094,True,False,False
+insert 0.1 s2,insert,0.1,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1875,0.9375,0.926029488270428,0.9472930338291233,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1916,0.958,0.9482954037452289,0.9659485165327013,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1922,0.961,0.9515937245556543,0.9686386930166728,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1885,0.9425,0.931423506198168,0.9518798447253781,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1912,0.956,0.9461032742038248,0.9641483145445074,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1863,0.9315,0.9195817187018887,0.9417638088088687,True,False,True
+insert 0.1 s2,insert,0.1,2,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1839,0.9195,0.9067562820442674,0.9306352562889022,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1843,0.9215,0.9088879973315139,0.9324958725312537,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1829,0.9145,0.9014362713751836,0.9259744381339912,True,True,True
+insert 0.1 s2,insert,0.1,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,False,True
+insert 0.1 s3,insert,0.1,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1916,0.958,0.9482954037452289,0.9659485165327013,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1912,0.956,0.9461032742038248,0.9641483145445074,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1915,0.9575,0.9477468849007025,0.9654989524948283,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,False,True
+insert 0.1 s3,insert,0.1,3,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1864,0.932,0.9201180659341153,0.9422255444590417,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1833,0.9165,0.9035627287371036,0.9278403123016691,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+insert 0.1 s3,insert,0.1,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1842,0.921,0.9083548623864106,0.9320309245939575,True,False,True
+insert 0.1 s4,insert,0.1,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1910,0.955,0.9450091032578506,0.9632463197256825,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1879,0.9395,0.9281846805316479,0.9491301730975011,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1877,0.9385,0.9271066941696094,0.9482119936947407,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1911,0.9555,0.9455560351259518,0.963697470739981,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1911,0.9555,0.9455560351259518,0.963697470739981,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1915,0.9575,0.9477468849007025,0.9654989524948283,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1917,0.9585,0.9488442560070109,0.9663977471533187,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1913,0.9565,0.9466508254413576,0.9645988461893741,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1885,0.9425,0.931423506198168,0.9518798447253781,True,False,True
+insert 0.1 s4,insert,0.1,4,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1847,0.9235,0.9110219434264912,0.9343542579658743,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1863,0.9315,0.9195817187018887,0.9417638088088687,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1830,0.915,0.9019676970169574,0.9264410953746169,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1845,0.9225,0.9099546866470177,0.933425348980549,True,True,True
+insert 0.1 s4,insert,0.1,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1859,0.9295,0.9174379936309925,0.9399152023501668,True,False,True
+insert 0.25 s0,insert,0.25,0,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1875,0.9375,0.926029488270428,0.9472930338291233,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1845,0.9225,0.9099546866470177,0.933425348980549,True,False,True
+insert 0.25 s0,insert,0.25,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1839,0.9195,0.9067562820442674,0.9306352562889022,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1840,0.92,0.9072890059161609,0.9311006152994084,True,True,True
+insert 0.25 s0,insert,0.25,0,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1858,0.929,0.9169024701620524,0.9394526429367077,True,False,True
+insert 0.25 s1,insert,0.25,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1879,0.9395,0.9281846805316479,0.9491301730975011,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1918,0.959,0.9493934473954164,0.9668466386473127,True,True,True
+insert 0.25 s1,insert,0.25,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.79,2000,1569,0.7845,0.7659433361879618,0.8019658238973463,True,False,False
+insert 0.25 s1,insert,0.25,1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.81,2000,1610,0.805,0.7870578186656875,0.8217727395979998,True,False,False
+insert 0.25 s1,insert,0.25,1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.74,2000,1578,0.789,0.7705723191053989,0.8063195869215046,True,False,False
+insert 0.25 s1,insert,0.25,1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.73,2000,1560,0.78,0.761317531915067,0.7976088822286459,True,False,False
+insert 0.25 s1,insert,0.25,1,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.8,2000,1652,0.826,0.8087639868695761,0.8419860524548896,True,False,False
+insert 0.25 s1,insert,0.25,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.79,2000,1629,0.8145,0.796867082728097,0.8309270503011803,True,False,False
+insert 0.25 s2,insert,0.25,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1880,0.94,0.9287239719834315,0.949588964528117,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1919,0.9595,0.9499429837911436,0.9672951851339852,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1856,0.928,0.9158319015451982,0.9385270457887628,True,False,True
+insert 0.25 s2,insert,0.25,2,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1831,0.9155,0.9024992477870031,0.9269076274869708,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1834,0.917,0.9040946609667939,0.9283064629543785,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1856,0.928,0.9158319015451982,0.9385270457887628,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1862,0.931,0.9190455395176288,0.9413019051107293,True,True,True
+insert 0.25 s2,insert,0.25,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,False,True
+insert 0.25 s3,insert,0.25,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1846,0.923,0.9104882434766716,0.9338898750332946,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1919,0.9595,0.9499429837911436,0.9672951851339852,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1874,0.937,0.9254911725624734,0.9468332666546785,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,False,True
+insert 0.25 s3,insert,0.25,3,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1870,0.935,0.9233397761657081,0.9449923315218458,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1827,0.9135,0.9003737915376451,0.9250407522067308,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1828,0.914,0.900904969873453,0.9255076567533225,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,True,True
+insert 0.25 s3,insert,0.25,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1863,0.9315,0.9195817187018887,0.9417638088088687,True,False,True
+insert 0.25 s4,insert,0.25,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1875,0.9375,0.926029488270428,0.9472930338291233,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1837,0.9185,0.9056912372938143,0.9297041352745564,True,False,True
+insert 0.25 s4,insert,0.25,4,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1831,0.9155,0.9024992477870031,0.9269076274869708,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1861,0.9305,0.9185095267044423,0.9408398350415161,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,True,True
+insert 0.25 s4,insert,0.25,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,False,True
+insert 0.5 s0,insert,0.5,0,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1879,0.9395,0.9281846805316479,0.9491301730975011,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1915,0.9575,0.9477468849007025,0.9654989524948283,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1848,0.924,0.9115557877758631,0.9348184964989021,True,False,True
+insert 0.5 s0,insert,0.5,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1868,0.934,0.9222651699594729,0.944070771963282,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,True,True
+insert 0.5 s0,insert,0.5,0,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1859,0.9295,0.9174379936309925,0.9399152023501668,True,False,True
+insert 0.5 s1,insert,0.5,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1863,0.9315,0.9195817187018887,0.9417638088088687,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1880,0.94,0.9287239719834315,0.949588964528117,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1877,0.9385,0.9271066941696094,0.9482119936947407,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1918,0.959,0.9493934473954164,0.9668466386473127,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1910,0.955,0.9450091032578506,0.9632463197256825,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1885,0.9425,0.931423506198168,0.9518798447253781,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+insert 0.5 s1,insert,0.5,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.77,2000,1599,0.7995,0.7813860641300672,0.8164655824272256,True,False,False
+insert 0.5 s1,insert,0.5,1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.79,2000,1595,0.7975,0.7793248910840038,0.8145344239436909,True,False,False
+insert 0.5 s1,insert,0.5,1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.74,2000,1578,0.789,0.7705723191053989,0.8063195869215046,True,False,False
+insert 0.5 s1,insert,0.5,1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.73,2000,1575,0.7875,0.7690289671314038,0.8048686902483012,True,False,False
+insert 0.5 s1,insert,0.5,1,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.8,2000,1612,0.806,0.7880896118251837,0.8227371122033025,True,False,False
+insert 0.5 s1,insert,0.5,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.78,2000,1626,0.813,0.7953171621099848,0.829482722272094,True,False,False
+insert 0.5 s2,insert,0.5,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1978,0.989,0.9834004298240134,0.9927246291626849,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1920,0.96,0.9504928712535343,0.9677433805539937,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1923,0.9615,0.9521447034789788,0.9690857969757479,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.96,2000,1880,0.94,0.9287239719834315,0.949588964528117,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.92,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.92,2000,1914,0.957,0.9471986939284612,0.9650490605846699,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_35,coolant_exp_35_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1853,0.9265,0.9142272217720009,0.9371374769147616,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1874,0.937,0.9254911725624734,0.9468332666546785,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1867,0.9335,0.921728133147533,0.9436097258928223,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1831,0.9155,0.9024992477870031,0.9269076274869708,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,True,True
+insert 0.5 s2,insert,0.5,2,exp_35,coolant_exp_35_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1872,0.936,0.9244151051347421,0.9459131683176109,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1994,0.997,0.9934699962513178,0.9986243888537725,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1914,0.957,0.9471986939284612,0.9650490605846699,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1866,0.933,0.9211912714025889,0.9431485047553669,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1912,0.956,0.9461032742038248,0.9641483145445074,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,False,True
+insert 0.5 s3,insert,0.5,3,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1848,0.924,0.9115557877758631,0.9348184964989021,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1862,0.931,0.9190455395176288,0.9413019051107293,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1834,0.917,0.9040946609667939,0.9283064629543785,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1853,0.9265,0.9142272217720009,0.9371374769147616,True,True,True
+insert 0.5 s3,insert,0.5,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,False,True
+insert 0.5 s4,insert,0.5,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1877,0.9385,0.9271066941696094,0.9482119936947407,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1904,0.952,0.9417337026074779,0.9605332230816583,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1918,0.959,0.9493934473954164,0.9668466386473127,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,False,True
+insert 0.5 s4,insert,0.5,4,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1821,0.9105,0.8971892551645851,0.9222367912853938,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1820,0.91,0.8966589128425922,0.9217690507249873,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1818,0.909,0.8955985748851946,0.9208332229175861,True,True,True
+insert 0.5 s4,insert,0.5,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1860,0.93,0.9179736786150372,0.9403776002485218,True,False,True
+reverse 0.1 s0,reverse,0.1,0,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.93,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.96,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),1.0,2000,1995,0.9975,0.9941607609565954,0.9989317070308943,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),1.0,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),1.0,2000,1994,0.997,0.9934699962513178,0.9986243888537725,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),1.0,2000,1978,0.989,0.9834004298240134,0.9927246291626849,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1875,0.9375,0.926029488270428,0.9472930338291233,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.96,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_35,coolant_exp_35_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1856,0.928,0.9158319015451982,0.9385270457887628,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.92,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.87,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,False,True
+reverse 0.1 s0,reverse,0.1,0,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1843,0.9215,0.9088879973315139,0.9324958725312537,True,False,True
+reverse 0.1 s0,reverse,0.1,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1831,0.9155,0.9024992477870031,0.9269076274869708,True,True,True
+reverse 0.1 s0,reverse,0.1,0,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,False,True
+reverse 0.1 s1,reverse,0.1,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1870,0.935,0.9233397761657081,0.9449923315218458,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1870,0.935,0.9233397761657081,0.9449923315218458,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1845,0.9225,0.9099546866470177,0.933425348980549,True,False,True
+reverse 0.1 s1,reverse,0.1,1,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1849,0.9245,0.9120897778248941,0.9352825893322704,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1860,0.93,0.9179736786150372,0.9403776002485218,True,True,True
+reverse 0.1 s1,reverse,0.1,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,False,True
+reverse 0.1 s2,reverse,0.1,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1980,0.99,0.9846039417177715,0.9935172830337259,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1929,0.9645,0.9554587553737167,0.9717602423754069,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1916,0.958,0.9482954037452289,0.9659485165327013,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1856,0.928,0.9158319015451982,0.9385270457887628,True,False,True
+reverse 0.1 s2,reverse,0.1,2,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1843,0.9215,0.9088879973315139,0.9324958725312537,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1807,0.9035,0.8897747033800323,0.9156781827163538,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1862,0.931,0.9190455395176288,0.9413019051107293,True,True,True
+reverse 0.1 s2,reverse,0.1,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1867,0.9335,0.921728133147533,0.9436097258928223,True,False,True
+reverse 0.1 s3,reverse,0.1,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1911,0.9555,0.9455560351259518,0.963697470739981,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1886,0.943,0.9319640457134198,0.9523373880925255,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1891,0.9455,0.9346700514001471,0.9546217968177959,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1995,0.9975,0.9941607609565954,0.9989317070308943,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1912,0.956,0.9461032742038248,0.9641483145445074,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1918,0.959,0.9493934473954164,0.9668466386473127,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1917,0.9585,0.9488442560070109,0.9663977471533187,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1919,0.9595,0.9499429837911436,0.9672951851339852,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1874,0.937,0.9254911725624734,0.9468332666546785,True,False,True
+reverse 0.1 s3,reverse,0.1,3,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1843,0.9215,0.9088879973315139,0.9324958725312537,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1839,0.9195,0.9067562820442674,0.9306352562889022,True,True,True
+reverse 0.1 s3,reverse,0.1,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1853,0.9265,0.9142272217720009,0.9371374769147616,True,False,True
+reverse 0.1 s4,reverse,0.1,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1880,0.94,0.9287239719834315,0.949588964528117,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1879,0.9395,0.9281846805316479,0.9491301730975011,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1977,0.9885,0.9828021470402394,0.9923248290640597,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1914,0.957,0.9471986939284612,0.9650490605846699,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1917,0.9585,0.9488442560070109,0.9663977471533187,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1913,0.9565,0.9466508254413576,0.9645988461893741,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1856,0.928,0.9158319015451982,0.9385270457887628,True,False,True
+reverse 0.1 s4,reverse,0.1,4,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1854,0.927,0.9147619605802373,0.9376008209889248,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1858,0.929,0.9169024701620524,0.9394526429367077,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1859,0.9295,0.9174379936309925,0.9399152023501668,True,True,True
+reverse 0.1 s4,reverse,0.1,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1849,0.9245,0.9120897778248941,0.9352825893322704,True,False,True
+reverse 0.25 s0,reverse,0.25,0,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.93,2000,1901,0.9505,0.9400997869966969,0.959172890045241,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1881,0.9405,0.9292634653592508,0.9500475540346974,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.96,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),1.0,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),1.0,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.96,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1883,0.9415,0.9303430674015107,0.9509641177572363,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1896,0.948,0.9373818339707445,0.9569004286591958,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_35,coolant_exp_35_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1845,0.9225,0.9099546866470177,0.933425348980549,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.92,2000,1867,0.9335,0.921728133147533,0.9436097258928223,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1844,0.922,0.9094212716784035,0.9329606810667638,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.96,2000,1861,0.9305,0.9185095267044423,0.9408398350415161,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1859,0.9295,0.9174379936309925,0.9399152023501668,True,True,True
+reverse 0.25 s0,reverse,0.25,0,exp_35,coolant_exp_35_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1863,0.9315,0.9195817187018887,0.9417638088088687,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.93,2000,1894,0.947,0.936296403548334,0.9559896933168074,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1865,0.9325,0.9206545829215553,0.9426871103540011,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1882,0.941,0.929803163026387,0.9505059392499606,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.96,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1980,0.99,0.9846039417177715,0.9935172830337259,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),1.0,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),1.0,2000,1994,0.997,0.9934699962513178,0.9986243888537725,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),1.0,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1910,0.955,0.9450091032578506,0.9632463197256825,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1904,0.952,0.9417337026074779,0.9605332230816583,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.96,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_35,coolant_exp_35_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1834,0.917,0.9040946609667939,0.9283064629543785,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.92,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.87,2000,1866,0.933,0.9211912714025889,0.9431485047553669,True,False,True
+reverse 0.25 s1,reverse,0.25,1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,False,True
+reverse 0.25 s1,reverse,0.25,1,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1843,0.9215,0.9088879973315139,0.9324958725312537,True,True,True
+reverse 0.25 s1,reverse,0.25,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1850,0.925,0.9126239148948881,0.935746535144676,True,False,True
+reverse 0.25 s2,reverse,0.25,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1885,0.9425,0.931423506198168,0.9518798447253781,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1899,0.9495,0.9390118381839994,0.9582646730931397,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1871,0.9355,0.9238773493378977,0.9454528412320556,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1904,0.952,0.9417337026074779,0.9605332230816583,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+reverse 0.25 s2,reverse,0.25,2,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s2,reverse,0.25,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s3,reverse,0.25,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1910,0.955,0.9450091032578506,0.9632463197256825,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1907,0.9535,0.9433701034030341,0.9618910709333007,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1980,0.99,0.9846039417177715,0.9935172830337259,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.98,2000,1916,0.958,0.9482954037452289,0.9659485165327013,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.96,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.92,2000,1900,0.95,0.9395556822705139,0.9587189118890244,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.99,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_35,coolant_exp_35_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1868,0.934,0.9222651699594729,0.944070771963282,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.88,2000,1842,0.921,0.9083548623864106,0.9320309245939575,True,False,True
+reverse 0.25 s3,reverse,0.25,3,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_35,coolant_exp_35_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1839,0.9195,0.9067562820442674,0.9306352562889022,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1824,0.912,0.8987809859903111,0.9236393091068664,True,True,True
+reverse 0.25 s3,reverse,0.25,3,exp_35,coolant_exp_35_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.91,2000,1873,0.9365,0.9249530455366632,0.946373310798089,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1876,0.938,0.9265679947593196,0.9477526102226309,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1885,0.9425,0.931423506198168,0.9518798447253781,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1878,0.939,0.9276455886845992,0.9486711820621504,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1989,0.9945,0.9901778357087015,0.9969261349843913,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.25 s4,reverse,0.25,4,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.25 s4,reverse,0.25,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_22,coolant_exp_22_run_1,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_22,coolant_exp_22_run_2,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_22,coolant_exp_22_run_3,partial,do(LT_Level_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_22,coolant_exp_22_run_4,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_22,coolant_exp_22_run_5,partial,do(LT_Level_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_22,coolant_exp_22_run_6,partial,do(HP_Pump_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_27,coolant_exp_27_run_1,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_27,coolant_exp_27_run_2,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_27,coolant_exp_27_run_3,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_27,coolant_exp_27_run_4,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_27,coolant_exp_27_run_5,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_27,coolant_exp_27_run_6,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_27,coolant_exp_27_run_7,partial,do(CLT_Level_lt_Min=0),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s0,reverse,0.5,0,exp_28,coolant_exp_28_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.96,2000,1919,0.9595,0.9499429837911436,0.9672951851339852,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_28,coolant_exp_28_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.97,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_28,coolant_exp_28_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1909,0.9545,0.9444624737843038,0.9627948663168301,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_28,coolant_exp_28_run_4,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.94,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_28,coolant_exp_28_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1888,0.944,0.9330457781265368,0.9532518214442077,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_28,coolant_exp_28_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.99,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_35,coolant_exp_35_run_1,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1862,0.931,0.9190455395176288,0.9413019051107293,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_35,coolant_exp_35_run_2,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_35,coolant_exp_35_run_3,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.95,2000,1849,0.9245,0.9120897778248941,0.9352825893322704,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.89,2000,1855,0.9275,0.9152968533515413,0.9380640111000202,True,False,True
+reverse 0.5 s0,reverse,0.5,0,exp_35,coolant_exp_35_run_5,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.9,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+reverse 0.5 s0,reverse,0.5,0,exp_35,coolant_exp_35_run_6,valid,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),0.93,2000,1852,0.926,0.9136926354919095,0.9366739803124535,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1897,0.9485,0.9379249175274234,0.9573554279849166,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.93,2000,1895,0.9475,0.9368389970748013,0.9564451826727397,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1892,0.946,0.9352119338168585,0.955077997283484,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1877,0.9385,0.9271066941696094,0.9482119936947407,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.96,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),1.0,2000,1983,0.9915,0.9864291960388387,0.9946862773598573,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),1.0,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),1.0,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),0.99,2000,1984,0.992,0.9870438100676844,0.9950697462134108,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1991,0.9955,0.9914693900665025,0.9976307463913893,True,True,True
+reverse 0.5 s1,reverse,0.5,1,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s1,reverse,0.5,1,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1908,0.954,0.9439161420196693,0.9623431151990649,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1889,0.9445,0.9335869764568508,0.9537087059962933,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1869,0.9345,0.9228023836751214,0.9445316411300329,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1981,0.9905,0.9852094988443749,0.993909808789522,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1980,0.99,0.9846039417177715,0.9935172830337259,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1982,0.991,0.9858178431626362,0.9942995473536601,True,True,True
+reverse 0.5 s2,reverse,0.5,2,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s2,reverse,0.5,2,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1898,0.949,0.9384682511147582,0.9578101772799812,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1906,0.953,0.9428243534935966,0.9614387379603387,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1904,0.952,0.9417337026074779,0.9605332230816583,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1866,0.933,0.9211912714025889,0.9431485047553669,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1905,0.9525,0.9422788879662679,0.960986120605268,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1988,0.994,0.9895414478401517,0.9965644399705414,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1979,0.9895,0.984000976488557,0.993122165380541,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1977,0.9885,0.9828021470402394,0.9923248290640597,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1987,0.9935,0.9889103647969807,0.9961974401313133,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.5 s3,reverse,0.5,3,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s3,reverse,0.5,3,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_22,coolant_exp_22_run_1,valid,do(HP_Pump_Ok=1),0.95,2000,1887,0.9435,0.9325048021273105,0.9527947145610346,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_22,coolant_exp_22_run_2,valid,do(HP_Pump_Ok=1),0.92,2000,1890,0.945,0.9341283999249005,0.9541653654106429,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_22,coolant_exp_22_run_3,valid,do(HP_Pump_Ok=1),0.95,2000,1902,0.951,0.9406441560750126,0.9596266038493247,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_22,coolant_exp_22_run_4,valid,do(HP_Pump_Ok=1),0.96,2000,1903,0.9515,0.9411887933111758,0.960080049495561,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_22,coolant_exp_22_run_5,valid,do(HP_Pump_Ok=1),0.92,2000,1884,0.942,0.9308831809521418,0.9514220870890047,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_22,coolant_exp_22_run_6,valid,do(HP_Pump_Ok=1),0.93,2000,1893,0.9465,0.9357540501761874,0.9555339638065545,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_27,coolant_exp_27_run_1,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_27,coolant_exp_27_run_2,valid,do(HP_Pump_Ok=1),0.99,2000,1993,0.9965,0.992792712268253,0.9983035899544378,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_27,coolant_exp_27_run_3,valid,do(HP_Pump_Ok=1),0.99,2000,1985,0.9925,0.9876619756196671,0.9954496635438278,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_27,coolant_exp_27_run_4,valid,do(HP_Pump_Ok=1),0.99,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_27,coolant_exp_27_run_5,valid,do(HP_Pump_Ok=1),0.99,2000,1986,0.993,0.9882840292676033,0.995825692778291,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_27,coolant_exp_27_run_6,valid,do(HP_Pump_Ok=1),1.0,2000,1992,0.996,0.9921264415501131,0.9979717777901781,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_27,coolant_exp_27_run_7,valid,do(HP_Pump_Ok=1),1.0,2000,1990,0.995,0.990820204876819,0.9972818486986733,True,True,True
+reverse 0.5 s4,reverse,0.5,4,exp_28,coolant_exp_28_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_28,coolant_exp_28_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_28,coolant_exp_28_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_28,coolant_exp_28_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_28,coolant_exp_28_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_28,coolant_exp_28_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_35,coolant_exp_35_run_1,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_35,coolant_exp_35_run_2,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_35,coolant_exp_35_run_3,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_35,coolant_exp_35_run_4,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_35,coolant_exp_35_run_5,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False
+reverse 0.5 s4,reverse,0.5,4,exp_35,coolant_exp_35_run_6,partial,do(CLF_Filter_Ok=1),0.0,2000,0,0.0,0.0,0.0019171176005129348,True,False,False

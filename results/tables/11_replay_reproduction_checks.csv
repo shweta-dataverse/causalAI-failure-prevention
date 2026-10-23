@@ -1,0 +1,4 @@
+check,pairs,expected_pairs,max_abs_difference
+coolant notebook-07 replay reproduced,224,224,0.0
+coolant perturbation-study replay reproduced,48,48,5.551115123125783e-17
+probe perturbation-study replay reproduced,48,48,5.551115123125783e-17

@@ -56,7 +56,7 @@ cd notebooks && for nb in 0*.ipynb; do jupyter nbconvert --to notebook --execute
 
 Approximate runtimes on a laptop:
 - notebook 03: about 15 min (bootstrap and sensitivity runs)
-- notebook 09: about 30 min (49 graphs through the full pipeline)
+- notebook 09: about 30 min (48 graphs through the full pipeline: expert, discovered, empty and 45 perturbed)
 - the others: under 2 min each
 
 The archival preprocessing (all 270 recordings, data-quality report) can also be run as a command:
@@ -81,6 +81,19 @@ python -m causal_rca.preprocessing --config configs/preprocessing.yaml
 | `10_Probe_Extension` | the same methods on the probe subsystem, whose root causes also change in normal operation: discovery, graph evaluation, SCM, RCA, perturbations | `10_probe_*` |
 
 Notebooks 02–09 run the coolant subsystem (`SUBSYSTEM` at the top of each notebook), and every output is named per subsystem.
+
+### Robustness checks (stage 11)
+
+After notebooks 07–10, two robustness checks run as a script and write only new `results/tables/11_*` files:
+
+```bash
+PYTHONPATH=src python scripts/run_robustness.py all
+```
+
+- **x1, time-limited replay** (about 4 min): Every replay of notebooks 07, 09 and 10 is repeated with each manipulation released at its observed reversion step, next to the default sustained replay, with identical SCMs, start states and noise. After release the variable follows its fitted mechanism; a faulty state never seen in training falls back to p = 0.5, which is not a learned recovery.
+- **x2, independent counterfactual validity** (about 13 min): The action sets selected in notebook 09 are not reselected but re-evaluated with 2,000 fresh abducted worlds from a separate random stream, with Wilson intervals (Monte Carlo uncertainty given the fitted SCM only).
+
+The script first checks that it reproduces the saved replay and rca results (`11_replay_reproduction_checks.csv`, `11_coolant_cf_reproduction_checks.csv`).
 
 ## Code
 

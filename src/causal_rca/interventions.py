@@ -163,8 +163,9 @@ def effect_matrix(
 
 def replay_manipulation(
     scm: TemporalSCM, series: dict[str, np.ndarray], onsets: dict[str, int], alarms: Sequence[str],
-    n_samples: int, rng: np.random.Generator,
-) -> pd.DataFrame:
+    n_samples: int, rng: np.random.Generator, releases: dict[str, int] | None = None,
+    return_simulation: bool = False,
+) -> pd.DataFrame | tuple[pd.DataFrame, dict[str, np.ndarray], int]:
     """replay the observed manipulations of one fault run as interventions and compare alarms.
 
     every manipulated variable is set to its observed post-onset value from its observed
@@ -173,6 +174,11 @@ def replay_manipulation(
     the start are passed as history, so lagged parents see the real past. returns per alarm the
     observed onset delay and the predicted firing probability and median delay (steps,
     relative to the first manipulation onset).
+
+    by default every manipulation is sustained to the end of the run. ``releases[v]`` (a step
+    of the recording) ends the intervention on v there, after which v follows its fitted
+    mechanism; the release steps are taken retrospectively from the recording, not predicted.
+    ``return_simulation`` also returns the simulated trajectories and the start step t0.
     """
     t0 = min(onsets.values()) - 1
     n_steps = len(next(iter(series.values()))) - t0
@@ -181,7 +187,9 @@ def replay_manipulation(
     interventions = {v: (float(series[v][step]), step - t0) for v, step in onsets.items()}
     noise = {v: rng.uniform(size=(n_samples, n_steps)) for v in scm.mechanisms}
     history = {v: series[v][:t0] for v in scm.mechanisms if v in series and v not in fixed}
-    sim = scm.simulate(initial, noise, interventions=interventions, fixed=fixed, history=history)
+    relative_releases = {v: step - t0 for v, step in (releases or {}).items()}
+    sim = scm.simulate(initial, noise, interventions=interventions, fixed=fixed, history=history,
+                       releases=relative_releases or None)
     rows = []
     for a in alarms:
         if a not in series or np.isnan(series[a]).all() or a not in sim:
@@ -198,4 +206,49 @@ def replay_manipulation(
             "predicted_median_delay_steps": float(np.median(predicted[fired] - 1)) if fired.any() else np.nan,
             "alarm_supported": scm.mechanisms[a].has_data,
         })
+    if return_simulation:
+        return pd.DataFrame(rows), sim, t0
     return pd.DataFrame(rows)
+
+
+def replay_paired(
+    scm: TemporalSCM, series: dict[str, np.ndarray], onsets: dict[str, int], reversions: dict[str, int],
+    alarms: Sequence[str], n_samples: int, seed: int,
+) -> tuple[pd.DataFrame, pd.DataFrame, bool]:
+    """sustained (a) vs time-limited (b) replay of one fault run with identical noise.
+
+    b ends each manipulation at its observed reversion step (taken from the recording, not
+    predicted); afterwards the variable follows its fitted mechanism from the intervened value.
+    a manipulation without a reversion, or whose variable has no fitted mechanism, stays sustained.
+    ending an external intervention is not a repair: nothing forces the healthy value.
+    returns one row per alarm with both modes, one row per released variable with the share of
+    samples that return to the pre-fault value, and whether both modes agree before the first release.
+    """
+    releases = {v: int(r) for v, r in reversions.items()
+                if v in onsets and r is not None and not np.isnan(r) and r > onsets[v]
+                and v in scm.mechanisms and scm.mechanisms[v].has_data}
+    sustained, sim_a, t0 = replay_manipulation(scm, series, onsets, alarms, n_samples, np.random.default_rng(seed),
+                                               return_simulation=True)
+    limited, sim_b, _ = replay_manipulation(scm, series, onsets, alarms, n_samples, np.random.default_rng(seed),
+                                            releases=releases, return_simulation=True)
+    first_release = min((r - t0 for r in releases.values()), default=None)
+    horizon = first_release if first_release is not None else next(iter(sim_a.values())).shape[1]
+    identical = all(np.array_equal(sim_a[v][:, :horizon], sim_b[v][:, :horizon]) for v in sim_a)
+    alarm_rows = sustained.merge(limited[["alarm", "p_fires", "predicted_median_delay_steps"]], on="alarm",
+                                 suffixes=("_sustained", "_limited"))
+    target_rows = []
+    for v, step in onsets.items():
+        faulty = float(series[v][step])
+        released = v in releases
+        rel = releases[v] - t0 if released else None
+        back = (sim_b[v][:, rel:] != faulty).any(axis=1) if released else np.zeros(n_samples, dtype=bool)
+        target_rows.append({
+            "variable": v,
+            "onset_step": int(step),
+            "reversion_step": float(reversions.get(v, np.nan)) if reversions.get(v) is not None else np.nan,
+            "released": released,
+            "not_released_reason": "" if released else ("no fitted mechanism" if not scm.mechanisms[v].has_data
+                                                         else "no observed reversion"),
+            "p_returns_after_release": float(back.mean()) if released else np.nan,
+        })
+    return alarm_rows, pd.DataFrame(target_rows), identical

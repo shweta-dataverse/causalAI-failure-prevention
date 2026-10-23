@@ -1,0 +1,2017 @@
+variable,onset_step,reversion_step,released,not_released_reason,p_returns_after_release,fold,recording_id,graph
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,expert
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,expert
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,expert
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,expert
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,expert
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,expert
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,expert
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,expert
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,expert
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,expert
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,expert
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,expert
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,expert
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,expert
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,expert
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,expert
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,expert
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,expert
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,expert
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,expert
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,expert
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,expert
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,expert
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,expert
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,expert
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,expert
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,expert
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,expert
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,expert
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,expert
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,expert
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,expert
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,expert
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,expert
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,expert
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,expert
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,expert
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,expert
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,expert
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,expert
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,expert
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,expert
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,discovered
+MPA_WorkPos,269,288.0,True,,0.78,exp_1,probe_exp_1_run_2,discovered
+MPA_WorkPos,302,342.0,True,,0.31,exp_1,probe_exp_1_run_3,discovered
+MPA_WorkPos,138,142.0,True,,0.76,exp_1,probe_exp_1_run_4,discovered
+MPA_WorkPos,197,224.0,True,,0.85,exp_1,probe_exp_1_run_5,discovered
+MPA_WorkPos,269,272.0,True,,0.81,exp_1,probe_exp_1_run_6,discovered
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,discovered
+MPA_InitPos,266,322.0,True,,0.57,exp_2_3,probe_exp_2_3_run_2,discovered
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,discovered
+MPA_InitPos,206,272.0,True,,0.57,exp_2_3,probe_exp_2_3_run_4,discovered
+MPA_InitPos,311,317.0,True,,0.46,exp_2_3,probe_exp_2_3_run_5,discovered
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,discovered
+MPA_InitPos,180,221.0,True,,0.48,exp_2_3,probe_exp_2_3_run_7,discovered
+MPA_InitPos,234,256.0,True,,0.42,exp_2_3,probe_exp_2_3_run_8,discovered
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,discovered
+MPA_WorkPos,243,248.0,True,,0.3,exp_4,probe_exp_4_run_2,discovered
+MPA_WorkPos,237,260.0,True,,0.35,exp_4,probe_exp_4_run_3,discovered
+MPA_WorkPos,309,335.0,True,,0.36,exp_4,probe_exp_4_run_4,discovered
+MPA_WorkPos,243,265.0,True,,0.34,exp_4,probe_exp_4_run_5,discovered
+MPA_WorkPos,236,244.0,True,,0.34,exp_4,probe_exp_4_run_6,discovered
+MPA_InitPos,376,419.0,True,,0.42,exp_5,probe_exp_5_run_1,discovered
+MPA_InitPos,296,339.0,True,,0.42,exp_5,probe_exp_5_run_2,discovered
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,discovered
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,discovered
+MPA_InitPos,207,220.0,True,,0.79,exp_5,probe_exp_5_run_5,discovered
+MPA_InitPos,194,199.0,True,,0.77,exp_5,probe_exp_5_run_6,discovered
+MPA_InitPos,296,340.0,True,,0.49,exp_6,probe_exp_6_run_1,discovered
+MPA_WorkPos,297,338.0,True,,0.43,exp_6,probe_exp_6_run_1,discovered
+MPA_InitPos,302,344.0,True,,0.26,exp_6,probe_exp_6_run_2,discovered
+MPA_WorkPos,302,342.0,True,,0.31,exp_6,probe_exp_6_run_2,discovered
+MPA_InitPos,311,354.0,True,,0.49,exp_6,probe_exp_6_run_3,discovered
+MPA_WorkPos,311,352.0,True,,0.43,exp_6,probe_exp_6_run_3,discovered
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,discovered
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,discovered
+MPA_InitPos,201,252.0,True,,0.5,exp_7,probe_exp_7_run_2,discovered
+MPA_WorkPos,203,252.0,True,,0.43,exp_7,probe_exp_7_run_2,discovered
+MPA_InitPos,136,203.0,True,,0.57,exp_7,probe_exp_7_run_3,discovered
+MPA_WorkPos,138,203.0,True,,0.49,exp_7,probe_exp_7_run_3,discovered
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,discovered
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,discovered
+MPA_InitPos,201,277.0,True,,0.52,exp_7,probe_exp_7_run_5,discovered
+MPA_WorkPos,203,276.0,True,,0.49,exp_7,probe_exp_7_run_5,discovered
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,empty
+MPA_WorkPos,269,288.0,True,,0.78,exp_1,probe_exp_1_run_2,empty
+MPA_WorkPos,302,342.0,True,,0.31,exp_1,probe_exp_1_run_3,empty
+MPA_WorkPos,138,142.0,True,,0.76,exp_1,probe_exp_1_run_4,empty
+MPA_WorkPos,197,224.0,True,,0.85,exp_1,probe_exp_1_run_5,empty
+MPA_WorkPos,269,272.0,True,,0.81,exp_1,probe_exp_1_run_6,empty
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,empty
+MPA_InitPos,266,322.0,True,,0.57,exp_2_3,probe_exp_2_3_run_2,empty
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,empty
+MPA_InitPos,206,272.0,True,,0.57,exp_2_3,probe_exp_2_3_run_4,empty
+MPA_InitPos,311,317.0,True,,0.46,exp_2_3,probe_exp_2_3_run_5,empty
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,empty
+MPA_InitPos,180,221.0,True,,0.48,exp_2_3,probe_exp_2_3_run_7,empty
+MPA_InitPos,234,256.0,True,,0.42,exp_2_3,probe_exp_2_3_run_8,empty
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,empty
+MPA_WorkPos,243,248.0,True,,0.3,exp_4,probe_exp_4_run_2,empty
+MPA_WorkPos,237,260.0,True,,0.35,exp_4,probe_exp_4_run_3,empty
+MPA_WorkPos,309,335.0,True,,0.36,exp_4,probe_exp_4_run_4,empty
+MPA_WorkPos,243,265.0,True,,0.34,exp_4,probe_exp_4_run_5,empty
+MPA_WorkPos,236,244.0,True,,0.34,exp_4,probe_exp_4_run_6,empty
+MPA_InitPos,376,419.0,True,,0.42,exp_5,probe_exp_5_run_1,empty
+MPA_InitPos,296,339.0,True,,0.42,exp_5,probe_exp_5_run_2,empty
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,empty
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,empty
+MPA_InitPos,207,220.0,True,,0.79,exp_5,probe_exp_5_run_5,empty
+MPA_InitPos,194,199.0,True,,0.77,exp_5,probe_exp_5_run_6,empty
+MPA_InitPos,296,340.0,True,,0.49,exp_6,probe_exp_6_run_1,empty
+MPA_WorkPos,297,338.0,True,,0.43,exp_6,probe_exp_6_run_1,empty
+MPA_InitPos,302,344.0,True,,0.26,exp_6,probe_exp_6_run_2,empty
+MPA_WorkPos,302,342.0,True,,0.31,exp_6,probe_exp_6_run_2,empty
+MPA_InitPos,311,354.0,True,,0.49,exp_6,probe_exp_6_run_3,empty
+MPA_WorkPos,311,352.0,True,,0.43,exp_6,probe_exp_6_run_3,empty
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,empty
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,empty
+MPA_InitPos,201,252.0,True,,0.5,exp_7,probe_exp_7_run_2,empty
+MPA_WorkPos,203,252.0,True,,0.42,exp_7,probe_exp_7_run_2,empty
+MPA_InitPos,136,203.0,True,,0.57,exp_7,probe_exp_7_run_3,empty
+MPA_WorkPos,138,203.0,True,,0.49,exp_7,probe_exp_7_run_3,empty
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,empty
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,empty
+MPA_InitPos,201,277.0,True,,0.52,exp_7,probe_exp_7_run_5,empty
+MPA_WorkPos,203,276.0,True,,0.49,exp_7,probe_exp_7_run_5,empty
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,delete 0.1 s0
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,delete 0.1 s0
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,delete 0.1 s0
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,delete 0.1 s0
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,delete 0.1 s0
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,delete 0.1 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.1 s0
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.1 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.1 s0
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.1 s0
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.1 s0
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.1 s0
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.1 s0
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.1 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.1 s0
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,delete 0.1 s0
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.1 s0
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,delete 0.1 s0
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,delete 0.1 s0
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,delete 0.1 s0
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.1 s0
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.1 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.1 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.1 s0
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.1 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.1 s0
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.1 s0
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,delete 0.1 s0
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.1 s0
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.1 s0
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.1 s0
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,delete 0.1 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s0
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.1 s0
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.1 s0
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.1 s0
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.1 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s0
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.1 s0
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.1 s0
+MPA_WorkPos,235,245.0,True,,0.86,exp_1,probe_exp_1_run_1,delete 0.1 s1
+MPA_WorkPos,269,288.0,True,,0.9,exp_1,probe_exp_1_run_2,delete 0.1 s1
+MPA_WorkPos,302,342.0,True,,0.56,exp_1,probe_exp_1_run_3,delete 0.1 s1
+MPA_WorkPos,138,142.0,True,,0.85,exp_1,probe_exp_1_run_4,delete 0.1 s1
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,delete 0.1 s1
+MPA_WorkPos,269,272.0,True,,0.88,exp_1,probe_exp_1_run_6,delete 0.1 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.1 s1
+MPA_InitPos,266,322.0,True,,0.46,exp_2_3,probe_exp_2_3_run_2,delete 0.1 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.1 s1
+MPA_InitPos,206,272.0,True,,0.41,exp_2_3,probe_exp_2_3_run_4,delete 0.1 s1
+MPA_InitPos,311,317.0,True,,0.34,exp_2_3,probe_exp_2_3_run_5,delete 0.1 s1
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,delete 0.1 s1
+MPA_InitPos,180,221.0,True,,0.56,exp_2_3,probe_exp_2_3_run_7,delete 0.1 s1
+MPA_InitPos,234,256.0,True,,0.44,exp_2_3,probe_exp_2_3_run_8,delete 0.1 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.1 s1
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,delete 0.1 s1
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.1 s1
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.1 s1
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,delete 0.1 s1
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,delete 0.1 s1
+MPA_InitPos,376,419.0,True,,0.35,exp_5,probe_exp_5_run_1,delete 0.1 s1
+MPA_InitPos,296,339.0,True,,0.35,exp_5,probe_exp_5_run_2,delete 0.1 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.1 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.1 s1
+MPA_InitPos,207,220.0,True,,0.81,exp_5,probe_exp_5_run_5,delete 0.1 s1
+MPA_InitPos,194,199.0,True,,0.74,exp_5,probe_exp_5_run_6,delete 0.1 s1
+MPA_InitPos,296,340.0,True,,0.33,exp_6,probe_exp_6_run_1,delete 0.1 s1
+MPA_WorkPos,297,338.0,True,,0.6,exp_6,probe_exp_6_run_1,delete 0.1 s1
+MPA_InitPos,302,344.0,True,,0.35,exp_6,probe_exp_6_run_2,delete 0.1 s1
+MPA_WorkPos,302,342.0,True,,0.53,exp_6,probe_exp_6_run_2,delete 0.1 s1
+MPA_InitPos,311,354.0,True,,0.33,exp_6,probe_exp_6_run_3,delete 0.1 s1
+MPA_WorkPos,311,352.0,True,,0.6,exp_6,probe_exp_6_run_3,delete 0.1 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s1
+MPA_InitPos,201,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.1 s1
+MPA_WorkPos,203,252.0,True,,0.97,exp_7,probe_exp_7_run_2,delete 0.1 s1
+MPA_InitPos,136,203.0,True,,0.48,exp_7,probe_exp_7_run_3,delete 0.1 s1
+MPA_WorkPos,138,203.0,True,,0.97,exp_7,probe_exp_7_run_3,delete 0.1 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s1
+MPA_InitPos,201,277.0,True,,0.5,exp_7,probe_exp_7_run_5,delete 0.1 s1
+MPA_WorkPos,203,276.0,True,,0.92,exp_7,probe_exp_7_run_5,delete 0.1 s1
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,delete 0.1 s2
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,delete 0.1 s2
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,delete 0.1 s2
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,delete 0.1 s2
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,delete 0.1 s2
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,delete 0.1 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.1 s2
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.1 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.1 s2
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.1 s2
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.1 s2
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.1 s2
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.1 s2
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.1 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.1 s2
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,delete 0.1 s2
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.1 s2
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,delete 0.1 s2
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,delete 0.1 s2
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,delete 0.1 s2
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.1 s2
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.1 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.1 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.1 s2
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.1 s2
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.1 s2
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.1 s2
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,delete 0.1 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.1 s2
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.1 s2
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.1 s2
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,delete 0.1 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s2
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.1 s2
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.1 s2
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.1 s2
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.1 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s2
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.1 s2
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.1 s2
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,delete 0.1 s3
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,delete 0.1 s3
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,delete 0.1 s3
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,delete 0.1 s3
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,delete 0.1 s3
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,delete 0.1 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.1 s3
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.1 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.1 s3
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.1 s3
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.1 s3
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.1 s3
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.1 s3
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.1 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.1 s3
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,delete 0.1 s3
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.1 s3
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,delete 0.1 s3
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,delete 0.1 s3
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,delete 0.1 s3
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.1 s3
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.1 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.1 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.1 s3
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.1 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.1 s3
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.1 s3
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,delete 0.1 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.1 s3
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.1 s3
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.1 s3
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,delete 0.1 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s3
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.1 s3
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.1 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.1 s3
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.1 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.1 s3
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.1 s3
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.1 s4
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.1 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.1 s4
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.1 s4
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.1 s4
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.1 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.1 s4
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.1 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.1 s4
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.1 s4
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.1 s4
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.1 s4
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.1 s4
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.1 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.1 s4
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.1 s4
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.1 s4
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.1 s4
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.1 s4
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.1 s4
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.1 s4
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.1 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.1 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.1 s4
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.1 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.1 s4
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.1 s4
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.1 s4
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.1 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.1 s4
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.1 s4
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.1 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.1 s4
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.1 s4
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.1 s4
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.1 s4
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.1 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.1 s4
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.1 s4
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.1 s4
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.25 s0
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.25 s0
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.25 s0
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.25 s0
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.25 s0
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.25 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.25 s0
+MPA_InitPos,266,322.0,True,,0.46,exp_2_3,probe_exp_2_3_run_2,delete 0.25 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.25 s0
+MPA_InitPos,206,272.0,True,,0.41,exp_2_3,probe_exp_2_3_run_4,delete 0.25 s0
+MPA_InitPos,311,317.0,True,,0.34,exp_2_3,probe_exp_2_3_run_5,delete 0.25 s0
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,delete 0.25 s0
+MPA_InitPos,180,221.0,True,,0.56,exp_2_3,probe_exp_2_3_run_7,delete 0.25 s0
+MPA_InitPos,234,256.0,True,,0.44,exp_2_3,probe_exp_2_3_run_8,delete 0.25 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.25 s0
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.25 s0
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.25 s0
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.25 s0
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.25 s0
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.25 s0
+MPA_InitPos,376,419.0,True,,0.35,exp_5,probe_exp_5_run_1,delete 0.25 s0
+MPA_InitPos,296,339.0,True,,0.35,exp_5,probe_exp_5_run_2,delete 0.25 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.25 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.25 s0
+MPA_InitPos,207,220.0,True,,0.81,exp_5,probe_exp_5_run_5,delete 0.25 s0
+MPA_InitPos,194,199.0,True,,0.74,exp_5,probe_exp_5_run_6,delete 0.25 s0
+MPA_InitPos,296,340.0,True,,0.33,exp_6,probe_exp_6_run_1,delete 0.25 s0
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.25 s0
+MPA_InitPos,302,344.0,True,,0.35,exp_6,probe_exp_6_run_2,delete 0.25 s0
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.25 s0
+MPA_InitPos,311,354.0,True,,0.33,exp_6,probe_exp_6_run_3,delete 0.25 s0
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.25 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s0
+MPA_InitPos,201,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.25 s0
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.25 s0
+MPA_InitPos,136,203.0,True,,0.48,exp_7,probe_exp_7_run_3,delete 0.25 s0
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.25 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s0
+MPA_InitPos,201,277.0,True,,0.5,exp_7,probe_exp_7_run_5,delete 0.25 s0
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.25 s0
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.25 s1
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.25 s1
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.25 s1
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.25 s1
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.25 s1
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.25 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.25 s1
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.25 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.25 s1
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.25 s1
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.25 s1
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.25 s1
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.25 s1
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.25 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.25 s1
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.25 s1
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.25 s1
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.25 s1
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.25 s1
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.25 s1
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.25 s1
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.25 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.25 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.25 s1
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.25 s1
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.25 s1
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.25 s1
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.25 s1
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.25 s1
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.25 s1
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.25 s1
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.25 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s1
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.25 s1
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.25 s1
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.25 s1
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.25 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s1
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.25 s1
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.25 s1
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.25 s2
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.25 s2
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.25 s2
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.25 s2
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.25 s2
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.25 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.25 s2
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.25 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.25 s2
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.25 s2
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.25 s2
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.25 s2
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.25 s2
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.25 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.25 s2
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.25 s2
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.25 s2
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.25 s2
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.25 s2
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.25 s2
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.25 s2
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.25 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.25 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.25 s2
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.25 s2
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.25 s2
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.25 s2
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.25 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.25 s2
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.25 s2
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.25 s2
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.25 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s2
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.25 s2
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.25 s2
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.25 s2
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.25 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s2
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.25 s2
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.25 s2
+MPA_WorkPos,235,245.0,True,,0.9,exp_1,probe_exp_1_run_1,delete 0.25 s3
+MPA_WorkPos,269,288.0,True,,0.89,exp_1,probe_exp_1_run_2,delete 0.25 s3
+MPA_WorkPos,302,342.0,True,,0.47,exp_1,probe_exp_1_run_3,delete 0.25 s3
+MPA_WorkPos,138,142.0,True,,0.87,exp_1,probe_exp_1_run_4,delete 0.25 s3
+MPA_WorkPos,197,224.0,True,,0.9,exp_1,probe_exp_1_run_5,delete 0.25 s3
+MPA_WorkPos,269,272.0,True,,0.88,exp_1,probe_exp_1_run_6,delete 0.25 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.25 s3
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.25 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.25 s3
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.25 s3
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.25 s3
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.25 s3
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.25 s3
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.25 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.25 s3
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,delete 0.25 s3
+MPA_WorkPos,237,260.0,True,,0.42,exp_4,probe_exp_4_run_3,delete 0.25 s3
+MPA_WorkPos,309,335.0,True,,0.36,exp_4,probe_exp_4_run_4,delete 0.25 s3
+MPA_WorkPos,243,265.0,True,,0.89,exp_4,probe_exp_4_run_5,delete 0.25 s3
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,delete 0.25 s3
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.25 s3
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.25 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.25 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.25 s3
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.25 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.25 s3
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.25 s3
+MPA_WorkPos,297,338.0,True,,0.6,exp_6,probe_exp_6_run_1,delete 0.25 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.25 s3
+MPA_WorkPos,302,342.0,True,,0.47,exp_6,probe_exp_6_run_2,delete 0.25 s3
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.25 s3
+MPA_WorkPos,311,352.0,True,,0.6,exp_6,probe_exp_6_run_3,delete 0.25 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s3
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.25 s3
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.25 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.25 s3
+MPA_WorkPos,138,203.0,True,,0.97,exp_7,probe_exp_7_run_3,delete 0.25 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.25 s3
+MPA_WorkPos,203,276.0,True,,0.92,exp_7,probe_exp_7_run_5,delete 0.25 s3
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.25 s4
+MPA_WorkPos,269,288.0,True,,0.79,exp_1,probe_exp_1_run_2,delete 0.25 s4
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,delete 0.25 s4
+MPA_WorkPos,138,142.0,True,,0.82,exp_1,probe_exp_1_run_4,delete 0.25 s4
+MPA_WorkPos,197,224.0,True,,0.8,exp_1,probe_exp_1_run_5,delete 0.25 s4
+MPA_WorkPos,269,272.0,True,,0.78,exp_1,probe_exp_1_run_6,delete 0.25 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.25 s4
+MPA_InitPos,266,322.0,True,,0.46,exp_2_3,probe_exp_2_3_run_2,delete 0.25 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.25 s4
+MPA_InitPos,206,272.0,True,,0.41,exp_2_3,probe_exp_2_3_run_4,delete 0.25 s4
+MPA_InitPos,311,317.0,True,,0.34,exp_2_3,probe_exp_2_3_run_5,delete 0.25 s4
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,delete 0.25 s4
+MPA_InitPos,180,221.0,True,,0.56,exp_2_3,probe_exp_2_3_run_7,delete 0.25 s4
+MPA_InitPos,234,256.0,True,,0.44,exp_2_3,probe_exp_2_3_run_8,delete 0.25 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.25 s4
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,delete 0.25 s4
+MPA_WorkPos,237,260.0,True,,0.57,exp_4,probe_exp_4_run_3,delete 0.25 s4
+MPA_WorkPos,309,335.0,True,,0.57,exp_4,probe_exp_4_run_4,delete 0.25 s4
+MPA_WorkPos,243,265.0,True,,0.53,exp_4,probe_exp_4_run_5,delete 0.25 s4
+MPA_WorkPos,236,244.0,True,,0.97,exp_4,probe_exp_4_run_6,delete 0.25 s4
+MPA_InitPos,376,419.0,True,,0.35,exp_5,probe_exp_5_run_1,delete 0.25 s4
+MPA_InitPos,296,339.0,True,,0.35,exp_5,probe_exp_5_run_2,delete 0.25 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.25 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.25 s4
+MPA_InitPos,207,220.0,True,,0.81,exp_5,probe_exp_5_run_5,delete 0.25 s4
+MPA_InitPos,194,199.0,True,,0.74,exp_5,probe_exp_5_run_6,delete 0.25 s4
+MPA_InitPos,296,340.0,True,,0.33,exp_6,probe_exp_6_run_1,delete 0.25 s4
+MPA_WorkPos,297,338.0,True,,0.48,exp_6,probe_exp_6_run_1,delete 0.25 s4
+MPA_InitPos,302,344.0,True,,0.35,exp_6,probe_exp_6_run_2,delete 0.25 s4
+MPA_WorkPos,302,342.0,True,,0.54,exp_6,probe_exp_6_run_2,delete 0.25 s4
+MPA_InitPos,311,354.0,True,,0.33,exp_6,probe_exp_6_run_3,delete 0.25 s4
+MPA_WorkPos,311,352.0,True,,0.48,exp_6,probe_exp_6_run_3,delete 0.25 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.25 s4
+MPA_InitPos,201,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.25 s4
+MPA_WorkPos,203,252.0,True,,0.98,exp_7,probe_exp_7_run_2,delete 0.25 s4
+MPA_InitPos,136,203.0,True,,0.48,exp_7,probe_exp_7_run_3,delete 0.25 s4
+MPA_WorkPos,138,203.0,True,,0.95,exp_7,probe_exp_7_run_3,delete 0.25 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.25 s4
+MPA_InitPos,201,277.0,True,,0.5,exp_7,probe_exp_7_run_5,delete 0.25 s4
+MPA_WorkPos,203,276.0,True,,0.95,exp_7,probe_exp_7_run_5,delete 0.25 s4
+MPA_WorkPos,235,245.0,True,,0.9,exp_1,probe_exp_1_run_1,delete 0.5 s0
+MPA_WorkPos,269,288.0,True,,0.86,exp_1,probe_exp_1_run_2,delete 0.5 s0
+MPA_WorkPos,302,342.0,True,,0.59,exp_1,probe_exp_1_run_3,delete 0.5 s0
+MPA_WorkPos,138,142.0,True,,0.82,exp_1,probe_exp_1_run_4,delete 0.5 s0
+MPA_WorkPos,197,224.0,True,,0.86,exp_1,probe_exp_1_run_5,delete 0.5 s0
+MPA_WorkPos,269,272.0,True,,0.84,exp_1,probe_exp_1_run_6,delete 0.5 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.5 s0
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.5 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.5 s0
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.5 s0
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.5 s0
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.5 s0
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.5 s0
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.5 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.5 s0
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,delete 0.5 s0
+MPA_WorkPos,237,260.0,True,,0.4,exp_4,probe_exp_4_run_3,delete 0.5 s0
+MPA_WorkPos,309,335.0,True,,0.37,exp_4,probe_exp_4_run_4,delete 0.5 s0
+MPA_WorkPos,243,265.0,True,,0.87,exp_4,probe_exp_4_run_5,delete 0.5 s0
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,delete 0.5 s0
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.5 s0
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.5 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.5 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.5 s0
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.5 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.5 s0
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.5 s0
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,delete 0.5 s0
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.5 s0
+MPA_WorkPos,302,342.0,True,,0.59,exp_6,probe_exp_6_run_2,delete 0.5 s0
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.5 s0
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,delete 0.5 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s0
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.5 s0
+MPA_WorkPos,203,252.0,True,,0.98,exp_7,probe_exp_7_run_2,delete 0.5 s0
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.5 s0
+MPA_WorkPos,138,203.0,True,,0.99,exp_7,probe_exp_7_run_3,delete 0.5 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s0
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.5 s0
+MPA_WorkPos,203,276.0,True,,0.93,exp_7,probe_exp_7_run_5,delete 0.5 s0
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.5 s1
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.5 s1
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.5 s1
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.5 s1
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.5 s1
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.5 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.5 s1
+MPA_InitPos,266,322.0,True,,0.46,exp_2_3,probe_exp_2_3_run_2,delete 0.5 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.5 s1
+MPA_InitPos,206,272.0,True,,0.41,exp_2_3,probe_exp_2_3_run_4,delete 0.5 s1
+MPA_InitPos,311,317.0,True,,0.34,exp_2_3,probe_exp_2_3_run_5,delete 0.5 s1
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,delete 0.5 s1
+MPA_InitPos,180,221.0,True,,0.56,exp_2_3,probe_exp_2_3_run_7,delete 0.5 s1
+MPA_InitPos,234,256.0,True,,0.44,exp_2_3,probe_exp_2_3_run_8,delete 0.5 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.5 s1
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.5 s1
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.5 s1
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.5 s1
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.5 s1
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.5 s1
+MPA_InitPos,376,419.0,True,,0.35,exp_5,probe_exp_5_run_1,delete 0.5 s1
+MPA_InitPos,296,339.0,True,,0.35,exp_5,probe_exp_5_run_2,delete 0.5 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.5 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.5 s1
+MPA_InitPos,207,220.0,True,,0.81,exp_5,probe_exp_5_run_5,delete 0.5 s1
+MPA_InitPos,194,199.0,True,,0.74,exp_5,probe_exp_5_run_6,delete 0.5 s1
+MPA_InitPos,296,340.0,True,,0.33,exp_6,probe_exp_6_run_1,delete 0.5 s1
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.5 s1
+MPA_InitPos,302,344.0,True,,0.35,exp_6,probe_exp_6_run_2,delete 0.5 s1
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.5 s1
+MPA_InitPos,311,354.0,True,,0.33,exp_6,probe_exp_6_run_3,delete 0.5 s1
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.5 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s1
+MPA_InitPos,201,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.5 s1
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.5 s1
+MPA_InitPos,136,203.0,True,,0.48,exp_7,probe_exp_7_run_3,delete 0.5 s1
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.5 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s1
+MPA_InitPos,201,277.0,True,,0.5,exp_7,probe_exp_7_run_5,delete 0.5 s1
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.5 s1
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.5 s2
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.5 s2
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.5 s2
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.5 s2
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.5 s2
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.5 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.5 s2
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.5 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.5 s2
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.5 s2
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.5 s2
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.5 s2
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.5 s2
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.5 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.5 s2
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.5 s2
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.5 s2
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.5 s2
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.5 s2
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.5 s2
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.5 s2
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.5 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.5 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.5 s2
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.5 s2
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.5 s2
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.5 s2
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.5 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.5 s2
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.5 s2
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.5 s2
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.5 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s2
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.5 s2
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.5 s2
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.5 s2
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.5 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s2
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.5 s2
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.5 s2
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.5 s3
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.5 s3
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.5 s3
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.5 s3
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.5 s3
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.5 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.5 s3
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.5 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.5 s3
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.5 s3
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.5 s3
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.5 s3
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.5 s3
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.5 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.5 s3
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.5 s3
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.5 s3
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.5 s3
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.5 s3
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.5 s3
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.5 s3
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.5 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.5 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.5 s3
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.5 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.5 s3
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.5 s3
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.5 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.5 s3
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.5 s3
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.5 s3
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.5 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s3
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.5 s3
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.5 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.5 s3
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.5 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.5 s3
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.5 s3
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,delete 0.5 s4
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,delete 0.5 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,delete 0.5 s4
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,delete 0.5 s4
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,delete 0.5 s4
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,delete 0.5 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,delete 0.5 s4
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,delete 0.5 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,delete 0.5 s4
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,delete 0.5 s4
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,delete 0.5 s4
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,delete 0.5 s4
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,delete 0.5 s4
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,delete 0.5 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,delete 0.5 s4
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,delete 0.5 s4
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,delete 0.5 s4
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,delete 0.5 s4
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,delete 0.5 s4
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,delete 0.5 s4
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,delete 0.5 s4
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,delete 0.5 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,delete 0.5 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,delete 0.5 s4
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,delete 0.5 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,delete 0.5 s4
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,delete 0.5 s4
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,delete 0.5 s4
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,delete 0.5 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,delete 0.5 s4
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,delete 0.5 s4
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,delete 0.5 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,delete 0.5 s4
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,delete 0.5 s4
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,delete 0.5 s4
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,delete 0.5 s4
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,delete 0.5 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,delete 0.5 s4
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,delete 0.5 s4
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,delete 0.5 s4
+MPA_WorkPos,235,245.0,True,,0.86,exp_1,probe_exp_1_run_1,insert 0.1 s0
+MPA_WorkPos,269,288.0,True,,0.86,exp_1,probe_exp_1_run_2,insert 0.1 s0
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.1 s0
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.1 s0
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,insert 0.1 s0
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,insert 0.1 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.1 s0
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.1 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.1 s0
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.1 s0
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.1 s0
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.1 s0
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.1 s0
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.1 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.1 s0
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.1 s0
+MPA_WorkPos,237,260.0,True,,0.47,exp_4,probe_exp_4_run_3,insert 0.1 s0
+MPA_WorkPos,309,335.0,True,,0.42,exp_4,probe_exp_4_run_4,insert 0.1 s0
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.1 s0
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.1 s0
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.1 s0
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.1 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.1 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.1 s0
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.1 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.1 s0
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.1 s0
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.1 s0
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s0
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s0
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.1 s0
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.1 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s0
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s0
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s0
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s0
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s0
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s0
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s0
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,insert 0.1 s1
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,insert 0.1 s1
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.1 s1
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.1 s1
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,insert 0.1 s1
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,insert 0.1 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.1 s1
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.1 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.1 s1
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.1 s1
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.1 s1
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.1 s1
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.1 s1
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.1 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.1 s1
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.1 s1
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.1 s1
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,insert 0.1 s1
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.1 s1
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.1 s1
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.1 s1
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.1 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.1 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.1 s1
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.1 s1
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.1 s1
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.1 s1
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.1 s1
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s1
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s1
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.1 s1
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.1 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s1
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s1
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s1
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s1
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s1
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s1
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s1
+MPA_WorkPos,235,245.0,True,,0.86,exp_1,probe_exp_1_run_1,insert 0.1 s2
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,insert 0.1 s2
+MPA_WorkPos,302,342.0,True,,0.53,exp_1,probe_exp_1_run_3,insert 0.1 s2
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.1 s2
+MPA_WorkPos,197,224.0,True,,0.9,exp_1,probe_exp_1_run_5,insert 0.1 s2
+MPA_WorkPos,269,272.0,True,,0.85,exp_1,probe_exp_1_run_6,insert 0.1 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.1 s2
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.1 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.1 s2
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.1 s2
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.1 s2
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.1 s2
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.1 s2
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.1 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.1 s2
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.1 s2
+MPA_WorkPos,237,260.0,True,,0.48,exp_4,probe_exp_4_run_3,insert 0.1 s2
+MPA_WorkPos,309,335.0,True,,0.42,exp_4,probe_exp_4_run_4,insert 0.1 s2
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.1 s2
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.1 s2
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.1 s2
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.1 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.1 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.1 s2
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.1 s2
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.1 s2
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.1 s2
+MPA_WorkPos,297,338.0,True,,0.53,exp_6,probe_exp_6_run_1,insert 0.1 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s2
+MPA_WorkPos,302,342.0,True,,0.51,exp_6,probe_exp_6_run_2,insert 0.1 s2
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.1 s2
+MPA_WorkPos,311,352.0,True,,0.53,exp_6,probe_exp_6_run_3,insert 0.1 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s2
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s2
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s2
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s2
+MPA_WorkPos,138,203.0,True,,0.95,exp_7,probe_exp_7_run_3,insert 0.1 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s2
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s2
+MPA_WorkPos,203,276.0,True,,0.92,exp_7,probe_exp_7_run_5,insert 0.1 s2
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,insert 0.1 s3
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,insert 0.1 s3
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.1 s3
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.1 s3
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,insert 0.1 s3
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,insert 0.1 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.1 s3
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.1 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.1 s3
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.1 s3
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.1 s3
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.1 s3
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.1 s3
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.1 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.1 s3
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.1 s3
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.1 s3
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,insert 0.1 s3
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.1 s3
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.1 s3
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.1 s3
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.1 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.1 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.1 s3
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.1 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.1 s3
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.1 s3
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.1 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s3
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s3
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.1 s3
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.1 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s3
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s3
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s3
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s3
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s3
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,insert 0.1 s4
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,insert 0.1 s4
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.1 s4
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.1 s4
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,insert 0.1 s4
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,insert 0.1 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.1 s4
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.1 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.1 s4
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.1 s4
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.1 s4
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.1 s4
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.1 s4
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.1 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.1 s4
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.1 s4
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.1 s4
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,insert 0.1 s4
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.1 s4
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.1 s4
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.1 s4
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.1 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.1 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.1 s4
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.1 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.1 s4
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.1 s4
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.1 s4
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s4
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.1 s4
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.1 s4
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.1 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.1 s4
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s4
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.1 s4
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s4
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.1 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.1 s4
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s4
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.1 s4
+MPA_WorkPos,235,245.0,True,,0.86,exp_1,probe_exp_1_run_1,insert 0.25 s0
+MPA_WorkPos,269,288.0,True,,0.86,exp_1,probe_exp_1_run_2,insert 0.25 s0
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.25 s0
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.25 s0
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,insert 0.25 s0
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,insert 0.25 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.25 s0
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.25 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.25 s0
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.25 s0
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.25 s0
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.25 s0
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.25 s0
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.25 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.25 s0
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.25 s0
+MPA_WorkPos,237,260.0,True,,0.47,exp_4,probe_exp_4_run_3,insert 0.25 s0
+MPA_WorkPos,309,335.0,True,,0.42,exp_4,probe_exp_4_run_4,insert 0.25 s0
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.25 s0
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.25 s0
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.25 s0
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.25 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.25 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.25 s0
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.25 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.25 s0
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.25 s0
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.25 s0
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s0
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s0
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.25 s0
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.25 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s0
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s0
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s0
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s0
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s0
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s0
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s0
+MPA_WorkPos,235,245.0,True,,0.85,exp_1,probe_exp_1_run_1,insert 0.25 s1
+MPA_WorkPos,269,288.0,True,,0.86,exp_1,probe_exp_1_run_2,insert 0.25 s1
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.25 s1
+MPA_WorkPos,138,142.0,True,,0.9,exp_1,probe_exp_1_run_4,insert 0.25 s1
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,insert 0.25 s1
+MPA_WorkPos,269,272.0,True,,0.85,exp_1,probe_exp_1_run_6,insert 0.25 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.25 s1
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.25 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.25 s1
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.25 s1
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.25 s1
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.25 s1
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.25 s1
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.25 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.25 s1
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,insert 0.25 s1
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.25 s1
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,insert 0.25 s1
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.25 s1
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.25 s1
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.25 s1
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.25 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.25 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.25 s1
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.25 s1
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.25 s1
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.25 s1
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.25 s1
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s1
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s1
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.25 s1
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.25 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s1
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s1
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s1
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s1
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s1
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s1
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s1
+MPA_WorkPos,235,245.0,True,,0.83,exp_1,probe_exp_1_run_1,insert 0.25 s2
+MPA_WorkPos,269,288.0,True,,0.85,exp_1,probe_exp_1_run_2,insert 0.25 s2
+MPA_WorkPos,302,342.0,True,,0.37,exp_1,probe_exp_1_run_3,insert 0.25 s2
+MPA_WorkPos,138,142.0,True,,0.87,exp_1,probe_exp_1_run_4,insert 0.25 s2
+MPA_WorkPos,197,224.0,True,,0.81,exp_1,probe_exp_1_run_5,insert 0.25 s2
+MPA_WorkPos,269,272.0,True,,0.81,exp_1,probe_exp_1_run_6,insert 0.25 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.25 s2
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.25 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.25 s2
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.25 s2
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.25 s2
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.25 s2
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.25 s2
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.25 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.25 s2
+MPA_WorkPos,243,248.0,True,,0.99,exp_4,probe_exp_4_run_2,insert 0.25 s2
+MPA_WorkPos,237,260.0,True,,0.43,exp_4,probe_exp_4_run_3,insert 0.25 s2
+MPA_WorkPos,309,335.0,True,,0.39,exp_4,probe_exp_4_run_4,insert 0.25 s2
+MPA_WorkPos,243,265.0,True,,0.86,exp_4,probe_exp_4_run_5,insert 0.25 s2
+MPA_WorkPos,236,244.0,True,,0.95,exp_4,probe_exp_4_run_6,insert 0.25 s2
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.25 s2
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.25 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.25 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.25 s2
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.25 s2
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.25 s2
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.25 s2
+MPA_WorkPos,297,338.0,True,,0.49,exp_6,probe_exp_6_run_1,insert 0.25 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s2
+MPA_WorkPos,302,342.0,True,,0.46,exp_6,probe_exp_6_run_2,insert 0.25 s2
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.25 s2
+MPA_WorkPos,311,352.0,True,,0.49,exp_6,probe_exp_6_run_3,insert 0.25 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s2
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s2
+MPA_WorkPos,203,252.0,True,,0.76,exp_7,probe_exp_7_run_2,insert 0.25 s2
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s2
+MPA_WorkPos,138,203.0,True,,0.8,exp_7,probe_exp_7_run_3,insert 0.25 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s2
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s2
+MPA_WorkPos,203,276.0,True,,0.89,exp_7,probe_exp_7_run_5,insert 0.25 s2
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,insert 0.25 s3
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,insert 0.25 s3
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.25 s3
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.25 s3
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,insert 0.25 s3
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,insert 0.25 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.25 s3
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.25 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.25 s3
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.25 s3
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.25 s3
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.25 s3
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.25 s3
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.25 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.25 s3
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.25 s3
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.25 s3
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,insert 0.25 s3
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.25 s3
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.25 s3
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.25 s3
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.25 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.25 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.25 s3
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.25 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.25 s3
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.25 s3
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.25 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s3
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s3
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.25 s3
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.25 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s3
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s3
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s3
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s3
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s3
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,insert 0.25 s4
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,insert 0.25 s4
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.25 s4
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.25 s4
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,insert 0.25 s4
+MPA_WorkPos,269,272.0,True,,0.87,exp_1,probe_exp_1_run_6,insert 0.25 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.25 s4
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.25 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.25 s4
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.25 s4
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.25 s4
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.25 s4
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.25 s4
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.25 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.25 s4
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.25 s4
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.25 s4
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,insert 0.25 s4
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.25 s4
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.25 s4
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.25 s4
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.25 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.25 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.25 s4
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.25 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.25 s4
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.25 s4
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.25 s4
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s4
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.25 s4
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.25 s4
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.25 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.25 s4
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s4
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.25 s4
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s4
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.25 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.25 s4
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s4
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.25 s4
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,insert 0.5 s0
+MPA_WorkPos,269,288.0,True,,0.86,exp_1,probe_exp_1_run_2,insert 0.5 s0
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.5 s0
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.5 s0
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,insert 0.5 s0
+MPA_WorkPos,269,272.0,True,,0.86,exp_1,probe_exp_1_run_6,insert 0.5 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.5 s0
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.5 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.5 s0
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.5 s0
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.5 s0
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.5 s0
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.5 s0
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.5 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.5 s0
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.5 s0
+MPA_WorkPos,237,260.0,True,,0.47,exp_4,probe_exp_4_run_3,insert 0.5 s0
+MPA_WorkPos,309,335.0,True,,0.42,exp_4,probe_exp_4_run_4,insert 0.5 s0
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.5 s0
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.5 s0
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.5 s0
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.5 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.5 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.5 s0
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.5 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.5 s0
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.5 s0
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,insert 0.5 s0
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.5 s0
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.5 s0
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.5 s0
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,insert 0.5 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s0
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s0
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s0
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s0
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s0
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s0
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s0
+MPA_WorkPos,235,245.0,True,,0.85,exp_1,probe_exp_1_run_1,insert 0.5 s1
+MPA_WorkPos,269,288.0,True,,0.85,exp_1,probe_exp_1_run_2,insert 0.5 s1
+MPA_WorkPos,302,342.0,True,,0.54,exp_1,probe_exp_1_run_3,insert 0.5 s1
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.5 s1
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,insert 0.5 s1
+MPA_WorkPos,269,272.0,True,,0.85,exp_1,probe_exp_1_run_6,insert 0.5 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.5 s1
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.5 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.5 s1
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.5 s1
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.5 s1
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.5 s1
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.5 s1
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.5 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.5 s1
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,insert 0.5 s1
+MPA_WorkPos,237,260.0,True,,0.46,exp_4,probe_exp_4_run_3,insert 0.5 s1
+MPA_WorkPos,309,335.0,True,,0.45,exp_4,probe_exp_4_run_4,insert 0.5 s1
+MPA_WorkPos,243,265.0,True,,0.87,exp_4,probe_exp_4_run_5,insert 0.5 s1
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.5 s1
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.5 s1
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.5 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.5 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.5 s1
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.5 s1
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.5 s1
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.5 s1
+MPA_WorkPos,297,338.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.5 s1
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.5 s1
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.5 s1
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.5 s1
+MPA_WorkPos,311,352.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.5 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s1
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s1
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s1
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s1
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s1
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s1
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s1
+MPA_WorkPos,235,245.0,True,,0.83,exp_1,probe_exp_1_run_1,insert 0.5 s2
+MPA_WorkPos,269,288.0,True,,0.85,exp_1,probe_exp_1_run_2,insert 0.5 s2
+MPA_WorkPos,302,342.0,True,,0.37,exp_1,probe_exp_1_run_3,insert 0.5 s2
+MPA_WorkPos,138,142.0,True,,0.87,exp_1,probe_exp_1_run_4,insert 0.5 s2
+MPA_WorkPos,197,224.0,True,,0.81,exp_1,probe_exp_1_run_5,insert 0.5 s2
+MPA_WorkPos,269,272.0,True,,0.81,exp_1,probe_exp_1_run_6,insert 0.5 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.5 s2
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.5 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.5 s2
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.5 s2
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.5 s2
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.5 s2
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.5 s2
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.5 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.5 s2
+MPA_WorkPos,243,248.0,True,,0.99,exp_4,probe_exp_4_run_2,insert 0.5 s2
+MPA_WorkPos,237,260.0,True,,0.43,exp_4,probe_exp_4_run_3,insert 0.5 s2
+MPA_WorkPos,309,335.0,True,,0.39,exp_4,probe_exp_4_run_4,insert 0.5 s2
+MPA_WorkPos,243,265.0,True,,0.86,exp_4,probe_exp_4_run_5,insert 0.5 s2
+MPA_WorkPos,236,244.0,True,,0.95,exp_4,probe_exp_4_run_6,insert 0.5 s2
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.5 s2
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.5 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.5 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.5 s2
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.5 s2
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.5 s2
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.5 s2
+MPA_WorkPos,297,338.0,True,,0.49,exp_6,probe_exp_6_run_1,insert 0.5 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.5 s2
+MPA_WorkPos,302,342.0,True,,0.46,exp_6,probe_exp_6_run_2,insert 0.5 s2
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.5 s2
+MPA_WorkPos,311,352.0,True,,0.49,exp_6,probe_exp_6_run_3,insert 0.5 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s2
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s2
+MPA_WorkPos,203,252.0,True,,0.76,exp_7,probe_exp_7_run_2,insert 0.5 s2
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s2
+MPA_WorkPos,138,203.0,True,,0.8,exp_7,probe_exp_7_run_3,insert 0.5 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s2
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s2
+MPA_WorkPos,203,276.0,True,,0.89,exp_7,probe_exp_7_run_5,insert 0.5 s2
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,insert 0.5 s3
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,insert 0.5 s3
+MPA_WorkPos,302,342.0,True,,0.53,exp_1,probe_exp_1_run_3,insert 0.5 s3
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,insert 0.5 s3
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,insert 0.5 s3
+MPA_WorkPos,269,272.0,True,,0.85,exp_1,probe_exp_1_run_6,insert 0.5 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.5 s3
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.5 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.5 s3
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.5 s3
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.5 s3
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.5 s3
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.5 s3
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.5 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.5 s3
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,insert 0.5 s3
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.5 s3
+MPA_WorkPos,309,335.0,True,,0.4,exp_4,probe_exp_4_run_4,insert 0.5 s3
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,insert 0.5 s3
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.5 s3
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.5 s3
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.5 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.5 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.5 s3
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.5 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.5 s3
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.5 s3
+MPA_WorkPos,297,338.0,True,,0.53,exp_6,probe_exp_6_run_1,insert 0.5 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.5 s3
+MPA_WorkPos,302,342.0,True,,0.51,exp_6,probe_exp_6_run_2,insert 0.5 s3
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.5 s3
+MPA_WorkPos,311,352.0,True,,0.53,exp_6,probe_exp_6_run_3,insert 0.5 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s3
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s3
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s3
+MPA_WorkPos,138,203.0,True,,0.95,exp_7,probe_exp_7_run_3,insert 0.5 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s3
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s3
+MPA_WorkPos,235,245.0,True,,0.84,exp_1,probe_exp_1_run_1,insert 0.5 s4
+MPA_WorkPos,269,288.0,True,,0.84,exp_1,probe_exp_1_run_2,insert 0.5 s4
+MPA_WorkPos,302,342.0,True,,0.51,exp_1,probe_exp_1_run_3,insert 0.5 s4
+MPA_WorkPos,138,142.0,True,,0.86,exp_1,probe_exp_1_run_4,insert 0.5 s4
+MPA_WorkPos,197,224.0,True,,0.88,exp_1,probe_exp_1_run_5,insert 0.5 s4
+MPA_WorkPos,269,272.0,True,,0.85,exp_1,probe_exp_1_run_6,insert 0.5 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,insert 0.5 s4
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,insert 0.5 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,insert 0.5 s4
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,insert 0.5 s4
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,insert 0.5 s4
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,insert 0.5 s4
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,insert 0.5 s4
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,insert 0.5 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,insert 0.5 s4
+MPA_WorkPos,243,248.0,True,,0.99,exp_4,probe_exp_4_run_2,insert 0.5 s4
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,insert 0.5 s4
+MPA_WorkPos,309,335.0,True,,0.43,exp_4,probe_exp_4_run_4,insert 0.5 s4
+MPA_WorkPos,243,265.0,True,,0.87,exp_4,probe_exp_4_run_5,insert 0.5 s4
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,insert 0.5 s4
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,insert 0.5 s4
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,insert 0.5 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,insert 0.5 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,insert 0.5 s4
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,insert 0.5 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,insert 0.5 s4
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,insert 0.5 s4
+MPA_WorkPos,297,338.0,True,,0.56,exp_6,probe_exp_6_run_1,insert 0.5 s4
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,insert 0.5 s4
+MPA_WorkPos,302,342.0,True,,0.5,exp_6,probe_exp_6_run_2,insert 0.5 s4
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,insert 0.5 s4
+MPA_WorkPos,311,352.0,True,,0.56,exp_6,probe_exp_6_run_3,insert 0.5 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,insert 0.5 s4
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s4
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,insert 0.5 s4
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s4
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,insert 0.5 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,insert 0.5 s4
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s4
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,insert 0.5 s4
+MPA_WorkPos,235,245.0,True,,0.91,exp_1,probe_exp_1_run_1,reverse 0.1 s0
+MPA_WorkPos,269,288.0,True,,0.83,exp_1,probe_exp_1_run_2,reverse 0.1 s0
+MPA_WorkPos,302,342.0,True,,0.5,exp_1,probe_exp_1_run_3,reverse 0.1 s0
+MPA_WorkPos,138,142.0,True,,0.88,exp_1,probe_exp_1_run_4,reverse 0.1 s0
+MPA_WorkPos,197,224.0,True,,0.9,exp_1,probe_exp_1_run_5,reverse 0.1 s0
+MPA_WorkPos,269,272.0,True,,0.88,exp_1,probe_exp_1_run_6,reverse 0.1 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.1 s0
+MPA_InitPos,266,322.0,True,,0.92,exp_2_3,probe_exp_2_3_run_2,reverse 0.1 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.1 s0
+MPA_InitPos,206,272.0,True,,0.93,exp_2_3,probe_exp_2_3_run_4,reverse 0.1 s0
+MPA_InitPos,311,317.0,True,,0.81,exp_2_3,probe_exp_2_3_run_5,reverse 0.1 s0
+MPA_InitPos,238,249.0,True,,0.82,exp_2_3,probe_exp_2_3_run_6,reverse 0.1 s0
+MPA_InitPos,180,221.0,True,,0.98,exp_2_3,probe_exp_2_3_run_7,reverse 0.1 s0
+MPA_InitPos,234,256.0,True,,0.8,exp_2_3,probe_exp_2_3_run_8,reverse 0.1 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.1 s0
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,reverse 0.1 s0
+MPA_WorkPos,237,260.0,True,,0.41,exp_4,probe_exp_4_run_3,reverse 0.1 s0
+MPA_WorkPos,309,335.0,True,,0.45,exp_4,probe_exp_4_run_4,reverse 0.1 s0
+MPA_WorkPos,243,265.0,True,,0.89,exp_4,probe_exp_4_run_5,reverse 0.1 s0
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,reverse 0.1 s0
+MPA_InitPos,376,419.0,True,,0.64,exp_5,probe_exp_5_run_1,reverse 0.1 s0
+MPA_InitPos,296,339.0,True,,0.64,exp_5,probe_exp_5_run_2,reverse 0.1 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.1 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.1 s0
+MPA_InitPos,207,220.0,True,,0.99,exp_5,probe_exp_5_run_5,reverse 0.1 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.1 s0
+MPA_InitPos,296,340.0,True,,0.6,exp_6,probe_exp_6_run_1,reverse 0.1 s0
+MPA_WorkPos,297,338.0,True,,0.57,exp_6,probe_exp_6_run_1,reverse 0.1 s0
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,reverse 0.1 s0
+MPA_WorkPos,302,342.0,True,,0.5,exp_6,probe_exp_6_run_2,reverse 0.1 s0
+MPA_InitPos,311,354.0,True,,0.6,exp_6,probe_exp_6_run_3,reverse 0.1 s0
+MPA_WorkPos,311,352.0,True,,0.57,exp_6,probe_exp_6_run_3,reverse 0.1 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s0
+MPA_InitPos,201,252.0,True,,0.94,exp_7,probe_exp_7_run_2,reverse 0.1 s0
+MPA_WorkPos,203,252.0,True,,0.97,exp_7,probe_exp_7_run_2,reverse 0.1 s0
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.1 s0
+MPA_WorkPos,138,203.0,True,,0.96,exp_7,probe_exp_7_run_3,reverse 0.1 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s0
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,reverse 0.1 s0
+MPA_WorkPos,203,276.0,True,,0.89,exp_7,probe_exp_7_run_5,reverse 0.1 s0
+MPA_WorkPos,235,245.0,True,,0.81,exp_1,probe_exp_1_run_1,reverse 0.1 s1
+MPA_WorkPos,269,288.0,True,,0.87,exp_1,probe_exp_1_run_2,reverse 0.1 s1
+MPA_WorkPos,302,342.0,True,,0.49,exp_1,probe_exp_1_run_3,reverse 0.1 s1
+MPA_WorkPos,138,142.0,True,,0.85,exp_1,probe_exp_1_run_4,reverse 0.1 s1
+MPA_WorkPos,197,224.0,True,,0.91,exp_1,probe_exp_1_run_5,reverse 0.1 s1
+MPA_WorkPos,269,272.0,True,,0.88,exp_1,probe_exp_1_run_6,reverse 0.1 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.1 s1
+MPA_InitPos,266,322.0,True,,0.46,exp_2_3,probe_exp_2_3_run_2,reverse 0.1 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.1 s1
+MPA_InitPos,206,272.0,True,,0.41,exp_2_3,probe_exp_2_3_run_4,reverse 0.1 s1
+MPA_InitPos,311,317.0,True,,0.34,exp_2_3,probe_exp_2_3_run_5,reverse 0.1 s1
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,reverse 0.1 s1
+MPA_InitPos,180,221.0,True,,0.56,exp_2_3,probe_exp_2_3_run_7,reverse 0.1 s1
+MPA_InitPos,234,256.0,True,,0.44,exp_2_3,probe_exp_2_3_run_8,reverse 0.1 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.1 s1
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,reverse 0.1 s1
+MPA_WorkPos,237,260.0,True,,0.66,exp_4,probe_exp_4_run_3,reverse 0.1 s1
+MPA_WorkPos,309,335.0,True,,0.72,exp_4,probe_exp_4_run_4,reverse 0.1 s1
+MPA_WorkPos,243,265.0,True,,0.97,exp_4,probe_exp_4_run_5,reverse 0.1 s1
+MPA_WorkPos,236,244.0,True,,0.98,exp_4,probe_exp_4_run_6,reverse 0.1 s1
+MPA_InitPos,376,419.0,True,,0.35,exp_5,probe_exp_5_run_1,reverse 0.1 s1
+MPA_InitPos,296,339.0,True,,0.35,exp_5,probe_exp_5_run_2,reverse 0.1 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.1 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.1 s1
+MPA_InitPos,207,220.0,True,,0.81,exp_5,probe_exp_5_run_5,reverse 0.1 s1
+MPA_InitPos,194,199.0,True,,0.74,exp_5,probe_exp_5_run_6,reverse 0.1 s1
+MPA_InitPos,296,340.0,True,,0.33,exp_6,probe_exp_6_run_1,reverse 0.1 s1
+MPA_WorkPos,297,338.0,True,,0.48,exp_6,probe_exp_6_run_1,reverse 0.1 s1
+MPA_InitPos,302,344.0,True,,0.35,exp_6,probe_exp_6_run_2,reverse 0.1 s1
+MPA_WorkPos,302,342.0,True,,0.5,exp_6,probe_exp_6_run_2,reverse 0.1 s1
+MPA_InitPos,311,354.0,True,,0.33,exp_6,probe_exp_6_run_3,reverse 0.1 s1
+MPA_WorkPos,311,352.0,True,,0.48,exp_6,probe_exp_6_run_3,reverse 0.1 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s1
+MPA_InitPos,201,252.0,True,,0.54,exp_7,probe_exp_7_run_2,reverse 0.1 s1
+MPA_WorkPos,203,252.0,True,,0.59,exp_7,probe_exp_7_run_2,reverse 0.1 s1
+MPA_InitPos,136,203.0,True,,0.48,exp_7,probe_exp_7_run_3,reverse 0.1 s1
+MPA_WorkPos,138,203.0,True,,0.76,exp_7,probe_exp_7_run_3,reverse 0.1 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s1
+MPA_InitPos,201,277.0,True,,0.5,exp_7,probe_exp_7_run_5,reverse 0.1 s1
+MPA_WorkPos,203,276.0,True,,0.66,exp_7,probe_exp_7_run_5,reverse 0.1 s1
+MPA_WorkPos,235,245.0,True,,0.78,exp_1,probe_exp_1_run_1,reverse 0.1 s2
+MPA_WorkPos,269,288.0,True,,0.83,exp_1,probe_exp_1_run_2,reverse 0.1 s2
+MPA_WorkPos,302,342.0,True,,0.52,exp_1,probe_exp_1_run_3,reverse 0.1 s2
+MPA_WorkPos,138,142.0,True,,0.79,exp_1,probe_exp_1_run_4,reverse 0.1 s2
+MPA_WorkPos,197,224.0,True,,0.92,exp_1,probe_exp_1_run_5,reverse 0.1 s2
+MPA_WorkPos,269,272.0,True,,0.86,exp_1,probe_exp_1_run_6,reverse 0.1 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.1 s2
+MPA_InitPos,266,322.0,True,,0.46,exp_2_3,probe_exp_2_3_run_2,reverse 0.1 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.1 s2
+MPA_InitPos,206,272.0,True,,0.41,exp_2_3,probe_exp_2_3_run_4,reverse 0.1 s2
+MPA_InitPos,311,317.0,True,,0.34,exp_2_3,probe_exp_2_3_run_5,reverse 0.1 s2
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,reverse 0.1 s2
+MPA_InitPos,180,221.0,True,,0.56,exp_2_3,probe_exp_2_3_run_7,reverse 0.1 s2
+MPA_InitPos,234,256.0,True,,0.44,exp_2_3,probe_exp_2_3_run_8,reverse 0.1 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.1 s2
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,reverse 0.1 s2
+MPA_WorkPos,237,260.0,True,,0.68,exp_4,probe_exp_4_run_3,reverse 0.1 s2
+MPA_WorkPos,309,335.0,True,,0.73,exp_4,probe_exp_4_run_4,reverse 0.1 s2
+MPA_WorkPos,243,265.0,True,,0.98,exp_4,probe_exp_4_run_5,reverse 0.1 s2
+MPA_WorkPos,236,244.0,True,,0.98,exp_4,probe_exp_4_run_6,reverse 0.1 s2
+MPA_InitPos,376,419.0,True,,0.35,exp_5,probe_exp_5_run_1,reverse 0.1 s2
+MPA_InitPos,296,339.0,True,,0.35,exp_5,probe_exp_5_run_2,reverse 0.1 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.1 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.1 s2
+MPA_InitPos,207,220.0,True,,0.81,exp_5,probe_exp_5_run_5,reverse 0.1 s2
+MPA_InitPos,194,199.0,True,,0.74,exp_5,probe_exp_5_run_6,reverse 0.1 s2
+MPA_InitPos,296,340.0,True,,0.33,exp_6,probe_exp_6_run_1,reverse 0.1 s2
+MPA_WorkPos,297,338.0,True,,0.59,exp_6,probe_exp_6_run_1,reverse 0.1 s2
+MPA_InitPos,302,344.0,True,,0.35,exp_6,probe_exp_6_run_2,reverse 0.1 s2
+MPA_WorkPos,302,342.0,True,,0.53,exp_6,probe_exp_6_run_2,reverse 0.1 s2
+MPA_InitPos,311,354.0,True,,0.33,exp_6,probe_exp_6_run_3,reverse 0.1 s2
+MPA_WorkPos,311,352.0,True,,0.59,exp_6,probe_exp_6_run_3,reverse 0.1 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s2
+MPA_InitPos,201,252.0,True,,0.54,exp_7,probe_exp_7_run_2,reverse 0.1 s2
+MPA_WorkPos,203,252.0,True,,0.59,exp_7,probe_exp_7_run_2,reverse 0.1 s2
+MPA_InitPos,136,203.0,True,,0.48,exp_7,probe_exp_7_run_3,reverse 0.1 s2
+MPA_WorkPos,138,203.0,True,,0.68,exp_7,probe_exp_7_run_3,reverse 0.1 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s2
+MPA_InitPos,201,277.0,True,,0.5,exp_7,probe_exp_7_run_5,reverse 0.1 s2
+MPA_WorkPos,203,276.0,True,,0.65,exp_7,probe_exp_7_run_5,reverse 0.1 s2
+MPA_WorkPos,235,245.0,True,,0.9,exp_1,probe_exp_1_run_1,reverse 0.1 s3
+MPA_WorkPos,269,288.0,True,,0.86,exp_1,probe_exp_1_run_2,reverse 0.1 s3
+MPA_WorkPos,302,342.0,True,,0.59,exp_1,probe_exp_1_run_3,reverse 0.1 s3
+MPA_WorkPos,138,142.0,True,,0.82,exp_1,probe_exp_1_run_4,reverse 0.1 s3
+MPA_WorkPos,197,224.0,True,,0.86,exp_1,probe_exp_1_run_5,reverse 0.1 s3
+MPA_WorkPos,269,272.0,True,,0.84,exp_1,probe_exp_1_run_6,reverse 0.1 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.1 s3
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,reverse 0.1 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.1 s3
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,reverse 0.1 s3
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,reverse 0.1 s3
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,reverse 0.1 s3
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,reverse 0.1 s3
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,reverse 0.1 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.1 s3
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,reverse 0.1 s3
+MPA_WorkPos,237,260.0,True,,0.4,exp_4,probe_exp_4_run_3,reverse 0.1 s3
+MPA_WorkPos,309,335.0,True,,0.37,exp_4,probe_exp_4_run_4,reverse 0.1 s3
+MPA_WorkPos,243,265.0,True,,0.87,exp_4,probe_exp_4_run_5,reverse 0.1 s3
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,reverse 0.1 s3
+MPA_InitPos,376,419.0,True,,0.59,exp_5,probe_exp_5_run_1,reverse 0.1 s3
+MPA_InitPos,296,339.0,True,,0.59,exp_5,probe_exp_5_run_2,reverse 0.1 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.1 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.1 s3
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,reverse 0.1 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.1 s3
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,reverse 0.1 s3
+MPA_WorkPos,297,338.0,True,,0.58,exp_6,probe_exp_6_run_1,reverse 0.1 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,reverse 0.1 s3
+MPA_WorkPos,302,342.0,True,,0.59,exp_6,probe_exp_6_run_2,reverse 0.1 s3
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,reverse 0.1 s3
+MPA_WorkPos,311,352.0,True,,0.58,exp_6,probe_exp_6_run_3,reverse 0.1 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s3
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,reverse 0.1 s3
+MPA_WorkPos,203,252.0,True,,0.98,exp_7,probe_exp_7_run_2,reverse 0.1 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.1 s3
+MPA_WorkPos,138,203.0,True,,0.99,exp_7,probe_exp_7_run_3,reverse 0.1 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,reverse 0.1 s3
+MPA_WorkPos,203,276.0,True,,0.93,exp_7,probe_exp_7_run_5,reverse 0.1 s3
+MPA_WorkPos,235,245.0,True,,0.85,exp_1,probe_exp_1_run_1,reverse 0.1 s4
+MPA_WorkPos,269,288.0,True,,0.89,exp_1,probe_exp_1_run_2,reverse 0.1 s4
+MPA_WorkPos,302,342.0,True,,0.5,exp_1,probe_exp_1_run_3,reverse 0.1 s4
+MPA_WorkPos,138,142.0,True,,0.87,exp_1,probe_exp_1_run_4,reverse 0.1 s4
+MPA_WorkPos,197,224.0,True,,0.91,exp_1,probe_exp_1_run_5,reverse 0.1 s4
+MPA_WorkPos,269,272.0,True,,0.88,exp_1,probe_exp_1_run_6,reverse 0.1 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.1 s4
+MPA_InitPos,266,322.0,True,,0.94,exp_2_3,probe_exp_2_3_run_2,reverse 0.1 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.1 s4
+MPA_InitPos,206,272.0,True,,0.92,exp_2_3,probe_exp_2_3_run_4,reverse 0.1 s4
+MPA_InitPos,311,317.0,True,,0.44,exp_2_3,probe_exp_2_3_run_5,reverse 0.1 s4
+MPA_InitPos,238,249.0,True,,0.45,exp_2_3,probe_exp_2_3_run_6,reverse 0.1 s4
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,reverse 0.1 s4
+MPA_InitPos,234,256.0,True,,0.46,exp_2_3,probe_exp_2_3_run_8,reverse 0.1 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.1 s4
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,reverse 0.1 s4
+MPA_WorkPos,237,260.0,True,,0.44,exp_4,probe_exp_4_run_3,reverse 0.1 s4
+MPA_WorkPos,309,335.0,True,,0.39,exp_4,probe_exp_4_run_4,reverse 0.1 s4
+MPA_WorkPos,243,265.0,True,,0.87,exp_4,probe_exp_4_run_5,reverse 0.1 s4
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,reverse 0.1 s4
+MPA_InitPos,376,419.0,True,,0.66,exp_5,probe_exp_5_run_1,reverse 0.1 s4
+MPA_InitPos,296,339.0,True,,0.66,exp_5,probe_exp_5_run_2,reverse 0.1 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.1 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.1 s4
+MPA_InitPos,207,220.0,True,,1.0,exp_5,probe_exp_5_run_5,reverse 0.1 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.1 s4
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,reverse 0.1 s4
+MPA_WorkPos,297,338.0,True,,0.45,exp_6,probe_exp_6_run_1,reverse 0.1 s4
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,reverse 0.1 s4
+MPA_WorkPos,302,342.0,True,,0.5,exp_6,probe_exp_6_run_2,reverse 0.1 s4
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,reverse 0.1 s4
+MPA_WorkPos,311,352.0,True,,0.45,exp_6,probe_exp_6_run_3,reverse 0.1 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.1 s4
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,reverse 0.1 s4
+MPA_WorkPos,203,252.0,True,,0.97,exp_7,probe_exp_7_run_2,reverse 0.1 s4
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.1 s4
+MPA_WorkPos,138,203.0,True,,0.97,exp_7,probe_exp_7_run_3,reverse 0.1 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.1 s4
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,reverse 0.1 s4
+MPA_WorkPos,203,276.0,True,,0.9,exp_7,probe_exp_7_run_5,reverse 0.1 s4
+MPA_WorkPos,235,245.0,True,,0.89,exp_1,probe_exp_1_run_1,reverse 0.25 s0
+MPA_WorkPos,269,288.0,True,,0.83,exp_1,probe_exp_1_run_2,reverse 0.25 s0
+MPA_WorkPos,302,342.0,True,,0.48,exp_1,probe_exp_1_run_3,reverse 0.25 s0
+MPA_WorkPos,138,142.0,True,,0.86,exp_1,probe_exp_1_run_4,reverse 0.25 s0
+MPA_WorkPos,197,224.0,True,,0.91,exp_1,probe_exp_1_run_5,reverse 0.25 s0
+MPA_WorkPos,269,272.0,True,,0.88,exp_1,probe_exp_1_run_6,reverse 0.25 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.25 s0
+MPA_InitPos,266,322.0,True,,0.95,exp_2_3,probe_exp_2_3_run_2,reverse 0.25 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.25 s0
+MPA_InitPos,206,272.0,True,,0.93,exp_2_3,probe_exp_2_3_run_4,reverse 0.25 s0
+MPA_InitPos,311,317.0,True,,0.93,exp_2_3,probe_exp_2_3_run_5,reverse 0.25 s0
+MPA_InitPos,238,249.0,True,,0.96,exp_2_3,probe_exp_2_3_run_6,reverse 0.25 s0
+MPA_InitPos,180,221.0,True,,0.98,exp_2_3,probe_exp_2_3_run_7,reverse 0.25 s0
+MPA_InitPos,234,256.0,True,,0.93,exp_2_3,probe_exp_2_3_run_8,reverse 0.25 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.25 s0
+MPA_WorkPos,243,248.0,True,,0.97,exp_4,probe_exp_4_run_2,reverse 0.25 s0
+MPA_WorkPos,237,260.0,True,,0.41,exp_4,probe_exp_4_run_3,reverse 0.25 s0
+MPA_WorkPos,309,335.0,True,,0.45,exp_4,probe_exp_4_run_4,reverse 0.25 s0
+MPA_WorkPos,243,265.0,True,,0.89,exp_4,probe_exp_4_run_5,reverse 0.25 s0
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,reverse 0.25 s0
+MPA_InitPos,376,419.0,True,,0.64,exp_5,probe_exp_5_run_1,reverse 0.25 s0
+MPA_InitPos,296,339.0,True,,0.64,exp_5,probe_exp_5_run_2,reverse 0.25 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.25 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.25 s0
+MPA_InitPos,207,220.0,True,,0.99,exp_5,probe_exp_5_run_5,reverse 0.25 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.25 s0
+MPA_InitPos,296,340.0,True,,0.63,exp_6,probe_exp_6_run_1,reverse 0.25 s0
+MPA_WorkPos,297,338.0,True,,0.46,exp_6,probe_exp_6_run_1,reverse 0.25 s0
+MPA_InitPos,302,344.0,True,,0.54,exp_6,probe_exp_6_run_2,reverse 0.25 s0
+MPA_WorkPos,302,342.0,True,,0.52,exp_6,probe_exp_6_run_2,reverse 0.25 s0
+MPA_InitPos,311,354.0,True,,0.63,exp_6,probe_exp_6_run_3,reverse 0.25 s0
+MPA_WorkPos,311,352.0,True,,0.47,exp_6,probe_exp_6_run_3,reverse 0.25 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s0
+MPA_InitPos,201,252.0,True,,0.96,exp_7,probe_exp_7_run_2,reverse 0.25 s0
+MPA_WorkPos,203,252.0,True,,0.97,exp_7,probe_exp_7_run_2,reverse 0.25 s0
+MPA_InitPos,136,203.0,True,,0.95,exp_7,probe_exp_7_run_3,reverse 0.25 s0
+MPA_WorkPos,138,203.0,True,,0.96,exp_7,probe_exp_7_run_3,reverse 0.25 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s0
+MPA_InitPos,201,277.0,True,,0.88,exp_7,probe_exp_7_run_5,reverse 0.25 s0
+MPA_WorkPos,203,276.0,True,,0.87,exp_7,probe_exp_7_run_5,reverse 0.25 s0
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,reverse 0.25 s1
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,reverse 0.25 s1
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,reverse 0.25 s1
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,reverse 0.25 s1
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,reverse 0.25 s1
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,reverse 0.25 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.25 s1
+MPA_InitPos,266,322.0,True,,0.46,exp_2_3,probe_exp_2_3_run_2,reverse 0.25 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.25 s1
+MPA_InitPos,206,272.0,True,,0.41,exp_2_3,probe_exp_2_3_run_4,reverse 0.25 s1
+MPA_InitPos,311,317.0,True,,0.34,exp_2_3,probe_exp_2_3_run_5,reverse 0.25 s1
+MPA_InitPos,238,249.0,True,,0.42,exp_2_3,probe_exp_2_3_run_6,reverse 0.25 s1
+MPA_InitPos,180,221.0,True,,0.56,exp_2_3,probe_exp_2_3_run_7,reverse 0.25 s1
+MPA_InitPos,234,256.0,True,,0.44,exp_2_3,probe_exp_2_3_run_8,reverse 0.25 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.25 s1
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,reverse 0.25 s1
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,reverse 0.25 s1
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,reverse 0.25 s1
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,reverse 0.25 s1
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,reverse 0.25 s1
+MPA_InitPos,376,419.0,True,,0.35,exp_5,probe_exp_5_run_1,reverse 0.25 s1
+MPA_InitPos,296,339.0,True,,0.35,exp_5,probe_exp_5_run_2,reverse 0.25 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.25 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.25 s1
+MPA_InitPos,207,220.0,True,,0.81,exp_5,probe_exp_5_run_5,reverse 0.25 s1
+MPA_InitPos,194,199.0,True,,0.74,exp_5,probe_exp_5_run_6,reverse 0.25 s1
+MPA_InitPos,296,340.0,True,,0.33,exp_6,probe_exp_6_run_1,reverse 0.25 s1
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,reverse 0.25 s1
+MPA_InitPos,302,344.0,True,,0.35,exp_6,probe_exp_6_run_2,reverse 0.25 s1
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,reverse 0.25 s1
+MPA_InitPos,311,354.0,True,,0.33,exp_6,probe_exp_6_run_3,reverse 0.25 s1
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,reverse 0.25 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s1
+MPA_InitPos,201,252.0,True,,0.54,exp_7,probe_exp_7_run_2,reverse 0.25 s1
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,reverse 0.25 s1
+MPA_InitPos,136,203.0,True,,0.48,exp_7,probe_exp_7_run_3,reverse 0.25 s1
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,reverse 0.25 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s1
+MPA_InitPos,201,277.0,True,,0.5,exp_7,probe_exp_7_run_5,reverse 0.25 s1
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,reverse 0.25 s1
+MPA_WorkPos,235,245.0,True,,0.8,exp_1,probe_exp_1_run_1,reverse 0.25 s2
+MPA_WorkPos,269,288.0,True,,0.84,exp_1,probe_exp_1_run_2,reverse 0.25 s2
+MPA_WorkPos,302,342.0,True,,0.51,exp_1,probe_exp_1_run_3,reverse 0.25 s2
+MPA_WorkPos,138,142.0,True,,0.83,exp_1,probe_exp_1_run_4,reverse 0.25 s2
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,reverse 0.25 s2
+MPA_WorkPos,269,272.0,True,,0.85,exp_1,probe_exp_1_run_6,reverse 0.25 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.25 s2
+MPA_InitPos,266,322.0,True,,0.65,exp_2_3,probe_exp_2_3_run_2,reverse 0.25 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.25 s2
+MPA_InitPos,206,272.0,True,,0.66,exp_2_3,probe_exp_2_3_run_4,reverse 0.25 s2
+MPA_InitPos,311,317.0,True,,0.94,exp_2_3,probe_exp_2_3_run_5,reverse 0.25 s2
+MPA_InitPos,238,249.0,True,,0.47,exp_2_3,probe_exp_2_3_run_6,reverse 0.25 s2
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,reverse 0.25 s2
+MPA_InitPos,234,256.0,True,,0.93,exp_2_3,probe_exp_2_3_run_8,reverse 0.25 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.25 s2
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,reverse 0.25 s2
+MPA_WorkPos,237,260.0,True,,0.77,exp_4,probe_exp_4_run_3,reverse 0.25 s2
+MPA_WorkPos,309,335.0,True,,0.78,exp_4,probe_exp_4_run_4,reverse 0.25 s2
+MPA_WorkPos,243,265.0,True,,0.96,exp_4,probe_exp_4_run_5,reverse 0.25 s2
+MPA_WorkPos,236,244.0,True,,0.99,exp_4,probe_exp_4_run_6,reverse 0.25 s2
+MPA_InitPos,376,419.0,True,,0.48,exp_5,probe_exp_5_run_1,reverse 0.25 s2
+MPA_InitPos,296,339.0,True,,0.48,exp_5,probe_exp_5_run_2,reverse 0.25 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.25 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.25 s2
+MPA_InitPos,207,220.0,True,,0.87,exp_5,probe_exp_5_run_5,reverse 0.25 s2
+MPA_InitPos,194,199.0,True,,0.86,exp_5,probe_exp_5_run_6,reverse 0.25 s2
+MPA_InitPos,296,340.0,True,,0.53,exp_6,probe_exp_6_run_1,reverse 0.25 s2
+MPA_WorkPos,297,338.0,True,,0.64,exp_6,probe_exp_6_run_1,reverse 0.25 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,reverse 0.25 s2
+MPA_WorkPos,302,342.0,True,,0.53,exp_6,probe_exp_6_run_2,reverse 0.25 s2
+MPA_InitPos,311,354.0,True,,0.53,exp_6,probe_exp_6_run_3,reverse 0.25 s2
+MPA_WorkPos,311,352.0,True,,0.64,exp_6,probe_exp_6_run_3,reverse 0.25 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s2
+MPA_InitPos,201,252.0,True,,0.8,exp_7,probe_exp_7_run_2,reverse 0.25 s2
+MPA_WorkPos,203,252.0,True,,0.59,exp_7,probe_exp_7_run_2,reverse 0.25 s2
+MPA_InitPos,136,203.0,True,,0.67,exp_7,probe_exp_7_run_3,reverse 0.25 s2
+MPA_WorkPos,138,203.0,True,,0.71,exp_7,probe_exp_7_run_3,reverse 0.25 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s2
+MPA_InitPos,201,277.0,True,,0.67,exp_7,probe_exp_7_run_5,reverse 0.25 s2
+MPA_WorkPos,203,276.0,True,,0.59,exp_7,probe_exp_7_run_5,reverse 0.25 s2
+MPA_WorkPos,235,245.0,True,,0.87,exp_1,probe_exp_1_run_1,reverse 0.25 s3
+MPA_WorkPos,269,288.0,True,,0.85,exp_1,probe_exp_1_run_2,reverse 0.25 s3
+MPA_WorkPos,302,342.0,True,,0.53,exp_1,probe_exp_1_run_3,reverse 0.25 s3
+MPA_WorkPos,138,142.0,True,,0.89,exp_1,probe_exp_1_run_4,reverse 0.25 s3
+MPA_WorkPos,197,224.0,True,,0.89,exp_1,probe_exp_1_run_5,reverse 0.25 s3
+MPA_WorkPos,269,272.0,True,,0.86,exp_1,probe_exp_1_run_6,reverse 0.25 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.25 s3
+MPA_InitPos,266,322.0,True,,0.92,exp_2_3,probe_exp_2_3_run_2,reverse 0.25 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.25 s3
+MPA_InitPos,206,272.0,True,,0.93,exp_2_3,probe_exp_2_3_run_4,reverse 0.25 s3
+MPA_InitPos,311,317.0,True,,0.81,exp_2_3,probe_exp_2_3_run_5,reverse 0.25 s3
+MPA_InitPos,238,249.0,True,,0.82,exp_2_3,probe_exp_2_3_run_6,reverse 0.25 s3
+MPA_InitPos,180,221.0,True,,0.98,exp_2_3,probe_exp_2_3_run_7,reverse 0.25 s3
+MPA_InitPos,234,256.0,True,,0.8,exp_2_3,probe_exp_2_3_run_8,reverse 0.25 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.25 s3
+MPA_WorkPos,243,248.0,True,,0.98,exp_4,probe_exp_4_run_2,reverse 0.25 s3
+MPA_WorkPos,237,260.0,True,,0.47,exp_4,probe_exp_4_run_3,reverse 0.25 s3
+MPA_WorkPos,309,335.0,True,,0.43,exp_4,probe_exp_4_run_4,reverse 0.25 s3
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,reverse 0.25 s3
+MPA_WorkPos,236,244.0,True,,0.96,exp_4,probe_exp_4_run_6,reverse 0.25 s3
+MPA_InitPos,376,419.0,True,,0.64,exp_5,probe_exp_5_run_1,reverse 0.25 s3
+MPA_InitPos,296,339.0,True,,0.64,exp_5,probe_exp_5_run_2,reverse 0.25 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.25 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.25 s3
+MPA_InitPos,207,220.0,True,,0.99,exp_5,probe_exp_5_run_5,reverse 0.25 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.25 s3
+MPA_InitPos,296,340.0,True,,0.6,exp_6,probe_exp_6_run_1,reverse 0.25 s3
+MPA_WorkPos,297,338.0,True,,0.57,exp_6,probe_exp_6_run_1,reverse 0.25 s3
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,reverse 0.25 s3
+MPA_WorkPos,302,342.0,True,,0.53,exp_6,probe_exp_6_run_2,reverse 0.25 s3
+MPA_InitPos,311,354.0,True,,0.6,exp_6,probe_exp_6_run_3,reverse 0.25 s3
+MPA_WorkPos,311,352.0,True,,0.57,exp_6,probe_exp_6_run_3,reverse 0.25 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s3
+MPA_InitPos,201,252.0,True,,0.94,exp_7,probe_exp_7_run_2,reverse 0.25 s3
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,reverse 0.25 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.25 s3
+MPA_WorkPos,138,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.25 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s3
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,reverse 0.25 s3
+MPA_WorkPos,203,276.0,True,,0.91,exp_7,probe_exp_7_run_5,reverse 0.25 s3
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,reverse 0.25 s4
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,reverse 0.25 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,reverse 0.25 s4
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,reverse 0.25 s4
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,reverse 0.25 s4
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,reverse 0.25 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.25 s4
+MPA_InitPos,266,322.0,True,,0.96,exp_2_3,probe_exp_2_3_run_2,reverse 0.25 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.25 s4
+MPA_InitPos,206,272.0,True,,0.94,exp_2_3,probe_exp_2_3_run_4,reverse 0.25 s4
+MPA_InitPos,311,317.0,True,,0.42,exp_2_3,probe_exp_2_3_run_5,reverse 0.25 s4
+MPA_InitPos,238,249.0,True,,0.41,exp_2_3,probe_exp_2_3_run_6,reverse 0.25 s4
+MPA_InitPos,180,221.0,True,,0.98,exp_2_3,probe_exp_2_3_run_7,reverse 0.25 s4
+MPA_InitPos,234,256.0,True,,0.48,exp_2_3,probe_exp_2_3_run_8,reverse 0.25 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.25 s4
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,reverse 0.25 s4
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,reverse 0.25 s4
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,reverse 0.25 s4
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,reverse 0.25 s4
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,reverse 0.25 s4
+MPA_InitPos,376,419.0,True,,0.5,exp_5,probe_exp_5_run_1,reverse 0.25 s4
+MPA_InitPos,296,339.0,True,,0.5,exp_5,probe_exp_5_run_2,reverse 0.25 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.25 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.25 s4
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,reverse 0.25 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.25 s4
+MPA_InitPos,296,340.0,True,,0.57,exp_6,probe_exp_6_run_1,reverse 0.25 s4
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,reverse 0.25 s4
+MPA_InitPos,302,344.0,True,,0.53,exp_6,probe_exp_6_run_2,reverse 0.25 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,reverse 0.25 s4
+MPA_InitPos,311,354.0,True,,0.57,exp_6,probe_exp_6_run_3,reverse 0.25 s4
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,reverse 0.25 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.25 s4
+MPA_InitPos,201,252.0,True,,0.95,exp_7,probe_exp_7_run_2,reverse 0.25 s4
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,reverse 0.25 s4
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.25 s4
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,reverse 0.25 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.25 s4
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,reverse 0.25 s4
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,reverse 0.25 s4
+MPA_WorkPos,235,245.0,True,,0.89,exp_1,probe_exp_1_run_1,reverse 0.5 s0
+MPA_WorkPos,269,288.0,True,,0.89,exp_1,probe_exp_1_run_2,reverse 0.5 s0
+MPA_WorkPos,302,342.0,True,,0.52,exp_1,probe_exp_1_run_3,reverse 0.5 s0
+MPA_WorkPos,138,142.0,True,,0.83,exp_1,probe_exp_1_run_4,reverse 0.5 s0
+MPA_WorkPos,197,224.0,True,,0.91,exp_1,probe_exp_1_run_5,reverse 0.5 s0
+MPA_WorkPos,269,272.0,True,,0.86,exp_1,probe_exp_1_run_6,reverse 0.5 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.5 s0
+MPA_InitPos,266,322.0,True,,0.95,exp_2_3,probe_exp_2_3_run_2,reverse 0.5 s0
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.5 s0
+MPA_InitPos,206,272.0,True,,0.95,exp_2_3,probe_exp_2_3_run_4,reverse 0.5 s0
+MPA_InitPos,311,317.0,True,,0.98,exp_2_3,probe_exp_2_3_run_5,reverse 0.5 s0
+MPA_InitPos,238,249.0,True,,0.88,exp_2_3,probe_exp_2_3_run_6,reverse 0.5 s0
+MPA_InitPos,180,221.0,True,,0.98,exp_2_3,probe_exp_2_3_run_7,reverse 0.5 s0
+MPA_InitPos,234,256.0,True,,0.96,exp_2_3,probe_exp_2_3_run_8,reverse 0.5 s0
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.5 s0
+MPA_WorkPos,243,248.0,True,,0.99,exp_4,probe_exp_4_run_2,reverse 0.5 s0
+MPA_WorkPos,237,260.0,True,,0.59,exp_4,probe_exp_4_run_3,reverse 0.5 s0
+MPA_WorkPos,309,335.0,True,,0.53,exp_4,probe_exp_4_run_4,reverse 0.5 s0
+MPA_WorkPos,243,265.0,True,,0.88,exp_4,probe_exp_4_run_5,reverse 0.5 s0
+MPA_WorkPos,236,244.0,True,,0.97,exp_4,probe_exp_4_run_6,reverse 0.5 s0
+MPA_InitPos,376,419.0,True,,0.63,exp_5,probe_exp_5_run_1,reverse 0.5 s0
+MPA_InitPos,296,339.0,True,,0.63,exp_5,probe_exp_5_run_2,reverse 0.5 s0
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.5 s0
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.5 s0
+MPA_InitPos,207,220.0,True,,0.99,exp_5,probe_exp_5_run_5,reverse 0.5 s0
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.5 s0
+MPA_InitPos,296,340.0,True,,0.66,exp_6,probe_exp_6_run_1,reverse 0.5 s0
+MPA_WorkPos,297,338.0,True,,0.47,exp_6,probe_exp_6_run_1,reverse 0.5 s0
+MPA_InitPos,302,344.0,True,,0.6,exp_6,probe_exp_6_run_2,reverse 0.5 s0
+MPA_WorkPos,302,342.0,True,,0.54,exp_6,probe_exp_6_run_2,reverse 0.5 s0
+MPA_InitPos,311,354.0,True,,0.66,exp_6,probe_exp_6_run_3,reverse 0.5 s0
+MPA_WorkPos,311,352.0,True,,0.48,exp_6,probe_exp_6_run_3,reverse 0.5 s0
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s0
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s0
+MPA_InitPos,201,252.0,True,,0.98,exp_7,probe_exp_7_run_2,reverse 0.5 s0
+MPA_WorkPos,203,252.0,True,,0.95,exp_7,probe_exp_7_run_2,reverse 0.5 s0
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.5 s0
+MPA_WorkPos,138,203.0,True,,0.97,exp_7,probe_exp_7_run_3,reverse 0.5 s0
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s0
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s0
+MPA_InitPos,201,277.0,True,,0.9,exp_7,probe_exp_7_run_5,reverse 0.5 s0
+MPA_WorkPos,203,276.0,True,,0.9,exp_7,probe_exp_7_run_5,reverse 0.5 s0
+MPA_WorkPos,235,245.0,True,,1.0,exp_1,probe_exp_1_run_1,reverse 0.5 s1
+MPA_WorkPos,269,288.0,True,,1.0,exp_1,probe_exp_1_run_2,reverse 0.5 s1
+MPA_WorkPos,302,342.0,True,,0.67,exp_1,probe_exp_1_run_3,reverse 0.5 s1
+MPA_WorkPos,138,142.0,True,,0.97,exp_1,probe_exp_1_run_4,reverse 0.5 s1
+MPA_WorkPos,197,224.0,True,,0.97,exp_1,probe_exp_1_run_5,reverse 0.5 s1
+MPA_WorkPos,269,272.0,True,,0.98,exp_1,probe_exp_1_run_6,reverse 0.5 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.5 s1
+MPA_InitPos,266,322.0,True,,0.97,exp_2_3,probe_exp_2_3_run_2,reverse 0.5 s1
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.5 s1
+MPA_InitPos,206,272.0,True,,0.94,exp_2_3,probe_exp_2_3_run_4,reverse 0.5 s1
+MPA_InitPos,311,317.0,True,,0.97,exp_2_3,probe_exp_2_3_run_5,reverse 0.5 s1
+MPA_InitPos,238,249.0,True,,0.52,exp_2_3,probe_exp_2_3_run_6,reverse 0.5 s1
+MPA_InitPos,180,221.0,True,,0.97,exp_2_3,probe_exp_2_3_run_7,reverse 0.5 s1
+MPA_InitPos,234,256.0,True,,0.95,exp_2_3,probe_exp_2_3_run_8,reverse 0.5 s1
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.5 s1
+MPA_WorkPos,243,248.0,True,,1.0,exp_4,probe_exp_4_run_2,reverse 0.5 s1
+MPA_WorkPos,237,260.0,True,,0.78,exp_4,probe_exp_4_run_3,reverse 0.5 s1
+MPA_WorkPos,309,335.0,True,,0.91,exp_4,probe_exp_4_run_4,reverse 0.5 s1
+MPA_WorkPos,243,265.0,True,,0.75,exp_4,probe_exp_4_run_5,reverse 0.5 s1
+MPA_WorkPos,236,244.0,True,,0.95,exp_4,probe_exp_4_run_6,reverse 0.5 s1
+MPA_InitPos,376,419.0,True,,0.66,exp_5,probe_exp_5_run_1,reverse 0.5 s1
+MPA_InitPos,296,339.0,True,,0.66,exp_5,probe_exp_5_run_2,reverse 0.5 s1
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.5 s1
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.5 s1
+MPA_InitPos,207,220.0,True,,0.99,exp_5,probe_exp_5_run_5,reverse 0.5 s1
+MPA_InitPos,194,199.0,True,,0.99,exp_5,probe_exp_5_run_6,reverse 0.5 s1
+MPA_InitPos,296,340.0,True,,0.73,exp_6,probe_exp_6_run_1,reverse 0.5 s1
+MPA_WorkPos,297,338.0,True,,0.78,exp_6,probe_exp_6_run_1,reverse 0.5 s1
+MPA_InitPos,302,344.0,True,,0.61,exp_6,probe_exp_6_run_2,reverse 0.5 s1
+MPA_WorkPos,302,342.0,True,,0.67,exp_6,probe_exp_6_run_2,reverse 0.5 s1
+MPA_InitPos,311,354.0,True,,0.73,exp_6,probe_exp_6_run_3,reverse 0.5 s1
+MPA_WorkPos,311,352.0,True,,0.78,exp_6,probe_exp_6_run_3,reverse 0.5 s1
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s1
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s1
+MPA_InitPos,201,252.0,True,,0.97,exp_7,probe_exp_7_run_2,reverse 0.5 s1
+MPA_WorkPos,203,252.0,True,,0.8,exp_7,probe_exp_7_run_2,reverse 0.5 s1
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.5 s1
+MPA_WorkPos,138,203.0,True,,0.85,exp_7,probe_exp_7_run_3,reverse 0.5 s1
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s1
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s1
+MPA_InitPos,201,277.0,True,,0.91,exp_7,probe_exp_7_run_5,reverse 0.5 s1
+MPA_WorkPos,203,276.0,True,,0.87,exp_7,probe_exp_7_run_5,reverse 0.5 s1
+MPA_WorkPos,235,245.0,True,,1.0,exp_1,probe_exp_1_run_1,reverse 0.5 s2
+MPA_WorkPos,269,288.0,True,,1.0,exp_1,probe_exp_1_run_2,reverse 0.5 s2
+MPA_WorkPos,302,342.0,True,,0.67,exp_1,probe_exp_1_run_3,reverse 0.5 s2
+MPA_WorkPos,138,142.0,True,,0.97,exp_1,probe_exp_1_run_4,reverse 0.5 s2
+MPA_WorkPos,197,224.0,True,,0.97,exp_1,probe_exp_1_run_5,reverse 0.5 s2
+MPA_WorkPos,269,272.0,True,,0.98,exp_1,probe_exp_1_run_6,reverse 0.5 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.5 s2
+MPA_InitPos,266,322.0,True,,0.75,exp_2_3,probe_exp_2_3_run_2,reverse 0.5 s2
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.5 s2
+MPA_InitPos,206,272.0,True,,0.71,exp_2_3,probe_exp_2_3_run_4,reverse 0.5 s2
+MPA_InitPos,311,317.0,True,,1.0,exp_2_3,probe_exp_2_3_run_5,reverse 0.5 s2
+MPA_InitPos,238,249.0,True,,0.91,exp_2_3,probe_exp_2_3_run_6,reverse 0.5 s2
+MPA_InitPos,180,221.0,True,,1.0,exp_2_3,probe_exp_2_3_run_7,reverse 0.5 s2
+MPA_InitPos,234,256.0,True,,0.95,exp_2_3,probe_exp_2_3_run_8,reverse 0.5 s2
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.5 s2
+MPA_WorkPos,243,248.0,True,,1.0,exp_4,probe_exp_4_run_2,reverse 0.5 s2
+MPA_WorkPos,237,260.0,True,,0.73,exp_4,probe_exp_4_run_3,reverse 0.5 s2
+MPA_WorkPos,309,335.0,True,,0.93,exp_4,probe_exp_4_run_4,reverse 0.5 s2
+MPA_WorkPos,243,265.0,True,,0.81,exp_4,probe_exp_4_run_5,reverse 0.5 s2
+MPA_WorkPos,236,244.0,True,,0.97,exp_4,probe_exp_4_run_6,reverse 0.5 s2
+MPA_InitPos,376,419.0,True,,0.54,exp_5,probe_exp_5_run_1,reverse 0.5 s2
+MPA_InitPos,296,339.0,True,,0.54,exp_5,probe_exp_5_run_2,reverse 0.5 s2
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.5 s2
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.5 s2
+MPA_InitPos,207,220.0,True,,0.86,exp_5,probe_exp_5_run_5,reverse 0.5 s2
+MPA_InitPos,194,199.0,True,,0.86,exp_5,probe_exp_5_run_6,reverse 0.5 s2
+MPA_InitPos,296,340.0,True,,0.52,exp_6,probe_exp_6_run_1,reverse 0.5 s2
+MPA_WorkPos,297,338.0,True,,0.78,exp_6,probe_exp_6_run_1,reverse 0.5 s2
+MPA_InitPos,302,344.0,True,,0.52,exp_6,probe_exp_6_run_2,reverse 0.5 s2
+MPA_WorkPos,302,342.0,True,,0.67,exp_6,probe_exp_6_run_2,reverse 0.5 s2
+MPA_InitPos,311,354.0,True,,0.52,exp_6,probe_exp_6_run_3,reverse 0.5 s2
+MPA_WorkPos,311,352.0,True,,0.78,exp_6,probe_exp_6_run_3,reverse 0.5 s2
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s2
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s2
+MPA_InitPos,201,252.0,True,,0.73,exp_7,probe_exp_7_run_2,reverse 0.5 s2
+MPA_WorkPos,203,252.0,True,,0.8,exp_7,probe_exp_7_run_2,reverse 0.5 s2
+MPA_InitPos,136,203.0,True,,0.7,exp_7,probe_exp_7_run_3,reverse 0.5 s2
+MPA_WorkPos,138,203.0,True,,0.85,exp_7,probe_exp_7_run_3,reverse 0.5 s2
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s2
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s2
+MPA_InitPos,201,277.0,True,,0.73,exp_7,probe_exp_7_run_5,reverse 0.5 s2
+MPA_WorkPos,203,276.0,True,,0.87,exp_7,probe_exp_7_run_5,reverse 0.5 s2
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,reverse 0.5 s3
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,reverse 0.5 s3
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,reverse 0.5 s3
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,reverse 0.5 s3
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,reverse 0.5 s3
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,reverse 0.5 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.5 s3
+MPA_InitPos,266,322.0,True,,0.95,exp_2_3,probe_exp_2_3_run_2,reverse 0.5 s3
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.5 s3
+MPA_InitPos,206,272.0,True,,0.94,exp_2_3,probe_exp_2_3_run_4,reverse 0.5 s3
+MPA_InitPos,311,317.0,True,,0.95,exp_2_3,probe_exp_2_3_run_5,reverse 0.5 s3
+MPA_InitPos,238,249.0,True,,0.99,exp_2_3,probe_exp_2_3_run_6,reverse 0.5 s3
+MPA_InitPos,180,221.0,True,,0.96,exp_2_3,probe_exp_2_3_run_7,reverse 0.5 s3
+MPA_InitPos,234,256.0,True,,0.95,exp_2_3,probe_exp_2_3_run_8,reverse 0.5 s3
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.5 s3
+MPA_WorkPos,243,248.0,True,,0.68,exp_4,probe_exp_4_run_2,reverse 0.5 s3
+MPA_WorkPos,237,260.0,True,,0.6,exp_4,probe_exp_4_run_3,reverse 0.5 s3
+MPA_WorkPos,309,335.0,True,,0.56,exp_4,probe_exp_4_run_4,reverse 0.5 s3
+MPA_WorkPos,243,265.0,True,,0.59,exp_4,probe_exp_4_run_5,reverse 0.5 s3
+MPA_WorkPos,236,244.0,True,,0.67,exp_4,probe_exp_4_run_6,reverse 0.5 s3
+MPA_InitPos,376,419.0,True,,0.55,exp_5,probe_exp_5_run_1,reverse 0.5 s3
+MPA_InitPos,296,339.0,True,,0.55,exp_5,probe_exp_5_run_2,reverse 0.5 s3
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.5 s3
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.5 s3
+MPA_InitPos,207,220.0,True,,0.99,exp_5,probe_exp_5_run_5,reverse 0.5 s3
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.5 s3
+MPA_InitPos,296,340.0,True,,0.56,exp_6,probe_exp_6_run_1,reverse 0.5 s3
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,reverse 0.5 s3
+MPA_InitPos,302,344.0,True,,0.5,exp_6,probe_exp_6_run_2,reverse 0.5 s3
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,reverse 0.5 s3
+MPA_InitPos,311,354.0,True,,0.56,exp_6,probe_exp_6_run_3,reverse 0.5 s3
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,reverse 0.5 s3
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s3
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s3
+MPA_InitPos,201,252.0,True,,0.94,exp_7,probe_exp_7_run_2,reverse 0.5 s3
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,reverse 0.5 s3
+MPA_InitPos,136,203.0,True,,0.94,exp_7,probe_exp_7_run_3,reverse 0.5 s3
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,reverse 0.5 s3
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s3
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s3
+MPA_InitPos,201,277.0,True,,0.89,exp_7,probe_exp_7_run_5,reverse 0.5 s3
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,reverse 0.5 s3
+MPA_WorkPos,235,245.0,True,,0.77,exp_1,probe_exp_1_run_1,reverse 0.5 s4
+MPA_WorkPos,269,288.0,True,,0.82,exp_1,probe_exp_1_run_2,reverse 0.5 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_1,probe_exp_1_run_3,reverse 0.5 s4
+MPA_WorkPos,138,142.0,True,,0.74,exp_1,probe_exp_1_run_4,reverse 0.5 s4
+MPA_WorkPos,197,224.0,True,,0.78,exp_1,probe_exp_1_run_5,reverse 0.5 s4
+MPA_WorkPos,269,272.0,True,,0.82,exp_1,probe_exp_1_run_6,reverse 0.5 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_1,reverse 0.5 s4
+MPA_InitPos,266,322.0,True,,0.93,exp_2_3,probe_exp_2_3_run_2,reverse 0.5 s4
+MPA_InitPos,334,,False,no observed reversion,,exp_2_3,probe_exp_2_3_run_3,reverse 0.5 s4
+MPA_InitPos,206,272.0,True,,0.93,exp_2_3,probe_exp_2_3_run_4,reverse 0.5 s4
+MPA_InitPos,311,317.0,True,,0.97,exp_2_3,probe_exp_2_3_run_5,reverse 0.5 s4
+MPA_InitPos,238,249.0,True,,0.71,exp_2_3,probe_exp_2_3_run_6,reverse 0.5 s4
+MPA_InitPos,180,221.0,True,,0.98,exp_2_3,probe_exp_2_3_run_7,reverse 0.5 s4
+MPA_InitPos,234,256.0,True,,0.98,exp_2_3,probe_exp_2_3_run_8,reverse 0.5 s4
+MPA_WorkPos,347,,False,no observed reversion,,exp_4,probe_exp_4_run_1,reverse 0.5 s4
+MPA_WorkPos,243,248.0,True,,0.38,exp_4,probe_exp_4_run_2,reverse 0.5 s4
+MPA_WorkPos,237,260.0,True,,0.45,exp_4,probe_exp_4_run_3,reverse 0.5 s4
+MPA_WorkPos,309,335.0,True,,0.35,exp_4,probe_exp_4_run_4,reverse 0.5 s4
+MPA_WorkPos,243,265.0,True,,0.39,exp_4,probe_exp_4_run_5,reverse 0.5 s4
+MPA_WorkPos,236,244.0,True,,0.42,exp_4,probe_exp_4_run_6,reverse 0.5 s4
+MPA_InitPos,376,419.0,True,,0.5,exp_5,probe_exp_5_run_1,reverse 0.5 s4
+MPA_InitPos,296,339.0,True,,0.5,exp_5,probe_exp_5_run_2,reverse 0.5 s4
+MPA_InitPos,294,,False,no observed reversion,,exp_5,probe_exp_5_run_3,reverse 0.5 s4
+MPA_InitPos,289,,False,no observed reversion,,exp_5,probe_exp_5_run_4,reverse 0.5 s4
+MPA_InitPos,207,220.0,True,,0.98,exp_5,probe_exp_5_run_5,reverse 0.5 s4
+MPA_InitPos,194,199.0,True,,1.0,exp_5,probe_exp_5_run_6,reverse 0.5 s4
+MPA_InitPos,296,340.0,True,,0.81,exp_6,probe_exp_6_run_1,reverse 0.5 s4
+MPA_WorkPos,297,338.0,True,,0.37,exp_6,probe_exp_6_run_1,reverse 0.5 s4
+MPA_InitPos,302,344.0,True,,0.77,exp_6,probe_exp_6_run_2,reverse 0.5 s4
+MPA_WorkPos,302,342.0,True,,0.27,exp_6,probe_exp_6_run_2,reverse 0.5 s4
+MPA_InitPos,311,354.0,True,,0.8,exp_6,probe_exp_6_run_3,reverse 0.5 s4
+MPA_WorkPos,311,352.0,True,,0.37,exp_6,probe_exp_6_run_3,reverse 0.5 s4
+MPA_InitPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s4
+MPA_WorkPos,368,,False,no observed reversion,,exp_7,probe_exp_7_run_1,reverse 0.5 s4
+MPA_InitPos,201,252.0,True,,0.96,exp_7,probe_exp_7_run_2,reverse 0.5 s4
+MPA_WorkPos,203,252.0,True,,0.54,exp_7,probe_exp_7_run_2,reverse 0.5 s4
+MPA_InitPos,136,203.0,True,,0.95,exp_7,probe_exp_7_run_3,reverse 0.5 s4
+MPA_WorkPos,138,203.0,True,,0.58,exp_7,probe_exp_7_run_3,reverse 0.5 s4
+MPA_InitPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s4
+MPA_WorkPos,379,,False,no observed reversion,,exp_7,probe_exp_7_run_4,reverse 0.5 s4
+MPA_InitPos,201,277.0,True,,0.92,exp_7,probe_exp_7_run_5,reverse 0.5 s4
+MPA_WorkPos,203,276.0,True,,0.42,exp_7,probe_exp_7_run_5,reverse 0.5 s4

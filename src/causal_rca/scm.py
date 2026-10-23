@@ -238,11 +238,15 @@ class TemporalSCM:
         interventions: dict[str, tuple[float, int]] | None = None,
         fixed: dict[str, float] | None = None,
         history: dict[str, np.ndarray] | None = None,
+        releases: dict[str, int] | None = None,
     ) -> dict[str, np.ndarray]:
         """roll the structural equations forward for many noise samples at once.
 
         ``noise[v]`` has shape (samples, steps); ``interventions`` maps a variable to
         (value, first step): from that step on its equation is replaced by the value.
+        ``releases[v]`` optionally ends the intervention on v at that step: from then on v
+        follows its fitted mechanism again, starting from the intervened value. without
+        ``releases`` every intervention is sustained to the end (the default behaviour).
         ``fixed`` holds context variables (e.g. not recorded in this run) at one value.
         ``history[v]`` holds observed states before step 0 (most recent last); lagged
         parents before step 0 are read from it, and padded with the initial state only
@@ -250,6 +254,12 @@ class TemporalSCM:
         returns variable -> array (samples, steps).
         """
         interventions = interventions or {}
+        releases = releases or {}
+        for v, step in releases.items():
+            if v not in interventions:
+                raise ValueError(f"release given for {v}, which is not intervened on")
+            if step <= interventions[v][1]:
+                raise ValueError(f"release of {v} at step {step} must come after its intervention step {interventions[v][1]}")
         history = history or {}
         fixed = {**{v: self.fills[v] for v, m in self.mechanisms.items() if not m.has_data}, **(fixed or {})}
         n_samples, n_steps = next(iter(noise.values())).shape
@@ -268,7 +278,7 @@ class TemporalSCM:
 
         for t in range(1, n_steps):
             for v in order:
-                if v in interventions and t >= interventions[v][1]:
+                if v in interventions and t >= interventions[v][1] and not (v in releases and t >= releases[v]):
                     out[v][:, t] = interventions[v][0]
                     continue
                 if v in fixed:
