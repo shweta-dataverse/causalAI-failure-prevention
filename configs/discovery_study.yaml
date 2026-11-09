@@ -1,0 +1,87 @@
+# focused causal-discovery hyperparameter study (stage 12, scripts/run_discovery_study.py)
+#
+# this file is written before any study result exists. the objective, tie-breaks, grid,
+# shortlist rule and staged comparisons below are fixed here and are not changed after
+# looking at results. everything else in the pipeline (scm, rca, interventions,
+# counterfactuals) is untouched by this study.
+#
+# what the selected scores are: "reference-guided tuning performance on the causRCA
+# subsystem". the expert graph is used to choose hyperparameters, so scores of the selected
+# configuration are optimistically biased and are not independent test accuracy.
+# pcmci+ never receives expert edges.
+
+subsystems: [coolant, probe]
+
+# original fixed configuration of notebooks 03 / 10 (kept as the comparison)
+original:
+  ci_test: gsq
+  interval_s: 0.5
+  tau_max_s: 10.0
+  pc_alpha: 0.01
+  max_conds: [3, 3, 3]          # max_conds_dim, max_conds_px, max_conds_py
+  fdr_method: fdr_bh
+  apply_fdr_to_graph: true
+  support_threshold: 0.5
+
+# stage a: initial grid (27 configurations, 9 pcmci+ settings per subsystem;
+# the support threshold only changes the aggregation, so it reuses the regime runs)
+grid:
+  pc_alpha: [0.001, 0.01, 0.05]
+  tau_max_s: [5.0, 10.0, 20.0]
+  support_threshold: [0.25, 0.5, 0.75]
+  fixed:
+    ci_test: gsq
+    interval_s: 0.5
+    max_conds: [3, 3, 3]
+    fdr_method: fdr_bh
+    apply_fdr_to_graph: true
+
+# selection objective (expert-reference-guided graph tuning)
+selection:
+  reference: expert graph of the subsystem (all node pairs)
+  order:                         # lexicographic, first entry decides first
+    - directed_f1: max           # primary objective
+    - skeleton_f1: max           # first tie-break
+    - tau_max_s: min             # shorter maximum lag
+    - pc_alpha: min              # deterministic rule: more conservative significance level
+    - support_threshold: max     # deterministic rule: stricter aggregation
+    - config_id: min             # final deterministic tie-break (string order)
+  eligible: runs with status ok in every regime of the scope
+  report_ties: true              # number of configurations equal on the objective / on objective + first tie-break
+
+# stage b: leave-one-scenario-out selection (graphs for unseen-scenario use)
+folds:
+  rule: for each held-out fault scenario, the same grid is aggregated without that
+        scenario's regime and the same selection order is applied; the held-out regime
+        is never used for discovery, aggregation or selection in that fold
+
+# stage c: staged comparisons on the shortlist (not an exhaustive search)
+shortlist:
+  rule: top 3 distinct configurations of stage a by the selection order, plus the original
+        configuration if it is not among them
+  conditioning_caps: [2, 4]      # max_conds_dim = max_conds_px = max_conds_py = k, changed together
+  caps_for: [selected, original]
+  long_lag_s: 60.0               # one long-lag sensitivity run
+  long_lag_for: [selected, original]
+  run_timeout_s: 10800           # a run still going after 3 h is logged as incomplete
+  fdr_filter_off_for: all grid configurations (no rerun needed)
+  alternative_ci_test:
+    test: cmisymb                # tigramite CMIsymb, local permutation test within z strata
+    sig_samples: 200
+    seed: 0
+    for: [selected]
+    regimes: fault               # amendment 2026-11-09, made before any grid result was viewed and
+                                 # only for runtime: cmisymb took > 7 cpu-minutes on one 2,874-row
+                                 # coolant fault regime (g-squared: about 3 s), so the 137k-row normal
+                                 # regime is infeasible. the comparison is therefore g-squared vs
+                                 # cmisymb on the fault regimes only, with identical other settings.
+
+# stage d: stability of the shortlisted graphs
+bootstrap:
+  n_boot: 20
+  seed: 0
+  scheme: recordings resampled with replacement within every regime (as notebook 03)
+  for: shortlist
+
+runtime:
+  workers: 9                     # parallel regime runs (separate processes)

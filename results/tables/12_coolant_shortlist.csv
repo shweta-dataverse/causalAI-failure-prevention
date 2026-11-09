@@ -1,0 +1,4 @@
+subsystem,position,config_id,ci_test,interval_s,tau_max_s,tau_max_steps,pc_alpha,max_conds_dim,max_conds_px,max_conds_py,conditioning_caps,fdr_method,fdr_filter,support_threshold
+coolant,1,gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh-filter_s0.5,gsq,0.5,5.0,10,0.01,3,3,3,3/3/3,fdr_bh,True,0.5
+coolant,2,gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh-filter_s0.25,gsq,0.5,5.0,10,0.01,3,3,3,3/3/3,fdr_bh,True,0.25
+coolant,3,gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,gsq,0.5,10.0,20,0.01,3,3,3,3/3/3,fdr_bh,True,0.5

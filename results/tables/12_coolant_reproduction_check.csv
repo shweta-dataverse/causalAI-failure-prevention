@@ -1,0 +1,6 @@
+subsystem,scope,saved_graph_id,identical_edge_set,n_edges_rebuilt,n_edges_saved
+coolant,all scenarios,discovered,True,10,10
+coolant,without exp_22,discovered_without_exp_22,True,7,7
+coolant,without exp_27,discovered_without_exp_27,True,9,9
+coolant,without exp_28,discovered_without_exp_28,True,9,9
+coolant,without exp_35,discovered_without_exp_35,True,9,9

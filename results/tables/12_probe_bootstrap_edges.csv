@@ -1,0 +1,256 @@
+config_id,edge,bootstrap_frequency,in_full_data_graph,reference_outcome,subsystem
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701124 — MPC_Closed,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701124 → MPC_Closed,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 — MPA_InitPos,0.15,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 — MPA_WorkPos,0.2,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 → MPA_WorkPos,0.15,False,reversed,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_WorkPos,0.65,True,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_toInitPos,0.55,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_toWorkPos,0.15,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPC_open,0.1,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MP_Inactive,0.1,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_A_701124,0.4,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_A_701125,0.1,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_WorkPos,0.15,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_toInitPos,0.05,True,reversed,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPC_open,0.1,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MP_Inactive,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MPA_toInitPos,0.25,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MPA_toWorkPos,0.65,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MP_Inactive,0.6,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_A_701124,0.1,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_A_701125,0.65,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_InitPos,0.15,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MP_Inactive,0.4,True,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MPA_toWorkPos,0.4,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MPC_isOpen,0.2,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MP_Inactive,0.2,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_A_701125,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_InitPos,0.3,True,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_WorkPos,0.1,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_toWorkPos,0.15,True,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPC_isOpen,0.05,True,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MP_Inactive,0.1,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_Closed,0.1,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_close,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_isOpen,0.1,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_open,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MP_Inactive,0.7,True,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_A_701124,0.05,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_InitPos,0.65,True,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_WorkPos,0.1,True,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_toInitPos,0.5,False,reversed,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPC_isOpen,0.1,False,reversed,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MP_Inactive,0.3,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed — MPC_close,0.5,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed — MPC_open,0.25,True,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPC_close,0.1,False,reversed,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPC_open,0.4,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_close — MPC_isOpen,0.45,True,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_close — MPC_open,0.2,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_toInitPos,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_toWorkPos,0.1,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_Closed,0.4,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_isOpen,0.45,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_open,0.6,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen — MPC_open,0.25,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPC_close,0.15,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_InitPos,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_toWorkPos,0.75,True,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_Closed,0.55,False,extra,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_close,0.4,False,reversed,probe
+gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_isOpen,0.4,True,correct direction,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_A_701125 — MPA_InitPos,0.35,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_A_701125 — MPA_WorkPos,0.1,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_A_701125 → MPA_InitPos,0.15,False,reversed,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_A_701125 → MPA_WorkPos,0.35,True,reversed,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_InitPos — MPA_toInitPos,0.5,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_InitPos — MPA_toWorkPos,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_InitPos → MPA_A_701125,0.3,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_WorkPos — MP_Inactive,0.3,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_WorkPos → MPA_A_701125,0.65,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_WorkPos → MP_Inactive,0.15,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_toInitPos — MPA_toWorkPos,0.85,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_toInitPos → MPA_A_701125,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_toWorkPos — MPC_isOpen,0.1,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_toWorkPos — MP_Inactive,0.7,True,extra,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_toWorkPos → MPA_InitPos,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPA_toWorkPos → MPA_toInitPos,0.15,False,reversed,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPC_Closed — MPC_close,0.4,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPC_Closed — MPC_open,0.7,True,extra,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPC_Closed → MPC_open,0.05,False,extra,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPC_close — MPC_isOpen,0.65,False,extra,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPC_close — MPC_open,0.95,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPC_close → MPC_open,0.05,False,correct direction,probe
+gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5,MPC_open → MPC_isOpen,0.05,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701124 → MPC_open,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 — MPA_InitPos,0.4,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 → MPA_WorkPos,0.35,False,reversed,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_WorkPos,0.45,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_toInitPos,0.25,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_toWorkPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPC_close,0.1,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPC_isOpen,0.4,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPC_open,0.25,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MP_Inactive,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_A_701124,0.85,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_A_701125,0.4,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_WorkPos,0.4,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_toInitPos,0.5,False,reversed,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_toWorkPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPC_close,0.05,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPC_isOpen,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPC_open,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MPA_toWorkPos,0.3,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MPC_isOpen,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MP_Inactive,0.3,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_A_701124,0.1,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_A_701125,0.8,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_InitPos,0.2,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_toInitPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPC_Closed,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPC_close,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MP_Inactive,0.7,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MPC_Closed,0.25,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MPC_isOpen,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MP_Inactive,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_A_701125,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_InitPos,0.35,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_WorkPos,0.65,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_toWorkPos,0.8,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPC_Closed,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MP_Inactive,0.55,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_Closed,0.2,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_isOpen,0.2,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_open,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MP_Inactive,0.3,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_A_701124,0.05,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_A_701125,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_InitPos,0.7,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_WorkPos,0.25,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_toInitPos,0.65,True,reversed,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPC_Closed,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MP_Inactive,0.65,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed — MPC_close,0.15,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed — MPC_open,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPA_InitPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPA_WorkPos,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPA_toWorkPos,0.3,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPC_close,0.35,True,reversed,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPC_open,0.7,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close — MPC_open,0.1,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close — MP_Inactive,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_InitPos,0.05,False,reversed,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_WorkPos,0.3,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_toInitPos,0.2,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_toWorkPos,0.25,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_Closed,0.8,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_isOpen,1.0,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_open,0.45,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MP_Inactive,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen — MPC_open,0.2,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPA_InitPos,0.05,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPA_toWorkPos,0.4,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPC_close,0.55,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_InitPos,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_WorkPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_toInitPos,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_toWorkPos,0.7,True,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_Closed,0.6,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_close,0.8,True,reversed,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_isOpen,0.45,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MP_Inactive,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_A_701124,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_toWorkPos,0.2,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701124 — MPC_open,0.25,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701124 → MPA_InitPos,0.1,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701124 → MPC_open,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 — MPA_InitPos,0.1,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 — MPA_WorkPos,0.2,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 → MPA_InitPos,0.2,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_A_701125 → MPA_WorkPos,0.45,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_WorkPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPA_toInitPos,0.25,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPC_Closed,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPC_isOpen,0.6,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MPC_open,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos — MP_Inactive,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_A_701124,1.0,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_A_701125,0.5,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_WorkPos,0.7,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_toInitPos,0.65,True,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPA_toWorkPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPC_Closed,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPC_close,0.2,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_InitPos → MPC_open,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MPA_toInitPos,0.15,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MPA_toWorkPos,0.1,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MPC_isOpen,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos — MP_Inactive,0.2,True,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_A_701124,0.3,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_A_701125,0.7,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_InitPos,0.45,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_toInitPos,0.2,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPA_toWorkPos,0.1,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPC_Closed,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MPC_close,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_WorkPos → MP_Inactive,0.7,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MPA_toWorkPos,0.05,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MPC_Closed,0.2,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MPC_isOpen,0.25,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos — MP_Inactive,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_A_701124,0.3,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_InitPos,0.5,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_WorkPos,0.65,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPA_toWorkPos,0.85,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPC_Closed,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPC_close,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MPC_isOpen,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toInitPos → MP_Inactive,0.7,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_Closed,0.25,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_isOpen,0.2,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MPC_open,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos — MP_Inactive,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_A_701124,0.2,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_InitPos,0.95,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_WorkPos,0.55,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPA_toInitPos,0.75,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPC_Closed,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPC_isOpen,0.3,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MPC_open,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPA_toWorkPos → MP_Inactive,0.8,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed — MPC_close,0.05,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPA_InitPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPA_WorkPos,0.25,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPA_toInitPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPA_toWorkPos,0.5,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPC_close,0.45,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_Closed → MPC_open,0.85,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_InitPos,0.1,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_WorkPos,0.5,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_toInitPos,0.35,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPA_toWorkPos,0.4,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_Closed,0.95,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_isOpen,1.0,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MPC_open,0.5,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_close → MP_Inactive,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen — MPC_open,0.05,False,undirected (adjacency correct),probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPA_InitPos,0.05,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPA_toWorkPos,0.5,True,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPC_close,0.65,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_isOpen → MPC_open,0.15,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_A_701124,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_InitPos,0.55,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_WorkPos,0.2,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_toInitPos,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPA_toWorkPos,0.75,True,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_Closed,0.65,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_close,0.85,True,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MPC_isOpen,0.5,False,correct direction,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MPC_open → MP_Inactive,0.15,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_A_701124,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_A_701125,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_InitPos,0.05,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_WorkPos,0.15,False,reversed,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_toInitPos,0.1,False,extra,probe
+gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25,MP_Inactive → MPA_toWorkPos,0.45,False,extra,probe

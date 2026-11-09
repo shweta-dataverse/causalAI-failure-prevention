@@ -8,6 +8,9 @@ data/raw/
 
 data/processed/
 
+# run cache of the stage-12 discovery study (rebuilt by scripts/run_discovery_study.py)
+data/cache/
+
 
 # C extensions
 *.so

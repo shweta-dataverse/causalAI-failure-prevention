@@ -968,6 +968,33 @@ class ModelView:
                 view.vocabularies[name] = sorted(values.astype(str).unique())
         return view
 
+    @classmethod
+    def from_schema(cls, types: dict[str, str], nodes: Sequence[str], kind: ViewKind) -> ModelView:
+        """view from a predeclared node list, without any data-dependent step.
+
+        columns are the given nodes in order; only type-based exclusions apply, and no
+        recordings are used, so no training, validation or held-out data can influence
+        the schema. only for views whose columns need no fitted encoding (binary/alarm).
+        """
+        if kind not in VIEW_KINDS:
+            raise ValueError(f"Unknown view kind {kind!r}; expected one of {VIEW_KINDS}")
+        exclusions, columns, column_types, sources = [], [], {}, {}
+        for node in nodes:
+            if node not in types:
+                exclusions.append({"column": node, "reason": "no_type"})
+                continue
+            reason = _type_exclusion(types[node], kind, False)
+            if reason:
+                exclusions.append({"column": node, "reason": reason})
+                continue
+            if types[node] not in BOOLEAN_TYPES:
+                raise ValueError(f"{node}: type {types[node]!r} needs a fitted encoding; use ModelView.fit")
+            columns.append(node)
+            column_types[node] = types[node]
+            sources[node] = node
+        return cls(kind=kind, train_ids=[], columns=columns, column_types=column_types, sources=sources,
+                   means={}, stds={}, vocabularies={}, exclusions=exclusions)
+
     @staticmethod
     def _source_frame(states: pd.DataFrame, sources: dict[str, str], column_types: dict[str, str]) -> pd.DataFrame:
         ordered = states.sort_values(["recording_id", "step"], kind="mergesort")

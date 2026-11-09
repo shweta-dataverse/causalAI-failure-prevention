@@ -32,7 +32,7 @@ Facts that shape every later decision:
 - **Duplicates:** for the same (recording, node, timestamp), the last row in the file wins (none occur).
 - **State reconstruction:** zero-order hold on a regular grid per recording, with no backfill (unknown before a node's first event) and no filling across recordings. Every cell is re-derived by an independent method; 11.7 M cells were checked with 0 mismatches.
 - **Sampling interval:** compared at 0.5 s and 1 s. Both keep 100% of coolant value changes. 0.5 s separates more near-simultaneous changes; 1 s halves the rows. Primary choice: **0.5 s**; 1 s is a sensitivity variant.
-- **Model views:** binary 0/1, with masks for unknown states. Columns that are constant in the training recordings are excluded with a recorded reason.
+- **Model views:** binary 0/1, with masks for unknown states. The variable set is the **predeclared expert node list** (`ModelView.from_schema`, no data-dependent step). The earlier view had been "fitted" on normal train plus all fault runs, including the held-out scenario of each fold. It had no fitted state and produced exactly this node list, so the encoded arrays are unchanged (stage 14, check `schema`).
 - **Splits:**
   - Normal recordings are ordered by recording number (assumed to grow with time): 119 train, 26 validation, 25 test.
   - Fault runs are grouped into leave-one-scenario-out folds, so a scenario is never divided.
@@ -45,10 +45,10 @@ Facts that shape every later decision:
   - It returns p = 1 ("independent") for constant data.
 
   Pooling would therefore turn "not recorded" into "independent". Inside a regime, only variables recorded in every recording and changing at least once are used.
-- **Settings:** Δ = 0.5 s, `tau_max` = 10 s (20 lags), `pc_alpha` = 0.01. Conditioning sets are capped (3 conditions, 3 lagged parents of X and of Y), because larger binary contingency tables are empty. Recordings enter as separate datasets, so lags never cross recordings.
+- **Settings:** Δ = 0.5 s, `tau_max` = 10 s (20 lags), `pc_alpha` = 0.01. Conditioning sets are capped (3 conditions, 3 lagged parents of X and of Y), because larger binary contingency tables are empty. Recordings enter as separate datasets, so lags never cross recordings. Tigramite tests use `cut_off='2xtau_max'`: the first 2·`tau_max` steps of every recording never serve as test time t (20 s per recording at `tau_max` = 10 s).
 - **FDR** (verified in the tigramite 5.2.10.1 source):
   - `run_pcmciplus` decides and orients every link with uncorrected tests at α.
-  - It then Benjamini–Hochberg-corrects only the *reported* p-values, and only those of **lagged** links (`exclude_contemporaneous=True`). The reported value per link is the largest p-value over all its tests.
+  - It then Benjamini–Hochberg-corrects only the *reported* p-values, and only those of **lagged** links (`exclude_contemporaneous=True`). The reported value per link is the largest p-value over all its tests. The family is all lagged entries of one regime run, autodependencies included (N²·`tau_max` hypotheses), so it grows with `tau_max`; each regime is corrected separately.
   - We therefore remove lagged links whose corrected p-value exceeds α. Lag-0 links are unaffected, since their uncorrected maximum p is ≤ α by construction.
   - For coolant the filter removes 9 lagged links. One lag-0 orientation could have relied on a removed link; re-running that regime with the link forbidden gives the same orientation.
   - The unfiltered graph is reported as a sensitivity variant.
@@ -61,7 +61,8 @@ Facts that shape every later decision:
   - Lag-0 links oriented by PCMCI+ rules become directed edges.
   - `o-o` and `x-x` lag-0 links stay undirected; they are never oriented by guesswork.
   - Autodependencies are dropped.
-- **Leakage control:** leave-one-scenario-out graphs are built for RCA by leaving one regime out. Stability is measured by bootstrapping recordings within regimes (20 draws) and by one-at-a-time sensitivity (Δ, `tau_max`, α, FDR filter, support threshold). Sensitivity is compared with the primary graph, never with the expert graph.
+- **Leakage control:** leave-one-scenario-out graphs are built for RCA by leaving one regime out. Stability is measured by bootstrapping recordings within regimes (20 draws) and by one-at-a-time sensitivity (Δ, `tau_max`, α, FDR filter, support threshold). Sensitivity is compared with the primary graph, never with the expert graph. These sensitivity runs are not tuning: no selection objective is applied.
+- **Hyperparameter study (stage 12, `scripts/run_discovery_study.py`, `configs/discovery_study.yaml`):** a separate, reference-guided selection over `pc_alpha` {0.001, 0.01, 0.05} × `tau_max` {5, 10, 20} s × support {0.25, 0.5, 0.75}, with a selection rule specified before executing the search, but not formally preregistered (directed F1, skeleton F1, shorter `tau_max`, then deterministic rules). It adds leave-one-scenario-out selection, conditioning caps 2/4, a 60 s lag, FDR filter off, a CMIsymb comparison and a 20-draw bootstrap of the shortlist. Coolant: four configurations tie and all give the original graph. Probe: `tau_max` 20 s, `pc_alpha` 0.01, support 0.25 raises directed F1 from 0.00 to 0.42, but `pc_alpha` is not resolved by folds or bootstrap and the graph is unstable (mean bootstrap Jaccard 0.34). The expert graph is used for selection, so these are reference-guided tuning scores, not test accuracy. The notebooks keep the original configuration: coolant stays primary, and the original probe configuration is the baseline, with the tuned probe graph reported only as a comparison. Details: `results/12_discovery_study_report.md`.
 
 ## 5. Graph evaluation (notebook 04, `graph_evaluation.py`)
 
@@ -149,7 +150,9 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 - **Search:** among the top-3 actionable RCA candidates, by size (1–3 actions) then rank. The first set that keeps every supported outcome alarm off in ≥ 90% of 200 abducted worlds is the explanation; otherwise the best partial set is reported.
 - **Metrics:** target improvement (alarm time), validity probability, proximity (seconds of changed values), sparsity, feasibility, and robustness (noise samples, refitted mechanisms, other graphs).
 
-## 10. Framework evaluation (notebook 09)
+## 10. Framework evaluation (notebook 09; historical, outside the final scope)
+
+The empty-graph and perturbation experiments below were removed from the main evaluation on 9 Nov 2026. Their files are kept as historical evidence. The final evaluation is stage 14 (Section 10a).
 
 - **Graphs:** the expert graph, the discovered graph (leave one scenario out), the empty graph, and 45 perturbed expert graphs. The perturbations are deletion, insertion and reversal, each at 10/25/50% of the edges with 5 seeds, all kept acyclic.
 - **Pipeline:** for each graph the whole pipeline is rerun. Notebook 10 repeats discovery, graph evaluation, SCM, RCA and the perturbation study (without interventions and counterfactuals) on the probe subsystem. Downstream quality is related to graph quality with Spearman correlations (bootstrap intervals over graphs), plus paired Wilcoxon tests against the expert graph per run.
@@ -159,7 +162,22 @@ Agreement with the expert graph is agreement with expert knowledge, not proof of
 
   Correlations are therefore also computed over the nine level means, and differences to the expert graph are reported per scenario with counts of scenarios that improve, deteriorate or tie. All p-values (45-graph, nine-level, per-run Wilcoxon) are **exploratory**, not confirmatory.
 
+## 10a. Final evaluation (stage 14, `scripts/final_evaluation.py`)
+
+- **Comparison:** expert vs discovered graph only. Coolant runs the complete pipeline; probe covers discovery, SCM prediction and RCA.
+- **Two tracks:**
+  - **N (normal prediction):** one SCM fitted on 119 normal train + all subsystem fault runs, scored on normal train (in-sample), validation and test.
+  - **F (fault generalisation):** outer leave-one-scenario-out; the graph, SCM and fills exclude the held-out scenario.
+- **Same SCM, two uses:** RCA (reads signals only) and intervention replay (receives the known injection targets, values and onsets) are separate uses of the same fold SCM.
+- **Aggregation:** rows → recording–variable → recording; recordings equal (normal); runs within a scenario, then scenarios equal (fault). The pooled row-weighted scores are kept as a labelled supplement. RCA is reported as run-mean MAP@3 and as scenario-macro AP@3.
+- **Counterfactuals:** selection with 200 worlds (as notebook 08). The fixed sets are re-evaluated on 2,000 fresh worlds from an independent stream. Bootstrap refits now keep duplicate draws (`fit_scm` fix).
+- **Checks:** 51 automated checks (disjoint fold manifests, matched scoring rows, exact reproduction of notebooks 05/06/07/08/10) all pass.
+- **Details, the list of invalidated results and their replacements:** `results/14_final_evaluation.md`. Boundary audit: `results/14_evaluation_audit.md`.
+
 ## 11. Results
+
+> Numbers in this section are the original notebook results with pooled aggregation. The final numbers with the declared aggregation are in `results/14_final_evaluation.md`. Where they differ (SCM change-row log loss, counterfactual budgets, raw vs DAG graph scores), stage 14 supersedes them.
+
 
 **Causal discovery and graph agreement (notebooks 03–04).**
 - The combined PCMCI+ graph has 10 edges: 6 oriented, 4 undirected.
@@ -325,10 +343,12 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
   - the expert graph's **node set** defines each subsystem's variable universe;
   - the **scenario membership** of runs defines the regimes.
 
-  Expert edges, ground-truth causes and `causes.json` timestamps are never used.
+  Expert edges, ground-truth causes and `causes.json` timestamps are never used by PCMCI+. The stage-12 hyperparameter study uses the expert graph to *select* settings; its scores are therefore optimistic and labelled reference-guided tuning performance.
 - Conditioning sets are capped (3 conditions, 3 lagged parents) to keep contingency tables estimable. This can leave confounding paths open.
 - FDR control is applied after PCMCI+ and to lagged links only (tigramite does not correct lag-0 p-values in PCMCI+). This is a pragmatic correction, not a formally FDR-controlled PCMCI+.
 - The expert-edge delays were looked at in notebook 02 (marked as context). `tau_max` = 10 s was not tuned on them, and `tau_max` = 5 s gives the identical graph, but the look itself is reported.
+- Long delays are poorly supported. Under tigramite's sample-cutting rule, a 60 s `tau_max` removes 120 s of every 158–365 s fault recording (28–79% of fault-regime state changes). The 60 s graphs are worse, but this is confounded by the sample loss and does not show that shorter lags are correct.
+- G² is valid only asymptotically. The tested permutation-based alternative (CMIsymb, 200 shuffles) was computationally impractical under the available resources: the probe runs were stopped after 30 min and all four coolant runs reached the 3 h limit. This does not show that all permutation approaches are unsuitable.
 - Agreement with the expert graph is agreement with expert knowledge, not with a verified ground truth.
 
 **Structural causal model**
@@ -375,7 +395,9 @@ These are the 37 supported alarm activations; 19 unsupported activations cannot 
 | Counterfactual XAI | `counterfactuals.py` | 08 | abduction–action–prediction with recommendation search; executed |
 | Framework evaluation | `evaluation.py`, `graph_evaluation.py` | 09 | expert vs discovered vs 45 perturbed graphs; executed |
 | Extension: probe | all modules | 10 | discovery, graph evaluation, SCM, RCA, perturbations; executed; interventions and counterfactuals not applicable (sensor faults) |
+| Discovery hyperparameter study | `discovery_study.py`, `scripts/run_discovery_study.py` | — (script, stage 12) | grid, LOSO selection, caps, 60 s lag, FDR off, bootstrap executed; reproduces notebooks 03/10 exactly; CMIsymb comparison incomplete (probe stopped by hand, all four coolant runs timed out after 3 h) |
+| Final evaluation | `scripts/final_evaluation.py` | — (script, stage 14) | tracks N/F, expert vs discovered, macro aggregation, fresh-world counterfactual check, refits with multiplicity; 51 checks pass |
 | Hydraulics | — | — | **not run**: needs continuous SCM mechanisms for `Hyd_Pressure` |
 | Second discovery algorithm | — | — | **not started**, as planned (only after the full framework works) |
 
-Tests: 61 unit and integration tests (`python -m pytest`). They cover parsing, state reconstruction, no backfill, duplicates, recording boundaries, resampling, metadata helpers, splits, graph projection and metrics, perturbations, a synthetic SCM with known structure, RCA ranking metrics with multiple causes, feasibility rules, the counterfactual API contract, orientation-conflict reporting, FDR bookkeeping, the SCM's rejection of undirected edges, alarm onset detection, and the lag-aware temporal extension (baseline equivalence, fold-specific and same-direction lag selection, lag alignment, a synthetic 10-step delay, replay history, missing history, abduction and counterfactual compatibility).
+Tests: 91 unit and integration tests (`python -m pytest`). They cover parsing, state reconstruction, no backfill, duplicates, recording boundaries, resampling, metadata helpers, splits, graph projection and metrics, perturbations, a synthetic SCM with known structure, RCA ranking metrics with multiple causes, feasibility rules, the counterfactual API contract, orientation-conflict reporting, FDR bookkeeping, the SCM's rejection of undirected edges, alarm onset detection, the lag-aware temporal extension (baseline equivalence, fold-specific and same-direction lag selection, lag alignment, a synthetic 10-step delay, replay history, missing history, abduction and counterfactual compatibility), and the stage-12 study (lag conversion, grid and run keys, selection order and ties, held-out folds, tigramite's 2·`tau_max` cut and FDR behaviour, bootstrap draws, run cache, timeouts).

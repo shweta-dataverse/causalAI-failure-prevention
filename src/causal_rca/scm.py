@@ -331,6 +331,8 @@ def fit_scm(
     recordings are skipped when fitting that variable's mechanism.
     ``lags[(parent, child)]`` adds the parent at those lags (>= 2 steps) to the child's
     mechanism (lag-aware variant); ``None`` is the first-order model unchanged.
+    repeated ids in ``train_ids`` (bootstrap draws) keep their multiplicity in the
+    mechanisms and in the fill values.
     """
     lags = {e: tuple(sorted(int(l) for l in ls)) for e, ls in (lags or {}).items() if len(ls)}
     for (u, v), ls in lags.items():
@@ -345,13 +347,15 @@ def fit_scm(
     if undirected:
         raise ValueError(f"graph contains undirected edges {undirected}; convert it with graph_evaluation.to_dag")
     fills = fill_values(view_data, train_ids)
-    series = {r: recording_series(view_data, r) for r in train_ids}
+    # one entry per listed recording: a recording drawn twice in a bootstrap sample counts twice
+    cache = {r: recording_series(view_data, r) for r in dict.fromkeys(train_ids)}
+    series = [(r, cache[r]) for r in train_ids]
     mechanisms = {}
     for v in graph.nodes:
         if v not in view_data.var_names:
             continue
         parents = sorted(p for p in graph.predecessors(v) if p in view_data.var_names)
-        training = [s for r, s in series.items() if v not in manipulated.get(r, set())]
+        training = [s for r, s in series if v not in manipulated.get(r, set())]
         mech_lags = {p: lags[(p, v)] for p in parents if (p, v) in lags}
         mechanisms[v] = fit_mechanism(v, parents, training, fills, smoothing=smoothing, lags=mech_lags)
     return TemporalSCM(graph=graph.copy(), mechanisms=mechanisms, fills=fills, interval_s=interval_s)

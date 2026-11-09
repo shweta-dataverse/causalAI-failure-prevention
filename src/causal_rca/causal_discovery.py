@@ -123,8 +123,12 @@ def run_regime(
     recording_ids: Sequence[str],
     variables: Sequence[str],
     config: DiscoveryConfig,
+    cond_ind_test: Any = None,
 ) -> RegimeResult:
-    """pcmci+ with the g-squared test on one regime; each recording is its own dataset."""
+    """pcmci+ with the g-squared test on one regime; each recording is its own dataset.
+
+    ``cond_ind_test`` replaces the g-squared test (used only by the stage-12 sensitivity study).
+    """
     if len(variables) < 2:
         raise ValueError(f"regime {regime!r} has fewer than two usable variables")
     columns = [view_data.var_names.index(v) for v in variables]
@@ -132,7 +136,9 @@ def run_regime(
     mask = {k: view_data.masks[r][:, columns] for k, r in enumerate(recording_ids)}
     frame = tg_pp.DataFrame(data, mask=mask, analysis_mode="multiple", var_names=list(variables))
 
-    pcmci = PCMCI(dataframe=frame, cond_ind_test=Gsquared(significance="analytic", mask_type="xyz"), verbosity=0)
+    if cond_ind_test is None:
+        cond_ind_test = Gsquared(significance="analytic", mask_type="xyz")
+    pcmci = PCMCI(dataframe=frame, cond_ind_test=cond_ind_test, verbosity=0)
     start = time.perf_counter()
     results = pcmci.run_pcmciplus(
         tau_min=0,
