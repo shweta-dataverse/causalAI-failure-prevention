@@ -1,0 +1,63 @@
+
+== coolant
+  ok    coolant: track N fit excludes normal validation/test
+  ok    coolant exp_22: fold fit and outer test disjoint (138 fit, 6 test)
+  ok    coolant exp_22: fold fit excludes normal validation/test
+  ok    coolant exp_22: fold-specific discovered graph present
+  ok    coolant exp_22: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh-filter_s0.5; scm inner ['exp_27', 'exp_28', 'exp_35'])
+  ok    coolant exp_27: fold fit and outer test disjoint (137 fit, 7 test)
+  ok    coolant exp_27: fold fit excludes normal validation/test
+  ok    coolant exp_27: fold-specific discovered graph present
+  ok    coolant exp_27: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.75; scm inner ['exp_22', 'exp_28', 'exp_35'])
+  ok    coolant exp_28: fold fit and outer test disjoint (138 fit, 6 test)
+  ok    coolant exp_28: fold fit excludes normal validation/test
+  ok    coolant exp_28: fold-specific discovered graph present
+  ok    coolant exp_28: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh-filter_s0.5; scm inner ['exp_22', 'exp_27', 'exp_35'])
+  ok    coolant exp_35: fold fit and outer test disjoint (138 fit, 6 test)
+  ok    coolant exp_35: fold fit excludes normal validation/test
+  ok    coolant exp_35: fold-specific discovered graph present
+  ok    coolant exp_35: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh-filter_s0.5; scm inner ['exp_22', 'exp_27', 'exp_28'])
+  ok    coolant: identical encoded normal inputs across splits (disclosed, not acquisition duplicates) (2 identical-input groups span splits; zero-change recordings train 33, validation 5, test 1)
+  ok    coolant track N train: expert and discovered scored on identical rows (1231551 rows)
+  ok    coolant track N validation: expert and discovered scored on identical rows (279927 rows)
+  ok    coolant track N test: expert and discovered scored on identical rows (269982 rows)
+  ok    coolant track F: expert and discovered scored on identical rows (96014 rows)
+
+== probe
+  ok    probe: track N fit excludes normal validation/test
+  ok    probe exp_1: fold fit and outer test disjoint (147 fit, 6 test)
+  ok    probe exp_1: fold fit excludes normal validation/test
+  ok    probe exp_1: fold-specific discovered graph present
+  ok    probe exp_1: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25; scm inner ['exp_2_3', 'exp_4', 'exp_5', 'exp_6', 'exp_7'])
+  ok    probe exp_2_3: fold fit and outer test disjoint (145 fit, 8 test)
+  ok    probe exp_2_3: fold fit excludes normal validation/test
+  ok    probe exp_2_3: fold-specific discovered graph present
+  ok    probe exp_2_3: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.5; scm inner ['exp_1', 'exp_4', 'exp_5', 'exp_6', 'exp_7'])
+  ok    probe exp_4: fold fit and outer test disjoint (147 fit, 6 test)
+  ok    probe exp_4: fold fit excludes normal validation/test
+  ok    probe exp_4: fold-specific discovered graph present
+  ok    probe exp_4: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh-filter_s0.25; scm inner ['exp_1', 'exp_2_3', 'exp_5', 'exp_6', 'exp_7'])
+  ok    probe exp_5: fold fit and outer test disjoint (147 fit, 6 test)
+  ok    probe exp_5: fold fit excludes normal validation/test
+  ok    probe exp_5: fold-specific discovered graph present
+  ok    probe exp_5: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25; scm inner ['exp_1', 'exp_2_3', 'exp_4', 'exp_6', 'exp_7'])
+  ok    probe exp_6: fold fit and outer test disjoint (150 fit, 3 test)
+  ok    probe exp_6: fold fit excludes normal validation/test
+  ok    probe exp_6: fold-specific discovered graph present
+  ok    probe exp_6: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh-filter_s0.25; scm inner ['exp_1', 'exp_2_3', 'exp_4', 'exp_5', 'exp_7'])
+  ok    probe exp_7: fold fit and outer test disjoint (148 fit, 5 test)
+  ok    probe exp_7: fold fit excludes normal validation/test
+  ok    probe exp_7: fold-specific discovered graph present
+  ok    probe exp_7: graph and scm settings selected without the outer scenario (discovery gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh-filter_s0.25; scm inner ['exp_1', 'exp_2_3', 'exp_4', 'exp_5', 'exp_6'])
+  ok    probe: identical encoded normal inputs across splits (disclosed, not acquisition duplicates) (4 identical-input groups span splits; zero-change recordings train 40, validation 2, test 3)
+  ok    probe track N train: expert and discovered scored on identical rows (1231551 rows)
+  ok    probe track N validation: expert and discovered scored on identical rows (279927 rows)
+  ok    probe track N test: expert and discovered scored on identical rows (269982 rows)
+  ok    probe track F: expert and discovered scored on identical rows (151530 rows)
+
+== coolant interventions
+  ok    coolant: negative replay examples (recorded alarms that did not activate) (0 negatives: false-alarm specificity cannot be assessed)
+
+== coolant counterfactuals
+
+finished in 87.4 s; 0 failed checks

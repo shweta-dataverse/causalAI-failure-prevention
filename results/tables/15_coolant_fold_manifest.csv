@@ -1,0 +1,772 @@
+track,fold,recording_id,role
+N,all,real_op_28610,fit
+N,all,real_op_28717,fit
+N,all,real_op_29461,fit
+N,all,real_op_29795,fit
+N,all,real_op_29832,fit
+N,all,real_op_29930,fit
+N,all,real_op_30034,fit
+N,all,real_op_30325,fit
+N,all,real_op_30799,fit
+N,all,real_op_31038,fit
+N,all,real_op_31164,fit
+N,all,real_op_31276,fit
+N,all,real_op_31410,fit
+N,all,real_op_31523,fit
+N,all,real_op_31800,fit
+N,all,real_op_31940,fit
+N,all,real_op_32222,fit
+N,all,real_op_32645,fit
+N,all,real_op_33014,fit
+N,all,real_op_33139,fit
+N,all,real_op_33909,fit
+N,all,real_op_33954,fit
+N,all,real_op_34061,fit
+N,all,real_op_34229,fit
+N,all,real_op_34333,fit
+N,all,real_op_34360,fit
+N,all,real_op_34455,fit
+N,all,real_op_34855,fit
+N,all,real_op_34997,fit
+N,all,real_op_35440,fit
+N,all,real_op_36045,fit
+N,all,real_op_36192,fit
+N,all,real_op_36587,fit
+N,all,real_op_37161,fit
+N,all,real_op_37534,fit
+N,all,real_op_38130,fit
+N,all,real_op_38289,fit
+N,all,real_op_39422,fit
+N,all,real_op_39577,fit
+N,all,real_op_39819,fit
+N,all,real_op_39926,fit
+N,all,real_op_40036,fit
+N,all,real_op_40268,fit
+N,all,real_op_40400,fit
+N,all,real_op_40561,fit
+N,all,real_op_41032,fit
+N,all,real_op_41706,fit
+N,all,real_op_41896,fit
+N,all,real_op_42053,fit
+N,all,real_op_42157,fit
+N,all,real_op_42277,fit
+N,all,real_op_42426,fit
+N,all,real_op_42553,fit
+N,all,real_op_42716,fit
+N,all,real_op_42849,fit
+N,all,real_op_42967,fit
+N,all,real_op_43044,fit
+N,all,real_op_43345,fit
+N,all,real_op_43733,fit
+N,all,real_op_44275,fit
+N,all,real_op_44405,fit
+N,all,real_op_44885,fit
+N,all,real_op_44997,fit
+N,all,real_op_45441,fit
+N,all,real_op_45576,fit
+N,all,real_op_45736,fit
+N,all,real_op_46248,fit
+N,all,real_op_46565,fit
+N,all,real_op_46715,fit
+N,all,real_op_46977,fit
+N,all,real_op_47084,fit
+N,all,real_op_47250,fit
+N,all,real_op_47513,fit
+N,all,real_op_47791,fit
+N,all,real_op_47976,fit
+N,all,real_op_48043,fit
+N,all,real_op_48362,fit
+N,all,real_op_48551,fit
+N,all,real_op_48711,fit
+N,all,real_op_49134,fit
+N,all,real_op_49305,fit
+N,all,real_op_49695,fit
+N,all,real_op_50602,fit
+N,all,real_op_50909,fit
+N,all,real_op_51151,fit
+N,all,real_op_51473,fit
+N,all,real_op_51642,fit
+N,all,real_op_51733,fit
+N,all,real_op_51811,fit
+N,all,real_op_51880,fit
+N,all,real_op_52012,fit
+N,all,real_op_52425,fit
+N,all,real_op_52560,fit
+N,all,real_op_52899,fit
+N,all,real_op_53329,fit
+N,all,real_op_53834,fit
+N,all,real_op_53836,fit
+N,all,real_op_54061,fit
+N,all,real_op_54170,fit
+N,all,real_op_54222,fit
+N,all,real_op_54328,fit
+N,all,real_op_54408,fit
+N,all,real_op_54634,fit
+N,all,real_op_54806,fit
+N,all,real_op_55171,fit
+N,all,real_op_55315,fit
+N,all,real_op_55476,fit
+N,all,real_op_55654,fit
+N,all,real_op_55761,fit
+N,all,real_op_55841,fit
+N,all,real_op_56292,fit
+N,all,real_op_56451,fit
+N,all,real_op_56588,fit
+N,all,real_op_56742,fit
+N,all,real_op_56992,fit
+N,all,real_op_57266,fit
+N,all,real_op_57545,fit
+N,all,real_op_57731,fit
+N,all,real_op_58890,fit
+N,all,coolant_exp_22_run_1,fit
+N,all,coolant_exp_22_run_2,fit
+N,all,coolant_exp_22_run_3,fit
+N,all,coolant_exp_22_run_4,fit
+N,all,coolant_exp_22_run_5,fit
+N,all,coolant_exp_22_run_6,fit
+N,all,coolant_exp_27_run_1,fit
+N,all,coolant_exp_27_run_2,fit
+N,all,coolant_exp_27_run_3,fit
+N,all,coolant_exp_27_run_4,fit
+N,all,coolant_exp_27_run_5,fit
+N,all,coolant_exp_27_run_6,fit
+N,all,coolant_exp_27_run_7,fit
+N,all,coolant_exp_28_run_1,fit
+N,all,coolant_exp_28_run_2,fit
+N,all,coolant_exp_28_run_3,fit
+N,all,coolant_exp_28_run_4,fit
+N,all,coolant_exp_28_run_5,fit
+N,all,coolant_exp_28_run_6,fit
+N,all,coolant_exp_35_run_1,fit
+N,all,coolant_exp_35_run_2,fit
+N,all,coolant_exp_35_run_3,fit
+N,all,coolant_exp_35_run_4,fit
+N,all,coolant_exp_35_run_5,fit
+N,all,coolant_exp_35_run_6,fit
+N,all,real_op_59058,score (validation)
+N,all,real_op_59189,score (validation)
+N,all,real_op_59333,score (validation)
+N,all,real_op_59380,score (validation)
+N,all,real_op_59516,score (validation)
+N,all,real_op_60153,score (validation)
+N,all,real_op_60300,score (validation)
+N,all,real_op_60432,score (validation)
+N,all,real_op_60562,score (validation)
+N,all,real_op_60718,score (validation)
+N,all,real_op_60965,score (validation)
+N,all,real_op_61174,score (validation)
+N,all,real_op_61320,score (validation)
+N,all,real_op_61436,score (validation)
+N,all,real_op_61498,score (validation)
+N,all,real_op_61618,score (validation)
+N,all,real_op_62329,score (validation)
+N,all,real_op_62397,score (validation)
+N,all,real_op_62637,score (validation)
+N,all,real_op_62644,score (validation)
+N,all,real_op_65453,score (validation)
+N,all,real_op_65636,score (validation)
+N,all,real_op_65790,score (validation)
+N,all,real_op_65859,score (validation)
+N,all,real_op_66050,score (validation)
+N,all,real_op_66496,score (validation)
+N,all,real_op_66631,score (test)
+N,all,real_op_66743,score (test)
+N,all,real_op_66815,score (test)
+N,all,real_op_66872,score (test)
+N,all,real_op_66995,score (test)
+N,all,real_op_67117,score (test)
+N,all,real_op_67246,score (test)
+N,all,real_op_67373,score (test)
+N,all,real_op_67999,score (test)
+N,all,real_op_68317,score (test)
+N,all,real_op_68628,score (test)
+N,all,real_op_68785,score (test)
+N,all,real_op_68846,score (test)
+N,all,real_op_69666,score (test)
+N,all,real_op_69775,score (test)
+N,all,real_op_70570,score (test)
+N,all,real_op_70681,score (test)
+N,all,real_op_71877,score (test)
+N,all,real_op_72005,score (test)
+N,all,real_op_72101,score (test)
+N,all,real_op_72157,score (test)
+N,all,real_op_72375,score (test)
+N,all,real_op_72551,score (test)
+N,all,real_op_72595,score (test)
+N,all,real_op_72825,score (test)
+F,exp_22,real_op_28610,fit
+F,exp_22,real_op_28717,fit
+F,exp_22,real_op_29461,fit
+F,exp_22,real_op_29795,fit
+F,exp_22,real_op_29832,fit
+F,exp_22,real_op_29930,fit
+F,exp_22,real_op_30034,fit
+F,exp_22,real_op_30325,fit
+F,exp_22,real_op_30799,fit
+F,exp_22,real_op_31038,fit
+F,exp_22,real_op_31164,fit
+F,exp_22,real_op_31276,fit
+F,exp_22,real_op_31410,fit
+F,exp_22,real_op_31523,fit
+F,exp_22,real_op_31800,fit
+F,exp_22,real_op_31940,fit
+F,exp_22,real_op_32222,fit
+F,exp_22,real_op_32645,fit
+F,exp_22,real_op_33014,fit
+F,exp_22,real_op_33139,fit
+F,exp_22,real_op_33909,fit
+F,exp_22,real_op_33954,fit
+F,exp_22,real_op_34061,fit
+F,exp_22,real_op_34229,fit
+F,exp_22,real_op_34333,fit
+F,exp_22,real_op_34360,fit
+F,exp_22,real_op_34455,fit
+F,exp_22,real_op_34855,fit
+F,exp_22,real_op_34997,fit
+F,exp_22,real_op_35440,fit
+F,exp_22,real_op_36045,fit
+F,exp_22,real_op_36192,fit
+F,exp_22,real_op_36587,fit
+F,exp_22,real_op_37161,fit
+F,exp_22,real_op_37534,fit
+F,exp_22,real_op_38130,fit
+F,exp_22,real_op_38289,fit
+F,exp_22,real_op_39422,fit
+F,exp_22,real_op_39577,fit
+F,exp_22,real_op_39819,fit
+F,exp_22,real_op_39926,fit
+F,exp_22,real_op_40036,fit
+F,exp_22,real_op_40268,fit
+F,exp_22,real_op_40400,fit
+F,exp_22,real_op_40561,fit
+F,exp_22,real_op_41032,fit
+F,exp_22,real_op_41706,fit
+F,exp_22,real_op_41896,fit
+F,exp_22,real_op_42053,fit
+F,exp_22,real_op_42157,fit
+F,exp_22,real_op_42277,fit
+F,exp_22,real_op_42426,fit
+F,exp_22,real_op_42553,fit
+F,exp_22,real_op_42716,fit
+F,exp_22,real_op_42849,fit
+F,exp_22,real_op_42967,fit
+F,exp_22,real_op_43044,fit
+F,exp_22,real_op_43345,fit
+F,exp_22,real_op_43733,fit
+F,exp_22,real_op_44275,fit
+F,exp_22,real_op_44405,fit
+F,exp_22,real_op_44885,fit
+F,exp_22,real_op_44997,fit
+F,exp_22,real_op_45441,fit
+F,exp_22,real_op_45576,fit
+F,exp_22,real_op_45736,fit
+F,exp_22,real_op_46248,fit
+F,exp_22,real_op_46565,fit
+F,exp_22,real_op_46715,fit
+F,exp_22,real_op_46977,fit
+F,exp_22,real_op_47084,fit
+F,exp_22,real_op_47250,fit
+F,exp_22,real_op_47513,fit
+F,exp_22,real_op_47791,fit
+F,exp_22,real_op_47976,fit
+F,exp_22,real_op_48043,fit
+F,exp_22,real_op_48362,fit
+F,exp_22,real_op_48551,fit
+F,exp_22,real_op_48711,fit
+F,exp_22,real_op_49134,fit
+F,exp_22,real_op_49305,fit
+F,exp_22,real_op_49695,fit
+F,exp_22,real_op_50602,fit
+F,exp_22,real_op_50909,fit
+F,exp_22,real_op_51151,fit
+F,exp_22,real_op_51473,fit
+F,exp_22,real_op_51642,fit
+F,exp_22,real_op_51733,fit
+F,exp_22,real_op_51811,fit
+F,exp_22,real_op_51880,fit
+F,exp_22,real_op_52012,fit
+F,exp_22,real_op_52425,fit
+F,exp_22,real_op_52560,fit
+F,exp_22,real_op_52899,fit
+F,exp_22,real_op_53329,fit
+F,exp_22,real_op_53834,fit
+F,exp_22,real_op_53836,fit
+F,exp_22,real_op_54061,fit
+F,exp_22,real_op_54170,fit
+F,exp_22,real_op_54222,fit
+F,exp_22,real_op_54328,fit
+F,exp_22,real_op_54408,fit
+F,exp_22,real_op_54634,fit
+F,exp_22,real_op_54806,fit
+F,exp_22,real_op_55171,fit
+F,exp_22,real_op_55315,fit
+F,exp_22,real_op_55476,fit
+F,exp_22,real_op_55654,fit
+F,exp_22,real_op_55761,fit
+F,exp_22,real_op_55841,fit
+F,exp_22,real_op_56292,fit
+F,exp_22,real_op_56451,fit
+F,exp_22,real_op_56588,fit
+F,exp_22,real_op_56742,fit
+F,exp_22,real_op_56992,fit
+F,exp_22,real_op_57266,fit
+F,exp_22,real_op_57545,fit
+F,exp_22,real_op_57731,fit
+F,exp_22,real_op_58890,fit
+F,exp_22,coolant_exp_27_run_1,fit
+F,exp_22,coolant_exp_27_run_2,fit
+F,exp_22,coolant_exp_27_run_3,fit
+F,exp_22,coolant_exp_27_run_4,fit
+F,exp_22,coolant_exp_27_run_5,fit
+F,exp_22,coolant_exp_27_run_6,fit
+F,exp_22,coolant_exp_27_run_7,fit
+F,exp_22,coolant_exp_28_run_1,fit
+F,exp_22,coolant_exp_28_run_2,fit
+F,exp_22,coolant_exp_28_run_3,fit
+F,exp_22,coolant_exp_28_run_4,fit
+F,exp_22,coolant_exp_28_run_5,fit
+F,exp_22,coolant_exp_28_run_6,fit
+F,exp_22,coolant_exp_35_run_1,fit
+F,exp_22,coolant_exp_35_run_2,fit
+F,exp_22,coolant_exp_35_run_3,fit
+F,exp_22,coolant_exp_35_run_4,fit
+F,exp_22,coolant_exp_35_run_5,fit
+F,exp_22,coolant_exp_35_run_6,fit
+F,exp_22,coolant_exp_22_run_1,outer test
+F,exp_22,coolant_exp_22_run_2,outer test
+F,exp_22,coolant_exp_22_run_3,outer test
+F,exp_22,coolant_exp_22_run_4,outer test
+F,exp_22,coolant_exp_22_run_5,outer test
+F,exp_22,coolant_exp_22_run_6,outer test
+F,exp_27,real_op_28610,fit
+F,exp_27,real_op_28717,fit
+F,exp_27,real_op_29461,fit
+F,exp_27,real_op_29795,fit
+F,exp_27,real_op_29832,fit
+F,exp_27,real_op_29930,fit
+F,exp_27,real_op_30034,fit
+F,exp_27,real_op_30325,fit
+F,exp_27,real_op_30799,fit
+F,exp_27,real_op_31038,fit
+F,exp_27,real_op_31164,fit
+F,exp_27,real_op_31276,fit
+F,exp_27,real_op_31410,fit
+F,exp_27,real_op_31523,fit
+F,exp_27,real_op_31800,fit
+F,exp_27,real_op_31940,fit
+F,exp_27,real_op_32222,fit
+F,exp_27,real_op_32645,fit
+F,exp_27,real_op_33014,fit
+F,exp_27,real_op_33139,fit
+F,exp_27,real_op_33909,fit
+F,exp_27,real_op_33954,fit
+F,exp_27,real_op_34061,fit
+F,exp_27,real_op_34229,fit
+F,exp_27,real_op_34333,fit
+F,exp_27,real_op_34360,fit
+F,exp_27,real_op_34455,fit
+F,exp_27,real_op_34855,fit
+F,exp_27,real_op_34997,fit
+F,exp_27,real_op_35440,fit
+F,exp_27,real_op_36045,fit
+F,exp_27,real_op_36192,fit
+F,exp_27,real_op_36587,fit
+F,exp_27,real_op_37161,fit
+F,exp_27,real_op_37534,fit
+F,exp_27,real_op_38130,fit
+F,exp_27,real_op_38289,fit
+F,exp_27,real_op_39422,fit
+F,exp_27,real_op_39577,fit
+F,exp_27,real_op_39819,fit
+F,exp_27,real_op_39926,fit
+F,exp_27,real_op_40036,fit
+F,exp_27,real_op_40268,fit
+F,exp_27,real_op_40400,fit
+F,exp_27,real_op_40561,fit
+F,exp_27,real_op_41032,fit
+F,exp_27,real_op_41706,fit
+F,exp_27,real_op_41896,fit
+F,exp_27,real_op_42053,fit
+F,exp_27,real_op_42157,fit
+F,exp_27,real_op_42277,fit
+F,exp_27,real_op_42426,fit
+F,exp_27,real_op_42553,fit
+F,exp_27,real_op_42716,fit
+F,exp_27,real_op_42849,fit
+F,exp_27,real_op_42967,fit
+F,exp_27,real_op_43044,fit
+F,exp_27,real_op_43345,fit
+F,exp_27,real_op_43733,fit
+F,exp_27,real_op_44275,fit
+F,exp_27,real_op_44405,fit
+F,exp_27,real_op_44885,fit
+F,exp_27,real_op_44997,fit
+F,exp_27,real_op_45441,fit
+F,exp_27,real_op_45576,fit
+F,exp_27,real_op_45736,fit
+F,exp_27,real_op_46248,fit
+F,exp_27,real_op_46565,fit
+F,exp_27,real_op_46715,fit
+F,exp_27,real_op_46977,fit
+F,exp_27,real_op_47084,fit
+F,exp_27,real_op_47250,fit
+F,exp_27,real_op_47513,fit
+F,exp_27,real_op_47791,fit
+F,exp_27,real_op_47976,fit
+F,exp_27,real_op_48043,fit
+F,exp_27,real_op_48362,fit
+F,exp_27,real_op_48551,fit
+F,exp_27,real_op_48711,fit
+F,exp_27,real_op_49134,fit
+F,exp_27,real_op_49305,fit
+F,exp_27,real_op_49695,fit
+F,exp_27,real_op_50602,fit
+F,exp_27,real_op_50909,fit
+F,exp_27,real_op_51151,fit
+F,exp_27,real_op_51473,fit
+F,exp_27,real_op_51642,fit
+F,exp_27,real_op_51733,fit
+F,exp_27,real_op_51811,fit
+F,exp_27,real_op_51880,fit
+F,exp_27,real_op_52012,fit
+F,exp_27,real_op_52425,fit
+F,exp_27,real_op_52560,fit
+F,exp_27,real_op_52899,fit
+F,exp_27,real_op_53329,fit
+F,exp_27,real_op_53834,fit
+F,exp_27,real_op_53836,fit
+F,exp_27,real_op_54061,fit
+F,exp_27,real_op_54170,fit
+F,exp_27,real_op_54222,fit
+F,exp_27,real_op_54328,fit
+F,exp_27,real_op_54408,fit
+F,exp_27,real_op_54634,fit
+F,exp_27,real_op_54806,fit
+F,exp_27,real_op_55171,fit
+F,exp_27,real_op_55315,fit
+F,exp_27,real_op_55476,fit
+F,exp_27,real_op_55654,fit
+F,exp_27,real_op_55761,fit
+F,exp_27,real_op_55841,fit
+F,exp_27,real_op_56292,fit
+F,exp_27,real_op_56451,fit
+F,exp_27,real_op_56588,fit
+F,exp_27,real_op_56742,fit
+F,exp_27,real_op_56992,fit
+F,exp_27,real_op_57266,fit
+F,exp_27,real_op_57545,fit
+F,exp_27,real_op_57731,fit
+F,exp_27,real_op_58890,fit
+F,exp_27,coolant_exp_22_run_1,fit
+F,exp_27,coolant_exp_22_run_2,fit
+F,exp_27,coolant_exp_22_run_3,fit
+F,exp_27,coolant_exp_22_run_4,fit
+F,exp_27,coolant_exp_22_run_5,fit
+F,exp_27,coolant_exp_22_run_6,fit
+F,exp_27,coolant_exp_28_run_1,fit
+F,exp_27,coolant_exp_28_run_2,fit
+F,exp_27,coolant_exp_28_run_3,fit
+F,exp_27,coolant_exp_28_run_4,fit
+F,exp_27,coolant_exp_28_run_5,fit
+F,exp_27,coolant_exp_28_run_6,fit
+F,exp_27,coolant_exp_35_run_1,fit
+F,exp_27,coolant_exp_35_run_2,fit
+F,exp_27,coolant_exp_35_run_3,fit
+F,exp_27,coolant_exp_35_run_4,fit
+F,exp_27,coolant_exp_35_run_5,fit
+F,exp_27,coolant_exp_35_run_6,fit
+F,exp_27,coolant_exp_27_run_1,outer test
+F,exp_27,coolant_exp_27_run_2,outer test
+F,exp_27,coolant_exp_27_run_3,outer test
+F,exp_27,coolant_exp_27_run_4,outer test
+F,exp_27,coolant_exp_27_run_5,outer test
+F,exp_27,coolant_exp_27_run_6,outer test
+F,exp_27,coolant_exp_27_run_7,outer test
+F,exp_28,real_op_28610,fit
+F,exp_28,real_op_28717,fit
+F,exp_28,real_op_29461,fit
+F,exp_28,real_op_29795,fit
+F,exp_28,real_op_29832,fit
+F,exp_28,real_op_29930,fit
+F,exp_28,real_op_30034,fit
+F,exp_28,real_op_30325,fit
+F,exp_28,real_op_30799,fit
+F,exp_28,real_op_31038,fit
+F,exp_28,real_op_31164,fit
+F,exp_28,real_op_31276,fit
+F,exp_28,real_op_31410,fit
+F,exp_28,real_op_31523,fit
+F,exp_28,real_op_31800,fit
+F,exp_28,real_op_31940,fit
+F,exp_28,real_op_32222,fit
+F,exp_28,real_op_32645,fit
+F,exp_28,real_op_33014,fit
+F,exp_28,real_op_33139,fit
+F,exp_28,real_op_33909,fit
+F,exp_28,real_op_33954,fit
+F,exp_28,real_op_34061,fit
+F,exp_28,real_op_34229,fit
+F,exp_28,real_op_34333,fit
+F,exp_28,real_op_34360,fit
+F,exp_28,real_op_34455,fit
+F,exp_28,real_op_34855,fit
+F,exp_28,real_op_34997,fit
+F,exp_28,real_op_35440,fit
+F,exp_28,real_op_36045,fit
+F,exp_28,real_op_36192,fit
+F,exp_28,real_op_36587,fit
+F,exp_28,real_op_37161,fit
+F,exp_28,real_op_37534,fit
+F,exp_28,real_op_38130,fit
+F,exp_28,real_op_38289,fit
+F,exp_28,real_op_39422,fit
+F,exp_28,real_op_39577,fit
+F,exp_28,real_op_39819,fit
+F,exp_28,real_op_39926,fit
+F,exp_28,real_op_40036,fit
+F,exp_28,real_op_40268,fit
+F,exp_28,real_op_40400,fit
+F,exp_28,real_op_40561,fit
+F,exp_28,real_op_41032,fit
+F,exp_28,real_op_41706,fit
+F,exp_28,real_op_41896,fit
+F,exp_28,real_op_42053,fit
+F,exp_28,real_op_42157,fit
+F,exp_28,real_op_42277,fit
+F,exp_28,real_op_42426,fit
+F,exp_28,real_op_42553,fit
+F,exp_28,real_op_42716,fit
+F,exp_28,real_op_42849,fit
+F,exp_28,real_op_42967,fit
+F,exp_28,real_op_43044,fit
+F,exp_28,real_op_43345,fit
+F,exp_28,real_op_43733,fit
+F,exp_28,real_op_44275,fit
+F,exp_28,real_op_44405,fit
+F,exp_28,real_op_44885,fit
+F,exp_28,real_op_44997,fit
+F,exp_28,real_op_45441,fit
+F,exp_28,real_op_45576,fit
+F,exp_28,real_op_45736,fit
+F,exp_28,real_op_46248,fit
+F,exp_28,real_op_46565,fit
+F,exp_28,real_op_46715,fit
+F,exp_28,real_op_46977,fit
+F,exp_28,real_op_47084,fit
+F,exp_28,real_op_47250,fit
+F,exp_28,real_op_47513,fit
+F,exp_28,real_op_47791,fit
+F,exp_28,real_op_47976,fit
+F,exp_28,real_op_48043,fit
+F,exp_28,real_op_48362,fit
+F,exp_28,real_op_48551,fit
+F,exp_28,real_op_48711,fit
+F,exp_28,real_op_49134,fit
+F,exp_28,real_op_49305,fit
+F,exp_28,real_op_49695,fit
+F,exp_28,real_op_50602,fit
+F,exp_28,real_op_50909,fit
+F,exp_28,real_op_51151,fit
+F,exp_28,real_op_51473,fit
+F,exp_28,real_op_51642,fit
+F,exp_28,real_op_51733,fit
+F,exp_28,real_op_51811,fit
+F,exp_28,real_op_51880,fit
+F,exp_28,real_op_52012,fit
+F,exp_28,real_op_52425,fit
+F,exp_28,real_op_52560,fit
+F,exp_28,real_op_52899,fit
+F,exp_28,real_op_53329,fit
+F,exp_28,real_op_53834,fit
+F,exp_28,real_op_53836,fit
+F,exp_28,real_op_54061,fit
+F,exp_28,real_op_54170,fit
+F,exp_28,real_op_54222,fit
+F,exp_28,real_op_54328,fit
+F,exp_28,real_op_54408,fit
+F,exp_28,real_op_54634,fit
+F,exp_28,real_op_54806,fit
+F,exp_28,real_op_55171,fit
+F,exp_28,real_op_55315,fit
+F,exp_28,real_op_55476,fit
+F,exp_28,real_op_55654,fit
+F,exp_28,real_op_55761,fit
+F,exp_28,real_op_55841,fit
+F,exp_28,real_op_56292,fit
+F,exp_28,real_op_56451,fit
+F,exp_28,real_op_56588,fit
+F,exp_28,real_op_56742,fit
+F,exp_28,real_op_56992,fit
+F,exp_28,real_op_57266,fit
+F,exp_28,real_op_57545,fit
+F,exp_28,real_op_57731,fit
+F,exp_28,real_op_58890,fit
+F,exp_28,coolant_exp_22_run_1,fit
+F,exp_28,coolant_exp_22_run_2,fit
+F,exp_28,coolant_exp_22_run_3,fit
+F,exp_28,coolant_exp_22_run_4,fit
+F,exp_28,coolant_exp_22_run_5,fit
+F,exp_28,coolant_exp_22_run_6,fit
+F,exp_28,coolant_exp_27_run_1,fit
+F,exp_28,coolant_exp_27_run_2,fit
+F,exp_28,coolant_exp_27_run_3,fit
+F,exp_28,coolant_exp_27_run_4,fit
+F,exp_28,coolant_exp_27_run_5,fit
+F,exp_28,coolant_exp_27_run_6,fit
+F,exp_28,coolant_exp_27_run_7,fit
+F,exp_28,coolant_exp_35_run_1,fit
+F,exp_28,coolant_exp_35_run_2,fit
+F,exp_28,coolant_exp_35_run_3,fit
+F,exp_28,coolant_exp_35_run_4,fit
+F,exp_28,coolant_exp_35_run_5,fit
+F,exp_28,coolant_exp_35_run_6,fit
+F,exp_28,coolant_exp_28_run_1,outer test
+F,exp_28,coolant_exp_28_run_2,outer test
+F,exp_28,coolant_exp_28_run_3,outer test
+F,exp_28,coolant_exp_28_run_4,outer test
+F,exp_28,coolant_exp_28_run_5,outer test
+F,exp_28,coolant_exp_28_run_6,outer test
+F,exp_35,real_op_28610,fit
+F,exp_35,real_op_28717,fit
+F,exp_35,real_op_29461,fit
+F,exp_35,real_op_29795,fit
+F,exp_35,real_op_29832,fit
+F,exp_35,real_op_29930,fit
+F,exp_35,real_op_30034,fit
+F,exp_35,real_op_30325,fit
+F,exp_35,real_op_30799,fit
+F,exp_35,real_op_31038,fit
+F,exp_35,real_op_31164,fit
+F,exp_35,real_op_31276,fit
+F,exp_35,real_op_31410,fit
+F,exp_35,real_op_31523,fit
+F,exp_35,real_op_31800,fit
+F,exp_35,real_op_31940,fit
+F,exp_35,real_op_32222,fit
+F,exp_35,real_op_32645,fit
+F,exp_35,real_op_33014,fit
+F,exp_35,real_op_33139,fit
+F,exp_35,real_op_33909,fit
+F,exp_35,real_op_33954,fit
+F,exp_35,real_op_34061,fit
+F,exp_35,real_op_34229,fit
+F,exp_35,real_op_34333,fit
+F,exp_35,real_op_34360,fit
+F,exp_35,real_op_34455,fit
+F,exp_35,real_op_34855,fit
+F,exp_35,real_op_34997,fit
+F,exp_35,real_op_35440,fit
+F,exp_35,real_op_36045,fit
+F,exp_35,real_op_36192,fit
+F,exp_35,real_op_36587,fit
+F,exp_35,real_op_37161,fit
+F,exp_35,real_op_37534,fit
+F,exp_35,real_op_38130,fit
+F,exp_35,real_op_38289,fit
+F,exp_35,real_op_39422,fit
+F,exp_35,real_op_39577,fit
+F,exp_35,real_op_39819,fit
+F,exp_35,real_op_39926,fit
+F,exp_35,real_op_40036,fit
+F,exp_35,real_op_40268,fit
+F,exp_35,real_op_40400,fit
+F,exp_35,real_op_40561,fit
+F,exp_35,real_op_41032,fit
+F,exp_35,real_op_41706,fit
+F,exp_35,real_op_41896,fit
+F,exp_35,real_op_42053,fit
+F,exp_35,real_op_42157,fit
+F,exp_35,real_op_42277,fit
+F,exp_35,real_op_42426,fit
+F,exp_35,real_op_42553,fit
+F,exp_35,real_op_42716,fit
+F,exp_35,real_op_42849,fit
+F,exp_35,real_op_42967,fit
+F,exp_35,real_op_43044,fit
+F,exp_35,real_op_43345,fit
+F,exp_35,real_op_43733,fit
+F,exp_35,real_op_44275,fit
+F,exp_35,real_op_44405,fit
+F,exp_35,real_op_44885,fit
+F,exp_35,real_op_44997,fit
+F,exp_35,real_op_45441,fit
+F,exp_35,real_op_45576,fit
+F,exp_35,real_op_45736,fit
+F,exp_35,real_op_46248,fit
+F,exp_35,real_op_46565,fit
+F,exp_35,real_op_46715,fit
+F,exp_35,real_op_46977,fit
+F,exp_35,real_op_47084,fit
+F,exp_35,real_op_47250,fit
+F,exp_35,real_op_47513,fit
+F,exp_35,real_op_47791,fit
+F,exp_35,real_op_47976,fit
+F,exp_35,real_op_48043,fit
+F,exp_35,real_op_48362,fit
+F,exp_35,real_op_48551,fit
+F,exp_35,real_op_48711,fit
+F,exp_35,real_op_49134,fit
+F,exp_35,real_op_49305,fit
+F,exp_35,real_op_49695,fit
+F,exp_35,real_op_50602,fit
+F,exp_35,real_op_50909,fit
+F,exp_35,real_op_51151,fit
+F,exp_35,real_op_51473,fit
+F,exp_35,real_op_51642,fit
+F,exp_35,real_op_51733,fit
+F,exp_35,real_op_51811,fit
+F,exp_35,real_op_51880,fit
+F,exp_35,real_op_52012,fit
+F,exp_35,real_op_52425,fit
+F,exp_35,real_op_52560,fit
+F,exp_35,real_op_52899,fit
+F,exp_35,real_op_53329,fit
+F,exp_35,real_op_53834,fit
+F,exp_35,real_op_53836,fit
+F,exp_35,real_op_54061,fit
+F,exp_35,real_op_54170,fit
+F,exp_35,real_op_54222,fit
+F,exp_35,real_op_54328,fit
+F,exp_35,real_op_54408,fit
+F,exp_35,real_op_54634,fit
+F,exp_35,real_op_54806,fit
+F,exp_35,real_op_55171,fit
+F,exp_35,real_op_55315,fit
+F,exp_35,real_op_55476,fit
+F,exp_35,real_op_55654,fit
+F,exp_35,real_op_55761,fit
+F,exp_35,real_op_55841,fit
+F,exp_35,real_op_56292,fit
+F,exp_35,real_op_56451,fit
+F,exp_35,real_op_56588,fit
+F,exp_35,real_op_56742,fit
+F,exp_35,real_op_56992,fit
+F,exp_35,real_op_57266,fit
+F,exp_35,real_op_57545,fit
+F,exp_35,real_op_57731,fit
+F,exp_35,real_op_58890,fit
+F,exp_35,coolant_exp_22_run_1,fit
+F,exp_35,coolant_exp_22_run_2,fit
+F,exp_35,coolant_exp_22_run_3,fit
+F,exp_35,coolant_exp_22_run_4,fit
+F,exp_35,coolant_exp_22_run_5,fit
+F,exp_35,coolant_exp_22_run_6,fit
+F,exp_35,coolant_exp_27_run_1,fit
+F,exp_35,coolant_exp_27_run_2,fit
+F,exp_35,coolant_exp_27_run_3,fit
+F,exp_35,coolant_exp_27_run_4,fit
+F,exp_35,coolant_exp_27_run_5,fit
+F,exp_35,coolant_exp_27_run_6,fit
+F,exp_35,coolant_exp_27_run_7,fit
+F,exp_35,coolant_exp_28_run_1,fit
+F,exp_35,coolant_exp_28_run_2,fit
+F,exp_35,coolant_exp_28_run_3,fit
+F,exp_35,coolant_exp_28_run_4,fit
+F,exp_35,coolant_exp_28_run_5,fit
+F,exp_35,coolant_exp_28_run_6,fit
+F,exp_35,coolant_exp_35_run_1,outer test
+F,exp_35,coolant_exp_35_run_2,outer test
+F,exp_35,coolant_exp_35_run_3,outer test
+F,exp_35,coolant_exp_35_run_4,outer test
+F,exp_35,coolant_exp_35_run_5,outer test
+F,exp_35,coolant_exp_35_run_6,outer test

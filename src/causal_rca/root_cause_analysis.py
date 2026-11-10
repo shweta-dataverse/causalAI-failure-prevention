@@ -147,6 +147,7 @@ def evaluate_rca(
     folds: Sequence[str] | None = None,
     n_chance: int = 2000,
     seed: int = 0,
+    fit_model: Callable[[str, list[str]], TemporalSCM] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, TemporalSCM]]:
     """fit the scm without each fault scenario and rank the candidates of its runs.
 
@@ -157,7 +158,11 @@ def evaluate_rca(
     folds = list(folds) if folds is not None else sorted(splits.loc[splits["split"] == "fault", "fold"].unique())
     metric_rows, ranking_frames, scms = [], [], {}
     for fold in folds:
-        model = fit_scm(view_data, graph_for(fold), fold_training_ids(splits, fold), manipulated, interval_s)
+        train = fold_training_ids(splits, fold)
+        if fit_model is None:
+            model = fit_scm(view_data, graph_for(fold), train, manipulated, interval_s)
+        else:
+            model = fit_model(fold, train)
         scms[fold] = model
         for rid in splits.loc[splits["fold"] == fold, "recording_id"]:
             series = recording_series(view_data, rid)

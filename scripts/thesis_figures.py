@@ -1,9 +1,11 @@
-"""thesis figures at print size, in sentence case, redrawn from the stage-14 results.
+"""thesis figures at print size, in sentence case, redrawn from the stage-15 results
+(final evaluation with the selected discovery and scm settings).
 
-the summary figures only read the stored stage-14 tables, so no number changes. the three
+the summary figures only read the stored stage-15 tables, so no number changes. the three
 single-run figures (fault timeline, mechanism-break scores, counterfactual example) refit the
-fold scm exactly as stage 14 does. the counterfactual example reuses the independent random
-stream of stage 14, so it shows the same 2,000 conditional simulations as the results table.
+fold scm exactly as stage 15 does (selected smoothing and extra lag of that fold). the
+counterfactual example reuses the independent random stream of stage 15, so it shows the same
+2,000 conditional simulations as the results table.
 
 usage: PYTHONPATH=src python scripts/thesis_figures.py
 output: results/figures/thesis_*.pdf (and .png)
@@ -33,10 +35,11 @@ TABLES = data.RESULTS_DIR / "tables"
 GRAPHS = ("expert", "discovered")
 GRAPH_COLORS = {"expert": ev.COLORS[0], "discovered": ev.COLORS[1]}
 GRAPH_LABELS = {"expert": "Expert graph", "discovered": "Discovered graph"}
-CF_ENTROPY = 20261109        # independent stream of stage 14
-CF_BATCHES = (10, 200)       # 2,000 simulations in 10 batches, as in stage 14
+CF_ENTROPY = 20261109        # independent stream of stage 14 and 15
+CF_BATCHES = (10, 200)       # 2,000 simulations in 10 batches, as in stages 14 and 15
 EXAMPLE_RUN = "coolant_exp_22_run_1"
 EXAMPLE_FOLD = "exp_22"
+STAGE = "15"                 # final evaluation with the selected settings
 MUTED = ev.INK["muted"]
 
 
@@ -79,8 +82,13 @@ def coolant_setting() -> dict:
 
 
 def fold_model(s: dict, fold: str) -> sc.TemporalSCM:
-    # same call as rca.evaluate_rca in stage 14 (expert graph)
-    return sc.fit_scm(s["view"], s["expert"], data.fold_training_ids(s["splits"], fold), s["manipulated"], INTERVAL)
+    # same fit as stage 15 (expert graph, smoothing and extra lag selected for this fold)
+    sel = pd.read_csv(TABLES / f"{STAGE}_scm_selection.csv")
+    row = sel[(sel.subsystem == "coolant") & (sel.graph == "expert") & (sel.fold == fold)].iloc[0]
+    graph = s["expert"]
+    lags = None if pd.isna(row.lag) else {(u, v): [int(row.lag)] for u, v in graph.edges if 3 * graph.in_degree(v) <= 20}
+    return sc.fit_scm(s["view"], graph, data.fold_training_ids(s["splits"], fold), s["manipulated"], INTERVAL,
+                      smoothing=float(row.alpha), lags=lags)
 
 
 # ---------------------------------------------------------------------------
@@ -168,9 +176,9 @@ POSITIONS = {
         "LT_Level_Ok": (0, -7), "LT_A_700317": (9.3, -6.5), "LT_Pump_Ok": (9.3, -7.5),
     },
     "probe": {
-        "MPA_toInitPos": (0, 0), "MPA_InitPos": (4.2, 0), "MPC_close": (8.4, 0), "MPC_Closed": (10.9, -1.0),
+        "MPA_toInitPos": (0, 0), "MPA_InitPos": (4.2, 0), "MPC_close": (8.4, 0), "MPC_Closed": (11.4, -1.0),
         "MPC_open": (8.4, -1.6), "MPC_isOpen": (8.4, -3.2),
-        "MPA_A_701124": (2.6, -1.9), "MPA_A_701125": (5.8, -2.5),
+        "MPA_A_701124": (2.6, -1.9), "MPA_A_701125": (5.6, -1.6),
         "MPA_toWorkPos": (0, -4.6), "MPA_WorkPos": (4.2, -4.6), "MP_Inactive": (8.4, -5.2),
     },
 }
@@ -180,6 +188,8 @@ ROUTES = {
     frozenset({"CLF_A_700307", "LP_A_700301"}): ("east", "east", "out=0, in=0, looseness=1"),
     frozenset({"HP_A_700304", "LT_A_700317"}): ("east", "east", "out=0, in=0, looseness=1.2"),
     frozenset({"MPA_toWorkPos", "MP_Inactive"}): ("south", "south", "out=-90, in=-90, looseness=0.6"),
+    frozenset({"MPC_close", "MPC_isOpen"}): ("east", "east", "out=0, in=0, looseness=0.7"),
+    frozenset({"MPA_toWorkPos", "MPA_InitPos"}): ("north", "south west", "bend left=22"),
 }
 TIKZ_EDGE = {  # class: tikz style
     "expert": "->, draw=black!70, line width=0.7pt",
@@ -215,7 +225,7 @@ def figure_graphs(sub: str) -> None:
     from causal_rca import causal_discovery as cd
     expert = ge.simple_digraph(data.load_expert_graph(subsystem=sub))
     kinds = {n: expert.nodes[n]["kind"] for n in expert.nodes}
-    table = pd.read_csv(TABLES / ("03_coolant_edges.csv" if sub == "coolant" else "10_probe_edges.csv"))
+    table = pd.read_csv(TABLES / f"{STAGE}_{sub}_discovery_edges.csv")
     disc = nx.DiGraph(cd.edges_to_graph(table[table.graph_id == "discovered"], sorted(expert.nodes)))
     pos = POSITIONS[sub]
     assert set(pos) == set(expert.nodes)
@@ -236,8 +246,10 @@ def figure_graphs(sub: str) -> None:
              r"  al/.style={draw=figorange, fill=figorange!15, rounded corners=2pt, inner sep=2.5pt, font=\footnotesize\ttfamily}]"]
     lines += tikz_panel("a-", pos, kinds, [(u, v, "expert") for u, v in expert.edges],
                         f"(a) Expert graph: {expert.number_of_edges()} edges", 0)
+    # a pair found in both directions is drawn as two arrows but counts as one adjacency
+    adjacencies = len({frozenset((u, v)) for u, v in disc.edges})
     lines += tikz_panel("b-", pos, kinds, found + missed,
-                        f"(b) Discovered summary graph, before DAG conversion: {disc.number_of_edges()} edges", shift)
+                        f"(b) Discovered summary graph, before DAG conversion: {adjacencies} adjacencies", shift)
     # legend: only classes that occur, with their counts
     labels = {k: lab for k, (lab, _, _) in EDGE_STYLE.items()}
     rows = [rf"\tikz[baseline=-0.6ex]\draw[{TIKZ_EDGE[k]}] (0,0) -- (0.8,0); & {labels[k]} ({counts[k]})"
@@ -265,7 +277,7 @@ def figure_graphs(sub: str) -> None:
 
 
 def figure_scm() -> None:
-    t = pd.read_csv(TABLES / "14_scm_prediction.csv")
+    t = pd.read_csv(TABLES / f"{STAGE}_scm_prediction.csv")
     t = t[t.track == "N"]
     splits = ["train", "validation", "test"]
     names = {"train": "Training\n(in-sample)", "validation": "Validation", "test": "Test"}
@@ -323,7 +335,7 @@ def figure_surprise(s: dict, model: sc.TemporalSCM) -> None:
 
 
 def figure_rca() -> None:
-    per = pd.read_csv(TABLES / "14_rca_per_scenario.csv")
+    per = pd.read_csv(TABLES / f"{STAGE}_rca_per_scenario.csv")
     fig, axes = plt.subplots(2, 1, figsize=(WIDTH, 5.2), layout="constrained",
                              gridspec_kw={"height_ratios": [1, 1]})
     for ax, sub in zip(axes, ("coolant", "probe")):
@@ -354,7 +366,7 @@ def figure_rca() -> None:
 
 
 def figure_interventions() -> None:
-    rep = pd.read_csv(TABLES / "14_coolant_replay.csv")
+    rep = pd.read_csv(TABLES / f"{STAGE}_coolant_replay.csv")
     obs = rep[rep.observed_fired]
     folds = sorted(obs.fold.unique())
     x = np.arange(len(folds))
@@ -422,7 +434,7 @@ def figure_interventions() -> None:
 
 
 # ---------------------------------------------------------------------------
-# figure 6.7: counterfactual example with the 2,000 independent simulations of stage 14
+# figure 6.7: counterfactual example with the 2,000 independent simulations of stage 15
 # ---------------------------------------------------------------------------
 
 
@@ -451,9 +463,9 @@ def example_worlds(s: dict, model: sc.TemporalSCM, actions, recorded) -> tuple[d
 
 
 def figure_cf_example(s: dict, model: sc.TemporalSCM) -> None:
-    cf = pd.read_csv(TABLES / "14_coolant_cf_runs.csv")
+    cf = pd.read_csv(TABLES / f"{STAGE}_coolant_cf_runs.csv")
     row = cf[(cf.graph == "expert") & (cf.recording_id == EXAMPLE_RUN)].iloc[0]
-    ranking = pd.read_csv(TABLES / "14_rca_rankings.csv")
+    ranking = pd.read_csv(TABLES / f"{STAGE}_rca_rankings.csv")
     ranking = ranking[(ranking.subsystem == "coolant") & (ranking.graph == "expert") & (ranking.recording_id == EXAMPLE_RUN)]
     detection = dict(zip(ranking.variable, ranking.detection_step))
     chosen = [a.split("=")[0].removeprefix("do(") for a in row.actions.split(" + ")]
@@ -495,7 +507,7 @@ def figure_cf_example(s: dict, model: sc.TemporalSCM) -> None:
 
 
 def figure_counterfactuals() -> None:
-    cf = pd.read_csv(TABLES / "14_coolant_cf_runs.csv")
+    cf = pd.read_csv(TABLES / f"{STAGE}_coolant_cf_runs.csv")
     folds = sorted(cf.fold.unique())
     x = np.arange(len(folds))
     rng = np.random.default_rng(0)
@@ -510,7 +522,7 @@ def figure_counterfactuals() -> None:
             ax.scatter(np.full(len(v), xo) + rng.uniform(-0.06, 0.06, len(v)), v, s=18, color=GRAPH_COLORS[g], zorder=3)
             ax.plot([xo - 0.12, xo + 0.12], [v.mean()] * 2, color=ev.INK["primary"], linewidth=2, zorder=4)
     ax.axhline(0.9, color=ev.INK["secondary"], linestyle="--", linewidth=1)
-    ax.set_ylim(0.88, 1.0)
+    ax.set_ylim(0.78, 1.01)
     ax.set_xticks(x, scenario_ticks(folds, counts))
     ax.set_ylabel("Counterfactual validity")
     ax.set_title("(a) Validity of the selected action sets", loc="left")

@@ -1,0 +1,123 @@
+subsystem,component,metric,graph,original settings (14),selected settings (15)
+coolant,counterfactuals,action_precision_mean,discovered,1.0,1.0
+coolant,counterfactuals,action_precision_mean,expert,1.0,1.0
+coolant,counterfactuals,action_recall_mean,discovered,0.66,0.78
+coolant,counterfactuals,action_recall_mean,expert,0.66,0.74
+coolant,counterfactuals,actions_mean,discovered,1.48,1.72
+coolant,counterfactuals,actions_mean,expert,1.48,1.64
+coolant,counterfactuals,alarms_covered_pooled,discovered,37/56,37/56
+coolant,counterfactuals,alarms_covered_pooled,expert,37/56,37/56
+coolant,counterfactuals,improvement_mean (fresh worlds),discovered,0.3602610427314771,0.3579046942530196
+coolant,counterfactuals,improvement_mean (fresh worlds),expert,0.359442605293805,0.3574574144485019
+coolant,counterfactuals,refit_validity_mean,discovered,0.95916,0.9423199999999998
+coolant,counterfactuals,refit_validity_mean,expert,0.96224,0.9434
+coolant,counterfactuals,refit_validity_min,discovered,0.835,0.77
+coolant,counterfactuals,refit_validity_min,expert,0.88,0.775
+coolant,counterfactuals,runs_valid_in_all_refits,discovered,22,19
+coolant,counterfactuals,runs_valid_in_all_refits,expert,23,19
+coolant,counterfactuals,valid_share_independent (2000 fresh worlds),discovered,1.0,0.76
+coolant,counterfactuals,valid_share_independent (2000 fresh worlds),expert,1.0,0.76
+coolant,counterfactuals,validity_independent_mean,discovered,0.95716,0.93562
+coolant,counterfactuals,validity_independent_mean,expert,0.95522,0.93346
+coolant,graph,discovered raw: directed_f1,,0.7499999999999999,0.7499999999999999
+coolant,graph,discovered raw: directed_precision,,1.0,1.0
+coolant,graph,discovered raw: directed_recall,,0.6,0.6
+coolant,graph,discovered raw: n_pred_edges,,10,10
+coolant,graph,discovered raw: shd,,6,6
+coolant,graph,discovered raw: skeleton_f1,,0.8000000000000002,0.8000000000000002
+coolant,graph,discovered raw: skeleton_precision,,0.8,0.8
+coolant,graph,discovered raw: skeleton_recall,,0.8,0.8
+coolant,graph,discovered scm dag: directed_f1,,0.7499999999999999,0.7499999999999999
+coolant,graph,discovered scm dag: directed_precision,,1.0,1.0
+coolant,graph,discovered scm dag: directed_recall,,0.6,0.6
+coolant,graph,discovered scm dag: n_pred_edges,,6,6
+coolant,graph,discovered scm dag: shd,,4,4
+coolant,graph,discovered scm dag: skeleton_f1,,0.7499999999999999,0.7499999999999999
+coolant,graph,discovered scm dag: skeleton_precision,,1.0,1.0
+coolant,graph,discovered scm dag: skeleton_recall,,0.6,0.6
+coolant,intervention analysis,activation_probability_supported_mean,discovered,1.0,0.9997297297297296
+coolant,intervention analysis,activation_probability_supported_mean,expert,1.0,0.9997297297297296
+coolant,intervention analysis,onset_abs_error_mean_s,discovered,0.7972972972972973,0.6486486486486487
+coolant,intervention analysis,onset_abs_error_mean_s,expert,0.7972972972972973,0.6486486486486487
+coolant,intervention analysis,onset_abs_error_median_s,discovered,0.5,0.5
+coolant,intervention analysis,onset_abs_error_median_s,expert,0.5,0.5
+coolant,intervention analysis,onsets within one grid step,discovered,25,25
+coolant,intervention analysis,onsets within one grid step,expert,25,25
+coolant,intervention analysis,supported,discovered,37,37
+coolant,intervention analysis,supported,expert,37,37
+coolant,rca,ap3_scenario_macro,discovered,1.0,1.0
+coolant,rca,ap3_scenario_macro,expert,1.0,1.0
+coolant,rca,map3_run_mean,discovered,1.0,1.0
+coolant,rca,map3_run_mean,expert,1.0,1.0
+coolant,rca,top1_run_mean,discovered,1.0,1.0
+coolant,rca,top1_run_mean,expert,1.0,1.0
+coolant,rca,top1_scenario_macro,discovered,1.0,1.0
+coolant,rca,top1_scenario_macro,expert,1.0,1.0
+coolant,rca per scenario,ap3 exp_22,discovered,1.0,1.0
+coolant,rca per scenario,ap3 exp_22,expert,1.0,1.0
+coolant,rca per scenario,ap3 exp_27,discovered,1.0,1.0
+coolant,rca per scenario,ap3 exp_27,expert,1.0,1.0
+coolant,rca per scenario,ap3 exp_28,discovered,1.0,1.0
+coolant,rca per scenario,ap3 exp_28,expert,1.0,1.0
+coolant,rca per scenario,ap3 exp_35,discovered,1.0,1.0
+coolant,rca per scenario,ap3 exp_35,expert,1.0,1.0
+coolant,scm track F,change_log_loss,discovered,3.0318275939262676,2.8772827362088385
+coolant,scm track F,change_log_loss,expert,3.0370762361599675,2.9768193439839217
+coolant,scm track F,log_loss,discovered,0.1381088759119548,0.1736974761421698
+coolant,scm track F,log_loss,expert,0.1381510953006955,0.1740875928141972
+coolant,scm track N,test change_log_loss,discovered,4.443340475745283,4.20681711363882
+coolant,scm track N,test change_log_loss,expert,4.45413141451263,4.2158765507562705
+coolant,scm track N,test log_loss,discovered,0.0133276612634943,0.0131511201164281
+coolant,scm track N,test log_loss,expert,0.0133092387201777,0.0131426984458182
+coolant,scm track N,validation change_log_loss,discovered,4.675520487547693,4.465331473253938
+coolant,scm track N,validation change_log_loss,expert,4.687341890351211,4.475255243364919
+coolant,scm track N,validation log_loss,discovered,0.0102669975641519,0.0101177098233183
+coolant,scm track N,validation log_loss,expert,0.010267932260449,0.0101174110475711
+probe,graph,discovered raw: directed_f1,,0.0,0.4242424242424242
+probe,graph,discovered raw: directed_precision,,0.0,0.3888888888888889
+probe,graph,discovered raw: directed_recall,,0.0,0.4666666666666667
+probe,graph,discovered raw: n_pred_edges,,8,19
+probe,graph,discovered raw: shd,,17,18
+probe,graph,discovered raw: skeleton_f1,,0.5217391304347827,0.5882352941176471
+probe,graph,discovered raw: skeleton_precision,,0.75,0.5263157894736842
+probe,graph,discovered raw: skeleton_recall,,0.4,0.6666666666666666
+probe,graph,discovered scm dag: directed_f1,,0.0,0.375
+probe,graph,discovered scm dag: directed_precision,,0.0,0.3529411764705882
+probe,graph,discovered scm dag: directed_recall,,0.0,0.4
+probe,graph,discovered scm dag: n_pred_edges,,1,17
+probe,graph,discovered scm dag: shd,,15,17
+probe,graph,discovered scm dag: skeleton_f1,,0.125,0.5625
+probe,graph,discovered scm dag: skeleton_precision,,1.0,0.5294117647058824
+probe,graph,discovered scm dag: skeleton_recall,,0.0666666666666666,0.6
+probe,rca,ap3_scenario_macro,discovered,0.611111111111111,0.6300925925925926
+probe,rca,ap3_scenario_macro,expert,0.4310185185185186,0.6425925925925925
+probe,rca,map3_run_mean,discovered,0.5588235294117647,0.6495098039215687
+probe,rca,map3_run_mean,expert,0.4754901960784314,0.6666666666666666
+probe,rca,top1_run_mean,discovered,0.2352941176470588,0.6470588235294118
+probe,rca,top1_run_mean,expert,0.4411764705882353,0.6176470588235294
+probe,rca,top1_scenario_macro,discovered,0.3333333333333333,0.6708333333333334
+probe,rca,top1_scenario_macro,expert,0.4083333333333334,0.6083333333333334
+probe,rca per scenario,ap3 exp_1,discovered,0.3333333333333333,0.8333333333333334
+probe,rca per scenario,ap3 exp_1,expert,0.8333333333333334,0.8888888888888888
+probe,rca per scenario,ap3 exp_2_3,discovered,0.5,0.625
+probe,rca per scenario,ap3 exp_2_3,expert,0.375,0.4166666666666666
+probe,rca per scenario,ap3 exp_4,discovered,0.3333333333333333,0.7222222222222222
+probe,rca per scenario,ap3 exp_4,expert,0.8333333333333334,1.0
+probe,rca per scenario,ap3 exp_5,discovered,0.5,0.75
+probe,rca per scenario,ap3 exp_5,expert,0.4444444444444444,0.9166666666666666
+probe,rca per scenario,ap3 exp_6,discovered,1.0,0.5
+probe,rca per scenario,ap3 exp_6,expert,0.0,0.3333333333333333
+probe,rca per scenario,ap3 exp_7,discovered,1.0,0.35
+probe,rca per scenario,ap3 exp_7,expert,0.1,0.3
+probe,scm track F,change_log_loss,discovered,5.21426433742332,2.9260577818505946
+probe,scm track F,change_log_loss,expert,2.111475001184884,2.04808429337495
+probe,scm track F,log_loss,discovered,0.0481750353556175,0.0284888635073406
+probe,scm track F,log_loss,expert,0.0241182495118576,0.0218239257633288
+probe,scm track N,test change_log_loss,discovered,5.530076641442554,1.7861929950199416
+probe,scm track N,test change_log_loss,expert,1.8030387521208855,1.6322581453603773
+probe,scm track N,test log_loss,discovered,0.0265969193150883,0.0093633910872462
+probe,scm track N,test log_loss,expert,0.0096643246463868,0.0086855168850019
+probe,scm track N,validation change_log_loss,discovered,5.4456124459931985,2.241918769080926
+probe,scm track N,validation change_log_loss,expert,2.1578245119832227,1.9980576069782128
+probe,scm track N,validation log_loss,discovered,0.0256676399466821,0.0088673159544905
+probe,scm track N,validation log_loss,expert,0.0088404128062035,0.0078467436657681

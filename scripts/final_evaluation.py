@@ -18,10 +18,18 @@ over variables within a recording; normal splits average recordings equally; fau
 average runs within a scenario, then scenarios equally. pooled row-weighted scores are kept as
 a separately labelled supplement.
 
-usage: PYTHONPATH=src python scripts/final_evaluation.py [schema] [main]
-  schema  replace the stored all-fault view spec by the predeclared node-list schema
-          (verifies that the encoded arrays do not change)
-  main    every table and figure of the evaluation (default: both)
+selected mode (stage 15, the main pipeline of the thesis): the discovered graphs and the scm
+settings come from scripts/selected_settings.py instead. every graph is the stage-12 selection
+of its own scope (all scenarios for track n, without k for fold k), and every scm uses the
+smoothing and extra lag selected by held-out log loss (normal validation for track n, inner
+leave-one-scenario-out without k for fold k). outputs start with 15_; the 14_ files stay as
+the original-settings comparison.
+
+usage: PYTHONPATH=src python scripts/final_evaluation.py [schema] [main] [selected]
+  schema    replace the stored all-fault view spec by the predeclared node-list schema
+            (verifies that the encoded arrays do not change)
+  main      every table and figure of the evaluation (default: both)
+  selected  use the selected discovery and scm settings and write 15_ outputs
 """
 
 from __future__ import annotations
@@ -63,12 +71,19 @@ THRESHOLD = 0.9
 GRAPHS = ("expert", "discovered")
 SUBSYSTEMS = ("coolant", "probe")
 TABLES = data.RESULTS_DIR / "tables"
-OUT = "14"
+SELECTED = "selected" in sys.argv[1:]
+OUT = "15" if SELECTED else "14"
 GRAPH_COLORS = {"expert": ev.COLORS[0], "discovered": ev.COLORS[1]}
 DISCOVERY_SETTINGS = {"algorithm": "PCMCI+ (tigramite 5.2.10.1), regime-wise", "ci_test": "G-squared (analytic)",
                       "interval_s": 0.5, "tau_min": 0, "tau_max_s": 10.0, "pc_alpha": 0.01,
                       "max_conds_dim/px/py": "3/3/3", "fdr": "BH on lagged p-values per regime + post-hoc filter",
                       "support_threshold": 0.5}
+
+if SELECTED:
+    DISCOVERY_SETTINGS = {**DISCOVERY_SETTINGS, "tau_max_s / pc_alpha / support_threshold":
+                          "selected per scope by the stage-12 rule (15_{sub}_discovery_selection.csv)"}
+    for k in ("tau_max_s", "pc_alpha", "support_threshold"):
+        DISCOVERY_SETTINGS.pop(k)
 
 check_rows: list[dict] = []
 
@@ -111,13 +126,31 @@ def setting(sub: str) -> dict:
     nodes = sorted(expert.nodes)
     types = {n: ("Alarm" if expert.nodes[n]["kind"] == "Alarm" else "Binary") for n in nodes}
     alarms = sorted(n for n in nodes if types[n] == "Alarm")
-    edges = pd.read_csv(TABLES / ("03_coolant_edges.csv" if sub == "coolant" else "10_probe_edges.csv"))
+    edges_file = TABLES / (f"15_{sub}_discovery_edges.csv" if SELECTED else
+                           ("03_coolant_edges.csv" if sub == "coolant" else "10_probe_edges.csv"))
+    edges = pd.read_csv(edges_file)
+    edges = edges[~edges.graph_id.str.contains("_and_")]  # inner-fold graphs are only used by stage 15a
     raw = {gid: cd.edges_to_graph(g, nodes) for gid, g in edges.groupby("graph_id")}
     dags = {gid: ge.to_dag(g) for gid, g in raw.items()}
     folds = sorted(splits.loc[splits.split == "fault", "fold"].unique())
+    # scm settings (smoothing, extra lag) per graph and fold; the original pipeline uses the baseline everywhere
+    scm_settings = {(g, f): (sc.SMOOTHING, None) for g in GRAPHS for f in ["all", *folds]}
+    if SELECTED:
+        sel = pd.read_csv(TABLES / "15_scm_selection.csv")
+        sel = sel[sel.subsystem == sub]
+        scm_settings = {(r.graph, r.fold): (float(r.alpha), None if pd.isna(r.lag) else int(r.lag)) for r in sel.itertuples()}
     return dict(sub=sub, view=view, spec=spec, splits=splits, runs=runs, experiments=experiments,
                 manipulated=manipulated, expert=expert, nodes=nodes, types=types, alarms=alarms,
-                raw=raw, dags=dags, folds=folds, edges_file=TABLES / ("03_coolant_edges.csv" if sub == "coolant" else "10_probe_edges.csv"))
+                raw=raw, dags=dags, folds=folds, edges_file=edges_file, scm_settings=scm_settings)
+
+
+def fit_for(s: dict, name: str, fold: str | None, train_ids) -> sc.TemporalSCM:
+    """scm of graph ``name`` for a fold (None = track n) with that fold's smoothing and extra lag."""
+    graph = graph_for(s, name, fold)
+    alpha, lag = s["scm_settings"][(name, "all" if fold is None else fold)]
+    # extra lag on every edge whose child keeps at most 2^20 table configurations (as stage 13)
+    lags = None if lag is None else {(u, v): [lag] for u, v in graph.edges if 3 * graph.in_degree(v) <= 20}
+    return sc.fit_scm(s["view"], graph, train_ids, s["manipulated"], INTERVAL, smoothing=alpha, lags=lags)
 
 
 def graph_for(s: dict, name: str, fold: str | None) -> nx.DiGraph:
@@ -195,6 +228,15 @@ def manifests(s: dict) -> pd.DataFrame:
         # the fold graph is discovered without regime k
         ok = f"discovered_without_{fold}" in s["raw"]
         check(f"{sub} {fold}: fold-specific discovered graph present", ok)
+        if SELECTED:
+            # the fold graph and the fold scm settings were chosen without scenario k
+            dsel = pd.read_csv(TABLES / f"15_{sub}_discovery_selection.csv").set_index("graph_id")
+            ssel = pd.read_csv(TABLES / "15_scm_selection.csv")
+            ssel = ssel[(ssel.subsystem == sub) & (ssel.fold == fold)]
+            used = {j for txt in ssel.selection_data for j in txt.removeprefix("inner scenarios ").split(",")}
+            check(f"{sub} {fold}: graph and scm settings selected without the outer scenario",
+                  dsel.loc[f"discovered_without_{fold}", "excluded"] == fold and fold not in used and len(ssel) == len(GRAPHS),
+                  f"discovery {dsel.loc[f'discovered_without_{fold}', 'config_id']}; scm inner {sorted(used)}")
     save(pd.DataFrame(rows), f"{sub}_fold_manifest")
 
     # identical encoded inputs across normal splits (zero-change recordings)
@@ -235,7 +277,7 @@ def config_record(settings: dict[str, dict]) -> dict:
             files[str(p.relative_to(data.PROJECT_ROOT))] = sha256(p)
         files[str(s["edges_file"].relative_to(data.PROJECT_ROOT))] = sha256(s["edges_file"])
     return {
-        "stage": "14 final evaluation", "started": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "stage": "15 final evaluation, selected settings" if SELECTED else "14 final evaluation", "started": time.strftime("%Y-%m-%d %H:%M:%S"),
         "command": "PYTHONPATH=src python scripts/" + " ".join(Path(a).name if i == 0 else a for i, a in enumerate(sys.argv)),
         "git_commit": git("rev-parse", "HEAD"), "git_branch": git("rev-parse", "--abbrev-ref", "HEAD"),
         "git_dirty_files": git("status", "--short").splitlines(),
@@ -243,8 +285,11 @@ def config_record(settings: dict[str, dict]) -> dict:
         "packages": {p: md.version(p) for p in ("tigramite", "numpy", "pandas", "networkx", "scipy", "matplotlib")},
         "input_sha256": files,
         "discovery_settings (inherited graphs)": DISCOVERY_SETTINGS,
-        "scm": {"mechanism": "binary transition table p(x_t | x_{t-1}, parents_t, parents_{t-1})",
-                "smoothing": sc.SMOOTHING, "lags": "first order", "graph": "expert, or discovered scm dag of the fold"},
+        "scm": {"mechanism": "binary transition table p(x_t | x_{t-1}, parents_t, parents_{t-1})"
+                             + (" plus the parent at the selected extra lag" if SELECTED else ""),
+                "settings (graph, fold) -> (smoothing, extra lag)": {sub: {f"{g}/{f}": list(v) for (g, f), v in s["scm_settings"].items()}
+                                                                    for sub, s in settings.items()},
+                "graph": "expert, or discovered scm dag of the fold"},
         "rca": {"score": "max surprise in window", "window": "first observed alarm onset - 60 s to last onset + 5 s",
                 "candidates": "recorded non-alarm variables", "ties": "max, then summed surprise, then name",
                 "chance_draws": 2000, "seed": SEED},
@@ -441,7 +486,7 @@ def run_main() -> None:
         normal = {k: s["splits"].loc[s["splits"].split == k, "recording_id"].tolist() for k in ("train", "validation", "test")}
         preds_n = {}
         for g in GRAPHS:
-            model = sc.fit_scm(s["view"], graph_for(s, g, None), full_train, s["manipulated"], INTERVAL)
+            model = fit_for(s, g, None, full_train)
             for k, ids in normal.items():
                 p = predictions(model, s["view"], ids, s["manipulated"])
                 preds_n[(g, k)] = p
@@ -457,7 +502,7 @@ def run_main() -> None:
                 rng = np.random.default_rng(SEED)
                 for b in range(N_REFITS_N):
                     sample = list(rng.choice(full_train, size=len(full_train), replace=True))
-                    refit = sc.fit_scm(s["view"], graph_for(s, g, None), sample, s["manipulated"], INTERVAL)
+                    refit = fit_for(s, g, None, sample)
                     for k in ("validation", "test"):
                         refit_rows.append({"subsystem": sub, "graph": g, "refit": b, "split": k,
                                            "unique_recordings_in_sample": len(set(sample)),
@@ -467,7 +512,7 @@ def run_main() -> None:
             check(f"{sub} track N {k}: expert and discovered scored on identical rows",
                   same_rows(a, b), f"{len(a)} rows")
         # reproduction of the notebook-05/10 per-variable held-out fit (pooled validation + test)
-        if sub == "coolant":
+        if sub == "coolant" and not SELECTED:
             old = pd.read_csv(TABLES / "05_coolant_fit_normal.csv")
             if "graph" in old.columns:
                 pooled = pd.concat([preds_n[("expert", "validation")], preds_n[("expert", "test")]])
@@ -481,14 +526,16 @@ def run_main() -> None:
         for g in GRAPHS:
             metrics, rankings, scms = rca.evaluate_rca(s["view"], s["splits"], s["manipulated"],
                                                        lambda fold, g=g: graph_for(s, g, fold), s["alarms"], s["nodes"],
-                                                       INTERVAL, seed=SEED)
+                                                       INTERVAL, seed=SEED,
+                                                       fit_model=lambda fold, train, g=g: fit_for(s, g, fold, train))
             models[(sub, g)] = (scms, rankings)
             rca_runs.append(metrics.assign(subsystem=sub, graph=g, model_id=lambda d: f"{sub}-{g}-without_" + d.fold))
             rca_rank.append(rankings.assign(subsystem=sub, graph=g))
-            old_name = f"06_coolant_run_metrics_{g}" if sub == "coolant" else f"10_probe_rca_runs_{g}"
-            old = pd.read_csv(TABLES / f"{old_name}.csv").set_index("recording_id")
-            diff = float((metrics.set_index("recording_id")["ap@3"] - old.loc[metrics.recording_id, "ap@3"].to_numpy()).abs().max())
-            check(f"{sub} {g}: rca per-run ap@3 reproduces {old_name}", diff < 1e-12, f"max diff {diff:.2e}")
+            if not SELECTED:
+                old_name = f"06_coolant_run_metrics_{g}" if sub == "coolant" else f"10_probe_rca_runs_{g}"
+                old = pd.read_csv(TABLES / f"{old_name}.csv").set_index("recording_id")
+                diff = float((metrics.set_index("recording_id")["ap@3"] - old.loc[metrics.recording_id, "ap@3"].to_numpy()).abs().max())
+                check(f"{sub} {g}: rca per-run ap@3 reproduces {old_name}", diff < 1e-12, f"max diff {diff:.2e}")
             for fold, model in scms.items():
                 test = s["splits"].loc[s["splits"].fold == fold, "recording_id"].tolist()
                 p = predictions(model, s["view"], test, s["manipulated"])
@@ -629,10 +676,11 @@ def interventions(s: dict, models: dict) -> None:
     rep["abs_onset_error_s"] = (rep.predicted_delay_s - rep.observed_delay_s).abs()
     rep["never_activated_in_simulation"] = rep.p_fires == 0
     save(rep, "coolant_replay")
-    old = pd.read_csv(TABLES / "07_coolant_replay.csv")
-    m = rep.merge(old, on=["graph", "recording_id", "alarm"], suffixes=("", "_old"))
-    diff = float((m.p_fires - m.p_fires_old).abs().max())
-    check("coolant: replay p_fires reproduces notebook 07", diff < 1e-12 and len(m) == len(rep), f"{len(m)} pairs, max diff {diff:.2e}")
+    if not SELECTED:
+        old = pd.read_csv(TABLES / "07_coolant_replay.csv")
+        m = rep.merge(old, on=["graph", "recording_id", "alarm"], suffixes=("", "_old"))
+        diff = float((m.p_fires - m.p_fires_old).abs().max())
+        check("coolant: replay p_fires reproduces notebook 07", diff < 1e-12 and len(m) == len(rep), f"{len(m)} pairs, max diff {diff:.2e}")
     obs = rep[rep.observed_fired]
     neg = rep[~rep.observed_fired]
     check("coolant: negative replay examples (recorded alarms that did not activate)", True,
@@ -708,10 +756,11 @@ def counterfactuals(s: dict, models: dict) -> None:
         scms, rankings = models[("coolant", g)]
         expl, tried = cfx.explain_runs(scms, s["view"], s["splits"], rankings, s["manipulated"], s["alarms"], INTERVAL,
                                        n_samples=CF_WORLDS, seed=SEED)
-        old = pd.read_csv(TABLES / f"08_coolant_explanations_{g}.csv").set_index("recording_id")
-        same = (expl.set_index("recording_id").actions.fillna("") == old.loc[expl.recording_id, "actions"].fillna("").to_numpy()).all()
-        diff = float((expl.set_index("recording_id").validity_probability - old.loc[expl.recording_id, "validity_probability"].to_numpy()).abs().max())
-        check(f"coolant {g}: counterfactual selection reproduces notebook 08", bool(same) and diff < 1e-12, f"max validity diff {diff:.2e}")
+        if not SELECTED:
+            old = pd.read_csv(TABLES / f"08_coolant_explanations_{g}.csv").set_index("recording_id")
+            same = (expl.set_index("recording_id").actions.fillna("") == old.loc[expl.recording_id, "actions"].fillna("").to_numpy()).all()
+            diff = float((expl.set_index("recording_id").validity_probability - old.loc[expl.recording_id, "validity_probability"].to_numpy()).abs().max())
+            check(f"coolant {g}: counterfactual selection reproduces notebook 08", bool(same) and diff < 1e-12, f"max validity diff {diff:.2e}")
         save(tried.assign(graph=g), f"coolant_cf_tried_{g}")
         for _, r in expl.iterrows():
             fold, rid = r.fold, r.recording_id
@@ -754,7 +803,7 @@ def counterfactuals(s: dict, models: dict) -> None:
             train = data.fold_training_ids(s["splits"], fold)
             for b in range(N_REFITS_CF):
                 sample = list(np.random.default_rng(100 + b).choice(train, size=len(train), replace=True))
-                refit = sc.fit_scm(s["view"], graph_for(s, g, fold), sample, s["manipulated"], INTERVAL)
+                refit = fit_for(s, g, fold, sample)
                 out_refit = [a for a in s["alarms"] if a in recorded and refit.mechanisms[a].has_data]
                 res_b = cfx.counterfactual(refit, series, acts, out_refit, window[0], CF_WORLDS,
                                            np.random.default_rng(1000 + b), recorded)
@@ -876,7 +925,7 @@ if __name__ == "__main__":
     # print-size figures (about the text width), so fonts stay readable in the thesis
     plt.rcParams.update({"font.size": 9, "axes.titlesize": 9.5, "axes.labelsize": 9,
                          "xtick.labelsize": 8.5, "ytick.labelsize": 8.5, "legend.fontsize": 8})
-    stages = sys.argv[1:] or ["schema", "main"]
+    stages = [a for a in sys.argv[1:] if a != "selected"] or (["main"] if SELECTED else ["schema", "main"])
     if "schema" in stages:
         run_schema()
     if "main" in stages:
