@@ -84,3 +84,40 @@ Why log loss and not AP@3:
    - The partial sets add do(LT_Level_Ok=1) through Monte Carlo noise (no path to HP_A). This inflates the action count and recall.
 
 The selection rules were not changed after these outcomes were seen.
+
+## Why 25/25 became 19/25 (`scripts/cf_exp22_settings.py`, `15_coolant_exp22_settings.csv`)
+
+**Same procedure.** The counterfactual configuration of stages 14 and 15 is identical (`14_config.json` = `15_config.json` for counterfactuals, replay and rca):
+- threshold 0.90;
+- 200 selection worlds with seed 0;
+- top-k 3 and at most 3 actions;
+- 2,000 independent worlds from entropy 20261109;
+- coverage = activated alarms with a fitted mechanism.
+
+`counterfactuals.py`, `interventions.py` and `scm.py` did not change between b6bb0cf and 7845b78.
+
+**What changed in the exp_22 fold**
+- **Discovery:** τ 10 → 5 s, but the graph is identical, so discovery has no effect here.
+- **SCM:** a 0.5, no lag → a 0.01, extra lag 2 steps, for both graphs. Selected by the inner log loss on exp_27, exp_28 and exp_35 only.
+
+**Attribution** (fixed action do(HP_Pump_Ok=1), same streams, expert graph; discovered within 0.01):
+
+| SCM setting, exp_22 fold | p(alarm stays on, pump healthy) | validity | valid | failures after pump recovery |
+|---|---|---|---|---|
+| a 0.5, no lag (original) | 0.46 | 0.94–0.96 | 6/6 | 48% |
+| a 0.01, no lag | 0.46 | 1.00 | 6/6 | 17% |
+| a 0.5, lag 2 | 0.07 | 0.79–0.83 | 0/6 | 86% |
+| a 0.01, lag 2 (selected) | 0.002 | 0.83–0.87 | 0/6 | 99% |
+
+The HP_A log loss in exp_22 follows the same pattern: 407 / 406 / 1,354 / 3,263 nats.
+
+**Traced cause: the extra lag.**
+- The lag creates a "pump healthy for ≥2 steps" configuration. In training (exp_27 only for HP_A), the alarm is active in it in 0 of 6 steps.
+- In exp_22 the alarm stays on for about 40 s after the pump recovers.
+- Abduction therefore confines the noise of these steps, and the counterfactual alarm fires after the recovery.
+
+**Not isolated (interpretation):**
+- why the alarm latches until the joint reset in exp_22;
+- whether other lags would avoid the effect.
+
+Settings were not changed after this result.
