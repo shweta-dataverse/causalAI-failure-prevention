@@ -48,5 +48,5 @@ probe discovered: rca per-run ap@3 reproduces 10_probe_rca_runs_discovered,True,
 probe track F: expert and discovered scored on identical rows,True,151530 rows
 coolant: replay p_fires reproduces notebook 07,True,"112 pairs, max diff 0.00e+00"
 coolant: negative replay examples (recorded alarms that did not activate),True,0 negatives: false-alarm specificity cannot be assessed
-coolant expert: counterfactual selection reproduces notebook 08,True,max validity diff 0.00e+00
-coolant discovered: counterfactual selection reproduces notebook 08,True,max validity diff 0.00e+00
+coolant expert: counterfactual selection reproduces notebook 08,False,max validity diff 3.00e-02
+coolant discovered: counterfactual selection reproduces notebook 08,False,max validity diff 4.00e-02

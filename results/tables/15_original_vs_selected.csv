@@ -1,10 +1,10 @@
 subsystem,component,metric,graph,original settings (14),selected settings (15)
 coolant,counterfactuals,action_precision_mean,discovered,1.0,1.0
 coolant,counterfactuals,action_precision_mean,expert,1.0,1.0
-coolant,counterfactuals,action_recall_mean,discovered,0.66,0.78
-coolant,counterfactuals,action_recall_mean,expert,0.66,0.74
-coolant,counterfactuals,actions_mean,discovered,1.48,1.72
-coolant,counterfactuals,actions_mean,expert,1.48,1.64
+coolant,counterfactuals,action_recall_mean,discovered,0.66,0.66
+coolant,counterfactuals,action_recall_mean,expert,0.66,0.66
+coolant,counterfactuals,actions_mean,discovered,1.48,1.48
+coolant,counterfactuals,actions_mean,expert,1.48,1.48
 coolant,counterfactuals,alarms_covered_pooled,discovered,37/56,37/56
 coolant,counterfactuals,alarms_covered_pooled,expert,37/56,37/56
 coolant,counterfactuals,improvement_mean (fresh worlds),discovered,0.3602610427314771,0.3579046942530196

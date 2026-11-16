@@ -1,107 +1,31 @@
 {
   "stage": "14 final evaluation",
-  "started": "2026-11-09 20:10:45",
+  "started": "2026-11-16 17:57:37",
   "command": "PYTHONPATH=src python scripts/final_evaluation.py main",
-  "git_commit": "e70eaa133375d5e97cea2445e07b098d86bb12da",
+  "git_commit": "6cae95a187402b4cc06dd750d3f2b56946bfd9ec",
   "git_branch": "thesis-pipeline",
   "git_dirty_files": [
-    "M .gitignore",
-    " M METHODOLOGY.md",
-    " M requirements.txt",
-    " M src/causal_rca/causal_discovery.py",
-    " M src/causal_rca/preprocessing.py",
-    " M src/causal_rca/scm.py",
-    "?? configs/discovery_study.yaml",
-    "?? results/12_discovery_study_report.md",
-    "?? results/14_evaluation_audit.md",
-    "?? results/14_final_evaluation.md",
-    "?? results/figures/12_coolant_heatmap_directed_f1.pdf",
-    "?? results/figures/12_coolant_heatmap_directed_f1.png",
-    "?? results/figures/12_probe_heatmap_directed_f1.pdf",
-    "?? results/figures/12_probe_heatmap_directed_f1.png",
-    "?? results/figures/14_coolant_counterfactuals.pdf",
-    "?? results/figures/14_coolant_counterfactuals.png",
-    "?? results/figures/14_coolant_graphs.pdf",
-    "?? results/figures/14_coolant_graphs.png",
-    "?? results/figures/14_coolant_interventions.pdf",
-    "?? results/figures/14_coolant_interventions.png",
-    "?? results/figures/14_data_separation.pdf",
-    "?? results/figures/14_data_separation.png",
-    "?? results/figures/14_probe_graphs.pdf",
-    "?? results/figures/14_probe_graphs.png",
-    "?? results/figures/14_rca_per_scenario.pdf",
-    "?? results/figures/14_rca_per_scenario.png",
-    "?? results/figures/14_scm_normal_splits.pdf",
-    "?? results/figures/14_scm_normal_splits.png",
-    "?? results/tables/12_coolant_annotation_delay.csv",
-    "?? results/tables/12_coolant_bootstrap_draws.csv",
-    "?? results/tables/12_coolant_bootstrap_edges.csv",
-    "?? results/tables/12_coolant_bootstrap_reproduction_check.csv",
-    "?? results/tables/12_coolant_bootstrap_summary.csv",
-    "?? results/tables/12_coolant_bootstrap_winners.csv",
-    "?? results/tables/12_coolant_fdr_diagnostics.csv",
-    "?? results/tables/12_coolant_fdr_off.csv",
-    "?? results/tables/12_coolant_grid.csv",
-    "?? results/tables/12_coolant_reproduction_check.csv",
-    "?? results/tables/12_coolant_sample_availability.csv",
-    "?? results/tables/12_coolant_scope_training_ids.csv",
-    "?? results/tables/12_coolant_selected_edges.csv",
-    "?? results/tables/12_coolant_selection.csv",
-    "?? results/tables/12_coolant_shortlist.csv",
-    "?? results/tables/12_coolant_staged.csv",
-    "?? results/tables/12_coolant_staged_regimes.csv",
-    "?? results/tables/12_coolant_timing_evidence.csv",
-    "?? results/tables/12_original_vs_selected.csv",
-    "?? results/tables/12_parameter_justification.csv",
-    "?? results/tables/12_probe_annotation_delay.csv",
-    "?? results/tables/12_probe_bootstrap_draws.csv",
-    "?? results/tables/12_probe_bootstrap_edges.csv",
-    "?? results/tables/12_probe_bootstrap_summary.csv",
-    "?? results/tables/12_probe_bootstrap_winners.csv",
-    "?? results/tables/12_probe_fdr_diagnostics.csv",
-    "?? results/tables/12_probe_fdr_off.csv",
-    "?? results/tables/12_probe_grid.csv",
-    "?? results/tables/12_probe_reproduction_check.csv",
-    "?? results/tables/12_probe_sample_availability.csv",
-    "?? results/tables/12_probe_scope_training_ids.csv",
-    "?? results/tables/12_probe_selected_edges.csv",
-    "?? results/tables/12_probe_selection.csv",
-    "?? results/tables/12_probe_shortlist.csv",
-    "?? results/tables/12_probe_staged.csv",
-    "?? results/tables/12_probe_staged_regimes.csv",
-    "?? results/tables/12_probe_timing_evidence.csv",
-    "?? results/tables/12_results_table.csv",
-    "?? results/tables/12_run_events.csv",
-    "?? results/tables/12_study_manifest.jsonl",
-    "?? results/tables/14_checks.csv",
-    "?? results/tables/14_checks_schema.csv",
-    "?? results/tables/14_config.json",
-    "?? results/tables/14_coolant_cf_examples.csv",
-    "?? results/tables/14_coolant_cf_refits.csv",
-    "?? results/tables/14_coolant_cf_runs.csv",
-    "?? results/tables/14_coolant_cf_summary.csv",
-    "?? results/tables/14_coolant_cf_tried_discovered.csv",
-    "?? results/tables/14_coolant_cf_tried_expert.csv",
-    "?? results/tables/14_coolant_fold_manifest.csv",
-    "?? results/tables/14_coolant_replay.csv",
-    "?? results/tables/14_coolant_replay_summary.csv",
-    "?? results/tables/14_coolant_split_manifest.csv",
-    "?? results/tables/14_dag_conversion_removals.csv",
-    "?? results/tables/14_data_splits.csv",
-    "?? results/tables/14_graph_agreement.csv",
-    "?? results/tables/14_probe_fold_manifest.csv",
-    "?? results/tables/14_probe_split_manifest.csv",
-    "?? results/tables/14_rca_per_scenario.csv",
-    "?? results/tables/14_rca_rankings.csv",
-    "?? results/tables/14_rca_runs.csv",
-    "?? results/tables/14_rca_summary.csv",
-    "?? results/tables/14_scm_prediction.csv",
-    "?? results/tables/14_scm_prediction_per_variable.csv",
-    "?? results/tables/14_scm_refit_stability.csv",
-    "?? scripts/final_evaluation.py",
-    "?? scripts/run_discovery_study.py",
-    "?? src/causal_rca/discovery_study.py",
-    "?? tests/test_discovery_study.py"
+    "M results/figures/15_coolant_counterfactuals.pdf",
+    " M results/figures/15_coolant_graphs.pdf",
+    " M results/figures/15_coolant_graphs.png",
+    " M results/figures/15_coolant_interventions.pdf",
+    " M results/figures/15_data_separation.pdf",
+    " M results/figures/15_probe_graphs.pdf",
+    " M results/figures/15_probe_graphs.png",
+    " M results/figures/15_rca_per_scenario.pdf",
+    " M results/figures/15_scm_normal_splits.pdf",
+    " M results/logs/15_final_evaluation.log",
+    " M results/tables/15_config.json",
+    " M results/tables/15_coolant_cf_examples.csv",
+    " M results/tables/15_coolant_cf_runs.csv",
+    " M results/tables/15_coolant_cf_summary.csv",
+    " M results/tables/15_coolant_cf_tried_discovered.csv",
+    " M results/tables/15_coolant_cf_tried_expert.csv",
+    " M src/causal_rca/counterfactuals.py",
+    " M tests/test_core.py",
+    "?? results/Thesis_review_local_2026-11-10.pdf",
+    "?? results/Thesis_review_local_2026-11-10_selected.pdf",
+    "?? results/thesis_revision_changelog_2026-11-10.md"
   ],
   "python": "3.12.3",
   "platform": "macOS-26.6.2-arm64-arm-64bit",
@@ -134,8 +58,108 @@
   },
   "scm": {
     "mechanism": "binary transition table p(x_t | x_{t-1}, parents_t, parents_{t-1})",
-    "smoothing": 0.5,
-    "lags": "first order",
+    "settings (graph, fold) -> (smoothing, extra lag)": {
+      "coolant": {
+        "expert/all": [
+          0.5,
+          null
+        ],
+        "expert/exp_22": [
+          0.5,
+          null
+        ],
+        "expert/exp_27": [
+          0.5,
+          null
+        ],
+        "expert/exp_28": [
+          0.5,
+          null
+        ],
+        "expert/exp_35": [
+          0.5,
+          null
+        ],
+        "discovered/all": [
+          0.5,
+          null
+        ],
+        "discovered/exp_22": [
+          0.5,
+          null
+        ],
+        "discovered/exp_27": [
+          0.5,
+          null
+        ],
+        "discovered/exp_28": [
+          0.5,
+          null
+        ],
+        "discovered/exp_35": [
+          0.5,
+          null
+        ]
+      },
+      "probe": {
+        "expert/all": [
+          0.5,
+          null
+        ],
+        "expert/exp_1": [
+          0.5,
+          null
+        ],
+        "expert/exp_2_3": [
+          0.5,
+          null
+        ],
+        "expert/exp_4": [
+          0.5,
+          null
+        ],
+        "expert/exp_5": [
+          0.5,
+          null
+        ],
+        "expert/exp_6": [
+          0.5,
+          null
+        ],
+        "expert/exp_7": [
+          0.5,
+          null
+        ],
+        "discovered/all": [
+          0.5,
+          null
+        ],
+        "discovered/exp_1": [
+          0.5,
+          null
+        ],
+        "discovered/exp_2_3": [
+          0.5,
+          null
+        ],
+        "discovered/exp_4": [
+          0.5,
+          null
+        ],
+        "discovered/exp_5": [
+          0.5,
+          null
+        ],
+        "discovered/exp_6": [
+          0.5,
+          null
+        ],
+        "discovered/exp_7": [
+          0.5,
+          null
+        ]
+      }
+    },
     "graph": "expert, or discovered scm dag of the fold"
   },
   "rca": {
@@ -163,6 +187,6 @@
   },
   "track_n_refits": 10,
   "aggregation": "rows -> recording-variable -> recording; normal: recordings equal; fault: runs within scenario, then scenarios equal",
-  "finished": "2026-11-09 20:12:26",
-  "runtime_s": 101.1
+  "finished": "2026-11-16 17:58:46",
+  "runtime_s": 69.1
 }

@@ -133,11 +133,18 @@ def recommend(
 ) -> tuple[CounterfactualResult | None, list[CounterfactualResult]]:
     """smallest valid set of maintenance actions among the top-ranked actionable candidates.
 
-    candidates are the rca ranking restricted to actionable variables (top_k of them),
-    each set to its allowed healthy value from its detection step. sets are tried by
-    size, then by rank. returns the first valid result (or None) and all tried results.
+    candidates are the rca ranking restricted to actionable variables that have a directed
+    path to at least one outcome alarm in the scm graph (top_k of them), each set to its
+    allowed healthy value from its detection step; an action without such a path cannot
+    change a modelled alarm and is never credited. sets are tried by size, then by rank.
+    returns the first valid result (or None) and all tried results.
     """
-    actionable = [v for v in ranking["variable"] if allowed_value(v) is not None][:top_k]
+    import networkx as nx
+
+    def reaches_outcome(v: str) -> bool:
+        return v in scm.graph and any(a in scm.graph and nx.has_path(scm.graph, v, a) for a in outcome_alarms)
+
+    actionable = [v for v in ranking["variable"] if allowed_value(v) is not None and reaches_outcome(v)][:top_k]
     tried = []
     for size in range(1, min(max_actions, len(actionable)) + 1):
         for subset in combinations(actionable, size):
@@ -209,7 +216,8 @@ def explain_runs(
                                     recorded, top_k=top_k, validity_threshold=validity_threshold)
             for result in tried:
                 tried_rows.append({"fold": fold, "recording_id": rid, **result.to_dict()})
-            chosen = best if best is not None else max(tried, key=lambda r: r.improvement, default=None)
+            # no valid set: report the examined set with the largest reduction, the smaller set on ties
+            chosen = best if best is not None else max(tried, key=lambda r: (r.improvement, -len(r.actions)), default=None)
             truth = set(manipulated[rid])
             actions = {a.variable for a in chosen.actions} if chosen else set()
             run_rows.append({

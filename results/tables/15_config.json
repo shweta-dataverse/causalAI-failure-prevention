@@ -1,25 +1,16 @@
 {
   "stage": "15 final evaluation, selected settings",
-  "started": "2026-11-10 09:16:48",
+  "started": "2026-11-16 17:56:24",
   "command": "PYTHONPATH=src python scripts/final_evaluation.py main selected",
-  "git_commit": "b6bb0cf9cabdeadb93b9db2faa7a4215637b3b8a",
+  "git_commit": "6cae95a187402b4cc06dd750d3f2b56946bfd9ec",
   "git_branch": "thesis-pipeline",
   "git_dirty_files": [
-    "M scripts/final_evaluation.py",
-    " M src/causal_rca/root_cause_analysis.py",
+    "M results/logs/15_final_evaluation.log",
+    " M src/causal_rca/counterfactuals.py",
+    " M tests/test_core.py",
     "?? results/Thesis_review_local_2026-11-10.pdf",
-    "?? results/tables/15_coolant_discovery_edges.csv",
-    "?? results/tables/15_coolant_discovery_selection.csv",
-    "?? results/tables/15_coolant_extra_alarm_edges.csv",
-    "?? results/tables/15_coolant_missing_edges.csv",
-    "?? results/tables/15_probe_discovery_edges.csv",
-    "?? results/tables/15_probe_discovery_selection.csv",
-    "?? results/tables/15_scm_selection.csv",
-    "?? results/tables/15_scm_selection_inner.csv",
-    "?? results/thesis_revision_changelog_2026-11-10.md",
-    "?? scripts/compare_original_selected.py",
-    "?? scripts/edge_diagnostics.py",
-    "?? scripts/selected_settings.py"
+    "?? results/Thesis_review_local_2026-11-10_selected.pdf",
+    "?? results/thesis_revision_changelog_2026-11-10.md"
   ],
   "python": "3.12.3",
   "platform": "macOS-26.6.2-arm64-arm-64bit",
@@ -179,6 +170,6 @@
   },
   "track_n_refits": 10,
   "aggregation": "rows -> recording-variable -> recording; normal: recordings equal; fault: runs within scenario, then scenarios equal",
-  "finished": "2026-11-10 09:18:15",
-  "runtime_s": 87.4
+  "finished": "2026-11-16 17:57:36",
+  "runtime_s": 71.9
 }

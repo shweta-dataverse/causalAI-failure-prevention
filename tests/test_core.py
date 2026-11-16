@@ -363,8 +363,14 @@ def test_counterfactual_contract():
         best, tried = cfx.recommend(model, s, ranking, {"r": 30, "p": 25}, ["a"], 20, 100, rng, set(s))
         assert best is not None and [a.variable for a in best.actions] == ["r"]
         assert all(len(t.actions) >= 1 for t in tried)
+        # an actionable variable without a path to the outcome alarm is never tried
+        itv.ACTIONABILITY["z"] = ("maintenance", 1.0, "synthetic, no path to the alarm")
+        ranking2 = pd.DataFrame({"variable": ["z", "r"], "rank": [1, 2]})
+        _, tried2 = cfx.recommend(model, s, ranking2, {"r": 30, "z": 10}, ["a"], 20, 100, rng, set(s))
+        assert tried2 and all("z" not in [a.variable for a in t.actions] for t in tried2)
     finally:
         del itv.ACTIONABILITY["r"]
+        itv.ACTIONABILITY.pop("z", None)
     # acting on an alarm is never feasible
     bad = cfx.counterfactual(model, s, [itv.Action("a", 0.0, 30)], ["a"], 20, 20, rng, recorded=set(s))
     assert not bad.feasible and not bad.valid()

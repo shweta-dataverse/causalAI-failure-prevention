@@ -1,3 +1,3 @@
 graph,runs,runs_with_actions,valid_share_selection (200 worlds),valid_share_independent (2000 fresh worlds),validity_independent_mean,validity_independent_scenario_macro,borderline_runs,alarm_coverage_run_mean,alarm_coverage_scenario_macro,alarms_covered_pooled,runs_all_alarms_covered,actions_mean,improvement_mean (fresh worlds),action_precision_mean,action_recall_mean,refit_validity_mean,refit_validity_min,runs_valid_in_all_refits
-expert,25,25,1.0,1.0,0.95522,0.9536011904761905,0,0.66,0.6666666666666666,37/56,6,1.48,0.35944260529380506,1.0,0.66,0.96224,0.88,23
+expert,25,25,0.96,1.0,0.95522,0.9536011904761905,0,0.66,0.6666666666666666,37/56,6,1.48,0.35944260529380506,1.0,0.66,0.96224,0.88,23
 discovered,25,25,1.0,1.0,0.9571599999999999,0.955654761904762,0,0.66,0.6666666666666666,37/56,6,1.48,0.3602610427314771,1.0,0.66,0.95916,0.835,22
