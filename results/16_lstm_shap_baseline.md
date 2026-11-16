@@ -101,7 +101,7 @@ For comparison, on the same normal validation data the selected SCM reaches 0.01
 | | **LSTM + SHAP** | **1.00** | **1.00** | **1.00** |
 | Probe | Causal RCA, expert graph | 0.62 | **0.67** | **0.64** |
 | | Causal RCA, discovered graph | **0.65** | 0.65 | 0.63 |
-| | **LSTM + SHAP** | 0.56 | 0.59 | 0.53 |
+| | **LSTM + SHAP** | 0.56 | 0.59 | 0.52 |
 | | Chance | 0.14 | 0.21 | 0.21 |
 
 Seed spread of LSTM + SHAP on probe: MAP@3 0.53 to 0.62. Top-1 is 0.56 in every seed.

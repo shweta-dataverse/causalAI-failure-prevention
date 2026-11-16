@@ -35,6 +35,7 @@ TABLES = data.RESULTS_DIR / "tables"
 GRAPHS = ("expert", "discovered")
 GRAPH_COLORS = {"expert": ev.COLORS[0], "discovered": ev.COLORS[1]}
 GRAPH_LABELS = {"expert": "Expert graph", "discovered": "Discovered graph"}
+BASELINE_COLOR = "#8A8A8A"          # grey for the non-causal baseline
 CF_ENTROPY = 20261109        # independent stream of stage 14 and 15
 CF_BATCHES = (10, 200)       # 2,000 simulations in 10 batches, as in stages 14 and 15
 EXAMPLE_RUN = "coolant_exp_22_run_1"
@@ -336,7 +337,9 @@ def figure_surprise(s: dict, model: sc.TemporalSCM) -> None:
 
 def figure_rca() -> None:
     per = pd.read_csv(TABLES / f"{STAGE}_rca_per_scenario.csv")
-    fig, axes = plt.subplots(2, 1, figsize=(WIDTH, 5.2), layout="constrained",
+    # lstm + shap baseline (stage 16, main explanation variant), averaged over seeds per run, then per scenario
+    lstm = pd.read_csv(TABLES / "16_lstm_shap_per_scenario.csv")
+    fig, axes = plt.subplots(2, 1, figsize=(WIDTH, 5.4), layout="constrained",
                              gridspec_kw={"height_ratios": [1, 1]})
     for ax, sub in zip(axes, ("coolant", "probe")):
         d = per[per.subsystem == sub]
@@ -344,7 +347,9 @@ def figure_rca() -> None:
         x = np.arange(len(folds))
         for k, g in enumerate(GRAPHS):
             v = d[d.graph == g].set_index("fold").loc[folds]
-            ax.bar(x + (k - 0.5) * 0.36, v.ap3, width=0.36, color=GRAPH_COLORS[g])
+            ax.bar(x + (k - 1) * 0.27, v.ap3, width=0.27, color=GRAPH_COLORS[g])
+        b = lstm[lstm.subsystem == sub].set_index("fold").loc[folds]
+        ax.bar(x + 0.27, b["ap@3"], width=0.27, color=BASELINE_COLOR)
         e = d[d.graph == "expert"].set_index("fold").loc[folds]
         ax.scatter(x, e.chance_ap3, marker="_", s=500, linewidths=2, color=ev.INK["primary"], zorder=3)
         ax.set_xticks(x, scenario_ticks(folds, e.runs))
@@ -353,11 +358,30 @@ def figure_rca() -> None:
         ax.set_ylabel("AP@3")
         ax.set_title(f"({'ab'[('coolant', 'probe').index(sub)]}) {sub.capitalize()}", loc="left")
     axes[1].set_xlabel("Held-out scenario")
-    handles = [Patch(color=GRAPH_COLORS[g], label=GRAPH_LABELS[g]) for g in GRAPHS]
+    handles = [Patch(color=GRAPH_COLORS[g], label=f"Causal RCA, {GRAPH_LABELS[g].lower()}") for g in GRAPHS]
+    handles.append(Patch(color=BASELINE_COLOR, label="LSTM + SHAP"))
     handles.append(Line2D([], [], marker="_", markersize=14, markeredgewidth=2, linestyle="", color=ev.INK["primary"],
                           label="Chance level"))
-    top_legend(fig, handles, 3)
+    top_legend(fig, handles, 2)
     save(fig, "rca_per_scenario")
+
+
+def figure_shap_example() -> None:
+    """shap attribution of the lstm anomaly score in one probe run (fixed rule: first run of exp_1, seed 0)."""
+    imp = pd.read_csv(TABLES / "16_lstm_shap_importance.csv")
+    rid = sorted(imp[(imp.subsystem == "probe") & (imp.fold == "exp_1")].recording_id.unique())[0]
+    d = imp[(imp.recording_id == rid) & (imp.seed == 0)].sort_values("importance")
+    fig, ax = plt.subplots(figsize=(WIDTH, 3.3), layout="constrained")
+    ax.barh([tex_free(v) for v in d.variable], d.importance,
+            color=[ev.COLORS[1] if c else ev.COLORS[0] for c in d.is_cause])
+    ax.set_xlabel("Summed absolute SHAP value of the anomaly score")
+    ax.grid(axis="y", visible=False)
+    top_legend(fig, [Patch(color=ev.COLORS[1], label="Injected cause"), Patch(color=ev.COLORS[0], label="Other candidate")], 2)
+    save(fig, "shap_example")
+
+
+def tex_free(v: str) -> str:
+    return v
 
 
 # ---------------------------------------------------------------------------
@@ -553,6 +577,7 @@ if __name__ == "__main__":
     figure_scm()
     figure_surprise(s, model)
     figure_rca()
+    figure_shap_example()
     figure_interventions()
     figure_cf_example(s, model)
     figure_counterfactuals()
