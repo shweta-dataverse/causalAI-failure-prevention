@@ -1,0 +1,51 @@
+coolant: hidden 32 validation loss 0.01051 (12 epochs)
+coolant: hidden 64 validation loss 0.01013 (12 epochs)
+coolant: selected hidden 64
+coolant exp_22 seed 0: epochs 12, mean ap@3 0.83
+coolant exp_22 seed 1: epochs 12, mean ap@3 0.50
+coolant exp_22 seed 2: epochs 12, mean ap@3 1.00
+coolant exp_27 seed 0: epochs 12, mean ap@3 0.86
+coolant exp_27 seed 1: epochs 12, mean ap@3 1.00
+coolant exp_27 seed 2: epochs 12, mean ap@3 1.00
+coolant exp_28 seed 0: epochs 12, mean ap@3 1.00
+coolant exp_28 seed 1: epochs 12, mean ap@3 1.00
+coolant exp_28 seed 2: epochs 12, mean ap@3 1.00
+coolant exp_35 seed 0: epochs 12, mean ap@3 0.89
+coolant exp_35 seed 1: epochs 12, mean ap@3 0.83
+coolant exp_35 seed 2: epochs 12, mean ap@3 1.00
+probe: hidden 32 validation loss 0.01079 (12 epochs)
+probe: hidden 64 validation loss 0.01007 (12 epochs)
+probe: selected hidden 64
+probe exp_1 seed 0: epochs 8, mean ap@3 0.00
+probe exp_1 seed 1: epochs 12, mean ap@3 0.00
+probe exp_1 seed 2: epochs 12, mean ap@3 0.00
+probe exp_2_3 seed 0: epochs 11, mean ap@3 0.50
+probe exp_2_3 seed 1: epochs 12, mean ap@3 0.12
+probe exp_2_3 seed 2: epochs 9, mean ap@3 0.50
+probe exp_4 seed 0: epochs 11, mean ap@3 0.89
+probe exp_4 seed 1: epochs 12, mean ap@3 0.44
+probe exp_4 seed 2: epochs 7, mean ap@3 0.92
+probe exp_5 seed 0: epochs 8, mean ap@3 0.00
+probe exp_5 seed 1: epochs 11, mean ap@3 0.00
+probe exp_5 seed 2: epochs 6, mean ap@3 0.00
+probe exp_6 seed 0: epochs 12, mean ap@3 0.00
+probe exp_6 seed 1: epochs 12, mean ap@3 0.00
+probe exp_6 seed 2: epochs 11, mean ap@3 0.00
+probe exp_7 seed 0: epochs 11, mean ap@3 0.13
+probe exp_7 seed 1: epochs 9, mean ap@3 0.10
+probe exp_7 seed 2: epochs 12, mean ap@3 0.13
+  subsystem  runs  top1_run_mean  hit3_run_mean  recall3_run_mean  map3_run_mean  mrr_run_mean  ap3_scenario_macro  top1_scenario_macro  chance_map3_run_mean  map3_seed_min  map3_seed_max  top1_seed_min  top1_seed_max
+0   coolant    25          1.000          1.000             0.960          0.911         1.000               0.909                1.000                 0.474          0.840          1.000          1.000          1.000
+1     probe    34          0.206          0.353             0.299          0.239         0.362               0.208                0.174                 0.212          0.123          0.299          0.088          0.265
+  subsystem     fold  top1  hit@3  recall@3  ap@3    rr  chance_ap@3
+0   coolant   exp_22  1.00   1.00      0.83  0.78  1.00         0.42
+1   coolant   exp_27  1.00   1.00      1.00  0.95  1.00         0.55
+2   coolant   exp_28  1.00   1.00      1.00  1.00  1.00         0.49
+3   coolant   exp_35  1.00   1.00      1.00  0.91  1.00         0.43
+4     probe    exp_1  0.00   0.00      0.00  0.00  0.14         0.21
+5     probe  exp_2_3  0.38   0.38      0.38  0.38  0.50         0.21
+6     probe    exp_4  0.67   0.89      0.89  0.75  0.78         0.21
+7     probe    exp_5  0.00   0.00      0.00  0.00  0.13         0.21
+8     probe    exp_6  0.00   0.00      0.00  0.00  0.17         0.22
+9     probe    exp_7  0.00   0.73      0.37  0.12  0.31         0.22
+finished in 3832 s

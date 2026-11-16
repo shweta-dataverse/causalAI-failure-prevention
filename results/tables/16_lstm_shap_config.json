@@ -1,0 +1,23 @@
+{
+  "lookback_steps": 40,
+  "hidden_candidates": [
+    32,
+    64
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "max_epochs": 12,
+  "batch": 512,
+  "optimizer": "adam 1e-3",
+  "early_stopping": "normal validation loss, patience 1",
+  "explained_steps": 20,
+  "background": 100,
+  "shap": "GradientExplainer, nsamples 50",
+  "torch": "2.15.0",
+  "shap_version": "0.54.1",
+  "code_commit": "1fbdcf6",
+  "runtime_s": 3832
+}
