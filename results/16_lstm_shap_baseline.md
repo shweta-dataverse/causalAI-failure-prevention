@@ -32,7 +32,7 @@ An earlier, untuned version (commit `9e15f9e`, 12-epoch cap, only the hidden siz
 
 New packages in `.venv`: PyTorch 2.15.0 and SHAP 0.54.1.
 
-## Matched protocol: the baseline gets the same information as the causal framework
+## Shared protocol (the methods share splits, candidates and metrics, but not every input or selection step)
 
 | | Causal framework | LSTM + SHAP |
 |---|---|---|
@@ -77,7 +77,7 @@ New packages in `.venv`: PyTorch 2.15.0 and SHAP 0.54.1.
 | probe | 128 | 10 s | 0.00998 | 14 |
 | probe | 128 | 20 s | 0.00982 | 13 |
 
-For comparison, on the same normal validation data the selected SCM reaches 0.0101 (coolant) and 0.0078 (probe, expert graph). The tuned LSTM therefore predicts normal coolant operation better than the SCM, and normal probe operation somewhat worse.
+These losses are not directly comparable with the SCM log losses. They are averaged over all steps and variables rather than per recording, and the SCM also conditions on the current states of the parents. No claim about which model predicts better is made.
 
 **Why the SHAP settings were not tuned.** The validation recordings contain no faults, so there is nothing to tune explanation settings against. Tuning them on the test runs would be selection on the evaluation outcome. They were therefore fixed in advance, and a sensitivity check reports how much the result depends on them.
 
@@ -141,7 +141,8 @@ Seed spread of LSTM + SHAP on probe: MAP@3 0.53 to 0.62. Top-1 is 0.56 in every 
 - **The data comparison is fair.** Training data, test runs, candidates, window and metrics are identical. Every setting was chosen without fault outcomes.
 - **The tuning mattered.** Without it, the baseline looked much worse (0.24). The tuned result is the one to report.
 - **Remaining uncertainty:**
-  - The learning rate was not tuned, and the tuned LSTM still predicts normal probe operation less well than the SCM (0.0096 against 0.0078).
+  - The learning rate was not tuned.
+  - The comparison is not a controlled experiment on causal structure. The LSTM predicts from the preceding steps only, its settings are selected differently, and the discovered graph used the expert reference during selection.
   - On probe, the result depends moderately on the fixed SHAP settings (MAP@3 0.47 to 0.65) and on the seed (0.53 to 0.62). The best SHAP variant (0.65) is level with the causal RCA.
 - **With 6 probe scenarios and mixed per-scenario results, there is no consistent winner.**
   - The causal RCA has a slightly higher mean and wins 3 scenarios.
