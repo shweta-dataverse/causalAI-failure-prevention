@@ -1,23 +1,40 @@
 {
-  "lookback_steps": 40,
-  "hidden_candidates": [
-    32,
-    64
-  ],
+  "grid": {
+    "hidden": [
+      32,
+      64,
+      128
+    ],
+    "lookback_steps": [
+      20,
+      40
+    ]
+  },
+  "chosen": {
+    "coolant": [
+      128,
+      40
+    ],
+    "probe": [
+      32,
+      20
+    ]
+  },
+  "selection": "lowest normal-validation loss of a model trained on normal training recordings only",
   "seeds": [
     0,
     1,
     2
   ],
-  "max_epochs": 12,
+  "max_epochs": 30,
+  "patience": 2,
+  "learning_rate": 0.001,
   "batch": 512,
-  "optimizer": "adam 1e-3",
-  "early_stopping": "normal validation loss, patience 1",
-  "explained_steps": 20,
-  "background": 100,
-  "shap": "GradientExplainer, nsamples 50",
+  "shap": "GradientExplainer, background 100 normal-training windows, nsamples 50",
+  "main_explanation": "20 most anomalous steps, summed absolute attribution",
+  "sensitivity": "10 / 20 / all window steps x absolute / positive attribution",
   "torch": "2.15.0",
   "shap_version": "0.54.1",
-  "code_commit": "1fbdcf6",
-  "runtime_s": 3832
+  "code_commit": "9e15f9e",
+  "runtime_s": 2458
 }

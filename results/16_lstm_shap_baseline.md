@@ -1,140 +1,155 @@
-# LSTM + SHAP diagnosis baseline (stage 16)
+# LSTM + SHAP diagnosis baseline (stage 16, tuned version)
 
 ## Purpose
 
-A common data-driven approach in predictive maintenance is anomaly detection followed by a feature-attribution explanation. The approach is:
-- A recurrent network (LSTM) learns the normal behaviour of the machine.
-- It flags time steps that deviate from its predictions.
-- SHAP then ranks the input variables that contribute most to a flagged anomaly.
+A common data-driven approach in predictive maintenance is anomaly detection followed by a feature-attribution explanation:
+- A recurrent network (LSTM) learns how the machine normally behaves and flags time steps that deviate from its predictions.
+- SHAP then ranks the input variables that contribute most to the flagged anomaly.
 
 This baseline answers one question:
 
 > On the same data, how well does the "detect and explain" ranking (LSTM + SHAP) find the injected fault causes, compared with the mechanism-break root cause analysis (RCA) of the causal framework?
 
-It is a baseline for **diagnosis only (RQ2)**. LSTM + SHAP has no causal graph and no intervention semantics. It cannot predict what an action would change, so it is **not** compared on intervention analysis or counterfactual explanations.
+It is a baseline for **diagnosis only (RQ2)**. LSTM + SHAP has no causal graph and no intervention semantics: it cannot predict what an action would change. It is therefore **not** compared on intervention analysis or counterfactual explanations.
+
+An earlier, untuned version (commit `9e15f9e`, 12-epoch cap, only the hidden size tuned) gave a probe MAP@3 of 0.24. Those LSTMs were undertrained, so that result is **superseded** by this tuned version and must not be reported.
 
 ## Where the code and results are
 
 | What | Path (research repository `causalAI-failure-prevention`) |
 |---|---|
 | Code | `scripts/lstm_shap_baseline.py` |
-| Run command | `PYTHONPATH=src .venv/bin/python scripts/lstm_shap_baseline.py` |
-| Size selection | `results/tables/16_lstm_shap_selection.csv` |
-| Ranking of every run and seed | `results/tables/16_lstm_shap_runs.csv` |
+| Run command | `PYTHONPATH=src .venv/bin/python scripts/lstm_shap_baseline.py` (41 minutes, 4 parallel workers) |
+| Tuning results | `results/tables/16_lstm_shap_selection.csv` |
+| Ranking of every run, seed and SHAP variant | `results/tables/16_lstm_shap_runs.csv` |
+| SHAP importance per variable (main variant) | `results/tables/16_lstm_shap_importance.csv` |
 | Per-scenario results | `results/tables/16_lstm_shap_per_scenario.csv` |
 | Summary | `results/tables/16_lstm_shap_summary.csv` |
+| SHAP sensitivity check | `results/tables/16_lstm_shap_sensitivity.csv` |
 | Settings and versions | `results/tables/16_lstm_shap_config.json` |
+| Figures | `results/figures/16_lstm_shap_attribution_example.{pdf,png}`, `results/figures/16_rca_vs_lstm_shap.{pdf,png}` |
 | Log | `results/logs/16_lstm_shap.log` |
 
 New packages in `.venv`: PyTorch 2.15.0 and SHAP 0.54.1.
 
-## What was implemented, step by step
+## Matched protocol: the baseline gets the same information as the causal framework
 
-### 1. Input data: identical to the causal framework
-
-- **Series:** the same 0.5 s binary state series (`data/processed/{coolant,probe}_dt0.5`) that the SCM uses.
-- **Missing states:** a variable that is not recorded in a run, or whose state is still unknown, is filled with its most frequent training state, exactly as the SCM fills it. These cells are left out of the training loss.
-
-### 2. Training data: identical to the causal framework in every fold
-
-The evaluation is leave-one-scenario-out, as for the SCM: coolant has 4 folds and probe has 6. For a held-out scenario k:
-- **Training recordings:** the 119 normal training recordings plus all runs of the other fault scenarios. This is the same set as `data.fold_training_ids(splits, k)`, which the SCM uses.
-- **Manipulated variables:** in a fault run, the manipulated variables are left out of the training loss. The SCM likewise leaves them out when fitting their own mechanism, because an injection replaces the normal behaviour of that variable.
-- **The held-out scenario k** is never used for training, size selection or early stopping.
-
-### 3. The model
-
-- **Network:** one LSTM layer followed by a linear output layer. It reads the last 40 steps (20 s, the same as the longest discovery lag) of all variables and predicts the probability that each variable is 1 in the next step.
-- **Loss:** binary cross-entropy over the non-masked variables.
-- **Training:** Adam with learning rate 0.001 and batch size 512, for at most 12 epochs. Training stops early when the loss on the 26 normal validation recordings no longer decreases, and the best epoch is kept.
-- **Seeds:** 3 (0, 1, 2). All metrics are averaged over the seeds.
-
-### 4. Choosing the model size, without any fault outcome
-
-- **Candidates:** 32 or 64 hidden units.
-- **How chosen:** each candidate is trained on the 119 normal training recordings only and compared by its loss on the 26 normal validation recordings.
-- **Result:** 64 for both subsystems.
-
-| Subsystem | Hidden units | Validation loss |
+| | Causal framework | LSTM + SHAP |
 |---|---|---|
-| coolant | 32 | 0.01051 |
-| coolant | 64 | **0.01013** |
-| probe | 32 | 0.01079 |
-| probe | 64 | **0.01007** |
+| Input series | 0.5 s binary state series | the same |
+| Training data for held-out scenario k | 119 normal training recordings plus all other fault scenarios | the same |
+| Manipulated variables in training fault runs | left out of fitting that variable's mechanism | left out of the training loss (the same rule) |
+| Unrecorded or unknown states | filled with the most frequent training state | the same, and left out of the loss |
+| How settings are chosen | lowest held-out predictive log loss, no fault outcome | lowest predictive loss on the normal validation recordings, no fault outcome |
+| Test runs | the runs of scenario k (25 coolant, 34 probe) | the same |
+| Candidates and window | recorded non-alarm variables; first alarm onset −60 s to last alarm onset +5 s | the same |
+| Metrics | Top-1, Hit@3, Recall@3, MAP@3, MRR, scenario AP@3, chance | the same, averaged over 3 seeds |
 
-For comparison, the coolant SCM reaches a normal validation log loss of 0.0101, so the LSTM is an equally good predictor of normal operation.
+## Hyperparameters
 
-### 5. Anomaly score
+| Symbol | Parameter | Meaning | Candidates | Selected (coolant / probe) |
+|---|---|---|---|---|
+| H | Hidden units | Size of the LSTM memory | 32, 64, 128 | 128 / 32 |
+| W | Look-back | History the LSTM reads to predict the next step | 10 s, 20 s (20, 40 steps) | 20 s / 10 s |
+| – | Learning rate | Adam step size | fixed | 0.001 |
+| – | Batch size | Samples per update | fixed | 512 |
+| – | Epochs | Passes over the training data | early stopping on normal validation loss, patience 2 | at most 30 |
+| – | Seeds | Independent trainings per fold | fixed | 3 (0, 1, 2) |
+| – | Explained steps | Steps of the analysis window whose anomaly score SHAP explains | 10, 20, all (sensitivity only) | 20 most anomalous |
+| – | Attribution | How SHAP values are summed per variable | absolute, positive (sensitivity only) | absolute |
+| – | SHAP background | Reference windows for expected gradients | fixed | 100 normal-training windows |
+| – | SHAP samples | Samples per explanation | fixed | 50 |
 
-For each time step t of a held-out run, the anomaly score is the mean binary cross-entropy of the LSTM's prediction for step t. It is averaged over the variables recorded in that run. A high score means the observed states are unexpected given the last 20 s.
+**How the LSTM settings were chosen.** Each of the 6 combinations of H and W was trained on the 119 normal training recordings only and compared by its loss on the 26 normal validation recordings. This is the same kind of rule as for the SCM settings: predictive loss, never a fault outcome.
 
-### 6. SHAP variable ranking
+| Subsystem | H | W | Validation loss | Epochs |
+|---|---|---|---|---|
+| coolant | 32 | 10 s | 0.00921 | 27 |
+| coolant | 32 | 20 s | 0.00885 | 30 |
+| coolant | 64 | 10 s | 0.00905 | 27 |
+| coolant | 64 | 20 s | 0.00883 | 27 |
+| coolant | **128** | **20 s** | **0.00872** | 27 |
+| coolant | 128 | 10 s | 0.00957 | 16 |
+| probe | **32** | **10 s** | **0.00955** | 25 |
+| probe | 32 | 20 s | 0.00984 | 20 |
+| probe | 64 | 10 s | 0.00970 | 20 |
+| probe | 64 | 20 s | 0.00957 | 20 |
+| probe | 128 | 10 s | 0.00998 | 14 |
+| probe | 128 | 20 s | 0.00982 | 13 |
 
-- **Window and candidates:** the same alarm-anchored analysis window as the causal RCA (first alarm onset minus 60 s to last alarm onset plus 5 s), and the same candidates (recorded non-alarm variables).
-- **Explained steps:** the **20 most anomalous steps** in the window, i.e. the detected anomalies.
-- **Explainer:** SHAP `GradientExplainer` (expected gradients), with 50 samples. The background is 100 random windows from the normal training recordings.
-- **What SHAP explains:** the anomaly score. Its input is the 40 history rows plus the observed next row, so a variable's own unexpected value can also receive attribution.
-- **Variable score:** the sum of absolute SHAP values over the explained steps and all time positions. Candidates are ranked by this score, with ties broken by name.
+For comparison, on the same normal validation data the selected SCM reaches 0.0101 (coolant) and 0.0078 (probe, expert graph). The tuned LSTM therefore predicts normal coolant operation better than the SCM, and normal probe operation somewhat worse.
 
-### 7. Metrics: identical to the causal RCA
+**Why the SHAP settings were not tuned.** The validation recordings contain no faults, so there is nothing to tune explanation settings against. Tuning them on the test runs would be selection on the evaluation outcome. They were therefore fixed in advance, and a sensitivity check reports how much the result depends on them.
 
-- **Per run:** Top-1, Hit@3, Recall@3, AP@3 and MRR, plus the chance level of a random ranking of the same candidates.
-- **Aggregation:** averaged over seeds per run, then reported as the run mean (MAP@3) and the scenario mean (scenario-macro AP@3). The minimum and maximum over seeds are also reported.
+## How the baseline works
 
-## Honest differences from the causal framework
-
-| Point | Causal framework | LSTM + SHAP | Effect |
-|---|---|---|---|
-| Size or setting selection | SCM settings chosen per fold by inner leave-one-scenario-out log loss | LSTM size chosen once by normal validation loss | The baseline's choice uses no fault data at all; this does not favour the causal method |
-| Randomness | Deterministic ranking | Depends on the training seed | Three seeds are reported, with their spread |
-| What is explained | Each variable's own mechanism break | The detector's anomaly score | This is the conceptual difference the comparison tests |
+1. **Model.** One LSTM layer and one linear output layer read the last W of all variables and predict the probability that each variable is 1 in the next step. They are trained with binary cross-entropy (Adam, learning rate 0.001, batch size 512).
+2. **Anomaly score of a step.** The mean binary cross-entropy of the predicted next states over the variables recorded in the run. A high score means the observed states are unexpected given their history.
+3. **SHAP ranking.**
+   - SHAP `GradientExplainer` (expected gradients) attributes the anomaly score of the 20 most anomalous steps in the analysis window to the input variables, over all time positions and the observed next row.
+   - The background is 100 windows of normal training data.
+   - Each candidate's score is its summed absolute attribution, and candidates are ranked by this score.
 
 ## Results
 
-Run time: 64 minutes in total, covering 10 folds × 3 seeds plus the size selection. No error occurred.
+### Overall (same 25 coolant and 34 probe held-out runs)
 
-### Overall (same 25 coolant and 34 probe held-out runs as the causal RCA)
-
-| Subsystem | Method | Top-1 | MAP@3 (run mean) | AP@3 (scenario mean) | Chance MAP@3 |
-|---|---|---|---|---|---|
-| Coolant | Causal RCA, expert graph | 1.00 | 1.00 | 1.00 | 0.47 |
-| | Causal RCA, discovered graph | 1.00 | 1.00 | 1.00 | |
-| | **LSTM + SHAP** | **1.00** | **0.91** (seeds 0.84–1.00) | **0.91** | |
-| Probe | Causal RCA, expert graph | 0.62 | 0.67 | 0.64 | 0.21 |
-| | Causal RCA, discovered graph | 0.65 | 0.65 | 0.63 | |
-| | **LSTM + SHAP** | **0.21** | **0.24** (seeds 0.12–0.30) | **0.21** | |
-
-### Per held-out scenario (AP@3)
-
-| Scenario | Causal, expert | Causal, discovered | LSTM + SHAP | Chance |
+| Subsystem | Method | Top-1 | MAP@3 (run mean) | AP@3 (scenario mean) |
 |---|---|---|---|---|
-| coolant exp_22 | 1.00 | 1.00 | 0.78 | 0.42 |
-| coolant exp_27 | 1.00 | 1.00 | 0.95 | 0.55 |
-| coolant exp_28 | 1.00 | 1.00 | 1.00 | 0.49 |
-| coolant exp_35 | 1.00 | 1.00 | 0.91 | 0.43 |
-| probe exp_1 | 0.89 | 0.83 | 0.00 | 0.21 |
-| probe exp_2_3 | 0.42 | 0.62 | 0.38 | 0.21 |
-| probe exp_4 | 1.00 | 0.72 | 0.75 | 0.21 |
-| probe exp_5 | 0.92 | 0.75 | 0.00 | 0.21 |
-| probe exp_6 | 0.33 | 0.50 | 0.00 | 0.22 |
-| probe exp_7 | 0.30 | 0.35 | 0.12 | 0.22 |
+| Coolant | Causal RCA, expert graph | 1.00 | 1.00 | 1.00 |
+| | Causal RCA, discovered graph | 1.00 | 1.00 | 1.00 |
+| | **LSTM + SHAP** | **1.00** | **1.00** | **1.00** |
+| Probe | Causal RCA, expert graph | 0.62 | **0.67** | **0.64** |
+| | Causal RCA, discovered graph | **0.65** | 0.65 | 0.63 |
+| | **LSTM + SHAP** | 0.56 | 0.59 | 0.53 |
+| | Chance | 0.14 | 0.21 | 0.21 |
 
-The causal RCA is at least as good as LSTM + SHAP in every scenario, with both graphs, and better in 9 of 10 scenarios with the expert graph.
+Seed spread of LSTM + SHAP on probe: MAP@3 0.53 to 0.62. Top-1 is 0.56 in every seed.
 
-### Why: what LSTM + SHAP ranks first
+### Per held-out scenario (AP@3), see figure `16_rca_vs_lstm_shap`
 
-**Probe.** The top-ranked variable is the cover close command `MPC_close` in 71 of the 102 seed-runs. It is never an injected cause: every probe scenario manipulates only the arm position sensors `MPA_InitPos` and/or `MPA_WorkPos`. The true causes end up on average at rank 6–8 of 9 in exp_1, exp_5 and exp_6, which is worse than a random ranking (average rank 5).
-- **Observed:** the SHAP ranking points to the control commands that react to the faulty sensor, the symptoms, and not to the sensor whose behaviour was changed.
-- **Interpretation (not isolated by an experiment):** when a sensor is manipulated, the control logic changes its command sequence. These command deviations dominate the anomaly score, so SHAP attributes most of the anomaly to them. SHAP explains *where the anomaly shows*, not *where it starts*.
+| Scenario | Causes | Causal, expert | Causal, discovered | LSTM + SHAP | Chance |
+|---|---|---|---|---|---|
+| coolant (all four) | 2–3 components each | 1.00 | 1.00 | 1.00 | 0.42–0.55 |
+| probe exp_1 | MPA_WorkPos | **0.89** | 0.83 | 0.07 | 0.21 |
+| probe exp_2_3 | MPA_InitPos | 0.42 | 0.62 | **1.00** | 0.21 |
+| probe exp_4 | MPA_WorkPos | **1.00** | 0.72 | **1.00** | 0.21 |
+| probe exp_5 | MPA_InitPos | **0.92** | 0.75 | 0.27 | 0.21 |
+| probe exp_6 | both sensors | 0.33 | **0.50** | 0.00 | 0.22 |
+| probe exp_7 | both sensors | 0.30 | 0.35 | **0.81** | 0.22 |
 
-**Coolant.** The first-ranked variable is always an injected cause, because these causes never change in normal operation. Any detector flags their first change. The MAP@3 is below 1.00 because in the scenarios with two or three causes, the *second* cause is ranked behind a downstream symptom. In exp_22, the level fault `LT_Level_Ok` is on average at rank 3, behind the pump-off state `HP_Pump_isOff`. In exp_27, `HP_Pump_Ok` is at rank 2.3 on average.
+### SHAP sensitivity check (probe MAP@3; coolant is 0.99–1.00 in every variant)
 
-### What this means for the thesis
+| Explained steps | Absolute attribution | Positive attribution |
+|---|---|---|
+| 10 most anomalous | 0.52 | 0.55 |
+| 20 most anomalous (main) | **0.59** | 0.65 |
+| all window steps | 0.55 | 0.47 |
 
-- **Same data, same runs, same metrics.** The causal mechanism-break RCA locates the injected causes far better on probe (MAP@3 0.67 or 0.65, against 0.24 at chance level). On coolant it is slightly better (1.00 against 0.91).
-- **Why this supports the causal approach (observed):** SHAP explains the anomaly detector, so it ranks the variables in which the fault becomes visible. The mechanism-break score asks whether a variable behaves unusually *given its causes*, which separates a changed mechanism from its downstream effects.
-- **Limits:**
-  - one LSTM architecture, one explanation setup and 3 seeds;
-  - the variation over seeds is large for probe (MAP@3 0.12–0.30);
-  - like the causal RCA, both methods remain weak in the two-sensor scenarios exp_6 and exp_7.
-- **Unchanged by this baseline:** LSTM + SHAP cannot predict intervention effects or evaluate preventive actions; only the causal framework can.
+### Why: what LSTM + SHAP ranks first (main variant, all seeds)
+
+- **Where LSTM + SHAP is better** (exp_2_3, exp_7): it ranks the injected sensor first. In exp_7, where both sensors are manipulated, it finds them at mean ranks 1.7 and 2.3. The causal RCA is weak there, because each injected sensor state is not unusual given its parents.
+- **Where LSTM + SHAP fails** (exp_1, exp_5, exp_6): it ranks reacting variables first. These are the inactive state `MP_Inactive`, the cover states and commands, and the arm commands. The injected sensor lands at mean rank 5.7 (exp_1), 3.5 (exp_5), and 4.6 and 7.7 (exp_6).
+- **The example run** (figure `16_lstm_shap_attribution_example`, exp_1 run 1, seed 0, chosen by a fixed rule): `MP_Inactive` and `MPC_Closed` receive more attribution than the injected `MPA_WorkPos`, which comes third.
+- **Observed:** SHAP ranks the variables whose values make the detector's prediction error large. These can be the cause or its downstream reaction, depending on the scenario.
+- **Interpretation (not isolated by an experiment):** the two methods fail in different scenarios.
+  - The mechanism-break score fails when the injected state is plausible given its parents.
+  - SHAP fails when the reaction of the control logic dominates the prediction error.
+
+## Can the result be trusted?
+
+- **The data comparison is fair.** Training data, test runs, candidates, window and metrics are identical. Every setting was chosen without fault outcomes.
+- **The tuning mattered.** Without it, the baseline looked much worse (0.24). The tuned result is the one to report.
+- **Remaining uncertainty:**
+  - The learning rate was not tuned, and the tuned LSTM still predicts normal probe operation less well than the SCM (0.0096 against 0.0078).
+  - On probe, the result depends moderately on the fixed SHAP settings (MAP@3 0.47 to 0.65) and on the seed (0.53 to 0.62). The best SHAP variant (0.65) is level with the causal RCA.
+- **With 6 probe scenarios and mixed per-scenario results, there is no consistent winner.**
+  - The causal RCA has a slightly higher mean and wins 3 scenarios.
+  - LSTM + SHAP wins 2.
+  - One scenario is tied with the expert graph.
+
+## What this means for the thesis
+
+- **Diagnosis (RQ2).** A tuned LSTM + SHAP baseline on the same data matches the causal RCA on coolant and comes close on probe. The causal RCA has a slightly higher mean (MAP@3 0.67 / 0.65 against 0.59) but no consistent advantage. The thesis should **not** claim that the causal framework diagnoses better than a data-driven baseline.
+- **The contribution lies beyond diagnosis.** LSTM + SHAP stops at "these variables contributed to the anomaly". It cannot say what an intervention would change or which allowed action would have prevented the alarms. The causal framework answers these questions with the intervention analysis and the counterfactual explanations. That is where its added value lies.
+- **Complementary failure modes.** The two rankings fail in different scenarios. That is an honest finding for the Discussion and a direction for future work, for example combining both scores.
