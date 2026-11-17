@@ -44,13 +44,18 @@ def main():
               "discovered": ge.to_dag(cd.edges_to_graph(edges[edges.graph_id == "discovered_without_exp_22"], nodes))[0]}
     # the same independent streams as stages 14 and 15 (spawned per graph and run, in this order)
     run_ids = sorted(splits.loc[splits.split == "fault", "recording_id"])
-    streams = dict(zip([(g, r) for g in ("expert", "discovered") for r in run_ids],
-                       np.random.SeedSequence(CF_ENTROPY).spawn(2 * len(run_ids))))
+
+    def fresh_streams():
+        # rebuilt for every setting: spawning advances a seed sequence, so a shared one would give
+        # later settings different random numbers than stages 14 and 15
+        return dict(zip([(g, r) for g in ("expert", "discovered") for r in run_ids],
+                        np.random.SeedSequence(CF_ENTROPY).spawn(2 * len(run_ids))))
     rankings = pd.read_csv(T / "15_rca_rankings.csv")
     train = data.fold_training_ids(splits, "exp_22")
     rows = []
     for g, graph in graphs.items():
         for a, lag, label in SETTINGS:
+            streams = fresh_streams()
             lags = None if lag is None else {(u, v): [lag] for u, v in graph.edges if 3 * graph.in_degree(v) <= 20}
             model = sc.fit_scm(view, graph, train, manipulated, INTERVAL, smoothing=a, lags=lags)
             mech = model.mechanisms[ALARM]

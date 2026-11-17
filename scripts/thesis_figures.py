@@ -406,9 +406,9 @@ def figure_interventions() -> None:
         o = obs[obs.graph == g]
         assert (o[o.alarm_supported].groupby("fold").size().reindex(folds, fill_value=0) == modelled).all()
     ax = axes[0]
-    ax.bar(x, modelled, width=0.5, color=ev.COLORS[0], label="Alarm with a fitted mechanism")
+    ax.bar(x, modelled, width=0.5, color=ev.COLORS[0], label="Modelled alarm")
     ax.bar(x, total - modelled, bottom=modelled, width=0.5, color="white", edgecolor=MUTED, hatch="///",
-           label="Alarm without training data (not simulated)")
+           label="Unmodelled alarm")
     for i, f in enumerate(folds):
         ax.text(i, total[f] + 0.4, f"{modelled[f]} of {total[f]}", ha="center", va="bottom", fontsize=9)
     ax.set_ylim(0, total.max() * 1.25)
@@ -428,7 +428,7 @@ def figure_interventions() -> None:
     ax.set_ylim(-0.03, 1.08)
     ax.set_xticks(x, scenario_ticks(folds, modelled))
     ax.set_ylabel("Probability")
-    ax.set_title("(b) Simulated activation probability, modelled activations", loc="left")
+    ax.set_title("(b) Simulated activation probability", loc="left")
 
     # (c) onset error of each modelled activation, with the median per scenario
     ax = axes[2]
@@ -445,10 +445,10 @@ def figure_interventions() -> None:
     ax.set_ylim(-0.15, 3.4)
     ax.set_ylabel("Onset error (s)")
     ax.set_xlabel("Held-out scenario")
-    ax.set_title("(c) Absolute onset error, modelled activations", loc="left")
+    ax.set_title("(c) Onset error", loc="left")
 
-    handles = [Patch(color=ev.COLORS[0], label="Alarm with a fitted mechanism"),
-               Patch(facecolor="white", edgecolor=MUTED, hatch="///", label="Alarm without training data"),
+    handles = [Patch(color=ev.COLORS[0], label="Modelled alarm"),
+               Patch(facecolor="white", edgecolor=MUTED, hatch="///", label="Unmodelled alarm"),
                Line2D([], [], marker="o", linestyle="", color=GRAPH_COLORS["expert"], label=GRAPH_LABELS["expert"]),
                Line2D([], [], marker="o", linestyle="", color=GRAPH_COLORS["discovered"], label=GRAPH_LABELS["discovered"]),
                Line2D([], [], color=ev.INK["primary"], lw=2, label="Scenario median"),
@@ -503,7 +503,7 @@ def figure_cf_example(s: dict, model: sc.TemporalSCM) -> None:
     alarms = [a for a in s["alarms"] if a in recorded]
     shown = chosen + alarms
     roles = {v: "action target" for v in chosen}
-    roles.update({a: "modelled alarm" if model.mechanisms[a].has_data else "alarm without a mechanism, not simulated"
+    roles.update({a: "modelled alarm" if model.mechanisms[a].has_data else "unmodelled alarm"
                   for a in alarms})
     t = np.arange(len(series[shown[0]])) * INTERVAL
     fig, axes = plt.subplots(len(shown), 1, figsize=(WIDTH, 1.35 * len(shown) + 1.0), sharex=True, layout="constrained")
@@ -549,7 +549,7 @@ def figure_counterfactuals() -> None:
     ax.set_ylim(0.78, 1.01)
     ax.set_xticks(x, scenario_ticks(folds, counts))
     ax.set_ylabel("Counterfactual validity")
-    ax.set_title("(a) Validity of the selected action sets", loc="left")
+    ax.set_title("(a) Validity", loc="left")
     ax = axes[1]
     for k, g in enumerate(GRAPHS):
         cov = cf[cf.graph == g].groupby("fold").alarm_coverage.mean().reindex(folds)
@@ -559,7 +559,7 @@ def figure_counterfactuals() -> None:
     ax.set_xticks(x, scenario_ticks(folds, counts))
     ax.set_ylabel("Alarm coverage")
     ax.set_xlabel("Held-out scenario")
-    ax.set_title("(b) Share of activated alarms with a fitted mechanism", loc="left")
+    ax.set_title("(b) Alarm coverage", loc="left")
     handles = [Line2D([], [], marker="o", linestyle="", color=GRAPH_COLORS[g], label=GRAPH_LABELS[g]) for g in GRAPHS]
     handles += [Line2D([], [], color=ev.INK["primary"], lw=2, label="Scenario mean"),
                 Line2D([], [], color=ev.INK["secondary"], lw=1, linestyle="--", label="Threshold 0.90")]
