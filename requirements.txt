@@ -11,6 +11,9 @@ matplotlib>=3.8
 pyyaml>=6.0
 # optional: tigramite's CMIsymb test (stage-12 sensitivity run only) imports numba
 numba>=0.60
+# lstm + shap baseline (stage 16)
+torch>=2.15
+shap>=0.54
 pytest>=8
 jupyterlab>=4
 ipykernel>=6
