@@ -4,7 +4,9 @@ track n (normal prediction): one scm per subsystem and graph, fitted on the 119 
 training recordings plus all fault runs of the subsystem; scored on normal train (in-sample),
 validation and test recordings. its fault results are never reported as held-out.
 track f (fault generalisation): outer leave-one-scenario-out. for held-out scenario k the
-graph (discovered_without_k), the scm and every fill value use training data without k.
+graph (discovered_without_k), the scm and every fill value use training data without k and
+without the related partners of k's runs (configs/related_recordings.csv, stage 17a; a
+retrospective correction of 17 nov 2026 after a recording-similarity check).
 rca, intervention replay and counterfactuals are computed on k's runs with that fold model.
 
 the discovered graphs are the inherited notebook-03/10 outputs (original discovery settings,
@@ -126,8 +128,8 @@ def setting(sub: str) -> dict:
     nodes = sorted(expert.nodes)
     types = {n: ("Alarm" if expert.nodes[n]["kind"] == "Alarm" else "Binary") for n in nodes}
     alarms = sorted(n for n in nodes if types[n] == "Alarm")
-    edges_file = TABLES / (f"15_{sub}_discovery_edges.csv" if SELECTED else
-                           ("03_coolant_edges.csv" if sub == "coolant" else "10_probe_edges.csv"))
+    # original settings: the notebook configuration aggregated on the same grouped scopes (stage 12)
+    edges_file = TABLES / (f"15_{sub}_discovery_edges.csv" if SELECTED else f"12_{sub}_original_edges.csv")
     edges = pd.read_csv(edges_file)
     edges = edges[~edges.graph_id.str.contains("_and_")]  # inner-fold graphs are only used by stage 15a
     raw = {gid: cd.edges_to_graph(g, nodes) for gid, g in edges.groupby("graph_id")}
@@ -216,13 +218,19 @@ def manifests(s: dict) -> pd.DataFrame:
     for k in ("validation", "test"):
         rows += [{"track": "N", "fold": "all", "recording_id": r, "role": f"score ({k})"} for r in sorted(normal[k])]
     check(f"{sub}: track N fit excludes normal validation/test", not (set(full_train) & (normal["validation"] | normal["test"])))
+    partners = data.related_partners()
     for fold in s["folds"]:
         train = data.fold_training_ids(splits, fold)
         test = splits.loc[splits.fold == fold, "recording_id"].tolist()
+        related = sorted(data.protected_ids(test) - set(test))
         rows += [{"track": "F", "fold": fold, "recording_id": r, "role": "fit"} for r in train]
         rows += [{"track": "F", "fold": fold, "recording_id": r, "role": "outer test"} for r in test]
+        rows += [{"track": "F", "fold": fold, "recording_id": r, "role": "excluded (related to an outer-test run)"} for r in related]
         check(f"{sub} {fold}: fold fit and outer test disjoint", not (set(train) & set(test)),
               f"{len(train)} fit, {len(test)} test")
+        check(f"{sub} {fold}: no related partner of an outer-test run in the fit",
+              not any(partners.get(r, set()) & set(train) for r in test),
+              f"excluded {', '.join(related) if related else 'none'}")
         check(f"{sub} {fold}: fold fit excludes normal validation/test",
               not (set(train) & (normal["validation"] | normal["test"])))
         # the fold graph is discovered without regime k
@@ -230,13 +238,27 @@ def manifests(s: dict) -> pd.DataFrame:
         check(f"{sub} {fold}: fold-specific discovered graph present", ok)
         if SELECTED:
             # the fold graph and the fold scm settings were chosen without scenario k
-            dsel = pd.read_csv(TABLES / f"15_{sub}_discovery_selection.csv").set_index("graph_id")
+            dsel = pd.read_csv(TABLES / f"15_{sub}_discovery_selection.csv", keep_default_na=False).set_index("graph_id")
             ssel = pd.read_csv(TABLES / "15_scm_selection.csv")
             ssel = ssel[(ssel.subsystem == sub) & (ssel.fold == fold)]
             used = {j for txt in ssel.selection_data for j in txt.removeprefix("inner scenarios ").split(",")}
             check(f"{sub} {fold}: graph and scm settings selected without the outer scenario",
                   dsel.loc[f"discovered_without_{fold}", "excluded"] == fold and fold not in used and len(ssel) == len(GRAPHS),
                   f"discovery {dsel.loc[f'discovered_without_{fold}', 'config_id']}; scm inner {sorted(used)}")
+            # related partners of k's runs: removed from k's discovery scopes and from every inner fit and score
+            inner = pd.read_csv(TABLES / "15_scm_selection_inner.csv", keep_default_na=False)
+            inner = inner[(inner.subsystem == sub) & (inner.track == "F") & (inner.outer_fold == fold)]
+            in_inner = set(",".join(inner.inner_scored_runs).split(",")) - {""}
+            scopes = dsel[(dsel.excluded == fold) | dsel.excluded.str.startswith(fold + ",")]
+            seen = set()
+            for txt in scopes.excluded:
+                seen |= set(sum(cd.define_regimes(splits, tuple(txt.split(","))).values(), []))
+            inner_fit = set()
+            for j in inner.inner_fold.unique():
+                inner_fit |= set(data.fold_training_ids(splits, (fold, j)))
+            check(f"{sub} {fold}: outer test and its related partners absent from its discovery scopes, inner fits and inner scores",
+                  not (data.protected_ids(test) & (seen | inner_fit | in_inner)),
+                  f"{len(scopes)} discovery scopes, {inner.inner_fold.nunique()} inner folds")
     save(pd.DataFrame(rows), f"{sub}_fold_manifest")
 
     # identical encoded inputs across normal splits (zero-change recordings)
@@ -256,13 +278,14 @@ def data_table(s: dict, man: pd.DataFrame) -> list[dict]:
         rows.append({"subsystem": s["sub"], "data": f"normal {k}", "group": "recording", "recordings": len(part),
                      "zero_change_recordings": int(part.zero_change.sum()),
                      "role": {"train": "fit (tracks N and F); discovery regime 'normal'",
-                              "validation": "track N scoring only (not fitted, not used for selection here)",
+                              "validation": "track N scoring; selection of the track-N scm settings (stage 15a)",
                               "test": "track N scoring only"}[k]})
     for fold in s["folds"]:
         part = man[man.fold == fold]
         rows.append({"subsystem": s["sub"], "data": f"fault scenario {fold}", "group": "scenario (all runs together)",
                      "recordings": len(part), "zero_change_recordings": int(part.zero_change.sum()),
-                     "role": "outer test in its own fold; fit in the other folds and in track N"})
+                     "role": "outer test in its own fold; fit in the other folds (without related partners "
+                             "of the held-out runs) and in track N"})
     return rows
 
 
@@ -284,6 +307,9 @@ def config_record(settings: dict[str, dict]) -> dict:
         "python": platform.python_version(), "platform": platform.platform(),
         "packages": {p: md.version(p) for p in ("tigramite", "numpy", "pandas", "networkx", "scipy", "matplotlib")},
         "input_sha256": files,
+        "evaluation protocol": "leave-one-scenario-out; related partners of held-out runs excluded from fitting, "
+                               "discovery and selection (configs/related_recordings.csv)",
+        "related_recordings_sha256": sha256(data.RELATED_PATH),
         "discovery_settings (inherited graphs)": DISCOVERY_SETTINGS,
         "scm": {"mechanism": "binary transition table p(x_t | x_{t-1}, parents_t, parents_{t-1})"
                              + (" plus the parent at the selected extra lag" if SELECTED else ""),
@@ -308,7 +334,7 @@ def config_record(settings: dict[str, dict]) -> dict:
 
 
 def testable_pairs(s: dict, exclude: str | None) -> set:
-    regimes = {k: v for k, v in cd.define_regimes(s["splits"]).items() if k != exclude}
+    regimes = cd.define_regimes(s["splits"], () if exclude is None else (exclude,))
     pairs = set()
     for ids in regimes.values():
         vs = cd.regime_variables(s["view"], ids)
@@ -532,10 +558,14 @@ def run_main() -> None:
             rca_runs.append(metrics.assign(subsystem=sub, graph=g, model_id=lambda d: f"{sub}-{g}-without_" + d.fold))
             rca_rank.append(rankings.assign(subsystem=sub, graph=g))
             if not SELECTED:
+                # only folds whose training data is not changed by the related-recording exclusion can reproduce
                 old_name = f"06_coolant_run_metrics_{g}" if sub == "coolant" else f"10_probe_rca_runs_{g}"
                 old = pd.read_csv(TABLES / f"{old_name}.csv").set_index("recording_id")
-                diff = float((metrics.set_index("recording_id")["ap@3"] - old.loc[metrics.recording_id, "ap@3"].to_numpy()).abs().max())
-                check(f"{sub} {g}: rca per-run ap@3 reproduces {old_name}", diff < 1e-12, f"max diff {diff:.2e}")
+                same = [f for f in s["folds"] if data.fold_training_ids(s["splits"], f) == data.fold_training_ids(s["splits"], f, exclude_related=False)]
+                m = metrics[metrics.fold.isin(same)]
+                diff = float((m.set_index("recording_id")["ap@3"] - old.loc[m.recording_id, "ap@3"].to_numpy()).abs().max())
+                check(f"{sub} {g}: rca per-run ap@3 reproduces {old_name} in the folds unchanged by the exclusion",
+                      diff < 1e-12, f"max diff {diff:.2e}; folds {', '.join(same)}")
             for fold, model in scms.items():
                 test = s["splits"].loc[s["splits"].fold == fold, "recording_id"].tolist()
                 p = predictions(model, s["view"], test, s["manipulated"])

@@ -1,5 +1,7 @@
 # LSTM + SHAP diagnosis baseline (stage 16, tuned version)
 
+> **Update 17 Nov 2026.** The probe numbers below come from the scenario-only protocol. With the related-recording exclusion (`results/17_related_recordings.md`), the probe LSTM + SHAP MAP@3 is 0.58 (Top-1 0.56, scenario AP@3 0.51), and the discovered-graph causal RCA has MAP@3 0.63 (Top-1 0.53). The current values are in `results/tables/16_lstm_shap_*.csv` and `15_rca_*.csv`.
+
 ## Purpose
 
 A common data-driven approach in predictive maintenance is anomaly detection followed by a feature-attribution explanation:

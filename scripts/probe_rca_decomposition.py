@@ -30,7 +30,8 @@ def main():
     nodes = sorted(expert.nodes)
     alarms = sorted(n for n in nodes if expert.nodes[n]["kind"] == "Alarm")
     graphs = {}
-    for label, file in (("original", "10_probe_edges.csv"), ("selected", "15_probe_discovery_edges.csv")):
+    # both discovered graphs come from the same grouped scopes (related partners of held-out runs removed)
+    for label, file in (("original", "12_probe_original_edges.csv"), ("selected", "15_probe_discovery_edges.csv")):
         e = pd.read_csv(T / file)
         graphs[label] = {gid: ge.to_dag(cd.edges_to_graph(g, nodes))[0] for gid, g in e.groupby("graph_id")}
     sel = pd.read_csv(T / "15_scm_selection.csv")

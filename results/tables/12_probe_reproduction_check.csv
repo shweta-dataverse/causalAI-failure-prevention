@@ -1,8 +1,8 @@
-subsystem,scope,saved_graph_id,identical_edge_set,n_edges_rebuilt,n_edges_saved
-probe,all scenarios,discovered,True,8,8
-probe,without exp_1,discovered_without_exp_1,True,9,9
-probe,without exp_2_3,discovered_without_exp_2_3,True,11,11
-probe,without exp_4,discovered_without_exp_4,True,10,10
-probe,without exp_5,discovered_without_exp_5,True,8,8
-probe,without exp_6,discovered_without_exp_6,True,10,10
-probe,without exp_7,discovered_without_exp_7,True,10,10
+subsystem,scope,saved_graph_id,identical_edge_set,n_edges_rebuilt,n_edges_saved,grouped_scope_identical,n_edges_grouped
+probe,all scenarios,discovered,True,8,8,True,8
+probe,without exp_1,discovered_without_exp_1,True,9,9,True,9
+probe,without exp_2_3,discovered_without_exp_2_3,True,11,11,False,10
+probe,without exp_4,discovered_without_exp_4,True,10,10,True,10
+probe,without exp_5,discovered_without_exp_5,True,8,8,True,8
+probe,without exp_6,discovered_without_exp_6,True,10,10,False,11
+probe,without exp_7,discovered_without_exp_7,True,10,10,False,11

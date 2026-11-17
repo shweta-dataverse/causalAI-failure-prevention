@@ -89,30 +89,30 @@ probe,graph,discovered scm dag: shd,,15,17
 probe,graph,discovered scm dag: skeleton_f1,,0.125,0.5625
 probe,graph,discovered scm dag: skeleton_precision,,1.0,0.5294117647058824
 probe,graph,discovered scm dag: skeleton_recall,,0.0666666666666666,0.6
-probe,rca,ap3_scenario_macro,discovered,0.611111111111111,0.6300925925925926
+probe,rca,ap3_scenario_macro,discovered,0.611111111111111,0.5652777777777779
 probe,rca,ap3_scenario_macro,expert,0.4310185185185186,0.6425925925925925
-probe,rca,map3_run_mean,discovered,0.5588235294117647,0.6495098039215687
+probe,rca,map3_run_mean,discovered,0.5588235294117647,0.625
 probe,rca,map3_run_mean,expert,0.4754901960784314,0.6666666666666666
-probe,rca,top1_run_mean,discovered,0.2352941176470588,0.6470588235294118
+probe,rca,top1_run_mean,discovered,0.2352941176470588,0.5294117647058824
 probe,rca,top1_run_mean,expert,0.4411764705882353,0.6176470588235294
-probe,rca,top1_scenario_macro,discovered,0.3333333333333333,0.6708333333333334
+probe,rca,top1_scenario_macro,discovered,0.3333333333333333,0.4708333333333334
 probe,rca,top1_scenario_macro,expert,0.4083333333333334,0.6083333333333334
 probe,rca per scenario,ap3 exp_1,discovered,0.3333333333333333,0.8333333333333334
 probe,rca per scenario,ap3 exp_1,expert,0.8333333333333334,0.8888888888888888
-probe,rca per scenario,ap3 exp_2_3,discovered,0.5,0.625
+probe,rca per scenario,ap3 exp_2_3,discovered,0.5,0.7916666666666666
 probe,rca per scenario,ap3 exp_2_3,expert,0.375,0.4166666666666666
 probe,rca per scenario,ap3 exp_4,discovered,0.3333333333333333,0.7222222222222222
 probe,rca per scenario,ap3 exp_4,expert,0.8333333333333334,1.0
 probe,rca per scenario,ap3 exp_5,discovered,0.5,0.75
 probe,rca per scenario,ap3 exp_5,expert,0.4444444444444444,0.9166666666666666
-probe,rca per scenario,ap3 exp_6,discovered,1.0,0.5
+probe,rca per scenario,ap3 exp_6,discovered,1.0,0.1944444444444444
 probe,rca per scenario,ap3 exp_6,expert,0.0,0.3333333333333333
-probe,rca per scenario,ap3 exp_7,discovered,1.0,0.35
+probe,rca per scenario,ap3 exp_7,discovered,1.0,0.1
 probe,rca per scenario,ap3 exp_7,expert,0.1,0.3
-probe,scm track F,change_log_loss,discovered,5.21426433742332,2.9260577818505946
-probe,scm track F,change_log_loss,expert,2.111475001184884,2.04808429337495
-probe,scm track F,log_loss,discovered,0.0481750353556175,0.0284888635073406
-probe,scm track F,log_loss,expert,0.0241182495118576,0.0218239257633288
+probe,scm track F,change_log_loss,discovered,5.308932975905265,2.6200001477398094
+probe,scm track F,change_log_loss,expert,2.148241846282135,2.087260418457632
+probe,scm track F,log_loss,discovered,0.0485958532736438,0.0255191956449181
+probe,scm track F,log_loss,expert,0.024252717108261,0.0219855538468093
 probe,scm track N,test change_log_loss,discovered,5.530076641442554,1.7861929950199416
 probe,scm track N,test change_log_loss,expert,1.8030387521208855,1.6322581453603773
 probe,scm track N,test log_loss,discovered,0.0265969193150883,0.0093633910872462

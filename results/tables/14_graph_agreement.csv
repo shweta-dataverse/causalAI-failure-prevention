@@ -27,8 +27,8 @@ probe,discovered_without_exp_1,without exp_1,discovered raw (PCMCI+ output),all 
 probe,discovered_without_exp_1,without exp_1,discovered raw (PCMCI+ output),testable pairs,54,15,9,15,6,0.6666666666666666,0.4,0.5,1,0,0.0,0.0,0.0,18,8,0.0
 probe,discovered_without_exp_1,without exp_1,discovered SCM DAG (undirected edges removed),all pairs,55,15,1,15,1,1.0,0.06666666666666667,0.125,1,0,0.0,0.0,0.0,15,0,0.0
 probe,discovered_without_exp_1,without exp_1,discovered SCM DAG (undirected edges removed),testable pairs,54,15,1,15,1,1.0,0.06666666666666667,0.125,1,0,0.0,0.0,0.0,15,0,0.0
-probe,discovered_without_exp_2_3,without exp_2_3,discovered raw (PCMCI+ output),all pairs,55,15,11,15,7,0.6363636363636364,0.4666666666666667,0.5384615384615385,2,1,0.5,0.06666666666666667,0.11764705882352941,18,9,0.5
-probe,discovered_without_exp_2_3,without exp_2_3,discovered raw (PCMCI+ output),testable pairs,54,15,11,15,7,0.6363636363636364,0.4666666666666667,0.5384615384615385,2,1,0.5,0.06666666666666667,0.11764705882352941,18,9,0.5
+probe,discovered_without_exp_2_3,without exp_2_3,discovered raw (PCMCI+ output),all pairs,55,15,10,15,7,0.7,0.4666666666666667,0.56,2,1,0.5,0.06666666666666667,0.11764705882352941,17,8,0.5
+probe,discovered_without_exp_2_3,without exp_2_3,discovered raw (PCMCI+ output),testable pairs,54,15,10,15,7,0.7,0.4666666666666667,0.56,2,1,0.5,0.06666666666666667,0.11764705882352941,17,8,0.5
 probe,discovered_without_exp_2_3,without exp_2_3,discovered SCM DAG (undirected edges removed),all pairs,55,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5
 probe,discovered_without_exp_2_3,without exp_2_3,discovered SCM DAG (undirected edges removed),testable pairs,54,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5
 probe,discovered_without_exp_4,without exp_4,discovered raw (PCMCI+ output),all pairs,55,15,10,15,6,0.6,0.4,0.48,0,0,,0.0,0.0,19,10,
@@ -39,11 +39,11 @@ probe,discovered_without_exp_5,without exp_5,discovered raw (PCMCI+ output),all 
 probe,discovered_without_exp_5,without exp_5,discovered raw (PCMCI+ output),testable pairs,54,15,8,15,5,0.625,0.3333333333333333,0.43478260869565216,2,1,0.5,0.06666666666666667,0.11764705882352941,17,6,0.5
 probe,discovered_without_exp_5,without exp_5,discovered SCM DAG (undirected edges removed),all pairs,55,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5
 probe,discovered_without_exp_5,without exp_5,discovered SCM DAG (undirected edges removed),testable pairs,54,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5
-probe,discovered_without_exp_6,without exp_6,discovered raw (PCMCI+ output),all pairs,55,15,10,15,7,0.7,0.4666666666666667,0.56,2,1,0.5,0.06666666666666667,0.11764705882352941,17,8,0.5
-probe,discovered_without_exp_6,without exp_6,discovered raw (PCMCI+ output),testable pairs,54,15,10,15,7,0.7,0.4666666666666667,0.56,2,1,0.5,0.06666666666666667,0.11764705882352941,17,8,0.5
-probe,discovered_without_exp_6,without exp_6,discovered SCM DAG (undirected edges removed),all pairs,55,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5
-probe,discovered_without_exp_6,without exp_6,discovered SCM DAG (undirected edges removed),testable pairs,54,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5
-probe,discovered_without_exp_7,without exp_7,discovered raw (PCMCI+ output),all pairs,55,15,10,15,7,0.7,0.4666666666666667,0.56,2,1,0.5,0.06666666666666667,0.11764705882352941,17,8,0.5
-probe,discovered_without_exp_7,without exp_7,discovered raw (PCMCI+ output),testable pairs,54,15,10,15,7,0.7,0.4666666666666667,0.56,2,1,0.5,0.06666666666666667,0.11764705882352941,17,8,0.5
+probe,discovered_without_exp_6,without exp_6,discovered raw (PCMCI+ output),all pairs,55,15,11,15,8,0.7272727272727273,0.5333333333333333,0.6153846153846153,1,0,0.0,0.0,0.0,18,10,0.0
+probe,discovered_without_exp_6,without exp_6,discovered raw (PCMCI+ output),testable pairs,54,15,11,15,8,0.7272727272727273,0.5333333333333333,0.6153846153846153,1,0,0.0,0.0,0.0,18,10,0.0
+probe,discovered_without_exp_6,without exp_6,discovered SCM DAG (undirected edges removed),all pairs,55,15,1,15,1,1.0,0.06666666666666667,0.125,1,0,0.0,0.0,0.0,15,0,0.0
+probe,discovered_without_exp_6,without exp_6,discovered SCM DAG (undirected edges removed),testable pairs,54,15,1,15,1,1.0,0.06666666666666667,0.125,1,0,0.0,0.0,0.0,15,0,0.0
+probe,discovered_without_exp_7,without exp_7,discovered raw (PCMCI+ output),all pairs,55,15,11,15,7,0.6363636363636364,0.4666666666666667,0.5384615384615385,2,1,0.5,0.06666666666666667,0.11764705882352941,18,9,0.5
+probe,discovered_without_exp_7,without exp_7,discovered raw (PCMCI+ output),testable pairs,54,15,11,15,7,0.6363636363636364,0.4666666666666667,0.5384615384615385,2,1,0.5,0.06666666666666667,0.11764705882352941,18,9,0.5
 probe,discovered_without_exp_7,without exp_7,discovered SCM DAG (undirected edges removed),all pairs,55,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5
 probe,discovered_without_exp_7,without exp_7,discovered SCM DAG (undirected edges removed),testable pairs,54,15,2,15,2,1.0,0.13333333333333333,0.23529411764705882,2,1,0.5,0.06666666666666667,0.11764705882352941,14,0,0.5

@@ -3,7 +3,8 @@
 matched to the causal pipeline (stage 15):
   * same 0.5 s state series; unrecorded or unknown states filled with the training mode of the fold
     (as the scm fills them) and left out of the loss;
-  * same data per held-out scenario k: normal training recordings + all other fault scenarios;
+  * same data per held-out scenario k: normal training recordings + all other fault scenarios,
+    without the related partners of k's runs (configs/related_recordings.csv);
     in a fault run, the manipulated variables are left out of the training loss (the scm leaves
     them out of fitting their own mechanism);
   * same held-out runs, candidates (recorded non-alarm variables), alarm-anchored window and metrics.
@@ -199,6 +200,8 @@ def explain(model, view, rid, fills, alarms, nodes, background, lookback):
 
     series = sc.recording_series(view, rid)
     window = rca.analysis_window(series, alarms, INTERVAL)
+    if window is None:
+        return None  # no alarm onset: the run is not scored (as in the causal rca)
     cands = rca.candidates(series, nodes, alarms)
     a, _ = run_arrays(view, rid, fills)
     recorded = torch.tensor([0.0 if np.isnan(series[v]).all() else 1.0 for v in view.var_names])
@@ -240,13 +243,17 @@ def job_fold(args):
     background = torch.cat([bx, by[:, None]], dim=1)
     rows, imp_rows = [], []
     for rid in splits.loc[splits.fold == k, "recording_id"]:
-        cands, importance, anomaly = explain(model, view, rid, fills, s["alarms"], s["nodes"], background, lookback)
+        result = explain(model, view, rid, fills, s["alarms"], s["nodes"], background, lookback)
+        if result is None:
+            rows.append({"subsystem": sub, "fold": k, "recording_id": rid, "seed": seed, "scored": False})
+            continue
+        cands, importance, anomaly = result
         truth = set(man[rid])
         chance = rca.chance_metrics(cands, truth, seed=0)
         for (steps_v, agg), vec in importance.items():
             imp = {v: float(vec[view.var_names.index(v)]) for v in cands}
             ranking = sorted(cands, key=lambda v: (-imp[v], v))
-            rows.append({"subsystem": sub, "fold": k, "recording_id": rid, "seed": seed, "steps": steps_v,
+            rows.append({"subsystem": sub, "fold": k, "recording_id": rid, "seed": seed, "scored": True, "steps": steps_v,
                          "aggregation": agg, "n_candidates": len(cands), "n_causes": len(truth),
                          "epochs": len(hist), "fold_validation_loss": val, "ranking": " > ".join(ranking),
                          **rca.ranking_metrics(ranking, truth),
@@ -325,6 +332,7 @@ def main():
     with ctx.Pool(WORKERS) as pool:
         out = pool.map(job_fold, jobs)
     runs = pd.DataFrame([r for rows, _ in out for r in rows])
+    print("unscored runs (no alarm onset):", int((~runs.scored).sum()), flush=True)
     imp = pd.DataFrame([r for _, rows in out for r in rows])
     ev.save_table(runs, "16_lstm_shap_runs")
     ev.save_table(imp, "16_lstm_shap_importance")
@@ -365,6 +373,8 @@ def main():
     import torch
     config = {"grid": {"hidden": [32, 64, 128], "lookback_steps": [20, 40]}, "chosen": chosen,
               "selection": "lowest normal-validation loss of a model trained on normal training recordings only",
+              "fold_training": "normal training recordings + fault runs of the other scenarios, without the related "
+                               "partners of the held-out runs (configs/related_recordings.csv)",
               "seeds": SEEDS, "max_epochs": MAX_EPOCHS, "patience": PATIENCE, "learning_rate": LR, "batch": BATCH,
               "shap": f"GradientExplainer, background {BACKGROUND} normal-training windows, nsamples {SHAP_SAMPLES}",
               "main_explanation": "20 most anomalous steps, summed absolute attribution",

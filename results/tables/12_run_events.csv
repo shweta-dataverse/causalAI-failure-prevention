@@ -904,3 +904,39 @@ coolant,exp_28,cmisymb_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,2ed682e98832104102bc,time
 coolant,exp_22,cmisymb_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,61edbffa77a57f994d5f,timeout,stopped after 10800 s,10800.4
 coolant,exp_35,cmisymb_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,7fd39701a32c56f78e5f,timeout,stopped after 10800 s,10800.2
 coolant,exp_27,cmisymb_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,5170c77706b0a897ee4a,timeout,stopped after 10800 s,10800.2
+probe,exp_7,gsq_dt0.5_tau20s_a0.001_c3-3-3_fdr_bh,50ecae153cb6ddeb3079,ok,,9.6
+probe,exp_7,gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh,2acf247f4690f21bed13,ok,,11.6
+probe,exp_1,gsq_dt0.5_tau20s_a0.001_c3-3-3_fdr_bh,ebb69caf0569c547b727,ok,,12.7
+probe,exp_7,gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh,c20b5881ef64015b5c0f,ok,,13.7
+probe,exp_1,gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh,02ad07e4cd2e7de76f8c,ok,,15.7
+probe,exp_2_3,gsq_dt0.5_tau20s_a0.001_c3-3-3_fdr_bh,9d56ce9e67db2caba7b3,ok,,16.3
+probe,exp_2_3,gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh,8e352ed72d3235f9a86c,ok,,8.1
+probe,exp_1,gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh,0b89faa6db11301f9f9c,ok,,18.3
+probe,exp_2_3,gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh,0f705e0c1c231b0897dc,ok,,19.8
+probe,exp_2_3,gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh,482b523c59a8026640fc,ok,,9.1
+probe,exp_1,gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh,49c1d9ec43b93dabef85,ok,,7.1
+probe,exp_2_3,gsq_dt0.5_tau10s_a0.05_c3-3-3_fdr_bh,08db236bc898de2dfde4,ok,,10.7
+probe,exp_7,gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh,a51007d8927a0a92b4b5,ok,,6.1
+probe,exp_1,gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh,6eabfb802cfdc2e1de1b,ok,,9.2
+probe,exp_2_3,gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh,f344198af875f213314d,ok,,25.4
+probe,exp_6,gsq_dt0.5_tau20s_a0.001_c3-3-3_fdr_bh,dca05f6d161342bc1c5b,ok,,7.1
+probe,exp_7,gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh,4ac2f7b54491300de362,ok,,6.6
+probe,exp_1,gsq_dt0.5_tau10s_a0.05_c3-3-3_fdr_bh,94444716b82fba03991a,ok,,11.7
+probe,exp_6,gsq_dt0.5_tau20s_a0.01_c3-3-3_fdr_bh,c7caff0dc9044df1d090,ok,,7.6
+probe,exp_7,gsq_dt0.5_tau10s_a0.05_c3-3-3_fdr_bh,fd3e1a8a7a02fe964387,ok,,7.6
+probe,exp_2_3,gsq_dt0.5_tau5s_a0.001_c3-3-3_fdr_bh,2489e1b5f0031b92ec0b,ok,,5.1
+probe,exp_1,gsq_dt0.5_tau5s_a0.001_c3-3-3_fdr_bh,0c822043aabd734191d4,ok,,4.6
+probe,exp_2_3,gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,9326707c510cf245dd00,ok,,5.6
+probe,exp_1,gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,a928ce55d37d8d0f7309,ok,,5.1
+probe,exp_2_3,gsq_dt0.5_tau5s_a0.05_c3-3-3_fdr_bh,6673b2873600711495c6,ok,,6.6
+probe,exp_7,gsq_dt0.5_tau5s_a0.001_c3-3-3_fdr_bh,c2c0be41a900dca45db0,ok,,4.6
+probe,exp_6,gsq_dt0.5_tau20s_a0.05_c3-3-3_fdr_bh,99db34144e43bfb394f0,ok,,10.2
+probe,exp_6,gsq_dt0.5_tau10s_a0.001_c3-3-3_fdr_bh,adc8bd9ca48a3b623f01,ok,,5.1
+probe,exp_1,gsq_dt0.5_tau5s_a0.05_c3-3-3_fdr_bh,b4f6b7405fa391d1060b,ok,,6.1
+probe,exp_7,gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,6fdc1014b5a4d96d0392,ok,,5.1
+probe,exp_6,gsq_dt0.5_tau10s_a0.01_c3-3-3_fdr_bh,de27faaf23825c85fec7,ok,,5.1
+probe,exp_7,gsq_dt0.5_tau5s_a0.05_c3-3-3_fdr_bh,bdf4b75e4ba75552e51e,ok,,5.1
+probe,exp_6,gsq_dt0.5_tau5s_a0.001_c3-3-3_fdr_bh,68eb0a2a59f6ff64e34a,ok,,3.6
+probe,exp_6,gsq_dt0.5_tau10s_a0.05_c3-3-3_fdr_bh,0c4f21d1aae06b64c1e5,ok,,5.1
+probe,exp_6,gsq_dt0.5_tau5s_a0.01_c3-3-3_fdr_bh,0773789954cf51edacc2,ok,,3.5
+probe,exp_6,gsq_dt0.5_tau5s_a0.05_c3-3-3_fdr_bh,ae4550c7343dd4014356,ok,,3.5

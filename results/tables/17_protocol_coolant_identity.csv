@@ -1,0 +1,10 @@
+table,coolant_rows,identical
+15_rca_runs,50,True
+15_scm_prediction,26,True
+15_graph_agreement,20,True
+15_coolant_cf_runs,50,True
+15_coolant_cf_summary,2,True
+15_coolant_replay_summary,10,True
+15_coolant_cf_refits,250,True
+15_scm_selection,10,True
+16_lstm_shap_runs,450,True

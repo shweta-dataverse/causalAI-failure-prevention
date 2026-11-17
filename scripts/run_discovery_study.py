@@ -12,6 +12,10 @@ stages (each one reads the run cache, so re-running a stage only computes what i
   bootstrap  recording-level resampling of the shortlisted configurations
   report     combined thesis tables and heatmaps
 
+a fold scope ("without k") drops the regime of k and removes the related partners of k's runs
+(configs/related_recordings.csv, stage 17a) from the other regimes, so a near-copy of a held-out
+run is never used for that fold's discovery or selection.
+
 the objective and every rule come from configs/discovery_study.yaml. scores of selected
 configurations are reference-guided tuning performance on the causRCA subsystem, not
 independent test accuracy. existing result files are never written; outputs start with 12_.
@@ -107,9 +111,12 @@ class Setting:
         specs, _ = self.specs(config, regimes)
         return ds.load_runs(CACHE, specs)
 
+    def scope_regimes(self, exclude: tuple[str, ...]) -> dict[str, list[str]]:
+        """regimes of a scope: without the held-out scenarios and without the related partners of their runs."""
+        return cd.define_regimes(self.splits, exclude) if exclude else self.regimes
+
     def training_ids(self, scope: str) -> dict[str, list[str]]:
-        exclude = set(self.scopes[scope])
-        return {r: ids for r, ids in self.regimes.items() if r not in exclude}
+        return self.scope_regimes(self.scopes[scope])
 
 
 def execute(settings_list: list[Setting], configs_by_sub: dict[str, list[ds.StudyConfig]], workers: int,
@@ -213,13 +220,13 @@ def original_config(study: dict) -> ds.StudyConfig:
 
 def grid_rows(s: Setting, configs: list[ds.StudyConfig], stage: str) -> tuple[pd.DataFrame, dict]:
     rows, edges = [], {}
-    run_cache: dict[str, dict] = {}
+    run_cache: dict[tuple, dict] = {}
     for config in configs:
-        if config.run_id not in run_cache:
-            run_cache[config.run_id] = s.runs(config)
-        runs = run_cache[config.run_id]
         for scope, exclude in s.scopes.items():
-            row, e = ds.evaluate_config(runs, config, s.nodes, s.expert, exclude=exclude)
+            key = (config.run_id, exclude)
+            if key not in run_cache:
+                run_cache[key] = s.runs(config, s.scope_regimes(exclude))
+            row, e = ds.evaluate_config(run_cache[key], config, s.nodes, s.expert, exclude=exclude)
             rows.append({"subsystem": s.sub, "stage": stage, "scope": scope, **row})
             edges[(config.config_id, scope)] = e
     return pd.DataFrame(rows), edges
@@ -228,7 +235,9 @@ def grid_rows(s: Setting, configs: list[ds.StudyConfig], stage: str) -> tuple[pd
 def stage_grid(settings: list[Setting], study: dict, workers: int) -> None:
     log("stage grid")
     grid = ds.grid_configs(study["grid"])
-    execute(settings, {s.sub: grid for s in settings}, workers, study["shortlist"]["run_timeout_s"])
+    # every scope's regimes (a scope without k also drops the related partners of k's runs)
+    execute(settings, {s.sub: grid for s in settings}, workers, study["shortlist"]["run_timeout_s"],
+            regimes_by_sub={s.sub: [s.scope_regimes(e) for e in s.scopes.values()] for s in settings})
     for s in settings:
         table, _ = grid_rows(s, grid, "a: grid")
         off, _ = grid_rows(s, [replace(c, apply_fdr_to_graph=False) for c in grid], "c: fdr filter off")
@@ -242,7 +251,11 @@ def stage_grid(settings: list[Setting], study: dict, workers: int) -> None:
 
 
 def reproduction_check(s: Setting, study: dict) -> None:
-    """the original configuration rebuilt from the cache must give the saved graphs of notebooks 03 / 10."""
+    """the original configuration rebuilt from the cache must give the saved graphs of notebooks 03 / 10.
+
+    the notebooks dropped only the held-out regime, so the check rebuilds that scenario-only scope;
+    the grouped scope (related partners also removed) is reported next to it.
+    """
     saved = pd.read_csv(TABLES / ("03_coolant_edges.csv" if s.sub == "coolant" else "10_probe_edges.csv"))
     config = original_config(study)
     runs = s.runs(config)
@@ -250,9 +263,12 @@ def reproduction_check(s: Setting, study: dict) -> None:
     for scope, exclude in s.scopes.items():
         gid = "discovered" if not exclude else f"discovered_without_{exclude[0]}"
         _, edges = ds.aggregate(runs, config, s.nodes, exclude=exclude)
+        _, grouped = ds.aggregate(s.runs(config, s.scope_regimes(exclude)), config, s.nodes, exclude=exclude)
         same = cd.edge_key(edges) == cd.edge_key(saved[saved.graph_id == gid])
         rows.append({"subsystem": s.sub, "scope": scope, "saved_graph_id": gid, "identical_edge_set": same,
-                     "n_edges_rebuilt": len(edges), "n_edges_saved": int((saved.graph_id == gid).sum())})
+                     "n_edges_rebuilt": len(edges), "n_edges_saved": int((saved.graph_id == gid).sum()),
+                     "grouped_scope_identical": cd.edge_key(grouped) == cd.edge_key(edges),
+                     "n_edges_grouped": len(grouped)})
     table = pd.DataFrame(rows)
     save(table, f"12_{s.sub}_reproduction_check")
     if not table.identical_edge_set.all():
@@ -309,14 +325,19 @@ def stage_select(settings: list[Setting], study: dict) -> None:
         save(sel, f"12_{s.sub}_selection")
         grid = {c.config_id: c for c in ds.grid_configs(study["grid"])}
         # graphs of the selected configuration of every scope, in the edge format of notebook 03
-        edges = []
+        edges, original = [], []
         for row in sel.itertuples(index=False):
             config = grid[row.config_id]
             exclude = s.scopes[row.scope]
-            _, e = ds.aggregate(s.runs(config), config, s.nodes, exclude=exclude)
+            _, e = ds.aggregate(s.runs(config, s.scope_regimes(exclude)), config, s.nodes, exclude=exclude)
             gid = "discovered" if not exclude else f"discovered_without_{exclude[0]}"
             edges.append(e.assign(graph_id=gid, config_id=row.config_id))
+            # original configuration on the same grouped scope (used by the stage-14 comparison)
+            oc = original_config(study)
+            _, o = ds.aggregate(s.runs(oc, s.scope_regimes(exclude)), oc, s.nodes, exclude=exclude)
+            original.append(o.assign(graph_id=gid, config_id=oc.config_id))
         save(pd.concat(edges, ignore_index=True), f"12_{s.sub}_selected_edges")
+        save(pd.concat(original, ignore_index=True), f"12_{s.sub}_original_edges")
         ids = [{"subsystem": s.sub, "scope": scope, "regime": r, "recording_id": rid}
                for scope in s.scopes for r, rids in s.training_ids(scope).items() for rid in rids]
         save(pd.DataFrame(ids), f"12_{s.sub}_scope_training_ids")

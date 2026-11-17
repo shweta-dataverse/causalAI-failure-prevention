@@ -343,7 +343,6 @@ F,exp_1,probe_exp_5_run_4,fit
 F,exp_1,probe_exp_5_run_5,fit
 F,exp_1,probe_exp_5_run_6,fit
 F,exp_1,probe_exp_6_run_1,fit
-F,exp_1,probe_exp_6_run_2,fit
 F,exp_1,probe_exp_6_run_3,fit
 F,exp_1,probe_exp_7_run_1,fit
 F,exp_1,probe_exp_7_run_2,fit
@@ -356,6 +355,7 @@ F,exp_1,probe_exp_1_run_3,outer test
 F,exp_1,probe_exp_1_run_4,outer test
 F,exp_1,probe_exp_1_run_5,outer test
 F,exp_1,probe_exp_1_run_6,outer test
+F,exp_1,probe_exp_6_run_2,excluded (related to an outer-test run)
 F,exp_2_3,real_op_28610,fit
 F,exp_2_3,real_op_28717,fit
 F,exp_2_3,real_op_29461,fit
@@ -496,7 +496,6 @@ F,exp_2_3,probe_exp_5_run_6,fit
 F,exp_2_3,probe_exp_6_run_1,fit
 F,exp_2_3,probe_exp_6_run_2,fit
 F,exp_2_3,probe_exp_6_run_3,fit
-F,exp_2_3,probe_exp_7_run_1,fit
 F,exp_2_3,probe_exp_7_run_2,fit
 F,exp_2_3,probe_exp_7_run_3,fit
 F,exp_2_3,probe_exp_7_run_4,fit
@@ -509,6 +508,7 @@ F,exp_2_3,probe_exp_2_3_run_5,outer test
 F,exp_2_3,probe_exp_2_3_run_6,outer test
 F,exp_2_3,probe_exp_2_3_run_7,outer test
 F,exp_2_3,probe_exp_2_3_run_8,outer test
+F,exp_2_3,probe_exp_7_run_1,excluded (related to an outer-test run)
 F,exp_4,real_op_28610,fit
 F,exp_4,real_op_28717,fit
 F,exp_4,real_op_29461,fit
@@ -936,7 +936,6 @@ F,exp_6,real_op_57731,fit
 F,exp_6,real_op_58890,fit
 F,exp_6,probe_exp_1_run_1,fit
 F,exp_6,probe_exp_1_run_2,fit
-F,exp_6,probe_exp_1_run_3,fit
 F,exp_6,probe_exp_1_run_4,fit
 F,exp_6,probe_exp_1_run_5,fit
 F,exp_6,probe_exp_1_run_6,fit
@@ -968,6 +967,7 @@ F,exp_6,probe_exp_7_run_5,fit
 F,exp_6,probe_exp_6_run_1,outer test
 F,exp_6,probe_exp_6_run_2,outer test
 F,exp_6,probe_exp_6_run_3,outer test
+F,exp_6,probe_exp_1_run_3,excluded (related to an outer-test run)
 F,exp_7,real_op_28610,fit
 F,exp_7,real_op_28717,fit
 F,exp_7,real_op_29461,fit
@@ -1093,7 +1093,6 @@ F,exp_7,probe_exp_1_run_3,fit
 F,exp_7,probe_exp_1_run_4,fit
 F,exp_7,probe_exp_1_run_5,fit
 F,exp_7,probe_exp_1_run_6,fit
-F,exp_7,probe_exp_2_3_run_1,fit
 F,exp_7,probe_exp_2_3_run_2,fit
 F,exp_7,probe_exp_2_3_run_3,fit
 F,exp_7,probe_exp_2_3_run_4,fit
@@ -1121,3 +1120,4 @@ F,exp_7,probe_exp_7_run_2,outer test
 F,exp_7,probe_exp_7_run_3,outer test
 F,exp_7,probe_exp_7_run_4,outer test
 F,exp_7,probe_exp_7_run_5,outer test
+F,exp_7,probe_exp_2_3_run_1,excluded (related to an outer-test run)

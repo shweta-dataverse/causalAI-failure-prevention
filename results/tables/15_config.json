@@ -1,16 +1,66 @@
 {
   "stage": "15 final evaluation, selected settings",
-  "started": "2026-11-16 17:56:24",
+  "started": "2026-11-17 09:53:32",
   "command": "PYTHONPATH=src python scripts/final_evaluation.py main selected",
-  "git_commit": "6cae95a187402b4cc06dd750d3f2b56946bfd9ec",
+  "git_commit": "00c0767a812cd8d9fb723b84dd0bfbfb867022de",
   "git_branch": "thesis-pipeline",
   "git_dirty_files": [
-    "M results/logs/15_final_evaluation.log",
-    " M src/causal_rca/counterfactuals.py",
-    " M tests/test_core.py",
+    "M results/figures/12_coolant_heatmap_directed_f1.pdf",
+    " M results/figures/12_probe_heatmap_directed_f1.pdf",
+    " M results/figures/14_coolant_counterfactuals.pdf",
+    " M results/figures/14_coolant_graphs.pdf",
+    " M results/figures/14_coolant_graphs.png",
+    " M results/figures/14_coolant_interventions.pdf",
+    " M results/figures/14_data_separation.pdf",
+    " M results/figures/14_probe_graphs.pdf",
+    " M results/figures/14_probe_graphs.png",
+    " M results/figures/14_rca_per_scenario.pdf",
+    " M results/figures/14_scm_normal_splits.pdf",
+    " M results/tables/12_coolant_reproduction_check.csv",
+    " M results/tables/12_original_vs_selected.csv",
+    " M results/tables/12_probe_fdr_off.csv",
+    " M results/tables/12_probe_grid.csv",
+    " M results/tables/12_probe_reproduction_check.csv",
+    " M results/tables/12_probe_scope_training_ids.csv",
+    " M results/tables/12_probe_selected_edges.csv",
+    " M results/tables/12_probe_selection.csv",
+    " M results/tables/12_results_table.csv",
+    " M results/tables/12_run_events.csv",
+    " M results/tables/12_study_manifest.jsonl",
+    " M results/tables/14_checks.csv",
+    " M results/tables/14_config.json",
+    " M results/tables/14_dag_conversion_removals.csv",
+    " M results/tables/14_data_splits.csv",
+    " M results/tables/14_graph_agreement.csv",
+    " M results/tables/14_probe_fold_manifest.csv",
+    " M results/tables/14_rca_rankings.csv",
+    " M results/tables/14_scm_prediction.csv",
+    " M results/tables/15_coolant_discovery_selection.csv",
+    " M results/tables/15_probe_discovery_edges.csv",
+    " M results/tables/15_probe_discovery_selection.csv",
+    " M results/tables/15_scm_selection.csv",
+    " M results/tables/15_scm_selection_inner.csv",
+    " M scripts/final_evaluation.py",
+    " M scripts/lstm_shap_baseline.py",
+    " M scripts/probe_rca_decomposition.py",
+    " M scripts/run_discovery_study.py",
+    " M scripts/selected_settings.py",
+    " M src/causal_rca/causal_discovery.py",
+    " M src/causal_rca/data.py",
+    "?? configs/related_recordings.csv",
     "?? results/Thesis_review_local_2026-11-10.pdf",
     "?? results/Thesis_review_local_2026-11-10_selected.pdf",
-    "?? results/thesis_revision_changelog_2026-11-10.md"
+    "?? results/Thesis_review_local_2026-11-16.pdf",
+    "?? results/Thesis_review_local_2026-11-17.pdf",
+    "?? results/tables/12_coolant_original_edges.csv",
+    "?? results/tables/12_probe_original_edges.csv",
+    "?? results/tables/17_grid_similarity_top.csv",
+    "?? results/tables/17_raw_similarity_top.csv",
+    "?? results/tables/17_related_pairs.csv",
+    "?? results/tables/17_related_raw_differences.csv",
+    "?? results/thesis_revision_changelog_2026-11-10.md",
+    "?? scripts/protocol_comparison.py",
+    "?? scripts/related_recordings.py"
   ],
   "python": "3.12.3",
   "platform": "macOS-26.6.2-arm64-arm-64bit",
@@ -28,8 +78,10 @@
     "results/tables/15_coolant_discovery_edges.csv": "e332a873064138e5e034bf584b1fa677c399f594968b0bb59014c9b1513db299",
     "data/processed/probe_dt0.5.npz": "bcb9d3d8384c9fa4732bcc6f28b99988ee236a5b9388823bd4bf98dd4dee1ae0",
     "data/processed/probe_dt0.5.json": "c177c00750c113623897594ba3de1f443aece49c562be49d7c09481432ad12f6",
-    "results/tables/15_probe_discovery_edges.csv": "c854530875b7a46d5b375932f64acff8517145a26231d96b811e14ea1e73cc55"
+    "results/tables/15_probe_discovery_edges.csv": "a2015d6d1d83757127a3c561c777ef89b5e0292aa3b83f2cfcb851486c37c540"
   },
+  "evaluation protocol": "leave-one-scenario-out; related partners of held-out runs excluded from fitting, discovery and selection (configs/related_recordings.csv)",
+  "related_recordings_sha256": "09ad45ce11cd87b0bae5278f866fee157e72854e1b4c77f8e9757ce7542e7478",
   "discovery_settings (inherited graphs)": {
     "algorithm": "PCMCI+ (tigramite 5.2.10.1), regime-wise",
     "ci_test": "G-squared (analytic)",
@@ -123,22 +175,22 @@
         ],
         "discovered/exp_2_3": [
           0.01,
-          4
+          2
         ],
         "discovered/exp_4": [
-          0.5,
-          null
+          0.1,
+          2
         ],
         "discovered/exp_5": [
           0.01,
           4
         ],
         "discovered/exp_6": [
-          0.01,
+          0.1,
           2
         ],
         "discovered/exp_7": [
-          0.1,
+          0.5,
           4
         ]
       }
@@ -170,6 +222,6 @@
   },
   "track_n_refits": 10,
   "aggregation": "rows -> recording-variable -> recording; normal: recordings equal; fault: runs within scenario, then scenarios equal",
-  "finished": "2026-11-16 17:57:36",
-  "runtime_s": 71.9
+  "finished": "2026-11-17 09:54:45",
+  "runtime_s": 73.5
 }

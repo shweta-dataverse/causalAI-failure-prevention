@@ -1,15 +1,19 @@
 check,passed,detail
 coolant: track N fit excludes normal validation/test,True,
 coolant exp_22: fold fit and outer test disjoint,True,"138 fit, 6 test"
+coolant exp_22: no related partner of an outer-test run in the fit,True,excluded none
 coolant exp_22: fold fit excludes normal validation/test,True,
 coolant exp_22: fold-specific discovered graph present,True,
 coolant exp_27: fold fit and outer test disjoint,True,"137 fit, 7 test"
+coolant exp_27: no related partner of an outer-test run in the fit,True,excluded none
 coolant exp_27: fold fit excludes normal validation/test,True,
 coolant exp_27: fold-specific discovered graph present,True,
 coolant exp_28: fold fit and outer test disjoint,True,"138 fit, 6 test"
+coolant exp_28: no related partner of an outer-test run in the fit,True,excluded none
 coolant exp_28: fold fit excludes normal validation/test,True,
 coolant exp_28: fold-specific discovered graph present,True,
 coolant exp_35: fold fit and outer test disjoint,True,"138 fit, 6 test"
+coolant exp_35: no related partner of an outer-test run in the fit,True,excluded none
 coolant exp_35: fold fit excludes normal validation/test,True,
 coolant exp_35: fold-specific discovered graph present,True,
 "coolant: identical encoded normal inputs across splits (disclosed, not acquisition duplicates)",True,"2 identical-input groups span splits; zero-change recordings train 33, validation 5, test 1"
@@ -17,34 +21,40 @@ coolant track N train: expert and discovered scored on identical rows,True,12315
 coolant track N validation: expert and discovered scored on identical rows,True,279927 rows
 coolant track N test: expert and discovered scored on identical rows,True,269982 rows
 coolant: notebook-05 normal held-out log loss per variable reproduced (pooled),True,max diff 7.63e-17
-coolant expert: rca per-run ap@3 reproduces 06_coolant_run_metrics_expert,True,max diff 0.00e+00
-coolant discovered: rca per-run ap@3 reproduces 06_coolant_run_metrics_discovered,True,max diff 0.00e+00
+coolant expert: rca per-run ap@3 reproduces 06_coolant_run_metrics_expert in the folds unchanged by the exclusion,True,"max diff 0.00e+00; folds exp_22, exp_27, exp_28, exp_35"
+coolant discovered: rca per-run ap@3 reproduces 06_coolant_run_metrics_discovered in the folds unchanged by the exclusion,True,"max diff 0.00e+00; folds exp_22, exp_27, exp_28, exp_35"
 coolant track F: expert and discovered scored on identical rows,True,96014 rows
 probe: track N fit excludes normal validation/test,True,
-probe exp_1: fold fit and outer test disjoint,True,"147 fit, 6 test"
+probe exp_1: fold fit and outer test disjoint,True,"146 fit, 6 test"
+probe exp_1: no related partner of an outer-test run in the fit,True,excluded probe_exp_6_run_2
 probe exp_1: fold fit excludes normal validation/test,True,
 probe exp_1: fold-specific discovered graph present,True,
-probe exp_2_3: fold fit and outer test disjoint,True,"145 fit, 8 test"
+probe exp_2_3: fold fit and outer test disjoint,True,"144 fit, 8 test"
+probe exp_2_3: no related partner of an outer-test run in the fit,True,excluded probe_exp_7_run_1
 probe exp_2_3: fold fit excludes normal validation/test,True,
 probe exp_2_3: fold-specific discovered graph present,True,
 probe exp_4: fold fit and outer test disjoint,True,"147 fit, 6 test"
+probe exp_4: no related partner of an outer-test run in the fit,True,excluded none
 probe exp_4: fold fit excludes normal validation/test,True,
 probe exp_4: fold-specific discovered graph present,True,
 probe exp_5: fold fit and outer test disjoint,True,"147 fit, 6 test"
+probe exp_5: no related partner of an outer-test run in the fit,True,excluded none
 probe exp_5: fold fit excludes normal validation/test,True,
 probe exp_5: fold-specific discovered graph present,True,
-probe exp_6: fold fit and outer test disjoint,True,"150 fit, 3 test"
+probe exp_6: fold fit and outer test disjoint,True,"149 fit, 3 test"
+probe exp_6: no related partner of an outer-test run in the fit,True,excluded probe_exp_1_run_3
 probe exp_6: fold fit excludes normal validation/test,True,
 probe exp_6: fold-specific discovered graph present,True,
-probe exp_7: fold fit and outer test disjoint,True,"148 fit, 5 test"
+probe exp_7: fold fit and outer test disjoint,True,"147 fit, 5 test"
+probe exp_7: no related partner of an outer-test run in the fit,True,excluded probe_exp_2_3_run_1
 probe exp_7: fold fit excludes normal validation/test,True,
 probe exp_7: fold-specific discovered graph present,True,
 "probe: identical encoded normal inputs across splits (disclosed, not acquisition duplicates)",True,"4 identical-input groups span splits; zero-change recordings train 40, validation 2, test 3"
 probe track N train: expert and discovered scored on identical rows,True,1231551 rows
 probe track N validation: expert and discovered scored on identical rows,True,279927 rows
 probe track N test: expert and discovered scored on identical rows,True,269982 rows
-probe expert: rca per-run ap@3 reproduces 10_probe_rca_runs_expert,True,max diff 0.00e+00
-probe discovered: rca per-run ap@3 reproduces 10_probe_rca_runs_discovered,True,max diff 0.00e+00
+probe expert: rca per-run ap@3 reproduces 10_probe_rca_runs_expert in the folds unchanged by the exclusion,True,"max diff 0.00e+00; folds exp_4, exp_5"
+probe discovered: rca per-run ap@3 reproduces 10_probe_rca_runs_discovered in the folds unchanged by the exclusion,True,"max diff 0.00e+00; folds exp_4, exp_5"
 probe track F: expert and discovered scored on identical rows,True,151530 rows
 coolant: replay p_fires reproduces notebook 07,True,"112 pairs, max diff 0.00e+00"
 coolant: negative replay examples (recorded alarms that did not activate),True,0 negatives: false-alarm specificity cannot be assessed

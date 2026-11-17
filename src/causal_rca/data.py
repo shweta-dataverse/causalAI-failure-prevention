@@ -16,6 +16,7 @@ import json
 from collections import Counter
 from itertools import chain
 from pathlib import Path
+from collections.abc import Sequence
 from typing import Any
 
 import networkx as nx
@@ -29,6 +30,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RAW_DIR = PROJECT_ROOT / "data" / "raw" / "causRCA"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 RESULTS_DIR = PROJECT_ROOT / "results"
+# frozen groups of related recordings (scripts/related_recordings.py, stage 17a)
+RELATED_PATH = PROJECT_ROOT / "configs" / "related_recordings.csv"
 
 SUBSYSTEMS: tuple[str, ...] = ("coolant", "hydraulics", "probe")
 CAUSE_TIMESTAMPS: tuple[str, ...] = (
@@ -513,8 +516,42 @@ def manipulated_by_recording(runs: pd.DataFrame, experiments: pd.DataFrame) -> d
     return {r: set(v) for r, v in zip(truth["recording_id"], truth["manipulated_vars"])}
 
 
-def fold_training_ids(splits: pd.DataFrame, held_out: str | None) -> list[str]:
-    """normal training recordings plus the fault runs of every scenario except ``held_out``."""
+def related_partners(path: Path = RELATED_PATH) -> dict[str, set[str]]:
+    """recording id -> the other recordings of its related group (frozen manifest)."""
+    groups = pd.read_csv(path)
+    out: dict[str, set[str]] = {}
+    for _, g in groups.groupby("group_id"):
+        ids = set(g["recording_id"])
+        for r in ids:
+            out[r] = ids - {r}
+    return out
+
+
+def protected_ids(ids: Sequence[str]) -> set[str]:
+    """the given recordings together with their related partners."""
+    partners = related_partners()
+    return set(ids) | {p for r in ids for p in partners.get(r, ())}
+
+
+def held_tuple(held_out: str | Sequence[str] | None) -> tuple[str, ...]:
+    if held_out is None:
+        return ()
+    return (held_out,) if isinstance(held_out, str) else tuple(held_out)
+
+
+def fold_training_ids(splits: pd.DataFrame, held_out: str | Sequence[str] | None,
+                      exclude_related: bool = True) -> list[str]:
+    """normal training recordings plus the fault runs of every scenario not held out.
+
+    ``held_out`` is one scenario, several (inner folds), or None (all scenarios). with
+    ``exclude_related`` the related partners of every held-out run are left out as well, so a
+    recording and its near-copy never sit on both sides of a fitting/evaluation boundary.
+    """
+    held = held_tuple(held_out)
     normal = splits.loc[splits["split"] == "train", "recording_id"].tolist()
-    fault = splits.loc[(splits["split"] == "fault") & (splits["fold"] != held_out), "recording_id"].tolist()
+    fault = splits.loc[(splits["split"] == "fault") & (~splits["fold"].isin(held)), "recording_id"].tolist()
+    if exclude_related and held:
+        drop = protected_ids(splits.loc[splits["fold"].isin(held), "recording_id"].tolist())
+        normal = [r for r in normal if r not in drop]
+        fault = [r for r in fault if r not in drop]
     return normal + fault

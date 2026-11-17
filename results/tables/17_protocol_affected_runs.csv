@@ -1,0 +1,205 @@
+protocol,recording_id,fold,method,related,ap3
+scenario only,probe_exp_1_run_1,exp_1,causal expert,False,1.0
+scenario only,probe_exp_1_run_2,exp_1,causal expert,False,1.0
+scenario only,probe_exp_1_run_3,exp_1,causal expert,True,0.3333333333333333
+scenario only,probe_exp_1_run_4,exp_1,causal expert,False,1.0
+scenario only,probe_exp_1_run_5,exp_1,causal expert,False,1.0
+scenario only,probe_exp_1_run_6,exp_1,causal expert,False,1.0
+scenario only,probe_exp_2_3_run_1,exp_2_3,causal expert,True,0.0
+scenario only,probe_exp_2_3_run_2,exp_2_3,causal expert,False,0.3333333333333333
+scenario only,probe_exp_2_3_run_3,exp_2_3,causal expert,False,0.0
+scenario only,probe_exp_2_3_run_4,exp_2_3,causal expert,False,0.0
+scenario only,probe_exp_2_3_run_5,exp_2_3,causal expert,False,0.5
+scenario only,probe_exp_2_3_run_6,exp_2_3,causal expert,False,0.5
+scenario only,probe_exp_2_3_run_7,exp_2_3,causal expert,False,1.0
+scenario only,probe_exp_2_3_run_8,exp_2_3,causal expert,False,1.0
+scenario only,probe_exp_4_run_1,exp_4,causal expert,False,1.0
+scenario only,probe_exp_4_run_2,exp_4,causal expert,False,1.0
+scenario only,probe_exp_4_run_3,exp_4,causal expert,False,1.0
+scenario only,probe_exp_4_run_4,exp_4,causal expert,False,1.0
+scenario only,probe_exp_4_run_5,exp_4,causal expert,False,1.0
+scenario only,probe_exp_4_run_6,exp_4,causal expert,False,1.0
+scenario only,probe_exp_5_run_1,exp_5,causal expert,False,1.0
+scenario only,probe_exp_5_run_2,exp_5,causal expert,False,1.0
+scenario only,probe_exp_5_run_3,exp_5,causal expert,False,1.0
+scenario only,probe_exp_5_run_4,exp_5,causal expert,False,0.5
+scenario only,probe_exp_5_run_5,exp_5,causal expert,False,1.0
+scenario only,probe_exp_5_run_6,exp_5,causal expert,False,1.0
+scenario only,probe_exp_6_run_1,exp_6,causal expert,False,0.25
+scenario only,probe_exp_6_run_2,exp_6,causal expert,True,0.5
+scenario only,probe_exp_6_run_3,exp_6,causal expert,False,0.25
+scenario only,probe_exp_7_run_1,exp_7,causal expert,True,0.0
+scenario only,probe_exp_7_run_2,exp_7,causal expert,False,0.5
+scenario only,probe_exp_7_run_3,exp_7,causal expert,False,0.5
+scenario only,probe_exp_7_run_4,exp_7,causal expert,False,0.25
+scenario only,probe_exp_7_run_5,exp_7,causal expert,False,0.25
+scenario only,probe_exp_1_run_1,exp_1,causal discovered,False,1.0
+scenario only,probe_exp_1_run_2,exp_1,causal discovered,False,1.0
+scenario only,probe_exp_1_run_3,exp_1,causal discovered,True,0.0
+scenario only,probe_exp_1_run_4,exp_1,causal discovered,False,1.0
+scenario only,probe_exp_1_run_5,exp_1,causal discovered,False,1.0
+scenario only,probe_exp_1_run_6,exp_1,causal discovered,False,1.0
+scenario only,probe_exp_2_3_run_1,exp_2_3,causal discovered,True,0.0
+scenario only,probe_exp_2_3_run_2,exp_2_3,causal discovered,False,1.0
+scenario only,probe_exp_2_3_run_3,exp_2_3,causal discovered,False,0.0
+scenario only,probe_exp_2_3_run_4,exp_2_3,causal discovered,False,0.0
+scenario only,probe_exp_2_3_run_5,exp_2_3,causal discovered,False,1.0
+scenario only,probe_exp_2_3_run_6,exp_2_3,causal discovered,False,1.0
+scenario only,probe_exp_2_3_run_7,exp_2_3,causal discovered,False,1.0
+scenario only,probe_exp_2_3_run_8,exp_2_3,causal discovered,False,1.0
+scenario only,probe_exp_4_run_1,exp_4,causal discovered,False,1.0
+scenario only,probe_exp_4_run_2,exp_4,causal discovered,False,1.0
+scenario only,probe_exp_4_run_3,exp_4,causal discovered,False,1.0
+scenario only,probe_exp_4_run_4,exp_4,causal discovered,False,0.5
+scenario only,probe_exp_4_run_5,exp_4,causal discovered,False,0.5
+scenario only,probe_exp_4_run_6,exp_4,causal discovered,False,0.3333333333333333
+scenario only,probe_exp_5_run_1,exp_5,causal discovered,False,1.0
+scenario only,probe_exp_5_run_2,exp_5,causal discovered,False,0.0
+scenario only,probe_exp_5_run_3,exp_5,causal discovered,False,1.0
+scenario only,probe_exp_5_run_4,exp_5,causal discovered,False,0.5
+scenario only,probe_exp_5_run_5,exp_5,causal discovered,False,1.0
+scenario only,probe_exp_5_run_6,exp_5,causal discovered,False,1.0
+scenario only,probe_exp_6_run_1,exp_6,causal discovered,False,0.5
+scenario only,probe_exp_6_run_2,exp_6,causal discovered,True,0.5
+scenario only,probe_exp_6_run_3,exp_6,causal discovered,False,0.5
+scenario only,probe_exp_7_run_1,exp_7,causal discovered,True,0.5
+scenario only,probe_exp_7_run_2,exp_7,causal discovered,False,0.25
+scenario only,probe_exp_7_run_3,exp_7,causal discovered,False,0.5
+scenario only,probe_exp_7_run_4,exp_7,causal discovered,False,0.25
+scenario only,probe_exp_7_run_5,exp_7,causal discovered,False,0.25
+scenario only,probe_exp_1_run_1,exp_1,LSTM + SHAP,False,0.2222222222222222
+scenario only,probe_exp_1_run_2,exp_1,LSTM + SHAP,False,0.1111111111111111
+scenario only,probe_exp_1_run_3,exp_1,LSTM + SHAP,True,0.0
+scenario only,probe_exp_1_run_4,exp_1,LSTM + SHAP,False,0.0
+scenario only,probe_exp_1_run_5,exp_1,LSTM + SHAP,False,0.1111111111111111
+scenario only,probe_exp_1_run_6,exp_1,LSTM + SHAP,False,0.0
+scenario only,probe_exp_2_3_run_1,exp_2_3,LSTM + SHAP,True,1.0
+scenario only,probe_exp_2_3_run_2,exp_2_3,LSTM + SHAP,False,1.0
+scenario only,probe_exp_2_3_run_3,exp_2_3,LSTM + SHAP,False,1.0
+scenario only,probe_exp_2_3_run_4,exp_2_3,LSTM + SHAP,False,1.0
+scenario only,probe_exp_2_3_run_5,exp_2_3,LSTM + SHAP,False,1.0
+scenario only,probe_exp_2_3_run_6,exp_2_3,LSTM + SHAP,False,1.0
+scenario only,probe_exp_2_3_run_7,exp_2_3,LSTM + SHAP,False,1.0
+scenario only,probe_exp_2_3_run_8,exp_2_3,LSTM + SHAP,False,1.0
+scenario only,probe_exp_4_run_1,exp_4,LSTM + SHAP,False,1.0
+scenario only,probe_exp_4_run_2,exp_4,LSTM + SHAP,False,1.0
+scenario only,probe_exp_4_run_3,exp_4,LSTM + SHAP,False,1.0
+scenario only,probe_exp_4_run_4,exp_4,LSTM + SHAP,False,1.0
+scenario only,probe_exp_4_run_5,exp_4,LSTM + SHAP,False,1.0
+scenario only,probe_exp_4_run_6,exp_4,LSTM + SHAP,False,1.0
+scenario only,probe_exp_5_run_1,exp_5,LSTM + SHAP,False,0.16666666666666666
+scenario only,probe_exp_5_run_2,exp_5,LSTM + SHAP,False,0.27777777777777773
+scenario only,probe_exp_5_run_3,exp_5,LSTM + SHAP,False,0.27777777777777773
+scenario only,probe_exp_5_run_4,exp_5,LSTM + SHAP,False,0.27777777777777773
+scenario only,probe_exp_5_run_5,exp_5,LSTM + SHAP,False,0.16666666666666666
+scenario only,probe_exp_5_run_6,exp_5,LSTM + SHAP,False,0.4444444444444444
+scenario only,probe_exp_6_run_1,exp_6,LSTM + SHAP,False,0.0
+scenario only,probe_exp_6_run_2,exp_6,LSTM + SHAP,True,0.0
+scenario only,probe_exp_6_run_3,exp_6,LSTM + SHAP,False,0.0
+scenario only,probe_exp_7_run_1,exp_7,LSTM + SHAP,True,0.9444444444444443
+scenario only,probe_exp_7_run_2,exp_7,LSTM + SHAP,False,0.5833333333333334
+scenario only,probe_exp_7_run_3,exp_7,LSTM + SHAP,False,0.8333333333333334
+scenario only,probe_exp_7_run_4,exp_7,LSTM + SHAP,False,0.8888888888888888
+scenario only,probe_exp_7_run_5,exp_7,LSTM + SHAP,False,0.7777777777777777
+with exclusion,probe_exp_1_run_1,exp_1,causal expert,False,1.0
+with exclusion,probe_exp_1_run_2,exp_1,causal expert,False,1.0
+with exclusion,probe_exp_1_run_3,exp_1,causal expert,True,0.3333333333333333
+with exclusion,probe_exp_1_run_4,exp_1,causal expert,False,1.0
+with exclusion,probe_exp_1_run_5,exp_1,causal expert,False,1.0
+with exclusion,probe_exp_1_run_6,exp_1,causal expert,False,1.0
+with exclusion,probe_exp_2_3_run_1,exp_2_3,causal expert,True,0.0
+with exclusion,probe_exp_2_3_run_2,exp_2_3,causal expert,False,0.3333333333333333
+with exclusion,probe_exp_2_3_run_3,exp_2_3,causal expert,False,0.0
+with exclusion,probe_exp_2_3_run_4,exp_2_3,causal expert,False,0.0
+with exclusion,probe_exp_2_3_run_5,exp_2_3,causal expert,False,0.5
+with exclusion,probe_exp_2_3_run_6,exp_2_3,causal expert,False,0.5
+with exclusion,probe_exp_2_3_run_7,exp_2_3,causal expert,False,1.0
+with exclusion,probe_exp_2_3_run_8,exp_2_3,causal expert,False,1.0
+with exclusion,probe_exp_4_run_1,exp_4,causal expert,False,1.0
+with exclusion,probe_exp_4_run_2,exp_4,causal expert,False,1.0
+with exclusion,probe_exp_4_run_3,exp_4,causal expert,False,1.0
+with exclusion,probe_exp_4_run_4,exp_4,causal expert,False,1.0
+with exclusion,probe_exp_4_run_5,exp_4,causal expert,False,1.0
+with exclusion,probe_exp_4_run_6,exp_4,causal expert,False,1.0
+with exclusion,probe_exp_5_run_1,exp_5,causal expert,False,1.0
+with exclusion,probe_exp_5_run_2,exp_5,causal expert,False,1.0
+with exclusion,probe_exp_5_run_3,exp_5,causal expert,False,1.0
+with exclusion,probe_exp_5_run_4,exp_5,causal expert,False,0.5
+with exclusion,probe_exp_5_run_5,exp_5,causal expert,False,1.0
+with exclusion,probe_exp_5_run_6,exp_5,causal expert,False,1.0
+with exclusion,probe_exp_6_run_1,exp_6,causal expert,False,0.25
+with exclusion,probe_exp_6_run_2,exp_6,causal expert,True,0.5
+with exclusion,probe_exp_6_run_3,exp_6,causal expert,False,0.25
+with exclusion,probe_exp_7_run_1,exp_7,causal expert,True,0.0
+with exclusion,probe_exp_7_run_2,exp_7,causal expert,False,0.5
+with exclusion,probe_exp_7_run_3,exp_7,causal expert,False,0.5
+with exclusion,probe_exp_7_run_4,exp_7,causal expert,False,0.25
+with exclusion,probe_exp_7_run_5,exp_7,causal expert,False,0.25
+with exclusion,probe_exp_1_run_1,exp_1,causal discovered,False,1.0
+with exclusion,probe_exp_1_run_2,exp_1,causal discovered,False,1.0
+with exclusion,probe_exp_1_run_3,exp_1,causal discovered,True,0.0
+with exclusion,probe_exp_1_run_4,exp_1,causal discovered,False,1.0
+with exclusion,probe_exp_1_run_5,exp_1,causal discovered,False,1.0
+with exclusion,probe_exp_1_run_6,exp_1,causal discovered,False,1.0
+with exclusion,probe_exp_2_3_run_1,exp_2_3,causal discovered,True,0.3333333333333333
+with exclusion,probe_exp_2_3_run_2,exp_2_3,causal discovered,False,1.0
+with exclusion,probe_exp_2_3_run_3,exp_2_3,causal discovered,False,0.5
+with exclusion,probe_exp_2_3_run_4,exp_2_3,causal discovered,False,0.5
+with exclusion,probe_exp_2_3_run_5,exp_2_3,causal discovered,False,1.0
+with exclusion,probe_exp_2_3_run_6,exp_2_3,causal discovered,False,1.0
+with exclusion,probe_exp_2_3_run_7,exp_2_3,causal discovered,False,1.0
+with exclusion,probe_exp_2_3_run_8,exp_2_3,causal discovered,False,1.0
+with exclusion,probe_exp_4_run_1,exp_4,causal discovered,False,1.0
+with exclusion,probe_exp_4_run_2,exp_4,causal discovered,False,1.0
+with exclusion,probe_exp_4_run_3,exp_4,causal discovered,False,1.0
+with exclusion,probe_exp_4_run_4,exp_4,causal discovered,False,0.5
+with exclusion,probe_exp_4_run_5,exp_4,causal discovered,False,0.5
+with exclusion,probe_exp_4_run_6,exp_4,causal discovered,False,0.3333333333333333
+with exclusion,probe_exp_5_run_1,exp_5,causal discovered,False,1.0
+with exclusion,probe_exp_5_run_2,exp_5,causal discovered,False,0.0
+with exclusion,probe_exp_5_run_3,exp_5,causal discovered,False,1.0
+with exclusion,probe_exp_5_run_4,exp_5,causal discovered,False,0.5
+with exclusion,probe_exp_5_run_5,exp_5,causal discovered,False,1.0
+with exclusion,probe_exp_5_run_6,exp_5,causal discovered,False,1.0
+with exclusion,probe_exp_6_run_1,exp_6,causal discovered,False,0.1666666666666666
+with exclusion,probe_exp_6_run_2,exp_6,causal discovered,True,0.25
+with exclusion,probe_exp_6_run_3,exp_6,causal discovered,False,0.1666666666666666
+with exclusion,probe_exp_7_run_1,exp_7,causal discovered,True,0.0
+with exclusion,probe_exp_7_run_2,exp_7,causal discovered,False,0.0
+with exclusion,probe_exp_7_run_3,exp_7,causal discovered,False,0.5
+with exclusion,probe_exp_7_run_4,exp_7,causal discovered,False,0.0
+with exclusion,probe_exp_7_run_5,exp_7,causal discovered,False,0.0
+with exclusion,probe_exp_1_run_1,exp_1,LSTM + SHAP,False,0.0
+with exclusion,probe_exp_1_run_2,exp_1,LSTM + SHAP,False,0.0
+with exclusion,probe_exp_1_run_3,exp_1,LSTM + SHAP,True,0.0
+with exclusion,probe_exp_1_run_4,exp_1,LSTM + SHAP,False,0.16666666666666666
+with exclusion,probe_exp_1_run_5,exp_1,LSTM + SHAP,False,0.0
+with exclusion,probe_exp_1_run_6,exp_1,LSTM + SHAP,False,0.0
+with exclusion,probe_exp_2_3_run_1,exp_2_3,LSTM + SHAP,True,1.0
+with exclusion,probe_exp_2_3_run_2,exp_2_3,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_2_3_run_3,exp_2_3,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_2_3_run_4,exp_2_3,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_2_3_run_5,exp_2_3,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_2_3_run_6,exp_2_3,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_2_3_run_7,exp_2_3,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_2_3_run_8,exp_2_3,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_4_run_1,exp_4,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_4_run_2,exp_4,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_4_run_3,exp_4,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_4_run_4,exp_4,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_4_run_5,exp_4,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_4_run_6,exp_4,LSTM + SHAP,False,1.0
+with exclusion,probe_exp_5_run_1,exp_5,LSTM + SHAP,False,0.16666666666666666
+with exclusion,probe_exp_5_run_2,exp_5,LSTM + SHAP,False,0.27777777777777773
+with exclusion,probe_exp_5_run_3,exp_5,LSTM + SHAP,False,0.27777777777777773
+with exclusion,probe_exp_5_run_4,exp_5,LSTM + SHAP,False,0.27777777777777773
+with exclusion,probe_exp_5_run_5,exp_5,LSTM + SHAP,False,0.16666666666666666
+with exclusion,probe_exp_5_run_6,exp_5,LSTM + SHAP,False,0.4444444444444444
+with exclusion,probe_exp_6_run_1,exp_6,LSTM + SHAP,False,0.0
+with exclusion,probe_exp_6_run_2,exp_6,LSTM + SHAP,True,0.0
+with exclusion,probe_exp_6_run_3,exp_6,LSTM + SHAP,False,0.0
+with exclusion,probe_exp_7_run_1,exp_7,LSTM + SHAP,True,0.8333333333333334
+with exclusion,probe_exp_7_run_2,exp_7,LSTM + SHAP,False,0.5833333333333334
+with exclusion,probe_exp_7_run_3,exp_7,LSTM + SHAP,False,0.8333333333333334
+with exclusion,probe_exp_7_run_4,exp_7,LSTM + SHAP,False,0.8333333333333334
+with exclusion,probe_exp_7_run_5,exp_7,LSTM + SHAP,False,0.8333333333333334

@@ -1,3 +1,5 @@
+coolant: 17 scopes; all-scenario and fold choices equal stage 12
+probe: 37 scopes; all-scenario and fold choices equal stage 12
 coolant expert exp_22 (0.01, 2)
 coolant expert exp_27 (0.01, 4)
 coolant expert exp_28 (0.5, 4)
@@ -13,9 +15,9 @@ probe expert exp_5 (0.1, 2)
 probe expert exp_6 (0.1, 2)
 probe expert exp_7 (0.1, 2)
 probe discovered exp_1 (0.5, 2)
-probe discovered exp_2_3 (0.01, 4)
-probe discovered exp_4 (0.5, None)
+probe discovered exp_2_3 (0.01, 2)
+probe discovered exp_4 (0.1, 2)
 probe discovered exp_5 (0.01, 4)
-probe discovered exp_6 (0.01, 2)
-probe discovered exp_7 (0.1, 4)
-finished in 114 s
+probe discovered exp_6 (0.1, 2)
+probe discovered exp_7 (0.5, 4)
+finished in 198 s

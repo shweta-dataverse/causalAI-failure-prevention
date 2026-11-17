@@ -3,15 +3,18 @@
 discovery: the stage-12 selection rule (directed f1, then skeleton f1, shorter lag, smaller
 alpha, stricter support, config id) is applied separately in every scope: all scenarios
 (track n), without the outer scenario k (track f), and without k and an inner scenario j
-(inner folds of the scm selection). all regime runs come from the stage-12 cache, so nothing
-is rediscovered; only the aggregation and the ranking are repeated per scope. a held-out
+(inner folds of the scm selection). a scope also removes the related partners of the excluded
+scenarios' runs (configs/related_recordings.csv) from the remaining regimes. all regime runs
+come from the stage-12 cache, so nothing is rediscovered; only the aggregation and the ranking
+are repeated per scope. a held-out
 scenario therefore never influences the choice of its own graph.
 
 scm: smoothing alpha in {0.01, 0.1, 0.5, 1.0} x extra lag in {none, 2, 4} steps (as stage 13).
 one rule for both graphs: the lowest held-out one-step log loss of the non-manipulated variables.
   * track f, outer scenario k: inner leave-one-scenario-out over the other scenarios j; each
-    inner fit uses normal train + fault runs except k and j, with the graph of scope (k, j);
-    the pooled log loss over all inner runs decides.
+    inner fit uses normal train + fault runs except k and j and except the related partners of
+    their runs, with the graph of scope (k, j); the runs of j are scored without the related
+    partners of k's runs; the pooled log loss over all inner runs decides.
   * track n: fit on normal train + all fault runs, scored on the normal validation recordings.
 ties go to the earlier baseline (alpha 0.5, no lag), then no lag, then alpha closest to 0.5.
 the normal test recordings and the outer scenario are never used for any choice.
@@ -97,17 +100,24 @@ def discovery(sub: str, study: dict) -> None:
     s = rds.Setting(sub)
     order = rds.selection_order(study)
     grid = ds.grid_configs(study["grid"])
-    runs = {c.run_id: s.runs(c) for c in grid}
     scopes = [()] + [(k,) for k in s.folds] + [tuple(p) for p in permutations(s.folds, 2)]
     sel_rows, edge_rows = [], []
     for exclude in scopes:
         rows, edges = [], {}
+        regimes = s.scope_regimes(exclude)
         for c in grid:
-            row, e = ds.evaluate_config(runs[c.run_id], c, s.nodes, s.expert, exclude=exclude)
+            runs = s.runs(c, regimes)
+            missing = [r for r, run in runs.items() if run.status != "ok"]
+            if missing:
+                raise SystemExit(f"{sub} {exclude} {c.config_id}: regime runs not in the stage-12 cache: {missing}")
+            row, e = ds.evaluate_config(runs, c, s.nodes, s.expert, exclude=exclude)
             rows.append({"subsystem": sub, "scope": scope_id(exclude), **row})
             edges[c.config_id] = e
         best, ties = ds.select(pd.DataFrame(rows), order)
+        removed = sorted(set(sum(s.regimes.values(), [])) - set(sum(regimes.values(), []))
+                         - {r for k in exclude for r in s.regimes[k]})
         sel_rows.append({"subsystem": sub, "graph_id": scope_id(exclude), "excluded": ",".join(exclude),
+                         "related_removed": ",".join(removed),
                          **best.drop(["subsystem", "scope", "rank"]).to_dict(), **ties})
         edge_rows.append(edges[best.config_id].assign(graph_id=scope_id(exclude), config_id=best.config_id))
     sel = pd.DataFrame(sel_rows)
@@ -142,10 +152,16 @@ def scm_selection() -> None:
         validation = splits.loc[splits.split == "validation", "recording_id"].tolist()
 
         def train_without(*held):
-            return normal_train + splits.loc[(splits.split == "fault") & (~splits.fold.isin(held)), "recording_id"].tolist()
+            # held-out scenarios and the related partners of their runs are left out
+            return data.fold_training_ids(splits, held)
 
-        def runs_of(fold):
-            return splits.loc[splits.fold == fold, "recording_id"].tolist()
+        def runs_of(fold, outer=None):
+            """runs of a scenario; inside outer fold k, without the related partners of k's runs."""
+            ids = splits.loc[splits.fold == fold, "recording_id"].tolist()
+            if outer is None:
+                return ids
+            drop = data.protected_ids(splits.loc[splits.fold == outer, "recording_id"].tolist())
+            return [r for r in ids if r not in drop]
 
         def graph(kind, exclude):
             return s.expert if kind == "expert" else dags[scope_id(tuple(exclude))]
@@ -169,13 +185,18 @@ def scm_selection() -> None:
                 for j in s.folds:
                     if j == k:
                         continue
+                    train, scored = train_without(k, j), runs_of(j, outer=k)
+                    left_out = sorted(set(train_without()) - set(train) - set(runs_of(k)) - set(runs_of(j))
+                                      | set(runs_of(j)) - set(scored))
                     for st in SETTINGS:
-                        total, rows = nll(fit(s.view, graph(kind, (k, j)), train_without(k, j), manipulated, st),
-                                          s.view, runs_of(j), manipulated)
+                        total, rows = nll(fit(s.view, graph(kind, (k, j)), train, manipulated, st),
+                                          s.view, scored, manipulated)
                         acc[st][0] += total
                         acc[st][1] += rows
                         inner_rows.append({"subsystem": sub, "graph": kind, "track": "F", "outer_fold": k, "inner_fold": j,
-                                           "alpha": st[0], "lag": st[1], "nll": total, "rows": rows})
+                                           "alpha": st[0], "lag": st[1], "nll": total, "rows": rows,
+                                           "inner_train_recordings": len(train), "inner_scored_runs": ",".join(scored),
+                                           "related_left_out": ",".join(left_out)})
                 scores = {st: t / n for st, (t, n) in acc.items()}
                 best = min(scores.values())
                 chosen = min((st for st in SETTINGS if np.isclose(scores[st], best, rtol=1e-12, atol=0)), key=preference)

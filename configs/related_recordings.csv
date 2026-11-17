@@ -1,0 +1,5 @@
+group_id,subsystem,recording_id,split,scenario,raw_file,rule
+G1,probe,probe_exp_1_run_3,fault,exp_1,dig_twin/exp_probe/exp_1/run_3/faultDataset_probe_exp1_run_3.csv,raw-row jaccard >= 0.9 (rows after t = 0)
+G1,probe,probe_exp_6_run_2,fault,exp_6,dig_twin/exp_probe/exp_6/run_2/faultDataset_probe_exp6_run_2.csv,raw-row jaccard >= 0.9 (rows after t = 0)
+G2,probe,probe_exp_2_3_run_1,fault,exp_2_3,dig_twin/exp_probe/exp_2_3/run_1/faultDataset_probe_exp2_run_1.csv,raw-row jaccard >= 0.9 (rows after t = 0)
+G2,probe,probe_exp_7_run_1,fault,exp_7,dig_twin/exp_probe/exp_7/run_1/faultDataset_probe_exp7_run_1.csv,raw-row jaccard >= 0.9 (rows after t = 0)

@@ -21,6 +21,7 @@
     ]
   },
   "selection": "lowest normal-validation loss of a model trained on normal training recordings only",
+  "fold_training": "normal training recordings + fault runs of the other scenarios, without the related partners of the held-out runs (configs/related_recordings.csv)",
   "seeds": [
     0,
     1,
@@ -35,6 +36,6 @@
   "sensitivity": "10 / 20 / all window steps x absolute / positive attribution",
   "torch": "2.15.0",
   "shap_version": "0.54.1",
-  "code_commit": "9e15f9e",
-  "runtime_s": 2458
+  "code_commit": "00c0767",
+  "runtime_s": 2475
 }

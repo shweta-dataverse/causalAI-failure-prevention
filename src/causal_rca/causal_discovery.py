@@ -87,12 +87,21 @@ class RegimeResult:
 # ---------------------------------------------------------------------------
 
 
-def define_regimes(splits: pd.DataFrame) -> dict[str, list[str]]:
-    """normal training recordings as one regime, every fault scenario as its own regime."""
+def define_regimes(splits: pd.DataFrame, exclude: Sequence[str] = (), exclude_related: bool = True) -> dict[str, list[str]]:
+    """normal training recordings as one regime, every fault scenario as its own regime.
+
+    with ``exclude`` (held-out scenarios of a fold) those regimes are dropped and, with
+    ``exclude_related``, the related partners of their runs are removed from the other regimes.
+    """
     regimes = {"normal": splits.loc[splits["split"] == "train", "recording_id"].tolist()}
     fault = splits[splits["split"] == "fault"]
     for fold, group in fault.groupby("fold", sort=True):
         regimes[str(fold)] = group["recording_id"].tolist()
+    if exclude:
+        from causal_rca import data
+        drop = data.protected_ids(fault.loc[fault["fold"].isin(exclude), "recording_id"].tolist()) if exclude_related else set()
+        regimes = {r: [i for i in ids if i not in drop] for r, ids in regimes.items() if r not in set(exclude)}
+        regimes = {r: ids for r, ids in regimes.items() if ids}
     return regimes
 
 
