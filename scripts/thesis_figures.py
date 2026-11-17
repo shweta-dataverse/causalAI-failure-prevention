@@ -281,7 +281,7 @@ def figure_scm() -> None:
     t = pd.read_csv(TABLES / f"{STAGE}_scm_prediction.csv")
     t = t[t.track == "N"]
     splits = ["train", "validation", "test"]
-    names = {"train": "Training\n(in-sample)", "validation": "Validation", "test": "Test"}
+    names = {"train": "Training", "validation": "Validation", "test": "Test"}
     fig, axes = plt.subplots(2, 1, figsize=(WIDTH, 5.0), layout="constrained")
     for ax, sub in zip(axes, ("coolant", "probe")):
         d = t[t.subsystem == sub]
@@ -322,7 +322,7 @@ def figure_surprise(s: dict, model: sc.TemporalSCM) -> None:
     for a, st in onsets.items():
         ax.axvline(st * INTERVAL, color=ev.INK["secondary"], linewidth=0.9, linestyle="--")
     ax.set_xlabel("Time since recording start (s)")
-    ax.set_ylabel("Surprise (nats)")
+    ax.set_ylabel("Surprise score (nats)")
     handles, _ = ax.get_legend_handles_labels()
     handles += [Patch(color=ev.INK["grid"], label="Analysis window"),
                 Line2D([], [], color=ev.INK["secondary"], linestyle="--", lw=0.9, label="First alarm activation")]
@@ -357,7 +357,7 @@ def figure_rca() -> None:
         ax.grid(axis="x", visible=False)
         ax.set_ylabel("AP@3")
         ax.set_title(f"({'ab'[('coolant', 'probe').index(sub)]}) {sub.capitalize()}", loc="left")
-    axes[1].set_xlabel("Held-out scenario")
+    axes[1].set_xlabel("Test scenario")
     handles = [Patch(color=GRAPH_COLORS[g], label=f"Causal RCA, {GRAPH_LABELS[g].lower()}") for g in GRAPHS]
     handles.append(Patch(color=BASELINE_COLOR, label="LSTM + SHAP"))
     handles.append(Line2D([], [], marker="_", markersize=14, markeredgewidth=2, linestyle="", color=ev.INK["primary"],
@@ -374,7 +374,7 @@ def figure_shap_example() -> None:
     fig, ax = plt.subplots(figsize=(WIDTH, 3.3), layout="constrained")
     ax.barh([tex_free(v) for v in d.variable], d.importance,
             color=[ev.COLORS[1] if c else ev.COLORS[0] for c in d.is_cause])
-    ax.set_xlabel("Summed absolute SHAP value of the anomaly score")
+    ax.set_xlabel("SHAP score")
     ax.grid(axis="y", visible=False)
     top_legend(fig, [Patch(color=ev.COLORS[1], label="Injected cause"), Patch(color=ev.COLORS[0], label="Other candidate")], 2)
     save(fig, "shap_example")
@@ -406,9 +406,9 @@ def figure_interventions() -> None:
         o = obs[obs.graph == g]
         assert (o[o.alarm_supported].groupby("fold").size().reindex(folds, fill_value=0) == modelled).all()
     ax = axes[0]
-    ax.bar(x, modelled, width=0.5, color=ev.COLORS[0], label="Modelled alarm")
+    ax.bar(x, modelled, width=0.5, color=ev.COLORS[0], label="Alarm with training data")
     ax.bar(x, total - modelled, bottom=modelled, width=0.5, color="white", edgecolor=MUTED, hatch="///",
-           label="Unmodelled alarm")
+           label="Alarm without training data")
     for i, f in enumerate(folds):
         ax.text(i, total[f] + 0.4, f"{modelled[f]} of {total[f]}", ha="center", va="bottom", fontsize=9)
     ax.set_ylim(0, total.max() * 1.25)
@@ -428,7 +428,7 @@ def figure_interventions() -> None:
     ax.set_ylim(-0.03, 1.08)
     ax.set_xticks(x, scenario_ticks(folds, modelled))
     ax.set_ylabel("Probability")
-    ax.set_title("(b) Simulated activation probability", loc="left")
+    ax.set_title("(b) Predicted activation probability", loc="left")
 
     # (c) onset error of each modelled activation, with the median per scenario
     ax = axes[2]
@@ -443,12 +443,12 @@ def figure_interventions() -> None:
     ax.axhline(INTERVAL, color=ev.INK["secondary"], linestyle="--", linewidth=1)
     ax.set_xticks(x, scenario_ticks(folds, modelled))
     ax.set_ylim(-0.15, 3.4)
-    ax.set_ylabel("Onset error (s)")
-    ax.set_xlabel("Held-out scenario")
-    ax.set_title("(c) Onset error", loc="left")
+    ax.set_ylabel("Activation-time error (s)")
+    ax.set_xlabel("Test scenario")
+    ax.set_title("(c) Alarm activation-time error", loc="left")
 
-    handles = [Patch(color=ev.COLORS[0], label="Modelled alarm"),
-               Patch(facecolor="white", edgecolor=MUTED, hatch="///", label="Unmodelled alarm"),
+    handles = [Patch(color=ev.COLORS[0], label="Alarm with training data"),
+               Patch(facecolor="white", edgecolor=MUTED, hatch="///", label="Alarm without training data"),
                Line2D([], [], marker="o", linestyle="", color=GRAPH_COLORS["expert"], label=GRAPH_LABELS["expert"]),
                Line2D([], [], marker="o", linestyle="", color=GRAPH_COLORS["discovered"], label=GRAPH_LABELS["discovered"]),
                Line2D([], [], color=ev.INK["primary"], lw=2, label="Scenario median"),
@@ -503,7 +503,7 @@ def figure_cf_example(s: dict, model: sc.TemporalSCM) -> None:
     alarms = [a for a in s["alarms"] if a in recorded]
     shown = chosen + alarms
     roles = {v: "action target" for v in chosen}
-    roles.update({a: "modelled alarm" if model.mechanisms[a].has_data else "unmodelled alarm"
+    roles.update({a: "alarm with training data" if model.mechanisms[a].has_data else "alarm without training data"
                   for a in alarms})
     t = np.arange(len(series[shown[0]])) * INTERVAL
     fig, axes = plt.subplots(len(shown), 1, figsize=(WIDTH, 1.35 * len(shown) + 1.0), sharex=True, layout="constrained")
@@ -549,7 +549,7 @@ def figure_counterfactuals() -> None:
     ax.set_ylim(0.78, 1.01)
     ax.set_xticks(x, scenario_ticks(folds, counts))
     ax.set_ylabel("Counterfactual validity")
-    ax.set_title("(a) Validity", loc="left")
+    ax.set_title("(a) Counterfactual validity", loc="left")
     ax = axes[1]
     for k, g in enumerate(GRAPHS):
         cov = cf[cf.graph == g].groupby("fold").alarm_coverage.mean().reindex(folds)
@@ -558,11 +558,11 @@ def figure_counterfactuals() -> None:
     ax.set_ylim(0, 1.05)
     ax.set_xticks(x, scenario_ticks(folds, counts))
     ax.set_ylabel("Alarm coverage")
-    ax.set_xlabel("Held-out scenario")
+    ax.set_xlabel("Test scenario")
     ax.set_title("(b) Alarm coverage", loc="left")
     handles = [Line2D([], [], marker="o", linestyle="", color=GRAPH_COLORS[g], label=GRAPH_LABELS[g]) for g in GRAPHS]
     handles += [Line2D([], [], color=ev.INK["primary"], lw=2, label="Scenario mean"),
-                Line2D([], [], color=ev.INK["secondary"], lw=1, linestyle="--", label="Threshold 0.90")]
+                Line2D([], [], color=ev.INK["secondary"], lw=1, linestyle="--", label="Validity threshold: 0.90")]
     top_legend(fig, handles, 2)
     save(fig, "counterfactuals")
 
