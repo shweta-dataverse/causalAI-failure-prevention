@@ -32,7 +32,7 @@ markers = [
 [tool.ruff]
 line-length = 140
 target-version = "py312"
-extend-exclude = ["src", "scripts", "notebooks"]
+extend-exclude = ["notebooks"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W"]
