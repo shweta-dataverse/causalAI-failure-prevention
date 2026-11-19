@@ -55,7 +55,7 @@ from causal_rca import graph_evaluation as ge
 from causal_rca import preprocessing as pp
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG_PATH = ROOT / "configs" / "discovery_study.yaml"
+CONFIG_PATH = ROOT / "config" / "config.yaml"
 TABLES = data.RESULTS_DIR / "tables"
 LOG_PATH = data.RESULTS_DIR / "logs" / "12_discovery_study.log"
 CACHE = ds.RunCache(ROOT / "data" / "cache" / "discovery_study")
@@ -75,7 +75,8 @@ def log(msg: str) -> None:
 
 
 def load_study() -> dict:
-    return yaml.safe_load(CONFIG_PATH.read_text())
+    cfg = yaml.safe_load(CONFIG_PATH.read_text())
+    return {**cfg["discovery"], "subsystems": cfg["subsystems"]}
 
 
 def save(table: pd.DataFrame, name: str) -> None:

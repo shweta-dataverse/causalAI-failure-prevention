@@ -31,7 +31,7 @@ RAW_DIR = PROJECT_ROOT / "data" / "raw" / "causRCA"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 RESULTS_DIR = PROJECT_ROOT / "results"
 # frozen groups of related recordings (scripts/related_recordings.py, stage 17a)
-RELATED_PATH = PROJECT_ROOT / "configs" / "related_recordings.csv"
+RELATED_PATH = PROJECT_ROOT / "config" / "related_recordings.csv"
 
 SUBSYSTEMS: tuple[str, ...] = ("coolant", "hydraulics", "probe")
 CAUSE_TIMESTAMPS: tuple[str, ...] = (
