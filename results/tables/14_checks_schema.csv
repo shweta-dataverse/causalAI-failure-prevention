@@ -1,5 +1,0 @@
-check,passed,detail
-"coolant: stored view = predeclared node list, no fitted state",True,stored view had train_ids of 144 recordings; columns 15
-coolant: view spec rewritten as fixed schema,True,data/processed/coolant_dt0.5.json
-"probe: stored view = predeclared node list, no fitted state",True,stored view had train_ids of 153 recordings; columns 11
-probe: view spec rewritten as fixed schema,True,data/processed/probe_dt0.5.json

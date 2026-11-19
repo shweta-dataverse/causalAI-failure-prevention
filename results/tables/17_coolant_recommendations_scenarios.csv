@@ -1,9 +1,0 @@
-graph,scenario,runs,action,accepted,validity_min,validity_max
-discovered,exp_22,6,do(HP_Pump_Ok=1),0,0.8215,0.876
-discovered,exp_27,7,do(HP_Pump_Ok=1),7,0.9995,1.0
-discovered,exp_28,6,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),6,0.945,0.9645
-discovered,exp_35,6,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),6,0.9135,0.937
-expert,exp_22,6,do(HP_Pump_Ok=1),0,0.8355,0.871
-expert,exp_27,7,do(HP_Pump_Ok=1),7,0.9995,1.0
-expert,exp_28,6,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),6,0.936,0.959
-expert,exp_35,6,do(CLF_Filter_Ok=1) + do(LP_Pump_Ok=1),6,0.915,0.9315

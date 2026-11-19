@@ -1,5 +1,0 @@
-pair,only_in,time_s,node,value
-probe_exp_1_run_3 ~ probe_exp_6_run_2,probe_exp_1_run_3,100.31,MPA_InitPos,False
-probe_exp_1_run_3 ~ probe_exp_6_run_2,probe_exp_6_run_2,150.536,MPA_InitPos,False
-probe_exp_2_3_run_1 ~ probe_exp_7_run_1,probe_exp_2_3_run_1,123.59,MPA_WorkPos,False
-probe_exp_2_3_run_1 ~ probe_exp_7_run_1,probe_exp_7_run_1,183.59,MPA_WorkPos,False
