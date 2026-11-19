@@ -1,54 +1,13 @@
-from dataclasses import dataclass
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 
-from core import data, graphs, scm
+from core import data, scm
 from core import interventions as itv
 from core import preprocessing as pp
-from core.preprocessing import ViewData
+from pipeline.scm_fitting import Subsystem, load_subsystem
 from utils.config import setting
-from utils.errors import MissingInputError
-from utils.io import processed_dir, raw_dir, read_input, relative, write_output
+from utils.io import raw_dir, relative, write_output
 from utils.logger import log
-
-
-@dataclass
-class Setting:
-    subsystem: str
-    interval_s: float
-    view: ViewData
-    splits: pd.DataFrame
-    manipulated: dict[str, set[str]]
-    alarms: list[str]
-    folds: list[str]
-    # fitted scms, data/cache/scm when not set
-    scm_dir: Path | None = None
-
-    def runs_of(self, fold: str) -> list[str]:
-        return self.splits.loc[self.splits["fold"] == fold, "recording_id"].tolist()
-
-    def fold_model(self, graph: str, fold: str) -> scm.TemporalSCM:
-        return scm.load_fitted(self.subsystem, graph, data.scope_name(fold), self.scm_dir)
-
-
-def load_setting(cfg: dict, subsystem: str) -> Setting:
-    """model view, splits, ground truth and alarms of one subsystem."""
-    interval = setting(cfg, "model_interval_s")
-    name = f"{subsystem}_dt{interval:g}"
-    if not (processed_dir() / f"{name}.npz").exists():
-        raise MissingInputError(f"{relative(processed_dir() / name)}.npz not found: "
-                                "run \"python main.py run preprocessing\" first")
-    view, _ = pp.load_view_data(processed_dir(), name)
-    splits = read_input("splits")
-    # keep the row order: bootstrap draws depend on it
-    splits = splits[splits["subsystem"] == subsystem].reset_index(drop=True)
-    expert = graphs.simple_digraph(data.load_expert_graph(subsystem=subsystem))
-    alarms = sorted(n for n in expert.nodes if expert.nodes[n]["kind"] == "Alarm")
-    manipulated = data.manipulated_by_recording(data.load_fault_runs(), data.load_experiments())
-    folds = sorted(splits.loc[splits["split"] == "fault", "fold"].unique())
-    return Setting(subsystem, interval, view, splits, manipulated, alarms, folds)
 
 
 def fault_onsets(subsystem: str, interval_s: float) -> dict[tuple[str, str], int]:
@@ -61,11 +20,11 @@ def fault_onsets(subsystem: str, interval_s: float) -> dict[tuple[str, str], int
     return itv.onset_steps(changes, interval_s)
 
 
-def replay_runs(cfg: dict, s: Setting) -> pd.DataFrame:
+def replay_runs(cfg: dict, s: Subsystem) -> pd.DataFrame:
     """sustained replay of the recorded fault injections of every held-out run with its fold scm."""
     worlds = setting(cfg, "interventions", "replay_worlds")
     seed = setting(cfg, "interventions", "seed")
-    onsets = fault_onsets(s.subsystem, s.interval_s)
+    onsets = fault_onsets(s.name, s.interval_s)
     frames = []
     for graph in setting(cfg, "graphs"):
         for fold in s.folds:
@@ -75,7 +34,7 @@ def replay_runs(cfg: dict, s: Setting) -> pd.DataFrame:
                 starts = {v: onsets[(rid, v)] for v in sorted(s.manipulated[rid]) if (rid, v) in onsets}
                 response = itv.replay_manipulation(model, series, starts, s.alarms, worlds, np.random.default_rng(seed))
                 frames.append(response.assign(graph=graph, fold=fold, recording_id=rid,
-                                              model_id=f"{s.subsystem}-{graph}-{data.scope_name(fold)}",
+                                              model_id=f"{s.name}-{graph}-{data.scope_name(fold)}",
                                               worlds=worlds))
     replay = pd.concat(frames, ignore_index=True)
     replay["observed_delay_s"] = replay["observed_delay_steps"] * s.interval_s
@@ -86,9 +45,9 @@ def replay_runs(cfg: dict, s: Setting) -> pd.DataFrame:
 
 
 def run(cfg: dict, force: bool = False) -> None:
-    s = load_setting(cfg, setting(cfg, "interventions", "subsystem"))
+    s = load_subsystem(cfg, setting(cfg, "interventions", "subsystem"))
     replay = replay_runs(cfg, s)
     file = write_output(replay, "replay")
     n_runs = replay["recording_id"].nunique()
-    log.info(f"intervention analysis done. {len(replay)} alarm responses of {n_runs} {s.subsystem} runs "
+    log.info(f"intervention analysis done. {len(replay)} alarm responses of {n_runs} {s.name} runs "
              f"({replay['graph'].nunique()} graphs) saved to {relative(file)}")

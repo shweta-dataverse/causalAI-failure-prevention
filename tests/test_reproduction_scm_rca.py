@@ -52,8 +52,9 @@ def assert_same(actual: pd.DataFrame, expected: pd.DataFrame) -> None:
 
 
 def thesis_rows(name: str) -> list[list[str]]:
+    """rows of a printed table; the latex en dash "--" is read as "–"."""
     with open(THESIS / f"{name}.csv", newline="", encoding="utf-8") as f:
-        return [row for row in csv.reader(f)]
+        return [[cell.replace("--", "–") for cell in row] for row in csv.reader(f)]
 
 
 def fill_down(rows: list[list[str]]) -> list[list[str]]:

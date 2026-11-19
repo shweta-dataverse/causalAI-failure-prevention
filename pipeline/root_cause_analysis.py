@@ -63,9 +63,7 @@ def rank_subsystem(cfg: dict, sub: Subsystem, graph: str,
     return pd.DataFrame(run_rows), pd.concat(rankings, ignore_index=True)
 
 
-# ---------------------------------------------------------------------------
 # probe analysis windows
-# ---------------------------------------------------------------------------
 
 
 def first_change(series: dict, variables: set[str], start_s: float, interval_s: float) -> float:
@@ -104,9 +102,7 @@ def window_table(cfg: dict, sub: Subsystem) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values(["Scenario", "Run"], kind="mergesort").reset_index(drop=True)
 
 
-# ---------------------------------------------------------------------------
 # surprise timeline of one run
-# ---------------------------------------------------------------------------
 
 
 def surprise_figure(cfg: dict, sub: Subsystem) -> plt.Figure:
@@ -135,11 +131,6 @@ def surprise_figure(cfg: dict, sub: Subsystem) -> plt.Figure:
                 Line2D([], [], color=INK["secondary"], linestyle="--", lw=0.9, label="First alarm activation")]
     fig.legend(handles=handles, loc="outside lower center", ncol=2, frameon=False, fontsize=9)
     return fig
-
-
-# ---------------------------------------------------------------------------
-# stage
-# ---------------------------------------------------------------------------
 
 
 def run(cfg: dict, force: bool = False) -> None:

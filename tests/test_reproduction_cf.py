@@ -13,7 +13,8 @@ from core import scm
 from core.rca import analysis_window
 from evaluation import counterfactuals as ev
 from pipeline import counterfactuals as cf
-from pipeline.interventions import load_setting, replay_runs
+from pipeline.interventions import replay_runs
+from pipeline.scm_fitting import load_subsystem
 from utils import io
 from utils.config import load_config
 from utils.errors import MissingInputError
@@ -57,13 +58,13 @@ def cfg():
 
 @pytest.fixture(scope="module")
 def coolant(cfg):
-    return load_setting(cfg, cfg["counterfactuals"]["subsystem"])
+    return load_subsystem(cfg, cfg["counterfactuals"]["subsystem"])
 
 
 @pytest.fixture(scope="module")
 def rankings(coolant):
     table = io.read_input("rca_rankings")
-    return table[table["subsystem"] == coolant.subsystem]
+    return table[table["subsystem"] == coolant.name]
 
 
 # ---------------------------------------------------------------------------
@@ -72,10 +73,10 @@ def rankings(coolant):
 
 
 def test_printed_numbers_round_half_up_like_the_tables():
-    assert cf.printed(0.945) == "0.95"
-    assert cf.printed(0.8355) == "0.84"
-    assert cf.printed(0.93346, 3) == "0.933"
-    assert cf.printed(85.05, 0) == "85"
+    assert io.printed(0.945) == "0.95"
+    assert io.printed(0.8355) == "0.84"
+    assert io.printed(0.93346, 3) == "0.933"
+    assert io.printed(85.05, 0) == "85"
     assert cf.printed_range(pd.Series([0.9965, 0.9995])) == "1.00"
     assert cf.printed_range(pd.Series([0.939, 0.9555])) == "0.94–0.96"
 

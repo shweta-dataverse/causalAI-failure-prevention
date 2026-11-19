@@ -7,10 +7,10 @@ import pandas as pd
 from core import data, discovery
 from evaluation.counterfactuals import replay_stats, replay_summary, valid_mask
 from evaluation.rca import causal_per_scenario, causal_summary, lstm_per_run, lstm_results, lstm_summaries
-from evaluation.scm import ALL_SCENARIOS, NON_MANIPULATED, fault_prediction, half_up, normal_prediction
+from evaluation.scm import ALL_SCENARIOS, NON_MANIPULATED, fault_prediction, normal_prediction
 from pipeline import causal_discovery
 from pipeline.counterfactuals import explain_all
-from pipeline.interventions import load_setting, replay_runs
+from pipeline.interventions import replay_runs
 from pipeline.root_cause_analysis import rank_subsystem
 from pipeline.scm_fitting import (
     Subsystem,
@@ -27,14 +27,11 @@ from utils.errors import DataError, MissingInputError
 from utils.logger import log
 
 PART = "evaluation"
-DASH = "–"
 DISCOVERED = "discovered"
 NUMBER_WORDS = ("no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
 
 
-# ---------------------------------------------------------------------------
-# alternative runs of the pipeline (tables and fitted scms in data/cache/comparisons/<variant>)
-# ---------------------------------------------------------------------------
+# alternative runs of the pipeline, cached in data/cache/comparisons
 
 
 def variant_dir(variant: str) -> Path:
@@ -43,10 +40,7 @@ def variant_dir(variant: str) -> Path:
 
 def save_variant(tables: dict[str, pd.DataFrame], variant: str) -> None:
     for name, table in tables.items():
-        file = variant_dir(variant) / f"{name}.csv"
-        file.parent.mkdir(parents=True, exist_ok=True)
-        table.to_csv(file, index=False)
-        log.debug(f"wrote {io.relative(file)} ({len(table)} rows)")
+        io.write_csv(table, variant_dir(variant) / f"{name}.csv")
 
 
 def fixed_settings(cfg: dict, subsystem: str, scopes: pd.Series) -> pd.DataFrame:
@@ -74,7 +68,7 @@ def original_configuration(cfg: dict, splits: pd.DataFrame, force: bool) -> dict
     parts: dict[str, list[pd.DataFrame]] = {}
     for name in setting(cfg, "subsystems"):
         log.info(f"running the {name} pipeline with the original settings")
-        context = causal_discovery.Subsystem(cfg, name, splits)
+        context = causal_discovery.DiscoveryContext(cfg, name, splits)
         scopes = [()] + [(k,) for k in context.folds]
         edges, discovery_settings = causal_discovery.discover(cfg, context, [config], order, scopes, force, started)
         sub = load_subsystem(cfg, name)
@@ -91,12 +85,12 @@ def original_configuration(cfg: dict, splits: pd.DataFrame, force: bool) -> dict
             parts.setdefault(key, []).append(table)
     tables = {key: pd.concat(frames, ignore_index=True) for key, frames in parts.items()}
 
-    s = replace(load_setting(cfg, setting(cfg, "interventions", "subsystem")), scm_dir=models)
+    s = replace(load_subsystem(cfg, setting(cfg, "interventions", "subsystem")), scm_dir=models)
     tables["replay"] = replay_runs(cfg, s)
-    s = replace(load_setting(cfg, setting(cfg, "counterfactuals", "subsystem")), scm_dir=models)
+    s = replace(load_subsystem(cfg, setting(cfg, "counterfactuals", "subsystem")), scm_dir=models)
     rankings = tables["rca_rankings"]
     tables["recommendations"], _, tables["recommendation_refits"] = explain_all(
-        cfg, s, rankings[rankings["subsystem"] == s.subsystem], tables["scm_settings"])
+        cfg, s, rankings[rankings["subsystem"] == s.name], tables["scm_settings"])
     save_variant(tables, variant)
     return tables
 
@@ -107,7 +101,7 @@ def without_exclusion(cfg: dict, splits: pd.DataFrame, name: str, force: bool) -
     variant = "without_exclusion"
     models = variant_dir(variant) / "scm"
     study = setting(cfg, "discovery")
-    context = causal_discovery.Subsystem(cfg, name, splits, exclude_related=False)
+    context = causal_discovery.DiscoveryContext(cfg, name, splits, exclude_related=False)
     edges, discovery_settings = causal_discovery.discover(
         cfg, context, discovery.grid_configs(study["grid"]), causal_discovery.selection_order(study),
         context.scopes(), force, time.time())
@@ -136,9 +130,7 @@ def near_duplicate_subsystem(cfg: dict, splits: pd.DataFrame) -> str:
     return names[0]
 
 
-# ---------------------------------------------------------------------------
 # results of the main pipeline
-# ---------------------------------------------------------------------------
 
 
 def evaluation_result(name: str, part: str) -> pd.DataFrame:
@@ -162,13 +154,7 @@ def with_rca_summary(cfg: dict, tables: dict[str, pd.DataFrame]) -> dict[str, pd
     return {**tables, "rca_summary": summary}
 
 
-# ---------------------------------------------------------------------------
-# printed quantities
-# ---------------------------------------------------------------------------
-
-
-def number(value: float, decimals: int) -> str:
-    return f"{half_up(value, decimals):.{decimals}f}"
+# table cells
 
 
 def numbers(text: str) -> list[float]:
@@ -177,7 +163,7 @@ def numbers(text: str) -> list[float]:
 
 
 def joined(values: list[float], decimals: int) -> str:
-    return "/".join(number(v, decimals) for v in values)
+    return "/".join(io.printed(v, decimals) for v in values)
 
 
 def prediction(tables: dict, sub: str, graph: str, column: str, normal: bool) -> float:
@@ -208,7 +194,7 @@ def activation_error(cfg: dict, tables: dict) -> str:
         part = replay[replay["graph"] == graph]
         mean = replay_summary(part, [], [graph])["onset_abs_error_mean_s"].iloc[0]
         maximum = replay_stats(part, setting(cfg, "model_interval_s"))["max"]
-        texts[graph] = f"{number(mean, 1)} s/{number(maximum, 1)} s"
+        texts[graph] = f"{io.printed(mean, 1)} s/{io.printed(maximum, 1)} s"
     if len(set(texts.values())) == 1:
         return next(iter(texts.values()))
     return "; ".join(f"{text} ({graph})" for graph, text in texts.items())
@@ -235,9 +221,9 @@ def original_metric(cfg: dict, tables: dict, sub: str, metric: str) -> str:
     if metric in per_graph:
         return joined([per_graph[metric](g) for g in graphs], decimals.get(metric, 2))
     if metric == "directed_f1":
-        return number(discovered_f1(tables, sub), 2)
+        return io.printed(discovered_f1(tables, sub), 2)
     if metric == "directed_f1_scm_edges":
-        return f"{number(discovered_f1(tables, sub), 2)}/{scm_edges(tables, sub)}"
+        return f"{io.printed(discovered_f1(tables, sub), 2)}/{scm_edges(tables, sub)}"
     if metric == "activation_error":
         return activation_error(cfg, tables)
     raise DataError(f"unknown row {metric!r} in comparisons.original_rows of config/config.yaml")
@@ -317,91 +303,79 @@ def exclusion_table(cfg: dict, without: dict, main: dict, changed: tuple[int, in
             (f"AP@{k} of the other {main['other_runs']} runs (E/D/L)", "other_ap")]
     table = [{"Result": label, "Without": joined(without[key], 2), "With": joined(main[key], 2), "_metric": key}
              for label, key in rows]
-    table.append({"Result": "Discovered fold graphs with changed settings", "Without": DASH,
+    table.append({"Result": "Discovered fold graphs with changed settings", "Without": io.DASH,
                   "With": f"{changed[0]} of {changed[1]}", "_metric": "changed_settings"})
     return pd.DataFrame(table)
 
 
-# ---------------------------------------------------------------------------
 # messages
-# ---------------------------------------------------------------------------
 
 
-def change_clause(name: str, before: str, after: str, unit: str = "") -> str:
+def direction(before: str, after: str) -> str:
+    """'raise', 'keep', 'lower' or 'change' for two printed cells such as '0.48/0.56'."""
     old, new = numbers(before), numbers(after)
     if old == new:
-        return f"{name} stays at {before}{unit}"
+        return "keep"
     if all(b >= a for a, b in zip(old, new)):
-        verb = "rises"
-    elif all(b <= a for a, b in zip(old, new)):
-        verb = "falls"
-    else:
-        verb = "changes"
-    return f"{name} {verb} from {before} to {after}{unit}"
+        return "raise"
+    if all(b <= a for a, b in zip(old, new)):
+        return "lower"
+    return "change"
 
 
 def and_list(parts: list[str]) -> str:
     return parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + f" and {parts[-1]}"
 
 
-def original_clauses(cfg: dict, cells: pd.DataFrame) -> list[str]:
-    """what changes from the original to the selected configuration for one subsystem."""
-    k = setting(cfg, "rca", "top_k")
+def original_clause(cells: pd.DataFrame) -> str:
+    """'raise graph agreement and diagnosis' for the original and selected cells of one subsystem."""
+    names = {"directed_f1": "graph agreement", "map": "diagnosis", "valid_recommendations": "valid recommendations"}
     pairs = {metric: (row.Original, row.Selected) for metric, row in cells.iterrows()}
-    # first number of the graph row, last (the maximum) of the activation-time error
-    f1 = next(pair for metric, pair in pairs.items() if metric.startswith("directed_f1"))
-    pairs["directed_f1"] = tuple(number(numbers(text)[0], 2) for text in f1)
-    if "activation_error" in pairs:
-        pairs["activation_error"] = tuple(number(numbers(text)[-1], 1) for text in pairs["activation_error"])
-    names = [("directed_f1", "the directed f1 of the discovered graph", ""),
-             ("fault_change_log_loss", "the log loss at state changes in unseen fault scenarios", ""),
-             ("map", f"map@{k}", ""), ("activation_error", "the maximum activation-time error", " s"),
-             ("valid_recommendations", "the number of valid recommendations", "")]
-    return [change_clause(name, *pairs[metric], unit) for metric, name, unit in names if metric in pairs]
+    # the graph row may also hold the scm edges; its first number is the directed f1
+    graph_row = next(metric for metric in pairs if metric.startswith("directed_f1"))
+    pairs["directed_f1"] = tuple(text.split("/")[0] for text in pairs[graph_row])
+    verbs: dict[str, list[str]] = {}
+    for metric, name in names.items():
+        if metric in pairs:
+            verbs.setdefault(direction(*pairs[metric]), []).append(name)
+    order = ("raise", "keep", "lower", "change")
+    return " and ".join(f"{verb} {and_list(verbs[verb])}" for verb in order if verb in verbs)
 
 
-def original_message(cfg: dict, table: pd.DataFrame) -> list[str]:
-    lines = ["original and selected configuration (e/d = expert/discovered graph)",
-             f"  {'':52s}{'original':>16s}{'selected':>16s}"]
-    lines += [f"  {r.Subsystem.lower():9s}{r.Result.lower():43s}{r.Original:>16s}{r.Selected:>16s}"
-              for r in table.itertuples()]
-    parts = [f"for {sub.lower()} " + and_list(original_clauses(cfg, rows.set_index("_metric")))
-             for sub, rows in table.groupby("Subsystem", sort=False)]
-    lines.append("with the selected settings, " + "; ".join(parts) + " (values expert/discovered); graph agreement "
-                 "is measured against the expert graph used for selection, prediction and validity are model-based, "
-                 "and the diagnosis is retrospective on injected faults.")
+def original_message(table: pd.DataFrame) -> list[str]:
+    row = io.metric_row
+    lines = ["original and selected configuration (e/d = expert/discovered graph)", row("", "original", "selected")]
+    for sub, rows in table.groupby("Subsystem", sort=False):
+        lines.append(f"  {sub.lower()}")
+        lines += [row(r.Result.lower(), r.Original, r.Selected) for r in rows.itertuples()]
+    clauses = [f"for {sub.lower()} " + ("the selected settings " if i == 0 else "they ")
+               + original_clause(rows.set_index("_metric"))
+               for i, (sub, rows) in enumerate(table.groupby("Subsystem", sort=False))]
+    lines.append("; ".join(clauses) + "; agreement is judged against the expert graph used for selection.")
     return lines
 
 
-def exclusion_message(cfg: dict, table: pd.DataFrame, without: dict, main: dict, changed: tuple[int, int],
-                      sub: str) -> list[str]:
+def exclusion_message(cfg: dict, table: pd.DataFrame, without: dict, main: dict, sub: str) -> list[str]:
     k = setting(cfg, "rca", "top_k")
+    widths = {"label_width": 54, "cell_width": 18}
     lines = [f"{sub} results without and with the near-duplicate exclusion (e/d/l = expert, discovered, lstm + shap)",
-             f"  {'':58s}{'without':>16s}{'with':>16s}"]
-    lines += [f"  {r.Result.lower():58s}{r.Without:>16s}{r.With:>16s}" for r in table.itertuples()]
+             io.metric_row("", "without", "with", **widths)]
+    lines += [io.metric_row(r.Result.lower(), r.Without, r.With, **widths) for r in table.itertuples()]
     methods = ("the expert graph", "the discovered graph", "lstm + shap")
-    maps = [(name, number(before, 2), number(after, 2))
+    maps = [(name, float(io.printed(before, 2)), float(io.printed(after, 2)))
             for name, before, after in zip(methods, without["map"], main["map"])]
-    unchanged = [f"{name} ({after})" for name, before, after in maps if before == after]
-    moved = [f"{name} from {before} to {after}" for name, before, after in maps if before != after]
-    effects = []
-    if unchanged:
-        effects.append(f"leaves map@{k} of {and_list(unchanged)} unchanged")
-    if moved:
-        effects.append(f"moves map@{k} of {and_list(moved)}")
-    cells = table.set_index("_metric")
-    related, other = cells.loc["related_ap"], cells.loc["other_ap"]
-    lines.append(f"excluding the near-duplicates {' and '.join(effects)}; ap@{k} changes from {related.Without} to "
-                 f"{related.With} on the {word(main['related_runs'])} runs with a near-duplicate and from "
-                 f"{other.Without} to {other.With} on the other {main['other_runs']}, and {changed[0]} of "
-                 f"{changed[1]} discovered fold graphs get other settings, so the differences combine recording "
-                 "dependence, less training data and changed selection and cannot be attributed to one factor.")
+    unchanged = [name for name, before, after in maps if before == after]
+    moved = [name for name, before, after in maps if before != after]
+    shift = max((abs(after - before) for _, before, after in maps), default=0.0)
+    if not moved:
+        effect = f"leaves map@{k} of every method unchanged"
+    elif not unchanged:
+        effect = f"moves map@{k} of every method by at most {shift:.2f}"
+    else:
+        effect = f"leaves map@{k} of {and_list(unchanged)} unchanged and moves {and_list(moved)} by at most {shift:.2f}"
+    lines.append(f"excluding the near-duplicates {effect}; the shift mixes recording dependence, less training data "
+                 "and changed settings.")
     return lines
-
-
-# ---------------------------------------------------------------------------
-# part
-# ---------------------------------------------------------------------------
 
 
 def printed_columns(table: pd.DataFrame) -> pd.DataFrame:
@@ -424,6 +398,5 @@ def run(cfg: dict, force: bool = False) -> None:
     exclusion = exclusion_table(cfg, before, after, changed)
     io.save_table(printed_columns(comparison), "A.3", "Results with original and selected settings", PART)
     io.save_table(printed_columns(exclusion), "A.5", "Results before and after near-duplicate exclusion", PART)
-    lines = original_message(cfg, comparison) + [""] + exclusion_message(cfg, exclusion, before, after, changed, sub)
-    for line in [""] + lines:
-        log.info(line)
+    io.report(original_message(comparison))
+    io.report(exclusion_message(cfg, exclusion, before, after, sub))

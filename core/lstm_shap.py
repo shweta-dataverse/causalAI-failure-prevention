@@ -1,9 +1,4 @@
-"""lstm next-state forecaster with a shap explanation of its anomaly score (non-causal baseline).
-
-the lstm predicts the next state of every variable from a look-back window. the anomaly score of a
-step is the mean binary cross-entropy of the predicted next states over the recorded variables of
-the run, and expected-gradient shap values of that score rank the candidate variables.
-"""
+"""lstm next-state forecaster with shap attributions of its anomaly score (non-causal baseline)."""
 
 from __future__ import annotations
 

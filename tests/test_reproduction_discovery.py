@@ -147,10 +147,10 @@ def test_coolant_views_rebuilt_from_the_raw_events_are_identical(tmp_path):
                                               ("probe", "without_exp_2_3")])
 def test_selection_from_the_cache_reproduces_the_stored_settings_and_graph(subsystem, scope):
     from core import data
-    from pipeline.causal_discovery import Subsystem, select_scope, selection_order
+    from pipeline.causal_discovery import DiscoveryContext, select_scope, selection_order
 
     cfg = load_config()
-    context = Subsystem(cfg, subsystem, io.read_input("splits"))
+    context = DiscoveryContext(cfg, subsystem, io.read_input("splits"))
     row, graph = select_scope(context, data.scope_held_out(scope), discovery.grid_configs(cfg["discovery"]["grid"]),
                               selection_order(cfg["discovery"]))
     settings = pd.read_csv(EXPECTED / "discovery_settings.csv", keep_default_na=False)

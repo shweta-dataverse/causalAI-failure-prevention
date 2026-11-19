@@ -1,10 +1,4 @@
-"""graph comparison with the expert reference, dag conversion, perturbations and drawing.
-
-graphs are compared as static graphs over one node set; self-loops are ignored and duplicate
-expert edges count once. undirected discovered edges (oriented=False) count for the skeleton,
-never as a correct direction. agreement with the expert graph is agreement with expert
-knowledge, not proof of the true causal structure.
-"""
+"""comparison with the expert graph, dag conversion, perturbations and drawing of graphs."""
 
 from __future__ import annotations
 
@@ -128,9 +122,7 @@ def random_reference(
     return pd.DataFrame(rows)
 
 
-# ---------------------------------------------------------------------------
 # turning a discovered graph into a dag for the scm
-# ---------------------------------------------------------------------------
 
 
 def to_dag(graph: nx.DiGraph) -> tuple[nx.DiGraph, pd.DataFrame]:
@@ -154,9 +146,7 @@ def to_dag(graph: nx.DiGraph) -> tuple[nx.DiGraph, pd.DataFrame]:
     return dag, pd.DataFrame(log, columns=["source", "target", "action"])
 
 
-# ---------------------------------------------------------------------------
 # perturbations of the expert graph
-# ---------------------------------------------------------------------------
 
 
 def perturb_graph(graph: nx.DiGraph, kind: str, fraction: float, seed: int) -> nx.DiGraph:
@@ -225,9 +215,7 @@ def edge_class(u: str, v: str, oriented: bool, reference: nx.DiGraph) -> str:
     return "extra"
 
 
-# ---------------------------------------------------------------------------
 # drawing
-# ---------------------------------------------------------------------------
 
 
 def graph_layers(graph: nx.Graph) -> dict[Any, int] | None:
@@ -261,10 +249,7 @@ def draw_graph(
     edge_color: str | None = None,
     pos: dict | None = None,
 ) -> None:
-    """draw a causal graph: node colour = variable type, dark ring = highlighted node.
-
-    label_side: 'alternate' (above/below by column), 'above', or 'right'.
-    """
+    """node colour = variable type, dark ring = highlighted node; label_side 'alternate', 'above' or 'right'."""
     node_types = node_types or {}
     highlight = set(highlight)
     simple = nx.DiGraph(graph)
@@ -335,9 +320,8 @@ def type_legend_handles(types: Iterable[str], highlight_label: str | None = None
     return handles
 
 
-# ---------------------------------------------------------------------------
-# expert and discovered graph side by side (tikz and matplotlib)
-# ---------------------------------------------------------------------------
+# expert and discovered graph side by side
+
 
 # edge class: legend label, colour, line style
 COMPARISON_CLASSES = {

@@ -1,8 +1,4 @@
-"""metadata, ground truth, expert graphs, splits and scopes of the causRCA dataset.
-
-the fault metadata keeps apart the root cause (manipulatedVars), the diagnosis label, the
-expected state pattern, the observable outcome (alarms) and the timing (causes.json).
-"""
+"""metadata, ground truth, expert graphs, splits and scopes of the causRCA dataset."""
 
 from __future__ import annotations
 
@@ -22,7 +18,6 @@ from core import preprocessing as pp
 from utils import io
 
 RAW_DIR = io.raw_dir()
-PROCESSED_DIR = io.processed_dir()
 # frozen groups of near-duplicate recordings
 RELATED_PATH = io.related_recordings_path()
 
@@ -50,9 +45,7 @@ DESCRIPTION_KEYS = {"exp_id", "group", "scenario", "manipulatedVars", "alarms", 
 DIAGNOSIS_KEYS = {"id", "name", "variablesStates"}
 
 
-# ---------------------------------------------------------------------------
 # expert graphs
-# ---------------------------------------------------------------------------
 
 
 def _graph_paths(raw_dir: Path, subsystem: str | None) -> tuple[Path, Path, Path]:
@@ -140,9 +133,7 @@ def edge_pairs(graph: nx.MultiDiGraph) -> Counter:
     return Counter((u, v) for u, v in graph.edges())
 
 
-# ---------------------------------------------------------------------------
 # fault metadata
-# ---------------------------------------------------------------------------
 
 
 def load_experiments(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
@@ -275,9 +266,7 @@ def check_metadata(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ---------------------------------------------------------------------------
 # eda helpers on parsed events
-# ---------------------------------------------------------------------------
 
 
 def fault_variable_changes(
@@ -404,9 +393,7 @@ def state_durations(events: pd.DataFrame, types: tuple[str, ...] = ("Binary",)) 
     ).reset_index(drop=True)
 
 
-# ---------------------------------------------------------------------------
 # coverage, splits, expert-edge timing and scopes
-# ---------------------------------------------------------------------------
 
 
 def variable_coverage(events: pd.DataFrame, nodes: list[str]) -> pd.DataFrame:

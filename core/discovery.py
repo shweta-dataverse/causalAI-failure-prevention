@@ -1,13 +1,4 @@
-"""regime-wise pcmci+ discovery, aggregation into one summary graph, run cache and settings selection.
-
-a regime is one set of recordings with the same recorded variables: the normal training recordings,
-and each fault scenario. inside a regime only variables recorded in every recording that change at
-least once are used, and recordings enter tigramite as separate datasets (lags never cross them).
-regime results are combined by support: the share of testable regimes that found a relation. runs
-are cached on disk by a hash of everything that can change them, so held-out scopes, support
-thresholds and the fdr filter reuse them. selection by agreement with the expert graph is
-reference-guided tuning, not independent test accuracy.
-"""
+"""regime-wise pcmci+ discovery, aggregation by regime support, run cache and settings selection."""
 
 from __future__ import annotations
 
@@ -79,9 +70,7 @@ class RegimeResult:
     config: DiscoveryConfig = field(repr=False)
 
 
-# ---------------------------------------------------------------------------
 # regimes and variables
-# ---------------------------------------------------------------------------
 
 
 def define_regimes(splits: pd.DataFrame, exclude: Sequence[str] = (), exclude_related: bool = True) -> dict[str, list[str]]:
@@ -113,9 +102,22 @@ def regime_variables(view_data: ViewData, recording_ids: Sequence[str], min_chan
     return selected
 
 
-# ---------------------------------------------------------------------------
 # running pcmci+
-# ---------------------------------------------------------------------------
+
+
+def run_pcmciplus(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str], config: DiscoveryConfig,
+                  cond_ind_test: Any = None) -> dict[str, Any]:
+    """pcmci+ with each recording a separate dataset (g-squared test unless cond_ind_test is given)."""
+    columns = [view_data.var_names.index(v) for v in variables]
+    frame = tg_pp.DataFrame({k: view_data.arrays[r][:, columns].astype(float) for k, r in enumerate(recording_ids)},
+                            mask={k: view_data.masks[r][:, columns] for k, r in enumerate(recording_ids)},
+                            analysis_mode="multiple", var_names=list(variables))
+    if cond_ind_test is None:
+        cond_ind_test = Gsquared(significance="analytic", mask_type="xyz")
+    pcmci = PCMCI(dataframe=frame, cond_ind_test=cond_ind_test, verbosity=0)
+    return pcmci.run_pcmciplus(tau_min=0, tau_max=config.tau_max, pc_alpha=config.pc_alpha,
+                               fdr_method=config.fdr_method, max_conds_dim=config.max_conds_dim,
+                               max_conds_px=config.max_conds_px, max_conds_py=config.max_conds_py)
 
 
 def run_regime(
@@ -126,29 +128,12 @@ def run_regime(
     config: DiscoveryConfig,
     cond_ind_test: Any = None,
 ) -> RegimeResult:
-    """pcmci+ on one regime, each recording a separate dataset (g-squared test unless cond_ind_test is given)."""
+    """pcmci+ on one regime."""
     if len(variables) < 2:
         raise ValueError(f"regime {regime!r} has fewer than two usable variables")
-    columns = [view_data.var_names.index(v) for v in variables]
-    data = {k: view_data.arrays[r][:, columns].astype(float) for k, r in enumerate(recording_ids)}
-    mask = {k: view_data.masks[r][:, columns] for k, r in enumerate(recording_ids)}
-    frame = tg_pp.DataFrame(data, mask=mask, analysis_mode="multiple", var_names=list(variables))
-
-    if cond_ind_test is None:
-        cond_ind_test = Gsquared(significance="analytic", mask_type="xyz")
-    pcmci = PCMCI(dataframe=frame, cond_ind_test=cond_ind_test, verbosity=0)
     start = time.perf_counter()
-    results = pcmci.run_pcmciplus(
-        tau_min=0,
-        tau_max=config.tau_max,
-        pc_alpha=config.pc_alpha,
-        fdr_method=config.fdr_method,
-        max_conds_dim=config.max_conds_dim,
-        max_conds_px=config.max_conds_px,
-        max_conds_py=config.max_conds_py,
-    )
+    results = run_pcmciplus(view_data, recording_ids, variables, config, cond_ind_test)
     runtime = time.perf_counter() - start
-    n_samples = int(sum(len(a) for a in data.values()))
     return RegimeResult(
         regime=regime,
         recording_ids=list(recording_ids),
@@ -156,16 +141,13 @@ def run_regime(
         graph=results["graph"],
         val_matrix=results["val_matrix"],
         p_matrix=results["p_matrix"],
-        n_samples=n_samples,
+        n_samples=int(sum(len(view_data.arrays[r]) for r in recording_ids)),
         runtime_s=runtime,
         config=config,
     )
 
 
-
-# ---------------------------------------------------------------------------
 # link tables
-# ---------------------------------------------------------------------------
 
 
 def links_table(result: RegimeResult) -> pd.DataFrame:
@@ -220,9 +202,7 @@ def regime_relations(links: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["regime", "a", "b", "relation", "basis", "lags"])
 
 
-# ---------------------------------------------------------------------------
 # aggregation over regimes and static projection
-# ---------------------------------------------------------------------------
 
 
 def aggregate_relations(
@@ -340,9 +320,7 @@ def edge_lags(
     return {e: tuple(sorted(l)) for e, l in selected.items()}, pd.DataFrame(log, columns=LAG_LOG_COLUMNS)
 
 
-# ---------------------------------------------------------------------------
 # edge identities
-# ---------------------------------------------------------------------------
 
 
 def edge_key(edges: pd.DataFrame) -> set[tuple[str, str, bool]]:
@@ -358,9 +336,7 @@ def jaccard(a: set, b: set) -> float:
     return len(a & b) / len(a | b) if a | b else 1.0
 
 
-# ---------------------------------------------------------------------------
 # study configurations
-# ---------------------------------------------------------------------------
 
 
 CI_TESTS = ("gsq", "cmisymb")
@@ -468,15 +444,13 @@ def grid_configs(grid: dict[str, Any]) -> list[StudyConfig]:
 def make_cond_ind_test(config: StudyConfig):
     """the tigramite test object for a configuration."""
     if config.ci_test == "gsq":
-        return None  # run_regime builds Gsquared(significance='analytic', mask_type='xyz')
+        return None  # run_pcmciplus then uses the analytic g-squared test
     from tigramite.independence_tests.cmisymb import CMIsymb  # needs numba
     return CMIsymb(significance="shuffle_test", sig_samples=int(config.sig_samples), mask_type="xyz",
                    seed=config.seed)
 
 
-# ---------------------------------------------------------------------------
 # run specifications and the on-disk cache
-# ---------------------------------------------------------------------------
 
 
 def regime_fingerprint(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str]) -> str:
@@ -649,9 +623,7 @@ def run_specs(specs: Sequence[RunSpec], cache: RunCache, processed_dir: Path, wo
     return events
 
 
-# ---------------------------------------------------------------------------
 # aggregation and scoring
-# ---------------------------------------------------------------------------
 
 
 @dataclass
@@ -743,9 +715,7 @@ def evaluate_config(runs: dict[str, RegimeRun], config: StudyConfig, nodes: Sequ
     return row, edges
 
 
-# ---------------------------------------------------------------------------
 # selection
-# ---------------------------------------------------------------------------
 
 
 def rank_configs(table: pd.DataFrame, order: Sequence[tuple[str, str]] = SELECTION_ORDER) -> pd.DataFrame:
@@ -780,9 +750,7 @@ def select(table: pd.DataFrame, order: Sequence[tuple[str, str]] = SELECTION_ORD
                   "n_tied_objective_and_first_tiebreak": int(same2.sum())}
 
 
-# ---------------------------------------------------------------------------
 # diagnostics
-# ---------------------------------------------------------------------------
 
 
 def sample_availability(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str],
@@ -806,74 +774,8 @@ def sample_availability(view_data: ViewData, recording_ids: Sequence[str], varia
             "change_share_after_cut": changes_after / changes if changes else np.nan}
 
 
-def co_change_profile(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str],
-                      max_lag: int, interval_s: float, bins: dict[str, tuple[int, int]]) -> pd.DataFrame:
-    """expert-free timing evidence: how often a change of b follows a change of a after k steps (lift 1 = no excess)."""
-    columns = {v: view_data.var_names.index(v) for v in variables}
-    ch = {}
-    for r in recording_ids:
-        x, m = view_data.arrays[r], view_data.masks[r]
-        c = np.zeros(x.shape, dtype=bool)
-        c[1:] = (np.diff(x, axis=0) != 0) & ~m[1:] & ~m[:-1]
-        ch[r] = c
-    rows_total = sum(len(view_data.arrays[r]) for r in recording_ids)
-    out = []
-    for a in variables:
-        for b in variables:
-            if a == b:
-                continue
-            ja, jb = columns[a], columns[b]
-            counts = np.zeros(max_lag + 1)
-            na = nb = 0
-            for r in recording_ids:
-                ca, cb = ch[r][:, ja], ch[r][:, jb]
-                na += int(ca.sum())
-                nb += int(cb.sum())
-                ta = np.flatnonzero(ca)
-                for k in range(max_lag + 1):
-                    t = ta + k
-                    counts[k] += cb[t[t < len(cb)]].sum()
-            expected = na * nb / rows_total if rows_total else 0.0
-            lift = counts / expected if expected > 0 else np.zeros_like(counts)
-            row = {"a": a, "b": b, "changes_a": na, "changes_b": nb}
-            for name, (lo, hi) in bins.items():
-                row[f"cochanges_{name}"] = int(counts[lo:hi + 1].sum())
-                row[f"max_lift_{name}"] = float(lift[lo:hi + 1].max()) if hi >= lo else np.nan
-            ok = np.flatnonzero(counts >= 3)
-            row["peak_lag_s"] = float(ok[np.argmax(lift[ok])] * interval_s) if len(ok) else np.nan
-            out.append(row)
-    return pd.DataFrame(out)
-
-
-def fdr_diagnostics(runs: dict[str, RegimeRun], config: StudyConfig) -> pd.DataFrame:
-    """per regime: links removed by the fdr filter and lag-0 orientations that could depend on them."""
-    rows = []
-    for regime, run in runs.items():
-        if run.status != "ok":
-            continue
-        links = run.links
-        lagged = links[links["lag"] > 0]
-        removed = lagged[~lagged["significant"].astype(bool)]
-        oriented0 = links[(links["kind"] == "contemporaneous") & (links["link"] == "-->")]
-        unoriented0 = links[(links["kind"] == "contemporaneous") & (links["link"] != "-->")]
-        hit_targets = set(removed["target"])
-        possibly = oriented0[oriented0["source"].isin(hit_targets) | oriented0["target"].isin(hit_targets)]
-        rows.append({
-            "config_run": config.run_id, "regime": regime,
-            "lagged_links": int((lagged["kind"] == "lagged").sum()),
-            "lagged_removed": int((removed["kind"] == "lagged").sum()),
-            "auto_links": int((lagged["kind"] == "auto").sum()),
-            "auto_removed": int((removed["kind"] == "auto").sum()),
-            "lag0_oriented": len(oriented0), "lag0_unoriented": len(unoriented0),
-            "lag0_oriented_possibly_dependent_on_removed": len(possibly),
-            "removed_corrected_p_range": (f"{removed['p_value'].min():.3g}-{removed['p_value'].max():.3g}"
-                                          if len(removed) else ""),
-        })
-    return pd.DataFrame(rows)
-
-
 def bootstrap_regimes(regimes: dict[str, list[str]], n_boot: int, seed: int) -> list[dict[str, list[str]]]:
-    """recordings resampled with replacement within every regime (the draws of ``bootstrap_edges``)."""
+    """recordings resampled with replacement within every regime ."""
     rng = np.random.default_rng(seed)
     return [{r: [str(x) for x in rng.choice(ids, size=len(ids), replace=True)] for r, ids in regimes.items()}
             for _ in range(n_boot)]
@@ -891,9 +793,7 @@ class RefreshCache(RunCache):
         return path.exists() and path.stat().st_mtime >= self.since
 
 
-# ---------------------------------------------------------------------------
 # why an expert edge is missing
-# ---------------------------------------------------------------------------
 
 
 def state_changes(view_data: ViewData, recording_id: str, variable: str) -> list[tuple[int, int]]:
@@ -921,15 +821,7 @@ def fault_intervals(view_data: ViewData, recording_id: str, variable: str) -> li
 def pair_separation(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str],
                     config: StudyConfig, a: str, b: str) -> tuple[float, list[dict[str, Any]]]:
     """smallest p-value of the pair in one pcmci+ run and the conditioning sets that separated it."""
-    columns = [view_data.var_names.index(v) for v in variables]
-    frame = tg_pp.DataFrame({k: view_data.arrays[r][:, columns].astype(float) for k, r in enumerate(recording_ids)},
-                            mask={k: view_data.masks[r][:, columns] for k, r in enumerate(recording_ids)},
-                            analysis_mode="multiple", var_names=list(variables))
-    pcmci = PCMCI(dataframe=frame, cond_ind_test=Gsquared(significance="analytic", mask_type="xyz"), verbosity=0)
-    settings = config.discovery_config()
-    results = pcmci.run_pcmciplus(tau_min=0, tau_max=settings.tau_max, pc_alpha=settings.pc_alpha,
-                                  fdr_method=settings.fdr_method, max_conds_dim=settings.max_conds_dim,
-                                  max_conds_px=settings.max_conds_px, max_conds_py=settings.max_conds_py)
+    results = run_pcmciplus(view_data, recording_ids, variables, config.discovery_config())
     i, j = list(variables).index(a), list(variables).index(b)
     p_min = float(np.nanmin(np.r_[results["p_matrix"][i, j, :], results["p_matrix"][j, i, :]]))
     separations = []

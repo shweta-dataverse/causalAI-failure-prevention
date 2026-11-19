@@ -1,8 +1,4 @@
-"""interventions on the scm with actionability and feasibility rules.
-
-do(X = x) replaces X's equation by x from a given step on. effects are model-predicted: they hold
-only if the graph and the fitted mechanisms are right.
-"""
+"""interventions on the scm with actionability and feasibility rules (effects are model-predicted)."""
 
 from __future__ import annotations
 
@@ -14,9 +10,8 @@ import pandas as pd
 
 from core.scm import TemporalSCM
 
-# actionable coolant variables (from the node comments of the expert graph): 'maintenance' is a
-# component condition that can only be restored to `value`, 'control' a plc command set to 0 or 1;
-# every other variable is not actionable
+# actionable coolant variables from the node comments of the expert graph: (kind, value an action may set, repair);
+# a maintenance action only restores a component, a control command may be set to 0 or 1
 ACTIONABILITY: dict[str, tuple[str, float | None, str]] = {
     "CLF_Filter_Ok": ("maintenance", 1.0, "clean or replace the fine-particle coolant filter"),
     "F_Filter_Ok": ("maintenance", 1.0, "replace the empty fleece filter"),
@@ -83,9 +78,7 @@ def check_feasibility(actions: Sequence[Action], recorded: set[str] | None = Non
     return not problems, problems
 
 
-# ---------------------------------------------------------------------------
 # population-level effects
-# ---------------------------------------------------------------------------
 
 
 def simulate_from_state(

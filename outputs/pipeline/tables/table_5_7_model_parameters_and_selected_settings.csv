@@ -1,20 +1,20 @@
 Symbol,Parameter,Meaning,Candidates,Value
 Preprocessing and discovery,,,,
-Δ,Grid interval,Time step of the state series,--,0.5 s
+Δ,Grid interval,Time step of the state series,–,0.5 s
 τmax,Maximum lag,Longest delay tested,"5, 10, 20 s",5 / 20 s
 α,Significance level,Level of each independence test,"0.001, 0.01, 0.05",0.01
---,Conditioning limit,Maximum conditions per test,--,3
---,FDR filter,BH filter on lagged links,--,Applied
+–,Conditioning limit,Maximum conditions per test,–,3
+–,FDR filter,BH filter on lagged links,–,Applied
 κ,Support threshold,Min. share of supporting regimes,"0.25, 0.5, 0.75",0.5 / 0.25
 SCM and RCA,,,,
 a,Pseudo-count,Smoothing of probabilities,"0.01, 0.1, 0.5, 1",0.01
 L,Extra lag,Memory beyond one step,"none, 2, 4 steps",4 steps
-"b, e",Window bounds,Window around alarm onsets,--,"60 s, 5 s"
+"b, e",Window bounds,Window around alarm onsets,–,"60 s, 5 s"
 Counterfactual explanations,,,,
-k,Candidate pool,Top-ranked actionable variables,--,3
-m,Maximum actions,Largest action set examined,--,3
-γ,Validity threshold,Minimum estimated validity,--,0.90
-N,Search simulations,Simulations per candidate set,--,200
+k,Candidate pool,Top-ranked actionable variables,–,3
+m,Maximum actions,Largest action set examined,–,3
+γ,Validity threshold,Minimum estimated validity,–,0.90
+N,Search simulations,Simulations per candidate set,–,200
 Evaluation budgets,,,,
 ,Independent re-evaluation of the selected action sets,,,"2,000"
 ,Simulations per run in the intervention analysis,,,200

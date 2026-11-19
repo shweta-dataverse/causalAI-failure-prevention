@@ -12,24 +12,25 @@ from core.rca import analysis_window
 from pipeline.counterfactuals import (
     fold_settings,
     independent_streams,
-    printed,
-    printed_range,
+    outcome_alarms,
+    recorded_variables,
     refit,
     run_ranking,
     split_names,
 )
-from pipeline.interventions import Setting, load_setting
+from pipeline.scm_fitting import Subsystem, load_subsystem
 from utils.config import setting
-from utils.io import read_input, relative, save_figure, save_table, tables_dir
-from utils.logger import log
-
-
-def write_detail(table: pd.DataFrame, name: str) -> None:
-    """unnumbered detail table of the evaluation (outputs/evaluation/tables/<name>.csv)."""
-    file = tables_dir("evaluation") / f"{name}.csv"
-    file.parent.mkdir(parents=True, exist_ok=True)
-    table.to_csv(file, index=False)
-    log.debug(f"wrote {relative(file)} ({len(table)} rows)")
+from utils.io import (
+    DASH,
+    metric_row,
+    printed,
+    printed_range,
+    read_input,
+    report,
+    save_figure,
+    save_result,
+    save_table,
+)
 
 
 def count(part: int, total: int) -> str:
@@ -40,9 +41,7 @@ def valid_mask(runs: pd.DataFrame) -> pd.Series:
     return runs["valid_independent"].fillna(False).astype(bool)
 
 
-# ---------------------------------------------------------------------------
 # intervention analysis
-# ---------------------------------------------------------------------------
 
 
 def replay_summary(replay: pd.DataFrame, folds: list[str], graphs: list[str]) -> pd.DataFrame:
@@ -131,11 +130,6 @@ def intervention_figure(replay: pd.DataFrame, graphs: list[str], interval_s: flo
     return fig
 
 
-def block_line(label: str, values: list[str]) -> str:
-    """one metric line with one column per graph."""
-    return (f"  {label:<40}" + "".join(f"{v:<14}" for v in values)).rstrip()
-
-
 def replay_stats(replay: pd.DataFrame, interval_s: float) -> dict:
     observed = replay[replay["observed_fired"]]
     supported = observed[observed["alarm_supported"]]
@@ -148,41 +142,36 @@ def replay_stats(replay: pd.DataFrame, interval_s: float) -> dict:
             "negatives": int((~replay["observed_fired"]).sum())}
 
 
-def report_interventions(replay: pd.DataFrame, graphs: list[str], subsystem: str, interval_s: float) -> None:
+def intervention_message(replay: pd.DataFrame, graphs: list[str], subsystem: str, interval_s: float) -> list[str]:
     stats = {g: replay_stats(replay[replay["graph"] == g], interval_s) for g in graphs}
     first = stats[graphs[0]]
     worlds = int(replay["worlds"].iloc[0])
     p_by_graph = replay.pivot_table(index=["recording_id", "alarm"], columns="graph", values="p_fires")
     p_gap = (p_by_graph.max(axis=1) - p_by_graph.min(axis=1)).max()
-    log.info("\n".join([
-        f"\nintervention analysis ({subsystem}, {first['runs']} held-out runs, {worlds} simulations per run)",
-        block_line("", graphs),
-        block_line("observed alarm activations", [str(stats[g]["observed"]) for g in graphs]),
-        block_line("with training data in the fold", [str(stats[g]["supported"]) for g in graphs]),
-        block_line("without training data (not simulated)",
-                   [f"{stats[g]['unsupported']} ({stats[g]['unsupported_alarms']} alarms)" for g in graphs]),
-        block_line("activations reproduced (p > 0.5)",
-                   [f"{stats[g]['reproduced']} of {stats[g]['supported']}" for g in graphs]),
-        block_line("lowest activation probability", [f"{stats[g]['lowest_p']:.3f}" for g in graphs]),
-        block_line(f"onset error within one step ({interval_s:g} s)",
-                   [f"{stats[g]['within']} of {stats[g]['supported']}" for g in graphs]),
-        block_line("onset error median / max (s)", [f"{stats[g]['median']:.1f} / {stats[g]['max']:.1f}" for g in graphs]),
-        block_line("recorded alarms that never activate", [str(stats[g]["negatives"]) for g in graphs]),
-        block_line("largest probability gap between graphs", [f"{p_gap:.3f}"]),
-    ]))
-    least = int(round(min(stats[g]["lowest_p"] for g in graphs) * worlds))
-    sentence = (f"the fold models reproduce {first['reproduced']} of the {first['supported']} alarm activations that "
-                f"have training data (each in at least {least} of {worlds} simulations), {first['within']} of them "
-                f"within one grid step, so the simulated fault responses agree with the recordings; the "
-                f"{first['unsupported']} activations without training data are not covered")
-    if first["negatives"] == 0:
-        sentence += ", every recorded alarm activates, so false activations cannot be assessed"
-    log.info(sentence + ", and the check is retrospective on recorded fault injections, not a test of repairs.")
+    row = metric_row
+    lines = [
+        f"intervention analysis ({subsystem}, {first['runs']} held-out runs, {worlds} simulations per run)",
+        row("", *graphs),
+        row("observed alarm activations", *(str(stats[g]["observed"]) for g in graphs)),
+        row("with training data in the fold", *(str(stats[g]["supported"]) for g in graphs)),
+        row("without training data (not simulated)",
+            *(f"{stats[g]['unsupported']} ({stats[g]['unsupported_alarms']} alarms)" for g in graphs)),
+        row("activations reproduced (p > 0.5)", *(f"{stats[g]['reproduced']} of {stats[g]['supported']}" for g in graphs)),
+        row("lowest activation probability", *(f"{stats[g]['lowest_p']:.3f}" for g in graphs)),
+        row(f"onset error within one step ({interval_s:g} s)",
+            *(f"{stats[g]['within']} of {stats[g]['supported']}" for g in graphs)),
+        row("onset error median / max (s)", *(f"{stats[g]['median']:.1f} / {stats[g]['max']:.1f}" for g in graphs)),
+        row("recorded alarms that never activate", *(str(stats[g]["negatives"]) for g in graphs)),
+        row("largest probability gap between graphs", f"{p_gap:.3f}"),
+    ]
+    reproduced = ("all" if first["reproduced"] == first["supported"]
+                  else f"{first['reproduced']} of the")
+    lines.append(f"the fold models reproduce {reproduced} {first['supported']} alarm activations that have training data, "
+                 f"{first['within']} of them within one grid step, in a retrospective replay of the recorded faults.")
+    return lines
 
 
-# ---------------------------------------------------------------------------
 # counterfactual explanations
-# ---------------------------------------------------------------------------
 
 
 def coverage_count(runs: pd.DataFrame) -> str:
@@ -250,7 +239,7 @@ def summary(runs: pd.DataFrame, refits: pd.DataFrame, graphs: list[str], thresho
     return pd.DataFrame(rows)
 
 
-def settings_check(cfg: dict, s: Setting, rankings: pd.DataFrame) -> pd.DataFrame:
+def settings_check(cfg: dict, s: Subsystem, rankings: pd.DataFrame) -> pd.DataFrame:
     """validity of one fixed action in one fold under several scm settings, with the independent streams."""
     check = setting(cfg, "counterfactuals", "settings_check")
     c = setting(cfg, "counterfactuals")
@@ -271,37 +260,44 @@ def settings_check(cfg: dict, s: Setting, rankings: pd.DataFrame) -> pd.DataFram
                 start = max(1, int(detection[target]))
                 actions = [itv.Action(target, itv.allowed_value(target), start)]
                 window = analysis_window(series, s.alarms, s.interval_s)
-                recorded = {v for v in series if not np.isnan(series[v]).all()}
-                outcome = [a for a in s.alarms if a in recorded and model.mechanisms[a].has_data]
-                result = cfx.reevaluate_validity(model, series, actions, outcome, window[0], recorded, streams[(graph, rid)],
+                recorded = recorded_variables(series)
+                outcome = outcome_alarms(s, model, recorded)
+                stream = streams[(graph, rid)]
+                result = cfx.reevaluate_validity(model, series, actions, outcome, window[0], recorded, stream,
                                                  n_batches=c["independent_batches"],
                                                  batch_size=c["independent_batch_size"])
                 batch = cfx.counterfactual(model, series, actions, outcome, window[0], check["worlds"],
-                                           np.random.default_rng(streams[(graph, rid)].spawn(1)[0]), recorded)
+                                           np.random.default_rng(stream.spawn(1)[0]), recorded)
                 recovery = next(i for i in range(start + 1, len(series[target])) if series[target][i] == 1)
-                # where do the simulations that fail activate the alarm: before or after the recorded recovery
-                noise = model.abduct_noise(series, check["worlds"], np.random.default_rng(check["persistence_seed"]))
-                world = model.simulate(cfx.initial_state(model, series), noise,
-                                       interventions={target: (actions[0].value, start)},
-                                       fixed=cfx.unrecorded_context(model, series))
-                active = world[alarm][:, window[0]:]
-                fired = active.max(axis=1) > 0
-                first = np.argmax(active > 0, axis=1)[fired] + window[0]
                 rows.append({"graph": graph, "setting": label, "pseudo_count": alpha, "extra_lag": lag or 0,
                              "recording_id": rid, "p_alarm_stays_with_healthy_pump": stays,
                              "validity_2000": result["validity_independent"],
                              "valid": result["validity_independent"] >= c["validity_threshold"],
                              "pump_recovery_s": recovery * s.interval_s,
-                             "share_failures_after_recovery": float((first >= recovery).mean()) if fired.any() else np.nan,
+                             "share_failures_after_recovery": failures_after(model, series, actions[0], alarm,
+                                                                             window[0], recovery, check),
                              "validity_check_batch": batch.validity_probability})
     return pd.DataFrame(rows)
+
+
+def failures_after(model: scm.TemporalSCM, series: dict, action: itv.Action, alarm: str, window_start: int,
+                   recovery: int, check: dict) -> float:
+    """share of the simulations that still activate the alarm whose first activation follows the recorded recovery."""
+    noise = model.abduct_noise(series, check["worlds"], np.random.default_rng(check["persistence_seed"]))
+    world = model.simulate(cfx.initial_state(model, series), noise,
+                           interventions={action.variable: (action.value, action.start_step)},
+                           fixed=cfx.unrecorded_context(model, series))
+    active = world[alarm][:, window_start:]
+    fired = active.max(axis=1) > 0
+    first = np.argmax(active > 0, axis=1)[fired] + window_start
+    return float((first >= recovery).mean()) if fired.any() else np.nan
 
 
 def persistence_text(value: float) -> str:
     return printed(value) if value >= 0.01 else f"{value:.1g}"
 
 
-def settings_table(cfg: dict, s: Setting, check: pd.DataFrame, scm_settings: pd.DataFrame) -> pd.DataFrame:
+def settings_table(cfg: dict, s: Subsystem, check: pd.DataFrame, scm_settings: pd.DataFrame) -> pd.DataFrame:
     """validity of the fixed action per scm setting (first graph)."""
     graph = setting(cfg, "graphs")[0]
     fold = setting(cfg, "counterfactuals", "settings_check", "fold")
@@ -418,29 +414,13 @@ def counterfactual_figure(runs: pd.DataFrame, graphs: list[str], threshold: floa
     return fig
 
 
-def report_counterfactuals(cfg: dict, runs: pd.DataFrame, refits: pd.DataFrame, check: pd.DataFrame,
-                           subsystem: str) -> None:
+def counterfactual_message(cfg: dict, runs: pd.DataFrame, refits: pd.DataFrame, check: pd.DataFrame,
+                           subsystem: str) -> list[str]:
     graphs = setting(cfg, "graphs")
     c = setting(cfg, "counterfactuals")
     threshold = c["validity_threshold"]
     worlds = c["independent_batches"] * c["independent_batch_size"]
-
-    stats = {}
-    for g in graphs:
-        d = runs[runs["graph"] == g]
-        valid = valid_mask(d)
-        rf = refits[refits["graph"] == g]
-        lowest = rf.groupby("recording_id")["validity"].min()
-        stats[g] = {
-            "runs": len(d), "valid": int(valid.sum()), "search": int((d["status_selection"] == "valid").sum()),
-            "range_valid": printed_range(d.loc[valid, "validity_independent"]),
-            "range_below": printed_range(d.loc[~valid, "validity_independent"]) if (~valid).any() else "-",
-            "crossing": int(d["borderline (interval contains 0.90)"].fillna(False).astype(bool).sum()),
-            "coverage": coverage_count(d),
-            "stay_valid": int((lowest[d.loc[valid, "recording_id"]] >= threshold).sum()),
-            "refit_share": (rf["validity"] >= threshold).mean(), "refit_n": len(rf),
-            "below_folds": sorted(d.loc[~valid, "fold"].unique()),
-        }
+    stats = {g: counterfactual_stats(runs[runs["graph"] == g], refits[refits["graph"] == g], threshold) for g in graphs}
     first = graphs[0]
     labels = [label for _, _, label in c["settings_check"]["settings"]]
 
@@ -449,70 +429,76 @@ def report_counterfactuals(cfg: dict, runs: pd.DataFrame, refits: pd.DataFrame, 
         valid = [int(d.loc[d["setting"] == label, "valid"].sum()) for label in (labels[0], labels[-1])]
         return f"{valid[0]} / {valid[1]} of {int((d['setting'] == labels[0]).sum())}"
 
-    log.info("\n".join([
-        f"\ncounterfactual explanations ({subsystem}, {stats[first]['runs']} held-out runs, "
+    row = metric_row
+    lines = [
+        f"counterfactual explanations ({subsystem}, {stats[first]['runs']} held-out runs, "
         f"{worlds:,} independent simulations per proposal)",
-        block_line("", graphs),
-        block_line("valid recommendations", [count(stats[g]["valid"], stats[g]["runs"]) for g in graphs]),
-        block_line("reaching 0.90 in the search", [count(stats[g]["search"], stats[g]["runs"]) for g in graphs]),
-        block_line("validity range, valid", [stats[g]["range_valid"] for g in graphs]),
-        block_line("validity range, below threshold", [stats[g]["range_below"] for g in graphs]),
-        block_line("wilson intervals containing 0.90", [str(stats[g]["crossing"]) for g in graphs]),
-        block_line("alarm coverage (activations)", [stats[g]["coverage"] for g in graphs]),
-        block_line("valid runs valid in all refits", [count(stats[g]["stay_valid"], stats[g]["valid"]) for g in graphs]),
-        block_line("refit evaluations reaching 0.90",
-                   [f"{stats[g]['refit_share']:.0%} of {stats[g]['refit_n']}" for g in graphs]),
-        block_line(f"{c['settings_check']['fold']} valid, {labels[0]} / {labels[-1]} scm",
-                   [settings_valid(g) for g in graphs]),
-    ]))
+        row("", *graphs),
+        row("valid recommendations", *(count(stats[g]["valid"], stats[g]["runs"]) for g in graphs)),
+        row(f"reaching {threshold:.2f} in the search", *(count(stats[g]["search"], stats[g]["runs"]) for g in graphs)),
+        row("validity range, valid", *(stats[g]["range_valid"] for g in graphs)),
+        row("validity range, below threshold", *(stats[g]["range_below"] for g in graphs)),
+        row(f"wilson intervals containing {threshold:.2f}", *(str(stats[g]["crossing"]) for g in graphs)),
+        row("alarm coverage (activations)", *(stats[g]["coverage"] for g in graphs)),
+        row("valid runs valid in all refits", *(count(stats[g]["stay_valid"], stats[g]["valid"]) for g in graphs)),
+        row(f"refit evaluations reaching {threshold:.2f}",
+            *(f"{stats[g]['refit_share']:.0%} of {stats[g]['refit_n']}" for g in graphs)),
+        row(f"{c['settings_check']['fold']} valid, {labels[0]} / {labels[-1]} scm", *(settings_valid(g) for g in graphs)),
+    ]
     same = all(stats[g]["valid"] == stats[first]["valid"] for g in graphs)
-    valid_ranges = runs.loc[valid_mask(runs), "validity_independent"]
-    lead = (f"both graphs give valid recommendations for {stats[first]['valid']} of {stats[first]['runs']} runs"
-            if same else "the graphs give " + " and ".join(f"{stats[g]['valid']} ({g})" for g in graphs)
+    lead = (f"both graphs give valid recommendations for {stats[first]['valid']} of {stats[first]['runs']} runs" if same
+            else "the graphs give " + " and ".join(f"{stats[g]['valid']} ({g})" for g in graphs)
             + f" valid recommendations of {stats[first]['runs']} runs")
     stable = all(stats[g]["stay_valid"] == stats[g]["valid"] for g in graphs)
     below = sorted({f for g in graphs for f in stats[g]["below_folds"]})
-    log.info(
-        f"{lead} (validity {printed_range(valid_ranges)} in {worlds:,} independent simulations)"
-        + (", and every valid recommendation stays valid in all five bootstrap-refitted scms" if stable else
-           ", but not every valid recommendation stays valid in all five bootstrap-refitted scms")
-        + (f"; the proposals of {', '.join(below)} stay below {threshold:.2f}" if below else "")
-        + f". validity is model-based (prevention predicted by the scm, not observed), the "
-        f"{coverage_uncovered(runs, first)} alarm activations without training data are not covered, and the "
-        "action timing is retrospective, not an advance warning."
-    )
+    lines.append(lead + (", all stable under refitting" if stable else ", not all stable under refitting")
+                 + (f", while the {' and '.join(below)} proposals stay below {threshold:.2f}" if below else "")
+                 + "; validity is model-based, not observed prevention.")
+    return lines
 
 
-def coverage_uncovered(runs: pd.DataFrame, graph: str) -> int:
-    return sum(len(split_names(x)) for x in runs.loc[runs["graph"] == graph, "uncovered_alarms"])
+def counterfactual_stats(runs: pd.DataFrame, refits: pd.DataFrame, threshold: float) -> dict:
+    """validity, coverage and refit stability of the recommendations of one graph."""
+    valid = valid_mask(runs)
+    lowest = refits.groupby("recording_id")["validity"].min()
+    return {
+        "runs": len(runs), "valid": int(valid.sum()), "search": int((runs["status_selection"] == "valid").sum()),
+        "range_valid": printed_range(runs.loc[valid, "validity_independent"]),
+        "range_below": printed_range(runs.loc[~valid, "validity_independent"]) if (~valid).any() else DASH,
+        "crossing": int(runs["borderline (interval contains 0.90)"].fillna(False).astype(bool).sum()),
+        "coverage": coverage_count(runs),
+        "stay_valid": int((lowest[runs.loc[valid, "recording_id"]] >= threshold).sum()),
+        "refit_share": (refits["validity"] >= threshold).mean(), "refit_n": len(refits),
+        "below_folds": sorted(runs.loc[~valid, "fold"].unique()),
+    }
 
 
 def run(cfg: dict, force: bool = False) -> None:
     graphs = setting(cfg, "graphs")
     threshold = setting(cfg, "counterfactuals", "validity_threshold")
-    s = load_setting(cfg, setting(cfg, "counterfactuals", "subsystem"))
+    s = load_subsystem(cfg, setting(cfg, "counterfactuals", "subsystem"))
     replay = read_input("replay")
     runs = read_input("recommendations")
     refits = read_input("recommendation_refits")
     rankings = read_input("rca_rankings")
-    rankings = rankings[rankings["subsystem"] == s.subsystem]
+    rankings = rankings[rankings["subsystem"] == s.name]
     scm_settings = read_input("scm_settings")
 
-    write_detail(replay_summary(replay, s.folds, graphs), "replay_summary")
+    save_result(replay_summary(replay, s.folds, graphs), "replay_summary")
     save_figure(intervention_figure(replay, graphs, s.interval_s), "6.7", "Alarm responses to fault interventions",
                 "evaluation")
-    report_interventions(replay, graphs, s.subsystem, s.interval_s)
+    report(intervention_message(replay, graphs, s.name, s.interval_s))
 
-    write_detail(summary(runs, refits, graphs, threshold), "counterfactual_summary")
+    save_result(summary(runs, refits, graphs, threshold), "counterfactual_summary")
     save_table(results_table(runs, refits, graphs, threshold), "6.8", "Counterfactual results for coolant", "evaluation")
     check = settings_check(cfg, s, rankings)
-    write_detail(check, "settings_check")
+    save_result(check, "settings_check")
     save_table(settings_table(cfg, s, check, scm_settings), "6.9", "Validity under different SCM settings",
                "evaluation")
     picks = pick_examples(runs[runs["graph"] == graphs[0]])
-    write_detail(examples_detail(picks), "counterfactual_examples")
+    save_result(examples_detail(picks), "counterfactual_examples")
     rows = [row for i, (rule, r) in enumerate(picks, start=1) for row in example_rows(cfg, i, rule, r)]
     save_table(pd.DataFrame(rows), "6.10", "Examples of counterfactual explanations", "evaluation")
     save_figure(counterfactual_figure(runs, graphs, threshold), "6.8", "Counterfactual validity and alarm coverage",
                 "evaluation")
-    report_counterfactuals(cfg, runs, refits, check, s.subsystem)
+    report(counterfactual_message(cfg, runs, refits, check, s.name))

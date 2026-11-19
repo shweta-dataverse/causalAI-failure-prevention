@@ -107,11 +107,11 @@ def test_table_a_5_from_the_stored_results(cfg):
     pd.testing.assert_frame_equal(as_printed(table), thesis_table(TABLE_A_5))
 
 
-def test_change_clauses_follow_the_numbers():
-    assert comparisons.change_clause("x", "3.04/3.03", "2.98/2.88") == "x falls from 3.04/3.03 to 2.98/2.88"
-    assert comparisons.change_clause("x", "0.48/0.56", "0.67/0.63") == "x rises from 0.48/0.56 to 0.67/0.63"
-    assert comparisons.change_clause("x", "1.00", "1.00") == "x stays at 1.00"
-    assert comparisons.change_clause("x", "0.44/0.24", "0.40/0.53") == "x changes from 0.44/0.24 to 0.40/0.53"
+def test_directions_follow_the_numbers():
+    assert comparisons.direction("3.04/3.03", "2.98/2.88") == "lower"
+    assert comparisons.direction("0.48/0.56", "0.67/0.63") == "raise"
+    assert comparisons.direction("1.00", "1.00") == "keep"
+    assert comparisons.direction("0.44/0.24", "0.40/0.53") == "change"
 
 
 # ---------------------------------------------------------------------------

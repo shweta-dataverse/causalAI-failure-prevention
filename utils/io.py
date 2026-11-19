@@ -1,5 +1,6 @@
 import json
 import re
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from typing import Any
 
@@ -7,11 +8,17 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from core.plots import write_pdf
+from core.preprocessing import ViewData, load_view_data
 from utils.config import ROOT, load_config, setting
 from utils.errors import ConfigError, MissingInputError
 from utils.logger import log
 
 PARTS = ("pipeline", "evaluation")
+# a missing or empty value in a written table
+DASH = "–"
+# column widths of the metric blocks printed by the evaluation
+LABEL_WIDTH = 40
+CELL_WIDTH = 14
 
 # contract file in outputs/pipeline/tables -> stage of `python main.py run <stage>` that writes it
 PRODUCERS = {
@@ -31,13 +38,7 @@ PRODUCERS = {
 }
 
 
-# ---------------------------------------------------------------------------
 # paths
-# ---------------------------------------------------------------------------
-
-
-def repo_root() -> Path:
-    return ROOT
 
 
 def path(key: str) -> Path:
@@ -89,9 +90,22 @@ def relative(target: Path) -> str:
         return str(target)
 
 
-# ---------------------------------------------------------------------------
+# state views
+
+
+def view_name(subsystem: str, interval_s: float) -> str:
+    return f"{subsystem}_dt{interval_s:g}"
+
+
+def load_view(name: str) -> ViewData:
+    """a state view of data/processed written by the preprocessing stage."""
+    file = processed_dir() / f"{name}.npz"
+    if not file.exists():
+        raise MissingInputError(f"{relative(file)} not found: run \"python main.py run preprocessing\" first")
+    return load_view_data(processed_dir(), name)[0]
+
+
 # contract files between stages
-# ---------------------------------------------------------------------------
 
 
 def contract_path(name: str) -> Path:
@@ -111,20 +125,39 @@ def read_input(name: str, **read_csv_args: Any) -> pd.DataFrame:
 
 def write_output(table: pd.DataFrame, name: str) -> Path:
     """write a contract file to outputs/pipeline/tables/<name>.csv."""
-    file = contract_path(name)
-    _write_csv(table, file)
+    return write_csv(table, contract_path(name))
+
+
+def save_result(table: pd.DataFrame, name: str) -> Path:
+    """write an unnumbered result table to outputs/evaluation/tables/<name>.csv."""
+    return write_csv(table, tables_dir("evaluation") / f"{name}.csv")
+
+
+def write_csv(table: pd.DataFrame, file: Path) -> Path:
+    """csv without index; list, set and dict cells become json text."""
+    file.parent.mkdir(parents=True, exist_ok=True)
+    out = table.copy()
+    for column in out.columns:
+        if out[column].map(lambda v: isinstance(v, (list, tuple, set, dict))).any():
+            out[column] = out[column].map(_json_cell)
+    out.to_csv(file, index=False)
     log.debug(f"wrote {relative(file)} ({len(table)} rows)")
     return file
 
 
-# ---------------------------------------------------------------------------
+def _json_cell(value: Any) -> Any:
+    if isinstance(value, set):
+        value = sorted(value)
+    if isinstance(value, (list, tuple, dict)):
+        return json.dumps(value, default=str)
+    return value
+
+
 # numbered tables and figures
-# ---------------------------------------------------------------------------
 
 
 def thesis_name(kind: str, number: str, title: str) -> str:
-    """file stem of a numbered table or figure, e.g. ('table', '6.4', 'Root-cause ranking performance')
-    -> 'table_6_4_root_cause_ranking_performance'."""
+    """file stem of a numbered table or figure, e.g. table_6_4_root_cause_ranking_performance."""
     if kind not in ("table", "figure"):
         raise ConfigError(f"kind must be 'table' or 'figure', got {kind!r}")
     parts = [kind, _snake(str(number)), _snake(title)]
@@ -133,8 +166,7 @@ def thesis_name(kind: str, number: str, title: str) -> str:
 
 def save_table(table: pd.DataFrame, number: str, title: str, part: str) -> Path:
     """write a numbered table as csv under its number and title and log the saved line."""
-    file = tables_dir(part) / f"{thesis_name('table', number, title)}.csv"
-    _write_csv(table, file)
+    file = write_csv(table, tables_dir(part) / f"{thesis_name('table', number, title)}.csv")
     log.info(f"saved table {number} -> {relative(file)}")
     return file
 
@@ -151,19 +183,38 @@ def _snake(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
 
 
-def _write_csv(table: pd.DataFrame, file: Path) -> None:
-    file.parent.mkdir(parents=True, exist_ok=True)
-    out = table.copy()
-    # list, set and dict cells become json text
-    for column in out.columns:
-        if out[column].map(lambda v: isinstance(v, (list, tuple, set, dict))).any():
-            out[column] = out[column].map(_json_cell)
-    out.to_csv(file, index=False)
+# printed numbers
 
 
-def _json_cell(value: Any) -> Any:
-    if isinstance(value, set):
-        value = sorted(value)
-    if isinstance(value, (list, tuple, dict)):
-        return json.dumps(value, default=str)
-    return value
+def half_up(value: float, decimals: int) -> float:
+    """value rounded as printed (halves away from zero, unlike python's round)."""
+    return float(_quantized(value, decimals))
+
+
+def printed(value: float, decimals: int = 2) -> str:
+    """value as printed in a table (0.945 -> '0.95'), not rounded to the nearest binary float."""
+    return str(_quantized(value, decimals))
+
+
+def printed_range(values: pd.Series, decimals: int = 2) -> str:
+    """'0.94–0.96', or one number when both ends print the same."""
+    low, high = printed(values.min(), decimals), printed(values.max(), decimals)
+    return low if low == high else f"{low}{DASH}{high}"
+
+
+def _quantized(value: float, decimals: int) -> Decimal:
+    return Decimal(repr(float(value))).quantize(Decimal(1).scaleb(-decimals), rounding=ROUND_HALF_UP)
+
+
+# metric blocks of the evaluation
+
+
+def metric_row(label: str, *cells: str, label_width: int = LABEL_WIDTH, cell_width: int = CELL_WIDTH) -> str:
+    """one aligned line of a metric block: a label and its cells."""
+    return (f"  {label:<{label_width}}" + "".join(f"{cell:<{cell_width}}" for cell in cells)).rstrip()
+
+
+def report(lines: list[str]) -> None:
+    """a metric block and its closing sentence on the terminal, after an empty line."""
+    for line in ["", *lines]:
+        log.info(line)

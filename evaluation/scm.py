@@ -1,4 +1,3 @@
-from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -22,22 +21,7 @@ MANIPULATED = "manipulated (mechanism overridden)"
 ALL_SCENARIOS = "all held-out scenarios (scenario macro)"
 
 
-def half_up(value: float, decimals: int) -> float:
-    """rounded as printed (halves away from zero, unlike python's round)."""
-    return float(Decimal(repr(float(value))).quantize(Decimal(1).scaleb(-decimals), ROUND_HALF_UP))
-
-
-def save_result(table: pd.DataFrame, name: str) -> None:
-    """an unnumbered result table of the evaluation (outputs/evaluation/tables/<name>.csv)."""
-    file = io.tables_dir("evaluation") / f"{name}.csv"
-    file.parent.mkdir(parents=True, exist_ok=True)
-    table.to_csv(file, index=False)
-    log.debug(f"wrote {io.relative(file)} ({len(table)} rows)")
-
-
-# ---------------------------------------------------------------------------
 # one-step predictions and their aggregation
-# ---------------------------------------------------------------------------
 
 
 def predictions(model: scm.TemporalSCM, sub: Subsystem, ids: list[str]) -> pd.DataFrame:
@@ -130,9 +114,7 @@ def fault_prediction(cfg: dict, sub: Subsystem, directory: Path | None = None) -
     return rows, pooled
 
 
-# ---------------------------------------------------------------------------
 # diagnostics of the normal-prediction model
-# ---------------------------------------------------------------------------
 
 
 def refit_stability(cfg: dict, sub: Subsystem, settings: pd.DataFrame) -> list[dict]:
@@ -170,9 +152,7 @@ def normal_diagnostics(cfg: dict, sub: Subsystem) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-# ---------------------------------------------------------------------------
 # table and figure
-# ---------------------------------------------------------------------------
 
 
 def prediction_table(cfg: dict, table: pd.DataFrame) -> pd.DataFrame:
@@ -187,9 +167,9 @@ def prediction_table(cfg: dict, table: pd.DataFrame) -> pd.DataFrame:
             row = {"Subsystem": sub.capitalize(), "Data": label}
             for graph in setting(cfg, "graphs"):
                 name = graph.capitalize()
-                row[f"{name} LL"] = half_up(part.loc[graph, "log_loss"], 3)
-                row[f"{name} Brier"] = half_up(part.loc[graph, "brier"], 3)
-                row[f"{name} LL changes"] = half_up(part.loc[graph, "change_log_loss"], 2)
+                row[f"{name} LL"] = io.half_up(part.loc[graph, "log_loss"], 3)
+                row[f"{name} Brier"] = io.half_up(part.loc[graph, "brier"], 3)
+                row[f"{name} LL changes"] = io.half_up(part.loc[graph, "change_log_loss"], 2)
             rows.append(row)
     return pd.DataFrame(rows)
 
@@ -220,9 +200,7 @@ def prediction_figure(cfg: dict, table: pd.DataFrame) -> plt.Figure:
     return fig
 
 
-# ---------------------------------------------------------------------------
-# selection objective of the scm settings (original discovered graphs, no near-duplicate exclusion)
-# ---------------------------------------------------------------------------
+# selection objective of the scm settings
 
 
 class OriginalGraphs:
@@ -244,7 +222,7 @@ class OriginalGraphs:
             return self.empty
         if held not in self.dags:
             regimes = discovery.define_regimes(self.sub.splits, held, exclude_related=self.exclude_related)
-            specs, _ = discovery.make_specs(self.sub.name, f"{self.sub.name}_dt{self.sub.interval_s:g}", self.sub.view,
+            specs, _ = discovery.make_specs(self.sub.name, io.view_name(self.sub.name, self.sub.interval_s), self.sub.view,
                                             regimes, self.config)
             runs = discovery.load_runs(self.run_cache, specs)
             missing = sorted(r for r, run in runs.items() if run.status != "ok")
@@ -286,48 +264,64 @@ def objective_study(cfg: dict, sub: Subsystem) -> tuple[list[dict], list[dict], 
     """nested selection by inner ap@k and by inner log loss, then one outer fit per rule and scenario."""
     ap_key = f"ap@{setting(cfg, 'rca', 'top_k')}"
     base = baseline(cfg)
-    max_features = setting(cfg, "scm", "max_table_features")
     original = OriginalGraphs(cfg, sub, exclude_related=False)
     inner_rows, selection_rows, outer_rows = [], [], []
     for kind in setting(cfg, "scm", "objective_study", "graphs"):
         choices = [c for c in grid(cfg) if kind != "empty" or c[1] is None]
         for outer in sub.folds:
-            pooled = {c: {"ap": [], "nll": 0.0, "rows": 0} for c in choices}
-            for j in sub.folds:
-                if j == outer:
-                    continue
-                train = data.fold_training_ids(sub.splits, (outer, j), exclude_related=False)
-                graph = original.get(kind, (outer, j))
-                for c in choices:
-                    metrics, pred = score_runs(cfg, sub, fit(sub, graph, train, c, max_features), sub.runs_of(j))
-                    total = float(pred.log_loss.to_numpy().sum())
-                    pooled[c]["ap"].extend(metrics[ap_key].tolist())
-                    pooled[c]["nll"] += total
-                    pooled[c]["rows"] += len(pred)
-                    inner_rows.append({"subsystem": sub.name, "graph": kind, "outer_fold": outer, "inner_fold": j,
-                                       "alpha": c[0], "lag": c[1], ap_key: metrics[ap_key].mean(), "nll": total,
-                                       "rows": len(pred)})
-            ap = {c: float(np.mean(v["ap"])) for c, v in pooled.items()}
-            log_loss = {c: v["nll"] / v["rows"] for c, v in pooled.items()}
+            rows, ap, log_loss = inner_scores(cfg, sub, original, kind, outer, choices)
+            inner_rows += rows
             chosen = {"baseline": base,
                       f"selected by {ap_key.upper()}": best_setting_loose(ap, base, highest=True),
                       "selected by log loss": best_setting_loose(log_loss, base)}
-            for rule, c in chosen.items():
-                selection_rows.append({"subsystem": sub.name, "graph": kind, "outer_fold": outer, "rule": rule,
-                                       "alpha": c[0], "lag": c[1], f"inner_{ap_key}": ap[c], "inner_log_loss": log_loss[c]})
-            train = data.fold_training_ids(sub.splits, outer, exclude_related=False)
-            graph = original.get(kind, (outer,))
-            for rule, c in chosen.items():
-                metrics, pred = score_runs(cfg, sub, fit(sub, graph, train, c, max_features), sub.runs_of(outer))
-                head = {"subsystem": sub.name, "graph": kind, "outer_fold": outer, "rule": rule, "alpha": c[0], "lag": c[1]}
-                outer_rows += [{**head, **row} for row in metrics.to_dict("records")]
-                outer_rows.append({**head, "recording_id": "__fit__", **fit_scores(pred)})
+            head = {"subsystem": sub.name, "graph": kind, "outer_fold": outer}
+            selection_rows += [{**head, "rule": rule, "alpha": c[0], "lag": c[1], f"inner_{ap_key}": ap[c],
+                                "inner_log_loss": log_loss[c]} for rule, c in chosen.items()]
+            outer_rows += outer_scores(cfg, sub, original.get(kind, (outer,)), outer, chosen, head)
             log.debug(f"{sub.name} {kind} {outer}: {chosen}")
     return inner_rows, selection_rows, outer_rows
 
 
+def inner_scores(cfg: dict, sub: Subsystem, original: OriginalGraphs, kind: str, outer: str,
+                 choices: list[tuple]) -> tuple[list[dict], dict, dict]:
+    """inner rows, pooled ap@k and pooled log loss of every setting over the scenarios other than the outer one."""
+    ap_key = f"ap@{setting(cfg, 'rca', 'top_k')}"
+    max_features = setting(cfg, "scm", "max_table_features")
+    pooled = {c: {"ap": [], "nll": 0.0, "rows": 0} for c in choices}
+    rows = []
+    for j in sub.folds:
+        if j == outer:
+            continue
+        train = data.fold_training_ids(sub.splits, (outer, j), exclude_related=False)
+        graph = original.get(kind, (outer, j))
+        for c in choices:
+            metrics, pred = score_runs(cfg, sub, fit(sub, graph, train, c, max_features), sub.runs_of(j))
+            total = float(pred.log_loss.to_numpy().sum())
+            pooled[c]["ap"].extend(metrics[ap_key].tolist())
+            pooled[c]["nll"] += total
+            pooled[c]["rows"] += len(pred)
+            rows.append({"subsystem": sub.name, "graph": kind, "outer_fold": outer, "inner_fold": j,
+                         "alpha": c[0], "lag": c[1], ap_key: metrics[ap_key].mean(), "nll": total, "rows": len(pred)})
+    ap = {c: float(np.mean(v["ap"])) for c, v in pooled.items()}
+    log_loss = {c: v["nll"] / v["rows"] for c, v in pooled.items()}
+    return rows, ap, log_loss
+
+
+def outer_scores(cfg: dict, sub: Subsystem, graph: nx.DiGraph, outer: str, chosen: dict, head: dict) -> list[dict]:
+    """ranking metrics per run and fit scores of the outer model of every selection rule."""
+    train = data.fold_training_ids(sub.splits, outer, exclude_related=False)
+    max_features = setting(cfg, "scm", "max_table_features")
+    rows = []
+    for rule, c in chosen.items():
+        metrics, pred = score_runs(cfg, sub, fit(sub, graph, train, c, max_features), sub.runs_of(outer))
+        settings = {**head, "rule": rule, "alpha": c[0], "lag": c[1]}
+        rows += [{**settings, **row} for row in metrics.to_dict("records")]
+        rows.append({**settings, "recording_id": "__fit__", **fit_scores(pred)})
+    return rows
+
+
 def setting_label(alpha: float, lag) -> str:
-    return f"{alpha:g}, {'--' if pd.isna(lag) else int(lag)}"
+    return f"{alpha:g}, {io.DASH if pd.isna(lag) else int(lag)}"
 
 
 def objective_settings_table(cfg: dict, selection: pd.DataFrame) -> pd.DataFrame:
@@ -356,48 +350,54 @@ def objective_scenarios_table(cfg: dict, outer: pd.DataFrame, subsystem: str) ->
                for name, (g, r) in columns.items()}
     per_scenario = {name: values.groupby(level=0).mean() for name, values in per_run.items()}
     counts = runs[(runs.graph == "expert") & (runs.rule == "baseline")].groupby("outer_fold").size()
-    rows = [{"Scenario": f, "Runs": int(counts[f]), **{n: half_up(v[f], 2) for n, v in per_scenario.items()}}
+    rows = [{"Scenario": f, "Runs": int(counts[f]), **{n: io.half_up(v[f], 2) for n, v in per_scenario.items()}}
             for f in counts.index]
-    rows.append({"Scenario": "Scenario mean", "Runs": "", **{n: half_up(v.mean(), 2) for n, v in per_scenario.items()}})
-    rows.append({"Scenario": "Run mean", "Runs": int(counts.sum()), **{n: half_up(v.mean(), 2) for n, v in per_run.items()}})
+    rows.append({"Scenario": "Scenario mean", "Runs": "", **{n: io.half_up(v.mean(), 2) for n, v in per_scenario.items()}})
+    rows.append({"Scenario": "Run mean", "Runs": int(counts.sum()), **{n: io.half_up(v.mean(), 2) for n, v in per_run.items()}})
     return pd.DataFrame(rows)
 
 
-# ---------------------------------------------------------------------------
 # messages
-# ---------------------------------------------------------------------------
 
 
-def compare(a: float, b: float, decimals: int, lower: str, higher: str, same: str) -> str:
-    if half_up(a, decimals) == half_up(b, decimals):
-        return same
-    return lower if a < b else higher
+def better_graph(expert: float, discovered: float, decimals: int) -> str | None:
+    """the graph with the lower printed loss, None when both print the same."""
+    if io.half_up(expert, decimals) == io.half_up(discovered, decimals):
+        return None
+    return "expert" if expert < discovered else "discovered"
+
+
+def winners_clause(winners: dict[str, str | None]) -> str:
+    """'the discovered graph does better for coolant and the expert graph for probe'."""
+    by_graph: dict[str | None, list[str]] = {}
+    for sub, graph in winners.items():
+        by_graph.setdefault(graph, []).append(sub)
+    parts = [f"the {graph} graph" + (" does better" if i == 0 else "") + f" for {' and '.join(subs)}"
+             if graph else f"the graphs tie for {' and '.join(subs)}"
+             for i, (graph, subs) in enumerate(by_graph.items())]
+    return " and ".join(parts)
 
 
 def prediction_message(cfg: dict, table: pd.DataFrame) -> list[str]:
     printed = table.set_index(["Subsystem", "Data"])
-    lines = ["state prediction (nats; recordings and scenarios weighted equally)",
-             f"  {'':26s}{'LL expert':>11s}{'discovered':>12s}{'LL changes expert':>19s}{'discovered':>12s}"]
-    for (sub, label), row in printed.iterrows():
-        lines.append(f"  {sub.lower() + ' ' + label.lower():26s}{row['Expert LL']:11.3f}{row['Discovered LL']:12.3f}"
-                     f"{row['Expert LL changes']:19.2f}{row['Discovered LL changes']:12.2f}")
-    sentences = []
-    for sub in setting(cfg, "subsystems"):
-        test = printed.loc[(sub.capitalize(), "Test")]
-        fault = printed.loc[(sub.capitalize(), "Fault scenarios")]
-        normal_text = compare(test["Expert LL"], test["Discovered LL"], 3,
-                              "the expert graph predicts normal test states better",
-                              "the discovered graph predicts normal test states better",
-                              "both graphs predict normal test states equally well")
-        fault_text = compare(fault["Expert LL changes"], fault["Discovered LL changes"], 2,
-                             "the expert graph predicts state changes in unseen fault scenarios better",
-                             "the discovered graph predicts state changes in unseen fault scenarios better",
-                             "both graphs predict state changes in unseen fault scenarios equally well")
-        sentences.append(f"for {sub}, {normal_text} (log loss {test['Expert LL']:.3f} against "
-                         f"{test['Discovered LL']:.3f}), and {fault_text} ({fault['Expert LL changes']:.2f} against "
-                         f"{fault['Discovered LL changes']:.2f} nats)")
-    lines.append("; ".join(sentences) + ". these are one-step predictions of the fitted models, so they show how well "
-                 "each graph supports prediction, not whether it is the true causal structure.")
+    row = io.metric_row
+    lines = ["state prediction in nats (recordings and scenarios weighted equally)",
+             row("", "log loss", "", "log loss at changes"),
+             row("", "expert", "discovered", "expert", "discovered")]
+    for (sub, label), values in printed.iterrows():
+        lines.append(row(f"{sub.lower()} {label.lower()}", f"{values['Expert LL']:.3f}", f"{values['Discovered LL']:.3f}",
+                         f"{values['Expert LL changes']:.2f}", f"{values['Discovered LL changes']:.2f}"))
+    subsystems = setting(cfg, "subsystems")
+    normal = {sub: better_graph(*printed.loc[(sub.capitalize(), "Test"), ["Expert LL", "Discovered LL"]], 3)
+              for sub in subsystems}
+    fault = {sub: better_graph(*printed.loc[(sub.capitalize(), "Fault scenarios"),
+                                            ["Expert LL changes", "Discovered LL changes"]], 2)
+             for sub in subsystems}
+    normal_text = ("both graphs predict normal test states equally well" if not any(normal.values())
+                   else f"on normal test states {winners_clause(normal)}")
+    fault_text = ("both graphs predict state changes in unseen faults equally well" if not any(fault.values())
+                  else f"at state changes in unseen faults {winners_clause(fault)}")
+    lines.append(f"{normal_text}; {fault_text}, in model-based one-step predictions.")
     return lines
 
 
@@ -406,52 +406,49 @@ def diagnostics_message(diagnostics: pd.DataFrame, refits: pd.DataFrame, fault: 
     spread = refits[refits.subsystem == sub].groupby("split").change_log_loss.std()
     without_data = fault[(fault.subsystem == sub) & (fault.graph == "expert") & (fault.split == ALL_SCENARIOS)
                          & (fault.variables == NON_MANIPULATED)].share_rows_mechanism_without_data.iloc[0]
+    residual_sd = values["quantile residual sd (validation + test)"]
+    row = io.metric_row
     lines = [f"diagnostics of the {sub} normal-prediction model (expert graph)",
-             f"  quantile residual sd                 {values['quantile residual sd (validation + test)']:.2f}",
-             f"  share of |residual| > 3              {100 * values['share of |residual| > 3']:.2f}%   (normal 0.27%)",
-             f"  sd of change log loss over refits    {spread.min():.2f}-{spread.max():.2f} nats",
-             f"  fault steps of untrained mechanisms  {100 * without_data:.1f}%"]
+             row("quantile residual sd", f"{residual_sd:.2f}", "standard normal 1"),
+             row("share of |residual| > 3", f"{100 * values['share of |residual| > 3']:.2f}%", "standard normal 0.27%"),
+             row("sd of log loss at changes over refits", f"{spread.min():.2f}{io.DASH}{spread.max():.2f} nats"),
+             row("fault steps of untrained mechanisms", f"{100 * without_data:.1f}%"),
+             row("", "share on", "", "changes per minute"),
+             row("", "observed", "simulated", "observed", "simulated")]
     behaviour = sorted({q.split(":")[0] for q in values if ": " in q})
     for v in behaviour:
-        lines.append(f"  {v:15s} share on {values[f'{v}: observed_share_on']:.2f} observed, "
-                     f"{values[f'{v}: simulated_share_on']:.2f} simulated; changes per minute "
-                     f"{values[f'{v}: observed_changes_per_min']:.2f} observed, "
-                     f"{values[f'{v}: simulated_changes_per_min']:.2f} simulated")
+        lines.append(row(v, *(f"{values[f'{v}: {q}']:.2f}" for q in ("observed_share_on", "simulated_share_on",
+                                                                      "observed_changes_per_min",
+                                                                      "simulated_changes_per_min"))))
     under = [v for v in behaviour
              if values[f"{v}: simulated_changes_per_min"] < values[f"{v}: observed_changes_per_min"] - 0.05]
-    calibrated = abs(values["quantile residual sd (validation + test)"] - 1) < 0.05
-    lines.append(("the residuals are close to a standard normal, so the one-step probabilities fit normal operation"
-                  if calibrated else "the residuals deviate from a standard normal, so the one-step probabilities "
-                  "do not fit normal operation well")
-                 + (f", but simulated runs switch less often than recorded for {', '.join(under)}, so the model "
-                    "does not fully reproduce the regular operating cycles." if under else "."))
+    calibrated = abs(residual_sd - 1) < 0.05
+    lines.append(f"the one-step probabilities are {'well' if calibrated else 'not well'} calibrated on normal data"
+                 + (f", but simulated runs switch less often than recorded for {' and '.join(under)}." if under
+                    else ", and simulated runs switch about as often as recorded."))
     return lines
 
 
 def objective_message(cfg: dict, scenarios: pd.DataFrame, outer: pd.DataFrame, subsystem: str) -> list[str]:
+    k = setting(cfg, "rca", "top_k")
     means = scenarios.set_index("Scenario").loc["Scenario mean"]
     fits = outer[(outer.subsystem == subsystem) & (outer.graph == "expert") & (outer.recording_id == "__fit__")]
     # log loss at changes pooled over the changes of all held-out runs
     totals = fits.assign(summed=fits.change_log_loss * fits.changes).groupby("rule")[["summed", "changes"]].sum()
     change = totals.summed / totals.changes
-    ap_rule = f"selected by AP@{setting(cfg, 'rca', 'top_k')}"
-    lines = [f"scm selection objective ({subsystem}, expert graph; original discovered graphs, no near-duplicate exclusion)",
-             f"  scenario-average map@3   default {means['Default']:.2f}   by ap@3 {means['AP@3']:.2f}   "
-             f"by log loss {means['Log loss']:.2f}",
-             f"  log loss at changes      by ap@3 {change[ap_rule]:.2f}   by log loss {change['selected by log loss']:.2f}"]
-    better_rca = means["AP@3"] > means["Log loss"]
-    better_fit = change["selected by log loss"] < change[ap_rule]
-    lines.append(f"selecting by ap@3 gives {'a higher' if better_rca else 'no higher'} diagnosis score "
-                 f"({means['AP@3']:.2f} against {means['Log loss']:.2f}) and selecting by log loss "
-                 f"{'slightly better' if better_fit else 'no better'} transition prediction "
-                 f"({change['selected by log loss']:.2f} against {change[ap_rule]:.2f} nats); the pipeline keeps "
-                 "log loss, which selects without the injected causes.")
+    ap_rule, loss_rule = f"selected by AP@{k}", "selected by log loss"
+    row = io.metric_row
+    lines = [f"scm selection objective, {subsystem} expert graph (original discovered graphs, no near-duplicate exclusion)",
+             row("", "default", f"by ap@{k}", "by log loss"),
+             row(f"scenario-average map@{k}", *(f"{means[c]:.2f}" for c in ("Default", f"AP@{k}", "Log loss"))),
+             row("log loss at changes (nats)", *(f"{change[r]:.2f}" for r in ("baseline", ap_rule, loss_rule)))]
+    gain = change[ap_rule] - change[loss_rule]
+    rca_text = (f"selecting by ap@{k} diagnoses better but needs the injected causes" if means[f"AP@{k}"] > means["Log loss"]
+                else f"selecting by ap@{k} does not diagnose better and needs the injected causes")
+    fit_text = (f"while log loss predicts state changes {'slightly ' if gain < 0.1 else ''}better without them" if gain > 0
+                else "while log loss selects without them")
+    lines.append(f"{rca_text}, {fit_text}, so the pipeline keeps log loss.")
     return lines
-
-
-# ---------------------------------------------------------------------------
-# part
-# ---------------------------------------------------------------------------
 
 
 def run(cfg: dict, force: bool = False) -> None:
@@ -477,18 +474,18 @@ def run(cfg: dict, force: bool = False) -> None:
         outer_rows += outer
 
     table, refit_table = pd.DataFrame(prediction_rows), pd.DataFrame(refits)
-    save_result(table, "scm_prediction")
-    save_result(pd.DataFrame(per_variable), "scm_prediction_per_variable")
-    save_result(refit_table, "scm_refit_stability")
-    save_result(diagnostics, "scm_normal_diagnostics")
+    io.save_result(table, "scm_prediction")
+    io.save_result(pd.DataFrame(per_variable), "scm_prediction_per_variable")
+    io.save_result(refit_table, "scm_refit_stability")
+    io.save_result(diagnostics, "scm_normal_diagnostics")
     fault_variables = (pd.concat(fault_frames).groupby(["subsystem", "graph", "fold", "variable", "manipulated"])
                        .agg(rows=("p", "size"), changes=("change", "sum"), summed_log_loss=("log_loss", "sum"))
                        .reset_index())
-    save_result(fault_variables, "scm_fault_prediction_per_variable")
+    io.save_result(fault_variables, "scm_fault_prediction_per_variable")
     inner, selection, outer = pd.DataFrame(inner_rows), pd.DataFrame(selection_rows), pd.DataFrame(outer_rows)
-    save_result(inner, "scm_objective_inner")
-    save_result(selection, "scm_objective_selection")
-    save_result(outer, "scm_objective_outer")
+    io.save_result(inner, "scm_objective_inner")
+    io.save_result(selection, "scm_objective_selection")
+    io.save_result(outer, "scm_objective_outer")
 
     printed = prediction_table(cfg, table)
     io.save_table(printed, "6.3", "State-prediction performance", "evaluation")
@@ -498,6 +495,6 @@ def run(cfg: dict, force: bool = False) -> None:
     scenarios = objective_scenarios_table(cfg, outer, study_subsystem)
     io.save_table(scenarios, "A.9", "Probe diagnosis by selection objective", "evaluation")
 
-    for line in (prediction_message(cfg, printed) + diagnostics_message(diagnostics, refit_table, table, focus)
-                 + objective_message(cfg, scenarios, outer, study_subsystem)):
-        log.info(line)
+    io.report(prediction_message(cfg, printed))
+    io.report(diagnostics_message(diagnostics, refit_table, table, focus))
+    io.report(objective_message(cfg, scenarios, outer, study_subsystem))

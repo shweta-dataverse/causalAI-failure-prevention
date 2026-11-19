@@ -7,10 +7,9 @@ import numpy as np
 import pandas as pd
 
 from core import data, discovery, graphs, scm
-from core.preprocessing import ViewData, load_view_data
+from core.preprocessing import ViewData
 from utils import io
 from utils.config import setting
-from utils.errors import MissingInputError
 from utils.logger import log
 
 
@@ -24,6 +23,8 @@ class Subsystem:
     manipulated: dict[str, set[str]]
     expert: nx.DiGraph
     interval_s: float
+    # fitted scms, data/cache/scm when not set
+    scm_dir: Path | None = None
 
     @property
     def nodes(self) -> list[str]:
@@ -43,14 +44,16 @@ class Subsystem:
     def runs_of(self, fold: str) -> list[str]:
         return self.splits.loc[self.splits.fold == fold, "recording_id"].tolist()
 
+    def fold_model(self, graph: str, fold: str) -> scm.TemporalSCM:
+        return scm.load_fitted(self.name, graph, data.scope_name(fold), self.scm_dir)
+
 
 def load_subsystem(cfg: dict, name: str) -> Subsystem:
+    """model view, splits, ground truth and expert graph of one subsystem."""
     interval = setting(cfg, "model_interval_s")
-    view_name = f"{name}_dt{interval:g}"
-    if not (io.processed_dir() / f"{view_name}.npz").exists():
-        raise MissingInputError(f"model view {view_name} not found: run \"python main.py run preprocessing\" first")
-    view, _ = load_view_data(io.processed_dir(), view_name)
+    view = io.load_view(io.view_name(name, interval))
     splits = io.read_input("splits")
+    # keep the row order: bootstrap draws depend on it
     splits = splits[splits.subsystem == name].reset_index(drop=True)
     manipulated = data.manipulated_by_recording(data.load_fault_runs(), data.load_experiments())
     # node-table order of the expert graph fixes the order of the mechanisms
@@ -58,9 +61,7 @@ def load_subsystem(cfg: dict, name: str) -> Subsystem:
     return Subsystem(name, view, splits, manipulated, expert, interval)
 
 
-# ---------------------------------------------------------------------------
 # scm graphs
-# ---------------------------------------------------------------------------
 
 
 def discovered_dags(sub: Subsystem, discovered: pd.DataFrame) -> tuple[dict[str, nx.DiGraph], pd.DataFrame]:
@@ -87,9 +88,7 @@ def graph_for(sub: Subsystem, dags: dict[str, nx.DiGraph], kind: str, held: tupl
     return sub.expert if kind == "expert" else dags[data.scope_name(held)]
 
 
-# ---------------------------------------------------------------------------
 # selection of the scm settings
-# ---------------------------------------------------------------------------
 
 
 def grid(cfg: dict) -> list[tuple[float, int | None]]:
@@ -200,9 +199,7 @@ def select_settings(cfg: dict, sub: Subsystem, dags: dict,
     return inner_rows, setting_rows
 
 
-# ---------------------------------------------------------------------------
 # fitted models
-# ---------------------------------------------------------------------------
 
 
 def chosen_setting(row) -> tuple[float, int | None]:
@@ -223,9 +220,7 @@ def fit_selected(cfg: dict, sub: Subsystem, dags: dict, settings: pd.DataFrame, 
     return saved
 
 
-# ---------------------------------------------------------------------------
 # tables
-# ---------------------------------------------------------------------------
 
 
 def number(value: float) -> str:
@@ -264,13 +259,13 @@ def configuration_table(cfg: dict, discovery_settings: pd.DataFrame, settings: p
 
     rows = [
         ("Preprocessing and discovery", "", "", "", ""),
-        ("Δ", "Grid interval", "Time step of the state series", "--", f"{number(fixed['interval_s'])} s"),
+        ("Δ", "Grid interval", "Time step of the state series", io.DASH, f"{number(fixed['interval_s'])} s"),
         ("τmax", "Maximum lag", "Longest delay tested", ", ".join(map(number, grid_cfg["tau_max_s"])) + " s",
          selected("tau_max_s", " s")),
         ("α", "Significance level", "Level of each independence test", ", ".join(map(number, grid_cfg["pc_alpha"])),
          selected("pc_alpha")),
-        ("--", "Conditioning limit", "Maximum conditions per test", "--", "/".join(map(str, conditioning))),
-        ("--", "FDR filter", "BH filter on lagged links", "--", "Applied" if fixed["apply_fdr_to_graph"] else "Not applied"),
+        (io.DASH, "Conditioning limit", "Maximum conditions per test", io.DASH, "/".join(map(str, conditioning))),
+        (io.DASH, "FDR filter", "BH filter on lagged links", io.DASH, "Applied" if fixed["apply_fdr_to_graph"] else "Not applied"),
         ("κ", "Support threshold", "Min. share of supporting regimes",
          ", ".join(map(number, grid_cfg["support_threshold"])), selected("support_threshold")),
         ("SCM and RCA", "", "", "", ""),
@@ -279,13 +274,13 @@ def configuration_table(cfg: dict, discovery_settings: pd.DataFrame, settings: p
         ("L", "Extra lag", "Memory beyond one step",
          ", ".join("none" if v is None else str(v) for v in setting(cfg, "scm", "lags")) + " steps",
          "none" if lag is None else f"{lag} steps"),
-        ("b, e", "Window bounds", "Window around alarm onsets", "--",
+        ("b, e", "Window bounds", "Window around alarm onsets", io.DASH,
          f"{number(setting(cfg, 'rca', 'window_before_s'))} s, {number(setting(cfg, 'rca', 'window_after_s'))} s"),
         ("Counterfactual explanations", "", "", "", ""),
-        ("k", "Candidate pool", "Top-ranked actionable variables", "--", str(cf["top_k"])),
-        ("m", "Maximum actions", "Largest action set examined", "--", str(cf["max_actions"])),
-        ("γ", "Validity threshold", "Minimum estimated validity", "--", f"{cf['validity_threshold']:.2f}"),
-        ("N", "Search simulations", "Simulations per candidate set", "--", str(cf["selection_worlds"])),
+        ("k", "Candidate pool", "Top-ranked actionable variables", io.DASH, str(cf["top_k"])),
+        ("m", "Maximum actions", "Largest action set examined", io.DASH, str(cf["max_actions"])),
+        ("γ", "Validity threshold", "Minimum estimated validity", io.DASH, f"{cf['validity_threshold']:.2f}"),
+        ("N", "Search simulations", "Simulations per candidate set", io.DASH, str(cf["selection_worlds"])),
         ("Evaluation budgets", "", "", "", ""),
         ("", "Independent re-evaluation of the selected action sets", "", "",
          f"{cf['independent_batches'] * cf['independent_batch_size']:,}"),
@@ -302,7 +297,7 @@ def configuration_table(cfg: dict, discovery_settings: pd.DataFrame, settings: p
 
 def scm_label(row) -> str:
     alpha, lag = chosen_setting(row)
-    return f"{number(alpha)}, {'--' if lag is None else lag}"
+    return f"{number(alpha)}, {io.DASH if lag is None else lag}"
 
 
 def fold_settings_table(cfg: dict, discovery_settings: pd.DataFrame, settings: pd.DataFrame) -> pd.DataFrame:
@@ -318,11 +313,6 @@ def fold_settings_table(cfg: dict, discovery_settings: pd.DataFrame, settings: p
                          "SCM expert": scm_label(chosen.loc[(sub, d.scope, "expert")]),
                          "SCM discovered": scm_label(chosen.loc[(sub, d.scope, "discovered")])})
     return pd.DataFrame(rows)
-
-
-# ---------------------------------------------------------------------------
-# stage
-# ---------------------------------------------------------------------------
 
 
 def run(cfg: dict, force: bool = False) -> None:

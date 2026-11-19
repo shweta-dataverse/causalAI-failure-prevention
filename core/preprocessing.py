@@ -1,10 +1,4 @@
-"""event-log preprocessing, one recording at a time.
-
-policies: timestamps are publish times (file order only breaks ties); duplicate
-(recording, node, time_s) events keep the last row; the state at grid time t is the last
-event with time <= t, unknown before the first event and never backfilled; binary values
-are parsed strictly; categorical values stay strings. nothing here reads fault labels.
-"""
+"""event-log preprocessing: parsing, duplicates, zero-order-hold states and model views."""
 
 from __future__ import annotations
 
@@ -70,9 +64,7 @@ class VerificationError(PreprocessingError):
     """the reconstructed state table disagrees with the raw events."""
 
 
-# ---------------------------------------------------------------------------
 # configuration and recording discovery
-# ---------------------------------------------------------------------------
 
 
 @dataclass(frozen=True)
@@ -126,7 +118,7 @@ class RecordingInfo:
     subsystem: str | None  # coolant / hydraulics / probe; None for normal operation
     experiment_id: str | None  # experiment folder name, e.g. "exp_2_3"
     run_id: str | None  # e.g. "run_1"
-    source_file: str  # POSIX path relative to the raw dataset directory
+    source_file: str  # posix path relative to the raw dataset directory
     naming_note: str | None = None
 
 
@@ -185,9 +177,7 @@ def _fault_recording_info(path: Path, raw_dir: Path) -> RecordingInfo:
     )
 
 
-# ---------------------------------------------------------------------------
 # loading and parsing
-# ---------------------------------------------------------------------------
 
 
 def load_events(info: RecordingInfo, raw_dir: Path) -> pd.DataFrame:
@@ -289,9 +279,7 @@ def node_types(events: pd.DataFrame) -> dict[str, str]:
     return events.drop_duplicates("node").set_index("node")["type"].to_dict()
 
 
-# ---------------------------------------------------------------------------
 # duplicates and change marking
-# ---------------------------------------------------------------------------
 
 
 def resolve_duplicates(
@@ -335,9 +323,7 @@ def mark_changes(events: pd.DataFrame) -> pd.DataFrame:
     return marked.sort_values(["recording_id", "time_s", "event_seq"], kind="mergesort").reset_index(drop=True)
 
 
-# ---------------------------------------------------------------------------
 # state reconstruction
-# ---------------------------------------------------------------------------
 
 
 def grid_index(time_s: np.ndarray | pd.Series, interval_s: float) -> np.ndarray:
@@ -431,9 +417,7 @@ def transitions_per_bin(events: pd.DataFrame, interval_s: float) -> pd.DataFrame
     )
 
 
-# ---------------------------------------------------------------------------
 # verification against raw events
-# ---------------------------------------------------------------------------
 
 
 @dataclass
@@ -545,9 +529,7 @@ def _jsonable(value: Any) -> Any:
     return value.item() if isinstance(value, np.generic) else value
 
 
-# ---------------------------------------------------------------------------
 # diagnostics
-# ---------------------------------------------------------------------------
 
 
 def event_statistics(events: pd.DataFrame) -> pd.DataFrame:
@@ -800,9 +782,7 @@ def render_quality_markdown(report: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-# ---------------------------------------------------------------------------
 # model-ready views
-# ---------------------------------------------------------------------------
 
 
 @dataclass
@@ -1017,9 +997,7 @@ def _type_exclusion(variable_type: str, kind: str, counter_first_differences: bo
     return None
 
 
-# ---------------------------------------------------------------------------
 # full run
-# ---------------------------------------------------------------------------
 
 
 def run_preprocessing(config: PreprocessingConfig, max_recordings_per_source: int | None = None) -> dict[str, Any]:

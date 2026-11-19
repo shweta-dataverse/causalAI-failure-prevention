@@ -1,9 +1,4 @@
-"""command line of the pipeline and the evaluation.
-
-  python main.py run [stage]          all six stages in order, or one stage
-  python main.py evaluate <part>      one evaluation part
-  --force                             rerun cached heavy steps (pcmci+ runs, lstm training)
-"""
+"""command line: python main.py run [stage] | evaluate <part> [--force]."""
 
 import argparse
 import importlib
@@ -58,10 +53,7 @@ def dispatch(command: str, names: list[str], force: bool) -> None:
     for name in names:
         module = importlib.import_module(COMMANDS[command][name])
         log.debug(f"{command} {name} (force={force})")
-        try:
-            module.run(cfg, force=force)
-        except NotImplementedError as exc:
-            raise PipelineError(f"{command} {name}: {exc}") from exc
+        module.run(cfg, force=force)
 
 
 def main(argv: list[str] | None = None) -> int:

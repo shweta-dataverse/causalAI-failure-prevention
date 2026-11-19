@@ -8,13 +8,12 @@ import pandas as pd
 
 from core import data, discovery, graphs
 from core.graphs import GraphLayout
-from pipeline.causal_discovery import Subsystem, run_missing, selection_order
+from pipeline.causal_discovery import DiscoveryContext, run_missing, selection_order
 from utils import io
 from utils.config import setting
 from utils.logger import log
 
 PART = "evaluation"
-DASH = "–"
 FIGURES = {"coolant": ("6.1", "Expert and discovered coolant graphs"),
            "probe": ("6.2", "Expert and discovered probe graphs")}
 
@@ -55,7 +54,7 @@ LAYOUTS = {
 class Result:
     """agreement, stability and diagnostics of the discovered graphs of one subsystem."""
 
-    context: Subsystem
+    context: DiscoveryContext
     selected: discovery.StudyConfig
     original: discovery.StudyConfig
     graph: nx.DiGraph
@@ -75,7 +74,7 @@ def run(cfg: dict, force: bool = False) -> None:
     settings = io.read_input("discovery_settings", keep_default_na=False)
     edges = io.read_input("discovered_graphs")
     started = time.time()
-    results = {sub: evaluate(cfg, Subsystem(cfg, sub, splits), settings, edges, force, started)
+    results = {sub: evaluate(cfg, DiscoveryContext(cfg, sub, splits), settings, edges, force, started)
                for sub in setting(cfg, "subsystems")}
     io.save_table(agreement_table(results), "6.1", "Agreement with the expert graphs", PART)
     io.save_table(missed_table(results), "6.2", "Analysis of the missed coolant edges", PART)
@@ -83,17 +82,13 @@ def run(cfg: dict, force: bool = False) -> None:
     for sub, result in results.items():
         save_graph_figures(sub, result)
     for result in results.values():
-        log.info("")
-        for line in metric_block(result, setting(cfg, "graph_evaluation", "stable_edge_share")):
-            log.info(line)
+        io.report(metric_block(result, setting(cfg, "graph_evaluation", "stable_edge_share")))
 
 
-# ---------------------------------------------------------------------------
 # one subsystem
-# ---------------------------------------------------------------------------
 
 
-def evaluate(cfg: dict, context: Subsystem, settings: pd.DataFrame, edges: pd.DataFrame, force: bool,
+def evaluate(cfg: dict, context: DiscoveryContext, settings: pd.DataFrame, edges: pd.DataFrame, force: bool,
              started: float) -> Result:
     study = setting(cfg, "discovery")
     grid = {c.config_id: c for c in discovery.grid_configs(study["grid"])}
@@ -121,15 +116,14 @@ def evaluate(cfg: dict, context: Subsystem, settings: pd.DataFrame, edges: pd.Da
     )
 
 
-def scope_graph(edges: pd.DataFrame, context: Subsystem, scope: str) -> nx.DiGraph:
+def scope_graph(edges: pd.DataFrame, context: DiscoveryContext, scope: str) -> nx.DiGraph:
     rows = edges[(edges["subsystem"] == context.name) & (edges["scope"] == scope)]
     return discovery.edges_to_graph(rows[["source", "target", "oriented", "support"]], context.nodes)
 
 
-def bootstrap_stability(cfg: dict, context: Subsystem, configs: list[discovery.StudyConfig], force: bool,
+def bootstrap_stability(cfg: dict, context: DiscoveryContext, configs: list[discovery.StudyConfig], force: bool,
                         started: float) -> dict[str, dict]:
-    """recordings resampled within every regime: mean directed f1, jaccard with the full-data graph, and
-    the share of draws with each edge (same orientation) and with each adjacency (any orientation)."""
+    """per configuration over resampled recordings: directed f1, jaccard and the share of draws per edge."""
     settings = setting(cfg, "discovery", "bootstrap")
     draws = discovery.bootstrap_regimes(context.all_regimes, settings["n_boot"], settings["seed"])
     run_missing(cfg, context, [discovery.make_specs(context.name, context.view_name, context.view, draw, c)[0]
@@ -154,15 +148,12 @@ def bootstrap_stability(cfg: dict, context: Subsystem, configs: list[discovery.S
     return out
 
 
-# ---------------------------------------------------------------------------
 # missed expert edges and extra alarm edges
-# ---------------------------------------------------------------------------
 
 
 def full_data_configs(cfg: dict, selected: discovery.StudyConfig,
                       original: discovery.StudyConfig) -> list[discovery.StudyConfig]:
-    """one configuration per pcmci+ run of the settings study on all recordings: the grid, the
-    conditioning caps and the long maximum lag of the selected and the original configuration."""
+    """every configuration run on all recordings: the grid, the conditioning caps and the long maximum lag."""
     shortlist = setting(cfg, "discovery", "shortlist")
     named = {"selected": selected, "original": original}
     configs = list(discovery.grid_configs(setting(cfg, "discovery", "grid")))
@@ -171,10 +162,9 @@ def full_data_configs(cfg: dict, selected: discovery.StudyConfig,
     return list({c.run_id: c for c in configs}.values())
 
 
-def missed_edges(cfg: dict, context: Subsystem, graph: nx.DiGraph, selected: discovery.StudyConfig,
+def missed_edges(cfg: dict, context: DiscoveryContext, graph: nx.DiGraph, selected: discovery.StudyConfig,
                  original: discovery.StudyConfig, bootstrap: dict, force: bool, started: float) -> list[dict]:
-    """for every expert edge without an adjacency: where it was testable, which test removed it and
-    whether any evaluated setting or bootstrap draw recovers it."""
+    """per missed expert edge: where it was testable, which test removed it and what recovers it."""
     configs = full_data_configs(cfg, selected, original)
     run_missing(cfg, context, [discovery.make_specs(context.name, context.view_name, context.view, context.all_regimes, c)[0]
                                for c in configs], force, started)
@@ -204,7 +194,7 @@ def missed_edges(cfg: dict, context: Subsystem, graph: nx.DiGraph, selected: dis
     return out
 
 
-def fault_behaviour(context: Subsystem, testable: list[str], cause: str, effect: str,
+def fault_behaviour(context: DiscoveryContext, testable: list[str], cause: str, effect: str,
                     conditions: list[tuple[str, int]]) -> dict:
     """how the effect and the conditioning variable behave while the cause is in its fault state."""
     intervals = changes = same_step = runs = 0
@@ -227,11 +217,11 @@ def fault_behaviour(context: Subsystem, testable: list[str], cause: str, effect:
             "partner": partner, "same_step": same_step}
 
 
-def first_drop(context: Subsystem, recording_id: str, variable: str) -> int | None:
+def first_drop(context: DiscoveryContext, recording_id: str, variable: str) -> int | None:
     return next((step for step, value in discovery.state_changes(context.view, recording_id, variable) if value == 0), None)
 
 
-def tradeoff(cfg: dict, context: Subsystem, hits: list, u: str, v: str) -> dict:
+def tradeoff(cfg: dict, context: DiscoveryContext, hits: list, u: str, v: str) -> dict:
     """best evaluated aggregation (selection order) of the runs that found the pair, among those that keep it."""
     removed_by_filter = all(not bool(s) for _, links in hits for s in links["significant"])
     thresholds = setting(cfg, "discovery", "grid", "support_threshold")
@@ -250,7 +240,7 @@ def tradeoff(cfg: dict, context: Subsystem, hits: list, u: str, v: str) -> dict:
             "found": metrics["skeleton_tp"], "reference": metrics["n_true_edges"], "adjacencies": metrics["n_pred_edges"]}
 
 
-def extra_alarm_pairs(context: Subsystem, graph: nx.DiGraph) -> list[dict]:
+def extra_alarm_pairs(context: DiscoveryContext, graph: nx.DiGraph) -> list[dict]:
     """discovered adjacencies between two alarms that the expert graph lacks, with runs that reset both in one step."""
     kinds = dict(context.expert.nodes(data="kind"))
     out = []
@@ -267,9 +257,7 @@ def extra_alarm_pairs(context: Subsystem, graph: nx.DiGraph) -> list[dict]:
     return out
 
 
-# ---------------------------------------------------------------------------
-# thesis tables and figures
-# ---------------------------------------------------------------------------
+# tables and figures
 
 
 def agreement_table(results: dict[str, Result]) -> pd.DataFrame:
@@ -282,7 +270,7 @@ def agreement_table(results: dict[str, Result]) -> pd.DataFrame:
             f"{dag['n_pred_edges']}", f"{dag['skeleton_f1']:.2f}"]
         columns[f"{sub.capitalize()} random"] = [
             f"{m['n_pred_edges']}", f"{rnd['skeleton_precision']:.2f}", f"{rnd['skeleton_recall']:.2f}",
-            f"{rnd['skeleton_f1']:.2f}", f"{rnd['directed_f1']:.2f}", f"{rnd['shd']:.1f}", DASH, DASH, DASH]
+            f"{rnd['skeleton_f1']:.2f}", f"{rnd['directed_f1']:.2f}", f"{rnd['shd']:.1f}", io.DASH, io.DASH, io.DASH]
     metrics = ["Adjacencies (expert graph)", "Skeleton precision", "Skeleton recall", "Skeleton F1", "Directed F1", "SHD",
                "Undirected edges", "SCM graph: edges", "SCM graph: skeleton F1"]
     return pd.DataFrame({"Metric": metrics, **columns})
@@ -328,7 +316,7 @@ def change_text(edge: dict) -> str:
 def settings_table(results: dict[str, Result]) -> pd.DataFrame:
     rows = []
     for sub, r in results.items():
-        for label, config, row, ties in (("Original", r.original, r.original_row, DASH),
+        for label, config, row, ties in (("Original", r.original, r.original_row, io.DASH),
                                           ("Selected", r.selected, r.selected_row,
                                            str(r.selected_row["n_tied_objective_and_first_tiebreak"]))):
             boot = r.bootstrap[config.config_id]
@@ -352,9 +340,7 @@ def save_graph_figures(sub: str, result: Result) -> None:
     io.save_figure(graphs.draw_comparison(expert, result.graph, layout), number, title, PART)
 
 
-# ---------------------------------------------------------------------------
-# printed summary
-# ---------------------------------------------------------------------------
+# metric block
 
 
 def metric_block(r: Result, stable_share: float) -> list[str]:
@@ -362,28 +348,30 @@ def metric_block(r: Result, stable_share: float) -> list[str]:
     boot, original = r.bootstrap[c.config_id], r.bootstrap[r.original.config_id]
     folds = r.folds
     changed = int((folds["config_id"] != r.selected_row["config_id"]).sum())
+    row = io.metric_row
     lines = [
-        f"graph agreement ({r.context.name}, selected settings: max lag {c.tau_max_s:g} s, alpha {c.pc_alpha:g}, "
+        f"graph agreement, {r.context.name} (selected settings: max lag {c.tau_max_s:g} s, alpha {c.pc_alpha:g}, "
         f"support {c.support_threshold:g})",
-        f"  adjacencies        {m['n_pred_edges']:<6} (expert graph {m['n_true_edges']}, "
-        f"{int(r.selected_row['reference_edges_testable'])} of them testable)",
-        f"  skeleton f1        {m['skeleton_f1']:<6.2f} (random graphs {rnd['skeleton_f1']:.2f})",
-        f"  directed f1        {m['directed_f1']:<6.2f} (random graphs {rnd['directed_f1']:.2f})",
-        f"  shd                {m['shd']:<6} (random graphs {rnd['shd']:.1f})",
-        f"  scm graph          {dag['n_pred_edges']} edges, skeleton f1 {dag['skeleton_f1']:.2f}",
-        f"  held-out folds     {span(folds['n_adjacencies'], 'd')} adjacencies, skeleton f1 {span(folds['skeleton_f1'])}, "
-        f"directed f1 {span(folds['directed_f1'])}, settings changed in {changed} of {len(folds)}",
-        f"  bootstrap          directed f1 {boot['directed_f1']:.2f}, jaccard {boot['jaccard']:.2f} ({boot['draws']} draws); "
-        f"{stable_edges(boot, stable_share)} of {len(boot['full_edges'])} edges in >= {stable_share:.0%} of the draws "
-        f"(original settings: {stable_edges(original, stable_share)} of {len(original['full_edges'])})",
+        row("adjacencies", f"{m['n_pred_edges']}",
+            f"expert graph {m['n_true_edges']}, {int(r.selected_row['reference_edges_testable'])} testable"),
+        row("skeleton f1", f"{m['skeleton_f1']:.2f}", f"random graphs {rnd['skeleton_f1']:.2f}"),
+        row("directed f1", f"{m['directed_f1']:.2f}", f"random graphs {rnd['directed_f1']:.2f}"),
+        row("structural hamming distance", f"{m['shd']}", f"random graphs {rnd['shd']:.1f}"),
+        row("scm graph edges", f"{dag['n_pred_edges']}", f"skeleton f1 {dag['skeleton_f1']:.2f}"),
+        row("held-out fold adjacencies", span(folds["n_adjacencies"], "d"),
+            f"skeleton f1 {span(folds['skeleton_f1'])}, directed f1 {span(folds['directed_f1'])}"),
+        row("held-out folds with other settings", f"{changed} of {len(folds)}"),
+        row("bootstrap directed f1", f"{boot['directed_f1']:.2f}", f"jaccard {boot['jaccard']:.2f} over {boot['draws']} draws"),
+        row(f"edges in >= {stable_share:.0%} of the draws", f"{stable_edges(boot, stable_share)} of {len(boot['full_edges'])}",
+            f"original settings {stable_edges(original, stable_share)} of {len(original['full_edges'])}"),
     ]
     for edge in r.missed:
         u, v = edge["edge"]
-        lines.append(f"  missed {u} → {v}: {lower_first(lost_in(edge['conditions']))}; "
-                     f"{lower_first(change_text(edge))}; adjacent in {edge['bootstrap_share']:.0%} of the draws")
+        lines.append(row(f"missed {u} → {v}", f"{lower_first(lost_in(edge['conditions']))}; "
+                         f"{lower_first(change_text(edge))}; adjacent in {edge['bootstrap_share']:.0%} of the draws"))
     for pair in r.extra_alarm_pairs:
-        lines.append(f"  extra {pair['pair'][0]} – {pair['pair'][1]}: both alarms reset in the same step in "
-                     f"{pair['same_reset']} of {pair['runs']} runs")
+        lines.append(row(f"extra {pair['pair'][0]} – {pair['pair'][1]}",
+                         f"both alarms reset in the same step in {pair['same_reset']} of {pair['runs']} runs"))
     lines.append(sentence(r))
     return lines
 
@@ -409,10 +397,7 @@ def sentence(r: Result) -> str:
     m = r.metrics
     oriented = [(u, v) for u, v, a in r.graph.edges(data=True) if a.get("oriented", True)]
     correct = sum(r.context.expert.has_edge(u, v) for u, v in oriented)
-    extra = m["n_pred_edges"] - m["skeleton_tp"]
-    agreeing = "all" if correct == len(oriented) else f"only {correct}"
-    verdict = ("most of its structure agrees with" if min(m["skeleton_precision"], m["skeleton_recall"]) >= 0.75
-               else "its structure agrees only in part with")
-    return (f"the discovered {r.context.name} graph finds {m['skeleton_tp']} of the {m['n_true_edges']} expert connections "
-            f"and adds {extra} others; {agreeing} of its {len(oriented)} directed edges point as in the expert "
-            f"graph, so {verdict} the expert graph (the reference that also selected the settings, not an independent test).")
+    orientation = (f"and orients all its {len(oriented)} directed edges correctly" if correct == len(oriented)
+                   else f"but orients only {correct} of its {len(oriented)} directed edges correctly")
+    return (f"the discovered {r.context.name} graph recovers {m['skeleton_tp']} of {m['n_true_edges']} expert connections "
+            f"{orientation}, judged against the expert graph used for selection.")

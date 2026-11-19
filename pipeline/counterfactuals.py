@@ -1,5 +1,3 @@
-from decimal import ROUND_HALF_UP, Decimal
-
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -11,25 +9,10 @@ from core import data, scm
 from core import interventions as itv
 from core.plots import COLORS, INK, PAGE_WIDTH, set_print_style
 from core.rca import alarm_onsets, analysis_window
-from pipeline.interventions import Setting, load_setting
+from pipeline.scm_fitting import Subsystem, load_subsystem
 from utils.config import setting
-from utils.io import read_input, relative, save_figure, save_table, write_output
+from utils.io import DASH, printed, printed_range, read_input, relative, save_figure, save_table, write_output
 from utils.logger import log
-
-
-# ---------------------------------------------------------------------------
-# formatting shared with the evaluation
-# ---------------------------------------------------------------------------
-
-
-def printed(value: float, digits: int = 2) -> str:
-    """value rounded half up as printed (0.945 -> 0.95), not to the nearest binary float."""
-    return str(Decimal(repr(float(value))).quantize(Decimal(1).scaleb(-digits), rounding=ROUND_HALF_UP))
-
-
-def printed_range(values: pd.Series, digits: int = 2) -> str:
-    low, high = printed(values.min(), digits), printed(values.max(), digits)
-    return low if low == high else f"{low}–{high}"
 
 
 def split_names(text) -> list[str]:
@@ -53,7 +36,7 @@ def run_ranking(rankings: pd.DataFrame, graph: str, rid: str) -> pd.DataFrame:
     return rows.sort_values("rank")
 
 
-def independent_streams(cfg: dict, s: Setting) -> dict[tuple[str, str], np.random.SeedSequence]:
+def independent_streams(cfg: dict, s: Subsystem) -> dict[tuple[str, str], np.random.SeedSequence]:
     """one fresh seed sequence per graph and fault run, never used during the search."""
     run_ids = sorted(s.splits.loc[s.splits["split"] == "fault", "recording_id"])
     graphs = setting(cfg, "graphs")
@@ -61,105 +44,124 @@ def independent_streams(cfg: dict, s: Setting) -> dict[tuple[str, str], np.rando
     return dict(zip([(g, r) for g in graphs for r in run_ids], root.spawn(len(graphs) * len(run_ids))))
 
 
-def fold_settings(scm_settings: pd.DataFrame, s: Setting, graph: str, fold: str) -> tuple[float, int | None]:
-    row = scm_settings[(scm_settings["subsystem"] == s.subsystem) & (scm_settings["graph"] == graph)
+def fold_settings(scm_settings: pd.DataFrame, s: Subsystem, graph: str, fold: str) -> tuple[float, int | None]:
+    row = scm_settings[(scm_settings["subsystem"] == s.name) & (scm_settings["graph"] == graph)
                        & (scm_settings["scope"] == data.scope_name(fold))].iloc[0]
     return float(row["alpha"]), None if pd.isna(row["lag"]) else int(row["lag"])
 
 
-def refit(cfg: dict, s: Setting, graph: nx.DiGraph, train_ids: list[str], alpha: float, lag: int | None):
+def refit(cfg: dict, s: Subsystem, graph: nx.DiGraph, train_ids: list[str], alpha: float, lag: int | None):
     """the fold scm refitted on other training data with the same graph and settings."""
     lags = scm.extra_lags(graph, lag, setting(cfg, "scm", "max_table_features"))
     return scm.fit_scm(s.view, graph, train_ids, s.manipulated, s.interval_s, smoothing=alpha, lags=lags)
 
 
-# ---------------------------------------------------------------------------
 # search, independent assessment and bootstrap refits
-# ---------------------------------------------------------------------------
 
 
-def explain_graph(cfg: dict, s: Setting, graph: str, rankings: pd.DataFrame, scm_settings: pd.DataFrame,
+def explain_graph(cfg: dict, s: Subsystem, graph: str, rankings: pd.DataFrame, scm_settings: pd.DataFrame,
                   streams: dict) -> tuple[list[dict], pd.DataFrame, list[dict]]:
+    """search per fault run, then an independent check and bootstrap refits of every proposed action set."""
     c = setting(cfg, "counterfactuals")
     models = {fold: s.fold_model(graph, fold) for fold in s.folds}
     explained, tried = cfx.explain_runs(models, s.view, s.splits, rankings[rankings["graph"] == graph], s.manipulated,
                                         s.alarms, s.interval_s, n_samples=c["selection_worlds"],
                                         seed=c["selection_seed"], top_k=c["top_k"],
                                         validity_threshold=c["validity_threshold"])
-    refits = {}
+    refits: dict[tuple[str, int], scm.TemporalSCM] = {}
     run_rows, refit_rows = [], []
     for _, r in explained.iterrows():
         fold, rid = r["fold"], r["recording_id"]
         model = models[fold]
         series = scm.recording_series(s.view, rid)
         ranking = run_ranking(rankings, graph, rid)
-        window = analysis_window(series, s.alarms, s.interval_s)
-        recorded = {v for v in series if not np.isnan(series[v]).all()}
-        activated = list(alarm_onsets(series, s.alarms))
-        covered = [a for a in activated if model.mechanisms[a].has_data]
-        base = {"graph": graph, "fold": fold, "recording_id": rid,
-                "model_id": f"{s.subsystem}-{graph}-{data.scope_name(fold)}",
-                "status_selection": r["status"], "actions": r.get("actions"), "n_actions": r.get("n_actions", 0),
-                "selection_worlds": c["selection_worlds"], "validity_selection": r.get("validity_probability", np.nan),
-                "improvement_selection": r.get("improvement", np.nan),
-                "factual_alarm_share": r.get("factual_alarm_share", np.nan),
-                "action_precision": r["action_precision"], "action_recall": r["action_recall"],
-                "true_causes": r["true_causes"],
-                "activated_alarms": ", ".join(activated), "covered_alarms": ", ".join(covered),
-                "uncovered_alarms": ", ".join(a for a in activated if a not in covered),
-                "alarm_coverage": len(covered) / len(activated) if activated else np.nan,
-                "rca_top3": " > ".join(ranking["variable"].head(c["top_k"])),
-                "window_start_s": window[0] * s.interval_s if window else np.nan}
+        base = selection_row(c, s, graph, r, model, series, ranking)
         if not isinstance(base["actions"], str):
             run_rows.append({**base, "independent_worlds": 0})
             continue
         actions = parse_actions(base["actions"], ranking)
-        outcome = [a for a in s.alarms if a in recorded and model.mechanisms[a].has_data]
-        feasible, _ = itv.check_feasibility(actions, recorded=recorded, max_actions=c["max_actions"])
-        stream = streams[(graph, rid)]
-        result = cfx.reevaluate_validity(model, series, actions, outcome, window[0], recorded, stream,
-                                         n_batches=c["independent_batches"], batch_size=c["independent_batch_size"])
-        # reduction of alarm-active time on one further fresh batch (spawned after the validity batches)
-        fresh = cfx.counterfactual(model, series, actions, outcome, window[0], c["independent_batch_size"],
-                                   np.random.default_rng(stream.spawn(1)[0]), recorded)
-        threshold = c["validity_threshold"]
-        run_rows.append({**base, "independent_worlds": result["n_worlds"],
-                         "validity_independent": result["validity_independent"],
-                         "wilson_low": result["wilson_low"], "wilson_high": result["wilson_high"],
-                         "feasible": feasible,
-                         "valid_independent": bool(feasible and result["validity_independent"] >= threshold),
-                         "borderline (interval contains 0.90)":
-                             bool(result["wilson_low"] < threshold <= result["wilson_high"]),
-                         "improvement_fresh": fresh.improvement,
-                         "action_start_s": "; ".join(f"{a.variable} at {a.start_step * s.interval_s:g} s"
-                                                     for a in actions)})
-        # robustness to the mechanism estimates: bootstrap refits of the fold training data
+        start = analysis_window(series, s.alarms, s.interval_s)[0]
+        run_rows.append({**base, **independent_check(c, s, model, series, actions, start, streams[(graph, rid)])})
         train = data.fold_training_ids(s.splits, fold)
         alpha, lag = fold_settings(scm_settings, s, graph, fold)
         for b in range(c["refits_per_fold"]):
             sample = list(np.random.default_rng(c["refit_sample_seed"] + b).choice(train, size=len(train), replace=True))
             if (fold, b) not in refits:
                 refits[(fold, b)] = refit(cfg, s, model.graph, sample, alpha, lag)
-            refitted = refits[(fold, b)]
-            refit_outcome = [a for a in s.alarms if a in recorded and refitted.mechanisms[a].has_data]
-            check = cfx.counterfactual(refitted, series, actions, refit_outcome, window[0], c["selection_worlds"],
-                                       np.random.default_rng(c["refit_world_seed"] + b), recorded)
             refit_rows.append({"graph": graph, "fold": fold, "recording_id": rid, "refit": b,
                                "unique_recordings": len(set(sample)), "draws": len(sample),
-                               "worlds": c["selection_worlds"], "validity": check.validity_probability})
+                               "worlds": c["selection_worlds"],
+                               "validity": refit_validity(c, s, refits[(fold, b)], series, actions, start, b)})
     return run_rows, tried.assign(graph=graph), refit_rows
 
 
-# ---------------------------------------------------------------------------
+def selection_row(c: dict, s: Subsystem, graph: str, r: pd.Series, model: scm.TemporalSCM, series: dict,
+                  ranking: pd.DataFrame) -> dict:
+    """result of the search for one run, with its alarm coverage and rca context."""
+    window = analysis_window(series, s.alarms, s.interval_s)
+    activated = list(alarm_onsets(series, s.alarms))
+    covered = [a for a in activated if model.mechanisms[a].has_data]
+    return {"graph": graph, "fold": r["fold"], "recording_id": r["recording_id"],
+            "model_id": f"{s.name}-{graph}-{data.scope_name(r['fold'])}",
+            "status_selection": r["status"], "actions": r.get("actions"), "n_actions": r.get("n_actions", 0),
+            "selection_worlds": c["selection_worlds"], "validity_selection": r.get("validity_probability", np.nan),
+            "improvement_selection": r.get("improvement", np.nan),
+            "factual_alarm_share": r.get("factual_alarm_share", np.nan),
+            "action_precision": r["action_precision"], "action_recall": r["action_recall"],
+            "true_causes": r["true_causes"],
+            "activated_alarms": ", ".join(activated), "covered_alarms": ", ".join(covered),
+            "uncovered_alarms": ", ".join(a for a in activated if a not in covered),
+            "alarm_coverage": len(covered) / len(activated) if activated else np.nan,
+            "rca_top3": " > ".join(ranking["variable"].head(c["top_k"])),
+            "window_start_s": window[0] * s.interval_s if window else np.nan}
+
+
+def recorded_variables(series: dict) -> set[str]:
+    return {v for v in series if not np.isnan(series[v]).all()}
+
+
+def outcome_alarms(s: Subsystem, model: scm.TemporalSCM, recorded: set[str]) -> list[str]:
+    """recorded alarms whose mechanism has training data."""
+    return [a for a in s.alarms if a in recorded and model.mechanisms[a].has_data]
+
+
+def independent_check(c: dict, s: Subsystem, model: scm.TemporalSCM, series: dict, actions: list[itv.Action],
+                      start: int, stream: np.random.SeedSequence) -> dict:
+    """validity of a proposed action set on fresh worlds, with its wilson interval and alarm-time reduction."""
+    recorded = recorded_variables(series)
+    outcome = outcome_alarms(s, model, recorded)
+    feasible, _ = itv.check_feasibility(actions, recorded=recorded, max_actions=c["max_actions"])
+    result = cfx.reevaluate_validity(model, series, actions, outcome, start, recorded, stream,
+                                     n_batches=c["independent_batches"], batch_size=c["independent_batch_size"])
+    # reduction of alarm-active time on one further fresh batch (spawned after the validity batches)
+    fresh = cfx.counterfactual(model, series, actions, outcome, start, c["independent_batch_size"],
+                               np.random.default_rng(stream.spawn(1)[0]), recorded)
+    threshold = c["validity_threshold"]
+    return {"independent_worlds": result["n_worlds"], "validity_independent": result["validity_independent"],
+            "wilson_low": result["wilson_low"], "wilson_high": result["wilson_high"], "feasible": feasible,
+            "valid_independent": bool(feasible and result["validity_independent"] >= threshold),
+            "borderline (interval contains 0.90)": bool(result["wilson_low"] < threshold <= result["wilson_high"]),
+            "improvement_fresh": fresh.improvement,
+            "action_start_s": "; ".join(f"{a.variable} at {a.start_step * s.interval_s:g} s" for a in actions)}
+
+
+def refit_validity(c: dict, s: Subsystem, model: scm.TemporalSCM, series: dict, actions: list[itv.Action],
+                   start: int, b: int) -> float:
+    """validity of the same action set under one bootstrap-refitted scm."""
+    recorded = recorded_variables(series)
+    check = cfx.counterfactual(model, series, actions, outcome_alarms(s, model, recorded), start,
+                               c["selection_worlds"], np.random.default_rng(c["refit_world_seed"] + b), recorded)
+    return check.validity_probability
+
+
 # recommendation tables
-# ---------------------------------------------------------------------------
 
 
 def seconds(value: float) -> str:
     return "0" if value == 0 else f"{value:.1f}"
 
 
-def alarm_lead_times(s: Setting, runs: pd.DataFrame, rankings: pd.DataFrame) -> dict[tuple[str, str], list[float]]:
+def alarm_lead_times(s: Subsystem, runs: pd.DataFrame, rankings: pd.DataFrame) -> dict[tuple[str, str], list[float]]:
     """(scenario, addressed alarm) -> time from the start of the action reaching it to its recorded onset."""
     leads: dict[tuple[str, str], list[float]] = {}
     for r in runs.itertuples(index=False):
@@ -184,7 +186,7 @@ def action_text(names: list[str], component_names: dict[str, str], below_thresho
     return text[0].upper() + text[1:]
 
 
-def recommendation_table(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd.DataFrame) -> pd.DataFrame:
+def recommendation_table(cfg: dict, s: Subsystem, runs: pd.DataFrame, rankings: pd.DataFrame) -> pd.DataFrame:
     """recommended action per scenario with the addressed alarms, validity and valid runs."""
     first, second = setting(cfg, "graphs")
     names = setting(cfg, "counterfactuals", "component_names")
@@ -201,12 +203,12 @@ def recommendation_table(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd
         for alarm in addressed:
             lead = leads[(fold, alarm)]
             low, high = seconds(min(lead)), seconds(max(lead))
-            timing.append(f"{alarm} ({low if low == high else f'{low}–{high}'} s)")
+            timing.append(f"{alarm} ({low if low == high else f'{low}{DASH}{high}'} s)")
         rows.append({
             "Scenario": fold,
             "Recommended action": action_text(actions, names, below_threshold=n_valid == 0),
             "Alarm addressed (time before observed alarm)": ", ".join(timing),
-            "Alarm without training data": ", ".join(uncovered) or "–",
+            "Alarm without training data": ", ".join(uncovered) or DASH,
             "Validity, expert (discovered)": f"{printed_range(d['validity_independent'])} "
                                              f"({printed_range(other['validity_independent'])})",
             "Valid": f"{n_valid} / {len(d)}",
@@ -223,7 +225,7 @@ def short_name(variable: str) -> str:
     return variable.split("_")[0]
 
 
-def per_run_table(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd.DataFrame) -> pd.DataFrame:
+def per_run_table(cfg: dict, s: Subsystem, runs: pd.DataFrame, rankings: pd.DataFrame) -> pd.DataFrame:
     """actions, evaluated alarm onsets and validity of every run (first graph)."""
     graph = setting(cfg, "graphs")[0]
     rows = []
@@ -242,12 +244,10 @@ def per_run_table(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd.DataFr
     return pd.DataFrame(rows)
 
 
-# ---------------------------------------------------------------------------
 # counterfactual example figure
-# ---------------------------------------------------------------------------
 
 
-def example_figure(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd.DataFrame) -> plt.Figure:
+def example_figure(cfg: dict, s: Subsystem, runs: pd.DataFrame, rankings: pd.DataFrame) -> plt.Figure:
     """observed states and counterfactual probability of state 1 for the example run."""
     graph = setting(cfg, "graphs")[0]
     rid = setting(cfg, "figure_examples", "coolant_run")
@@ -260,9 +260,9 @@ def example_figure(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd.DataF
     stream = independent_streams(cfg, s)[(graph, rid)]
     world = cfx.independent_worlds(model, series, actions, stream, c["independent_batches"],
                                    c["independent_batch_size"])
-    recorded = {v for v in series if not np.isnan(series[v]).all()}
+    recorded = recorded_variables(series)
     window = analysis_window(series, s.alarms, s.interval_s)
-    outcome = [a for a in s.alarms if a in recorded and model.mechanisms[a].has_data]
+    outcome = outcome_alarms(s, model, recorded)
     any_alarm = np.max(np.stack([world[a][:, window[0]:] for a in outcome]), axis=0)
     observed = np.column_stack([np.nan_to_num(series[a][window[0]:]) for a in outcome]).max(axis=1)
     log.debug(f"example {rid}: validity {(any_alarm.max(axis=1) == 0).mean():.4f} "
@@ -297,7 +297,7 @@ def example_figure(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd.DataF
     return fig
 
 
-def explain_all(cfg: dict, s: Setting, rankings: pd.DataFrame,
+def explain_all(cfg: dict, s: Subsystem, rankings: pd.DataFrame,
                 scm_settings: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """recommendations, tried action sets and refit validities of every fault run with both graphs."""
     streams = independent_streams(cfg, s)
@@ -311,9 +311,9 @@ def explain_all(cfg: dict, s: Setting, rankings: pd.DataFrame,
 
 
 def run(cfg: dict, force: bool = False) -> None:
-    s = load_setting(cfg, setting(cfg, "counterfactuals", "subsystem"))
+    s = load_subsystem(cfg, setting(cfg, "counterfactuals", "subsystem"))
     rankings = read_input("rca_rankings")
-    rankings = rankings[rankings["subsystem"] == s.subsystem]
+    rankings = rankings[rankings["subsystem"] == s.name]
     runs, tried, refits = explain_all(cfg, s, rankings, read_input("scm_settings"))
     file = write_output(runs, "recommendations")
     write_output(tried, "tried_action_sets")

@@ -4,10 +4,9 @@ from itertools import permutations
 import pandas as pd
 
 from core import data, discovery, graphs
-from core import preprocessing as pp
 from utils import io
 from utils.config import setting
-from utils.errors import DataError, MissingInputError
+from utils.errors import DataError
 from utils.logger import log
 
 SETTINGS_DROPPED = ["subsystem", "scope", "rank", "runtime_s", "run_status"]
@@ -21,7 +20,7 @@ def run(cfg: dict, force: bool = False) -> None:
     started = time.time()
     edges, settings = [], []
     for sub in setting(cfg, "subsystems"):
-        context = Subsystem(cfg, sub, splits)
+        context = DiscoveryContext(cfg, sub, splits)
         sub_edges, sub_settings = discover(cfg, context, grid, order, context.scopes(), force, started)
         edges.append(sub_edges)
         settings.append(sub_settings)
@@ -34,14 +33,14 @@ def run(cfg: dict, force: bool = False) -> None:
              + io.relative(io.contract_path("discovery_settings")))
 
 
-class Subsystem:
+class DiscoveryContext:
     """state view, splits, expert graph and regimes of one subsystem."""
 
     def __init__(self, cfg: dict, subsystem: str, splits: pd.DataFrame, exclude_related: bool = True):
         self.name = subsystem
         self.exclude_related = exclude_related
-        self.view_name = f"{subsystem}_dt{setting(cfg, 'model_interval_s'):g}"
-        self.view = load_view(self.view_name)
+        self.view_name = io.view_name(subsystem, setting(cfg, "model_interval_s"))
+        self.view = io.load_view(self.view_name)
         # row order matters: the bootstrap draws recordings by position
         self.splits = splits[splits["subsystem"] == subsystem].reset_index(drop=True)
         self.expert = graphs.simple_digraph(data.load_expert_graph(subsystem=subsystem))
@@ -78,13 +77,6 @@ class Subsystem:
         return ",".join(sorted(everything - kept - held_runs))
 
 
-def load_view(name: str) -> pp.ViewData:
-    directory = io.processed_dir()
-    if not (directory / f"{name}.npz").exists():
-        raise MissingInputError(f"{io.relative(directory / name)}.npz not found: run \"python main.py run preprocessing\" first")
-    return pp.load_view_data(directory, name)[0]
-
-
 def selection_order(study: dict) -> list[tuple[str, str]]:
     return [tuple(next(iter(rule.items()))) for rule in study["selection"]["order"]]
 
@@ -93,21 +85,23 @@ def run_cache() -> discovery.RunCache:
     return discovery.RunCache(io.cache_dir("discovery_study"))
 
 
-def run_missing(cfg: dict, context: Subsystem, spec_lists: list[list[discovery.RunSpec]], force: bool,
+def run_missing(cfg: dict, context: DiscoveryContext, spec_lists: list[list[discovery.RunSpec]], force: bool,
                 started: float) -> None:
     """pcmci+ for every regime run not in the cache (with force: every run not written since the start)."""
     specs = [spec for specs in spec_lists for spec in specs]
     cache = discovery.RefreshCache(io.cache_dir("discovery_study"), started) if force else run_cache()
     unique = {spec.key() for spec in specs}
     missing = {spec.key() for spec in specs if not cache.has(spec)}
-    log.info(f"{context.name}: {len(unique)} pcmci+ regime runs, {len(unique) - len(missing)} from "
-             f"{io.relative(cache.directory)}, {len(missing)} to run")
-    if missing:
-        discovery.run_specs(specs, cache, io.processed_dir(), workers=setting(cfg, "discovery", "runtime", "workers"),
-                            timeout_s=setting(cfg, "discovery", "shortlist", "run_timeout_s"), log=log.info)
+    if not missing:
+        log.debug(f"{context.name}: all {len(unique)} pcmci+ regime runs read from {io.relative(cache.directory)}")
+        return
+    log.info(f"{context.name}: {len(missing)} of {len(unique)} pcmci+ regime runs to run, "
+             f"the others read from {io.relative(cache.directory)}")
+    discovery.run_specs(specs, cache, io.processed_dir(), workers=setting(cfg, "discovery", "runtime", "workers"),
+                        timeout_s=setting(cfg, "discovery", "shortlist", "run_timeout_s"), log=log.info)
 
 
-def discover(cfg: dict, context: Subsystem, grid: list[discovery.StudyConfig], order: list[tuple[str, str]],
+def discover(cfg: dict, context: DiscoveryContext, grid: list[discovery.StudyConfig], order: list[tuple[str, str]],
              scopes: list[tuple[str, ...]], force: bool, started: float) -> tuple[pd.DataFrame, pd.DataFrame]:
     """edges and settings row of the configuration selected from the grid for every scope."""
     # the support threshold only aggregates, so one pcmci+ run serves three configurations
@@ -124,7 +118,7 @@ def discover(cfg: dict, context: Subsystem, grid: list[discovery.StudyConfig], o
     return pd.concat(edges, ignore_index=True), pd.DataFrame(settings)
 
 
-def select_scope(context: Subsystem, held: tuple[str, ...], grid: list[discovery.StudyConfig],
+def select_scope(context: DiscoveryContext, held: tuple[str, ...], grid: list[discovery.StudyConfig],
                  order: list[tuple[str, str]]) -> tuple[dict, pd.DataFrame]:
     """the selected configuration of one scope (its settings row) and its aggregated graph."""
     regimes = context.regimes(held)

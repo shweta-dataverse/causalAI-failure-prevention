@@ -43,16 +43,14 @@ def run(cfg: dict, force: bool = False) -> None:
     log.info(f"splits {splits_status}")
     pairs = check_near_duplicates(cfg, runs, experiments)
 
-    views = {sub: pp.load_view_data(io.processed_dir(), view_name(sub, setting(cfg, "model_interval_s")))[0]
+    views = {sub: io.load_view(io.view_name(sub, setting(cfg, "model_interval_s")))
              for sub in subsystems}
     save_thesis_items(cfg, raw, runs, experiments, splits, events, views, pairs)
     log.info(f"preprocessing done. {len(setting(cfg, 'state_views'))} state views in "
              f"{io.relative(io.processed_dir())} and {len(splits)} recordings in {io.relative(io.contract_path('splits'))}")
 
 
-# ---------------------------------------------------------------------------
 # events, splits and state views
-# ---------------------------------------------------------------------------
 
 
 def subsystem_events(infos: list[pp.RecordingInfo], runs: pd.DataFrame, subsystem: str) -> pd.DataFrame:
@@ -73,10 +71,6 @@ def fault_ids(runs: pd.DataFrame, subsystem: str) -> list[str]:
 
 def expert_nodes(subsystem: str) -> list[str]:
     return sorted(data.load_expert_graph(subsystem=subsystem).nodes)
-
-
-def view_name(subsystem: str, interval_s: float) -> str:
-    return f"{subsystem}_dt{interval_s:g}"
 
 
 def build_splits(cfg: dict, recordings: pd.DataFrame) -> pd.DataFrame:
@@ -108,7 +102,7 @@ def update_views(cfg: dict, recordings: pd.DataFrame, runs: pd.DataFrame, splits
     directory = io.processed_dir()
     ids = {sub: recordings.loc[recordings["source"] == "real_op", "recording_id"].tolist() + fault_ids(runs, sub)
            for sub in events}
-    names = [view_name(s["subsystem"], s["interval_s"]) for s in specs]
+    names = [io.view_name(s["subsystem"], s["interval_s"]) for s in specs]
     if not force and all(view_is_current(directory, s, ids[s["subsystem"]]) for s in specs):
         return f"present in {io.relative(directory)}, not rebuilt (--force rebuilds and compares them)"
     outcome: dict[str, list[str]] = {}
@@ -122,7 +116,7 @@ def update_views(cfg: dict, recordings: pd.DataFrame, runs: pd.DataFrame, splits
 
 def view_is_current(directory: Path, spec: dict, recording_ids: list[str]) -> bool:
     """the stored view exists and holds the expected recordings and variables."""
-    name = view_name(spec["subsystem"], spec["interval_s"])
+    name = io.view_name(spec["subsystem"], spec["interval_s"])
     if not (directory / f"{name}.npz").exists() or not (directory / f"{name}.json").exists():
         return False
     stored = json.loads((directory / f"{name}.json").read_text(encoding="utf-8"))
@@ -137,8 +131,8 @@ def build_view(spec: dict, events: pd.DataFrame, recording_ids: list[str], split
     states = pp.reconstruct_states(events, interval, nodes=nodes)
     check = pp.verify_states(events, states, interval)
     if not check.passed:
-        raise DataError(f"{view_name(sub, interval)}: {check.n_mismatches} state cells differ from the raw events")
-    log.debug(f"{view_name(sub, interval)}: {check.n_cells_checked} state cells match the raw events")
+        raise DataError(f"{io.view_name(sub, interval)}: {check.n_mismatches} state cells differ from the raw events")
+    log.debug(f"{io.view_name(sub, interval)}: {check.n_cells_checked} state cells match the raw events")
     types = pp.node_types(events)
     if spec["encoding"] == "schema":
         view = pp.ModelView.from_schema(types, nodes, VIEW_KIND)
@@ -146,7 +140,7 @@ def build_view(spec: dict, events: pd.DataFrame, recording_ids: list[str], split
         train = splits.loc[splits["split"] == "train", "recording_id"].tolist()
         faults = splits.loc[splits["split"] == "fault", "recording_id"].tolist()
         view = pp.ModelView.fit(states, types, train + faults, VIEW_KIND, nodes=nodes)
-    _, spec_file = pp.save_view_data(view, view.transform(states, recording_ids), directory, view_name(sub, interval),
+    _, spec_file = pp.save_view_data(view, view.transform(states, recording_ids), directory, io.view_name(sub, interval),
                                      interval_s=interval)
     if spec["encoding"] == "schema":
         stored = json.loads(spec_file.read_text(encoding="utf-8"))
@@ -180,9 +174,7 @@ def same_view(left_dir: Path, right_dir: Path, name: str) -> bool:
                     for r in left.arrays))
 
 
-# ---------------------------------------------------------------------------
 # near-duplicate recordings
-# ---------------------------------------------------------------------------
 
 
 def check_near_duplicates(cfg: dict, runs: pd.DataFrame, experiments: pd.DataFrame) -> list[dict]:
@@ -209,9 +201,7 @@ def check_near_duplicates(cfg: dict, runs: pd.DataFrame, experiments: pd.DataFra
     return sorted(pairs, key=lambda p: p["single"])
 
 
-# ---------------------------------------------------------------------------
-# thesis tables and figure
-# ---------------------------------------------------------------------------
+# tables and figure
 
 
 def save_thesis_items(cfg: dict, raw: Path, runs: pd.DataFrame, experiments: pd.DataFrame, splits: pd.DataFrame,
@@ -239,7 +229,7 @@ def subsystem_table(cfg: dict, runs: pd.DataFrame, experiments: pd.DataFrame) ->
         counts = scenarios["n_manipulated"]
         rows.append({"Subsystem": sub.capitalize(), "Nodes": expert.number_of_nodes(), "Edges": expert.number_of_edges(),
                      "Scenarios": len(scenarios), "Runs": int((runs["subsystem"] == sub).sum()),
-                     "Manipulated variables per scenario": f"{counts.min()}–{counts.max()} "
+                     "Manipulated variables per scenario": f"{counts.min()}{io.DASH}{counts.max()} "
                                                            f"({setting(cfg, 'manipulated_kinds', sub)})"})
     return pd.DataFrame(rows)
 
@@ -291,7 +281,7 @@ def variable_table(subsystem: str, events: pd.DataFrame, experiments: pd.DataFra
         share = f"{100 * changed.get(node, 0) / n_normal:.1f}" if node in recorded else "n.r."
         rows.append({"Variable": node, "Role": role, "Normal": share,
                      "In/out": f"{expert.in_degree(node)}/{expert.out_degree(node)}",
-                     "Manipulated in": ", ".join(manipulated_in.get(node, [])) or "–"})
+                     "Manipulated in": ", ".join(manipulated_in.get(node, [])) or io.DASH})
     table = pd.DataFrame(rows)
     table["order"] = table["Role"].map(ROLE_ORDER.index)
     return table.sort_values(["order", "Variable"]).drop(columns="order").reset_index(drop=True)

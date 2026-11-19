@@ -1,9 +1,4 @@
-"""individual counterfactual explanations by abduction, action and prediction.
-
-abduction samples the noise consistent with the observed run, the action holds the chosen
-actionable variables at their allowed value from their detection step, and prediction rolls the
-equations forward. the answer holds under the model only (monotone threshold noise).
-"""
+"""individual counterfactual explanations by abduction, action and prediction (valid under the model only)."""
 
 from __future__ import annotations
 

@@ -1,12 +1,4 @@
-"""structural causal model for binary machine states on a time grid.
-
-every variable follows a binary transition mechanism
-    x_j[t] = 1  if  u_j[t] < p_j(x_j[t-1], pa_j[t], pa_j[t-1] [, pa_j[t-L]])  else 0,  u ~ uniform(0, 1)
-where p_j is a smoothed conditional probability table. mechanisms are fitted only on rows where
-the variable was not manipulated, unrecorded parents take their training mode, and a variable
-without training rows is held at its usual state. the threshold noise makes individual
-counterfactuals computable; it is an assumption, not identified from data.
-"""
+"""binary structural causal model on a time grid with threshold noise."""
 
 from __future__ import annotations
 
@@ -28,9 +20,7 @@ SMOOTHING = 0.5
 PROB_CLIP = 1e-9
 
 
-# ---------------------------------------------------------------------------
 # series helpers
-# ---------------------------------------------------------------------------
 
 
 def recording_series(view_data: ViewData, recording_id: str) -> dict[str, np.ndarray]:
@@ -51,11 +41,10 @@ def fill_values(view_data: ViewData, recording_ids: Sequence[str]) -> dict[str, 
     return out
 
 
-# ---------------------------------------------------------------------------
 # mechanisms
-# ---------------------------------------------------------------------------
 
 
+# x[t] = 1 if u[t] < p(x[t-1], parents at t, t-1 and extra lags), with u ~ uniform(0, 1)
 @dataclass
 class Mechanism:
     variable: str
@@ -168,9 +157,7 @@ def fit_mechanism(
     return mechanism
 
 
-# ---------------------------------------------------------------------------
 # the scm
-# ---------------------------------------------------------------------------
 
 
 @dataclass
@@ -184,7 +171,7 @@ class TemporalSCM:
     def order(self) -> list[str]:
         return [v for v in nx.topological_sort(self.graph) if v in self.mechanisms]
 
-    # -- observational scoring ------------------------------------------------
+    # observational scoring
 
     def transition_probs(self, series: dict[str, np.ndarray], variable: str) -> np.ndarray:
         """p(x[t] = 1) for t = 1..T-1 given the observed previous state and parents (nan where unknown)."""
@@ -203,7 +190,7 @@ class TemporalSCM:
         p = self.transition_probs(series, variable)
         return np.where(np.isnan(x) | np.isnan(p), np.nan, -np.log(np.where(x == 1, p, 1 - p)))
 
-    # -- simulation, interventions and counterfactuals -------------------------
+    # simulation, interventions and counterfactuals
 
     def simulate(
         self,
@@ -214,13 +201,9 @@ class TemporalSCM:
         history: dict[str, np.ndarray] | None = None,
         releases: dict[str, int] | None = None,
     ) -> dict[str, np.ndarray]:
-        """roll the structural equations forward for many noise samples at once.
-
-        noise[v]: (samples, steps). interventions[v] = (value, first step) replaces the equation;
-        releases[v] ends it at that step (sustained otherwise). fixed holds context variables at one
-        value. history[v] holds observed states before step 0 for lagged parents (padded with the
-        initial state where it has no value). returns variable -> (samples, steps).
-        """
+        """roll the equations forward for noise of shape (samples, steps); returns variable -> (samples, steps)."""
+        # interventions[v] = (value, first step) replaces the equation until releases[v], if given;
+        # fixed holds context variables at one value; history[v] holds observed states before step 0
         interventions = interventions or {}
         releases = releases or {}
         for v, step in releases.items():
@@ -344,20 +327,16 @@ def load_fitted(subsystem: str, graph: str, scope: str, directory: Path | None =
     return pickle.loads(path.read_bytes())
 
 
-# ---------------------------------------------------------------------------
 # diagnostics
-# ---------------------------------------------------------------------------
 
 
-def held_out_predictions(scm: TemporalSCM, view_data: ViewData, recording_ids: Sequence[str],
-                         manipulated: dict[str, set[str]] | None = None) -> pd.DataFrame:
-    """one row per variable and step with p(x[t] = 1), x[t] and x[t-1] (not manipulated)."""
-    manipulated = manipulated or {}
+def held_out_predictions(scm: TemporalSCM, view_data: ViewData, recording_ids: Sequence[str]) -> pd.DataFrame:
+    """one row per variable and step with p(x[t] = 1), x[t] and x[t-1]."""
     frames = []
     for r in recording_ids:
         s = recording_series(view_data, r)
         for v in scm.mechanisms:
-            if v in manipulated.get(r, set()) or v not in s:
+            if v not in s:
                 continue
             p = scm.transition_probs(s, v)
             y, prev = s[v][1:], s[v][:-1]

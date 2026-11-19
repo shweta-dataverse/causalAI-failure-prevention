@@ -1,21 +1,13 @@
-"""root cause analysis by mechanism breaks: which variable's own fitted mechanism fails to explain it.
-
-the score of a candidate is its largest surprise -log p(x[t] | x[t-1], parents) inside a window
-anchored on observed alarm onsets (never on the fault annotations). candidates are the recorded
-non-alarm variables of the run, so every result is compared with chance on the same candidates.
-"""
+"""root cause analysis by mechanism breaks: candidates ranked by their largest surprise near the alarms."""
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
+from collections.abc import Sequence
 
-import networkx as nx
 import numpy as np
 import pandas as pd
 
-from core.data import fold_training_ids
-from core.preprocessing import ViewData
-from core.scm import TemporalSCM, fit_scm, recording_series
+from core.scm import TemporalSCM
 
 
 def alarm_onsets(series: dict[str, np.ndarray], alarms: Sequence[str]) -> dict[str, int]:
@@ -76,9 +68,7 @@ def score_candidates(
     return table.reset_index(drop=True)
 
 
-# ---------------------------------------------------------------------------
 # ranking metrics
-# ---------------------------------------------------------------------------
 
 
 def ranking_metrics(ranked: Sequence[str], truth: set[str], k: int = 3) -> dict[str, float]:
@@ -115,54 +105,3 @@ def bootstrap_ci(values: Sequence[float], n_boot: int = 2000, seed: int = 0, lev
     means = rng.choice(values, size=(n_boot, values.size), replace=True).mean(axis=1)
     alpha = (1 - level) / 2
     return float(np.quantile(means, alpha)), float(np.quantile(means, 1 - alpha))
-
-
-# ---------------------------------------------------------------------------
-# leave-one-scenario-out evaluation
-# ---------------------------------------------------------------------------
-
-
-def evaluate_rca(
-    view_data: ViewData,
-    splits: pd.DataFrame,
-    manipulated: dict[str, set[str]],
-    graph_for: Callable[[str], nx.DiGraph],
-    alarms: Sequence[str],
-    nodes: Sequence[str],
-    interval_s: float,
-    folds: Sequence[str] | None = None,
-    n_chance: int = 2000,
-    seed: int = 0,
-    fit_model: Callable[[str, list[str]], TemporalSCM] | None = None,
-) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, TemporalSCM]]:
-    """per fold: fit the scm without the scenario and rank the candidates of its runs."""
-    folds = list(folds) if folds is not None else sorted(splits.loc[splits["split"] == "fault", "fold"].unique())
-    metric_rows, ranking_frames, scms = [], [], {}
-    for fold in folds:
-        train = fold_training_ids(splits, fold)
-        if fit_model is None:
-            model = fit_scm(view_data, graph_for(fold), train, manipulated, interval_s)
-        else:
-            model = fit_model(fold, train)
-        scms[fold] = model
-        for rid in splits.loc[splits["fold"] == fold, "recording_id"]:
-            series = recording_series(view_data, rid)
-            truth = set(manipulated[rid])
-            window = analysis_window(series, alarms, interval_s)
-            base = {"fold": fold, "recording_id": rid, "n_causes": len(truth)}
-            if window is None:
-                metric_rows.append({**base, "scored": False})
-                continue
-            cands = candidates(series, nodes, alarms)
-            ranking = score_candidates(model, series, cands, window)
-            ranking["is_cause"] = ranking["variable"].isin(truth)
-            ranking_frames.append(ranking.assign(fold=fold, recording_id=rid))
-            chance = chance_metrics(cands, truth, n_draws=n_chance, seed=seed)
-            metric_rows.append({
-                **base, "scored": True, "n_candidates": len(cands),
-                "window_start_s": window[0] * interval_s, "window_end_s": window[1] * interval_s,
-                **ranking_metrics(ranking["variable"], truth),
-                **{f"chance_{k}": v for k, v in chance.items()},
-            })
-    rankings = pd.concat(ranking_frames, ignore_index=True) if ranking_frames else pd.DataFrame()
-    return pd.DataFrame(metric_rows), rankings, scms

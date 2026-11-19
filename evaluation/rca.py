@@ -13,16 +13,16 @@ from matplotlib.patches import Patch
 
 from core import data, lstm_shap, rca, scm
 from core.plots import BASELINE_COLOR, COLORS, GRAPH_COLORS, GRAPH_LABELS, INK, PAGE_WIDTH, set_print_style
-from evaluation.scm import OriginalGraphs, half_up, save_result
+from evaluation.scm import OriginalGraphs
 from pipeline.root_cause_analysis import ranking_of
 from pipeline.scm_fitting import Subsystem, baseline, chosen_setting, fit, load_subsystem
 from utils import io
 from utils.config import load_config, setting
 from utils.logger import log
 
-# ---------------------------------------------------------------------------
+
 # lstm + shap baseline
-# ---------------------------------------------------------------------------
+
 
 _SUBSYSTEMS: dict[str, Subsystem] = {}
 
@@ -117,8 +117,7 @@ def lstm_tuning(cfg: dict, force: bool = False) -> pd.DataFrame:
     jobs = [(sub, h, lb) for sub in setting(cfg, "subsystems") for h in lc["hidden"] for lb in lc["lookback_steps"]]
     log.info(f"tuning the lstm ({len(jobs)} settings)")
     table = pd.DataFrame(list(_pool_map(cfg, _tuning_job, jobs)))
-    file.parent.mkdir(parents=True, exist_ok=True)
-    table.to_csv(file, index=False)
+    io.write_csv(table, file)
     return table
 
 
@@ -140,10 +139,7 @@ def _fold_file(job: tuple) -> Path:
 
 
 def lstm_results(cfg: dict, exclude_related: bool = True, force: bool = False) -> dict:
-    """tuning table, chosen settings, per-run rankings and attributions of the lstm + shap baseline.
-
-    every trained fold is cached in data/cache/lstm, so only missing folds are trained.
-    """
+    """tuning, chosen settings, rankings and attributions of the lstm + shap baseline; folds cached in data/cache/lstm."""
     tuning = lstm_tuning(cfg, force)
     chosen = lstm_choice(tuning)
     jobs = [(sub, fold, seed, *chosen[sub], exclude_related)
@@ -199,9 +195,7 @@ def lstm_summaries(cfg: dict, results: dict) -> dict[str, pd.DataFrame]:
     return {"summary": pd.DataFrame(summary), "per_scenario": per_scenario[main], "sensitivity": pd.DataFrame(sensitivity)}
 
 
-# ---------------------------------------------------------------------------
 # causal rca metrics
-# ---------------------------------------------------------------------------
 
 
 def metric_names(k: int) -> list[str]:
@@ -255,9 +249,7 @@ def distinct_orders(rankings: pd.DataFrame) -> int:
     return rankings.sort_values(["recording_id", "rank"]).groupby("recording_id").variable.apply(tuple).nunique()
 
 
-# ---------------------------------------------------------------------------
 # graph and scm settings of the probe ranking
-# ---------------------------------------------------------------------------
 
 
 def decomposition(cfg: dict, sub: Subsystem, settings: pd.DataFrame) -> pd.DataFrame:
@@ -299,9 +291,7 @@ def decomposition(cfg: dict, sub: Subsystem, settings: pd.DataFrame) -> pd.DataF
     return pd.DataFrame(rows)
 
 
-# ---------------------------------------------------------------------------
 # tables
-# ---------------------------------------------------------------------------
 
 
 def ranking_table(cfg: dict, summary: pd.DataFrame, runs: pd.DataFrame, per_scenario: pd.DataFrame,
@@ -314,18 +304,18 @@ def ranking_table(cfg: dict, summary: pd.DataFrame, runs: pd.DataFrame, per_scen
     rows = []
     for sub in setting(cfg, "subsystems"):
         causal = summary[summary.subsystem == sub].set_index("graph")
-        values = {g: [half_up(causal.loc[g, f], 2) for f in fields] for g in setting(cfg, "graphs")}
+        values = {g: [io.half_up(causal.loc[g, f], 2) for f in fields] for g in setting(cfg, "graphs")}
         if len({tuple(v) for v in values.values()}) == 1:
             rows.append((sub, "Causal, both graphs", next(iter(values.values()))))
         else:
             rows += [(sub, f"Causal, {g}", v) for g, v in values.items()]
         baseline_row = lstm[lstm.subsystem == sub].iloc[0]
-        rows.append((sub, "LSTM + SHAP", [half_up(baseline_row[f], 2) for f in fields]))
+        rows.append((sub, "LSTM + SHAP", [io.half_up(baseline_row[f], 2) for f in fields]))
         graph = setting(cfg, "graphs")[0]
         scored = runs[(runs.subsystem == sub) & (runs.graph == graph) & runs.scored.astype(bool)]
         chance_scenarios = per_scenario[(per_scenario.subsystem == sub) & (per_scenario.graph == graph)]
         chance = [scored[f"chance_{m}"].mean() for m in metric_names(k)] + [chance_scenarios[f"chance_ap{k}"].mean()]
-        rows.append((sub, "Chance", [half_up(v, 2) for v in chance]))
+        rows.append((sub, "Chance", [io.half_up(v, 2) for v in chance]))
     return pd.DataFrame([{"Subsystem": s.capitalize(), "Method": m, **dict(zip(columns, v))} for s, m, v in rows])
 
 
@@ -337,8 +327,8 @@ def decomposition_table(cfg: dict, table: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for (kind, version), part in table.groupby(["graph", "discovered_graph"], sort=False):
         printed = [{"Graph": labels[(kind, version)], "SCM settings": r.scm_settings.capitalize(),
-                    "Top-1": half_up(r.top1_run_mean, 2), f"MAP@{k}": half_up(getattr(r, f"map{k}_run_mean"), 2),
-                    f"Scenario avg. AP@{k}": half_up(getattr(r, f"ap{k}_scenario_macro"), 2),
+                    "Top-1": io.half_up(r.top1_run_mean, 2), f"MAP@{k}": io.half_up(getattr(r, f"map{k}_run_mean"), 2),
+                    f"Scenario avg. AP@{k}": io.half_up(getattr(r, f"ap{k}_scenario_macro"), 2),
                     "Orders": int(r.distinct_rankings)} for r in part.itertuples()]
         # a graph that ranks the same with both settings is shown once
         same = all({key: v for key, v in p.items() if key != "SCM settings"} ==
@@ -377,14 +367,12 @@ def sensitivity_table(cfg: dict, sensitivity: pd.DataFrame, subsystem: str) -> p
               for name, n in setting(cfg, "lstm", "step_variants").items()}
     names = {"abs": "Absolute attribution", "pos": "Positive attribution"}
     return pd.DataFrame([{"Explained steps": label,
-                          **{names[a]: half_up(part.loc[(steps, a), f"map{k}_run_mean"], 2)
+                          **{names[a]: io.half_up(part.loc[(steps, a), f"map{k}_run_mean"], 2)
                              for a in setting(cfg, "lstm", "aggregations")}}
                          for steps, label in labels.items()])
 
 
-# ---------------------------------------------------------------------------
 # figures
-# ---------------------------------------------------------------------------
 
 
 def scenario_figure(cfg: dict, per_scenario: pd.DataFrame, lstm: pd.DataFrame) -> plt.Figure:
@@ -434,88 +422,91 @@ def attribution_figure(cfg: dict, importance: pd.DataFrame) -> plt.Figure:
     return fig
 
 
-# ---------------------------------------------------------------------------
 # messages
-# ---------------------------------------------------------------------------
 
 
 def ranking_message(cfg: dict, table: pd.DataFrame, summary: pd.DataFrame, lstm: dict,
                     gaps: pd.DataFrame, orders: dict) -> list[str]:
     k = setting(cfg, "rca", "top_k")
+    graphs = setting(cfg, "graphs")
+    low = f"map{k}_run_mean_ci_low (runs, ignores scenario dependence)"
+    row = io.metric_row
+    cell = 7
     lines = ["root-cause ranking (means over runs; scenario avg. weights scenarios equally)",
-             f"  {'':32s}{'top-1':>7s}{f'hit@{k}':>7s}{f'rec@{k}':>7s}{f'map@{k}':>7s}{'mrr':>7s}{'scen.':>7s}"]
-    for row in table.itertuples(index=False):
-        lines.append(f"  {(row[0] + ' ' + row[1]).lower():32s}" + "".join(f"{v:7.2f}" for v in row[2:]))
+             row("", "".join(f"{h:<{cell}}" for h in ("top-1", f"hit@{k}", f"rec@{k}", f"map@{k}", "mrr", "scen.")))]
+    for r in table.itertuples(index=False):
+        lines.append(row(f"{r[0]} {r[1]}".lower(), "".join(f"{v:<{cell}.2f}" for v in r[2:])))
     ci = summary.set_index(["subsystem", "graph"])
     sensitivity = lstm["sensitivity"]
+    seeds = lstm["summary"].set_index("subsystem")
+    expert_gaps = gaps[gaps.graph == graphs[0]]
     for sub in setting(cfg, "subsystems"):
-        intervals = ", ".join(f"{g} [{ci.loc[(sub, g), f'map{k}_run_mean_ci_low (runs, ignores scenario dependence)']:.2f}, "
-                              f"{ci.loc[(sub, g), f'map{k}_run_mean_ci_high']:.2f}]" for g in setting(cfg, "graphs"))
-        seeds = lstm["summary"].set_index("subsystem").loc[sub]
         variants = sensitivity[sensitivity.subsystem == sub][f"map{k}_run_mean"]
-        lines.append(f"  {sub}: map@{k} 95% run bootstrap {intervals}; distinct orders "
-                     + ", ".join(f"{g} {orders[(sub, g)]}" for g in setting(cfg, "graphs"))
-                     + f"; lstm + shap map@{k} {seeds[f'map{k}_seed_min']:.2f}-{seeds[f'map{k}_seed_max']:.2f} over seeds, "
-                     f"{variants.min():.2f}-{variants.max():.2f} over explanation settings")
-    expert_gaps = gaps[gaps.graph == "expert"]
-    for sub, part in expert_gaps.groupby("subsystem"):
-        if (part.gap <= 0).any():
-            continue
-        per_fold = part.groupby("fold").gap.median()
-        lines.append(f"  {sub} expert graph: median score gap between injected causes and other candidates "
-                     f"{part.gap.median():.2f} nats (scenarios {per_fold.min():.2f}-{per_fold.max():.2f})")
-    printed = table.set_index(["Subsystem", "Method"])
-    sentences = []
-    for sub in setting(cfg, "subsystems"):
-        part = printed.loc[sub.capitalize()]
-        chance = part.loc["Chance", f"MAP@{k}"]
-        causal = part[part.index.str.startswith("Causal")][f"MAP@{k}"]
-        best = causal.idxmax()
-        others = part.drop(index=["Chance", best])[f"MAP@{k}"]
-        if (causal == 1).all() and part.loc["LSTM + SHAP", f"MAP@{k}"] == 1:
-            sentences.append(f"for {sub}, every method ranks all injected causes on top (map@{k} 1.00 against chance "
-                             f"{chance:.2f}), so the diagnosis works but does not by itself show a benefit of the "
-                             "causal structure")
-            continue
-        bounds = ci.loc[sub]
-        overlap = (bounds[f"map{k}_run_mean_ci_low (runs, ignores scenario dependence)"].max()
-                   < bounds[f"map{k}_run_mean_ci_high"].min())
-        compared = ", ".join(f"{v:.2f} for {method_name(m)}" for m, v in others.items())
-        sentences.append(f"for {sub}, causal rca with {method_name(best)} ranks best (map@{k} {causal[best]:.2f} "
-                         f"against {compared}; chance {chance:.2f})"
-                         + (", but the run-level intervals of the two graphs overlap, so the advantage is not "
-                            "established" if overlap else ""))
-    lines.append("; ".join(sentences) + ". this is a retrospective diagnosis of injected faults in held-out scenarios, "
-                 "not a field validation.")
+        lines += [
+            row(f"{sub} map@{k} 95% run interval", ", ".join(f"{g} [{ci.loc[(sub, g), low]:.2f}, "
+                                                          f"{ci.loc[(sub, g), f'map{k}_run_mean_ci_high']:.2f}]"
+                                                          for g in graphs)),
+            row(f"{sub} distinct rankings", ", ".join(f"{g} {orders[(sub, g)]}" for g in graphs)),
+            row(f"{sub} lstm + shap map@{k} range", f"{seeds.loc[sub, f'map{k}_seed_min']:.2f}{io.DASH}"
+                f"{seeds.loc[sub, f'map{k}_seed_max']:.2f} over seeds, {variants.min():.2f}{io.DASH}{variants.max():.2f} "
+                "over explanation settings")]
+        part = expert_gaps[expert_gaps.subsystem == sub]
+        if len(part) and (part.gap > 0).all():
+            per_fold = part.groupby("fold").gap.median()
+            lines.append(row(f"{sub} cause score gap ({graphs[0]})", f"median {part.gap.median():.2f} nats, "
+                             f"scenarios {per_fold.min():.2f}{io.DASH}{per_fold.max():.2f}"))
+    lines.append(ranking_sentence(cfg, table, ci, low))
     return lines
 
 
+def ranking_sentence(cfg: dict, table: pd.DataFrame, ci: pd.DataFrame, low: str) -> str:
+    """which method ranks best per subsystem, built from the printed map@k."""
+    k = setting(cfg, "rca", "top_k")
+    printed = table.set_index(["Subsystem", "Method"])
+    clauses = []
+    for sub in setting(cfg, "subsystems"):
+        maps = printed.loc[sub.capitalize()][f"MAP@{k}"].drop("Chance")
+        if (maps == 1).all():
+            clauses.append(f"every method ranks all {sub} causes on top")
+            continue
+        best = maps.idxmax()
+        clause = f"for {sub} {method_name(best)} ranks best"
+        bounds = ci.loc[sub]
+        if best.startswith("Causal") and bounds[low].max() < bounds[f"map{k}_run_mean_ci_high"].min():
+            clause += ", though the run intervals of the two graphs overlap"
+        clauses.append(clause)
+    return "; ".join(clauses) + " (retrospective diagnosis of injected faults)."
+
+
 def method_name(method: str) -> str:
-    """'Causal, expert' -> 'the expert graph', other methods in lower case."""
-    return f"the {method.removeprefix('Causal, ')} graph" if method.startswith("Causal, ") else method.lower()
+    """'Causal, expert' -> 'causal rca with the expert graph', other methods in lower case."""
+    if method.startswith("Causal, "):
+        return f"causal rca with the {method.removeprefix('Causal, ')} graph"
+    return method.lower()
 
 
 def decomposition_message(cfg: dict, table: pd.DataFrame) -> list[str]:
     k = setting(cfg, "rca", "top_k")
-    lines = ["probe ranking by graph and scm settings (fold models; means over runs)"]
+    row = io.metric_row
+    lines = ["probe ranking by graph and scm settings (fold models; means over runs)",
+             row("", "top-1", f"map@{k}", "scenario avg.", "rankings")]
+    graph_labels = {"Expert": "expert", "Discovered, original settings": "discovered (original)",
+                    "Discovered, selected settings": "discovered (selected)"}
     for r in table.itertuples(index=False):
-        lines.append(f"  {r[0].lower() + ', ' + r[1].lower() + ' settings':48s} top-1 {r[2]:.2f}  map@{k} {r[3]:.2f}"
-                     f"  scenario avg. {r[4]:.2f}  orders {r[5]}")
+        lines.append(row(f"{graph_labels[r[0]]}, {r[1].lower()} scm", f"{r[2]:.2f}", f"{r[3]:.2f}", f"{r[4]:.2f}",
+                         f"{r[5]}"))
     maps = table.set_index(["Graph", "SCM settings"])[f"MAP@{k}"]
-    expert_gain = maps[("Expert", "Selected")] - maps[("Expert", "Default")]
-    settings_gain = maps[("Discovered, selected settings", "Selected")] - maps[("Discovered, selected settings", "Default")]
-    graph_gain = maps[("Discovered, selected settings", "Default")] - maps[("Discovered, original settings", "Default")]
-    source = "the scm settings rather than the new discovered graph" if settings_gain > graph_gain else \
-        "the new discovered graph rather than the scm settings"
-    lines.append(f"the selected scm settings raise map@{k} by {expert_gain:.2f} for the expert graph and by "
-                 f"{settings_gain:.2f} for the selected discovered graph, while the new graph alone changes it by "
-                 f"{graph_gain:+.2f}, so the gain over the original configuration comes from {source}.")
+    selected = "Discovered, selected settings"
+    settings_gain = maps[(selected, "Selected")] - maps[(selected, "Default")]
+    graph_gain = maps[(selected, "Default")] - maps[("Discovered, original settings", "Default")]
+    if settings_gain > graph_gain:
+        effect = "lowers" if graph_gain < 0 else "raises less" if graph_gain > 0 else "leaves"
+        lines.append(f"the gain over the original configuration comes from the selected scm settings, not from the new "
+                     f"discovered graph, which alone {effect} map@{k}{' unchanged' if graph_gain == 0 else ''}.")
+    else:
+        lines.append(f"the gain over the original configuration comes from the new discovered graph more than from the "
+                     f"selected scm settings, judged by map@{k} of the fold models.")
     return lines
-
-
-# ---------------------------------------------------------------------------
-# part
-# ---------------------------------------------------------------------------
 
 
 def run(cfg: dict, force: bool = False) -> None:
@@ -532,15 +523,15 @@ def run(cfg: dict, force: bool = False) -> None:
     results = lstm_results(cfg, force=force)
     lstm = lstm_summaries(cfg, results)
 
-    save_result(per_scenario, "rca_per_scenario")
-    save_result(summary, "rca_summary")
-    save_result(gaps, "rca_score_gaps")
-    save_result(parts, "rca_decomposition")
-    save_result(results["tuning"], "lstm_shap_tuning")
-    save_result(results["runs"], "lstm_shap_runs")
-    save_result(results["importance"], "lstm_shap_importance")
+    io.save_result(per_scenario, "rca_per_scenario")
+    io.save_result(summary, "rca_summary")
+    io.save_result(gaps, "rca_score_gaps")
+    io.save_result(parts, "rca_decomposition")
+    io.save_result(results["tuning"], "lstm_shap_tuning")
+    io.save_result(results["runs"], "lstm_shap_runs")
+    io.save_result(results["importance"], "lstm_shap_importance")
     for name, table in lstm.items():
-        save_result(table, f"lstm_shap_{name}")
+        io.save_result(table, f"lstm_shap_{name}")
 
     ranking = ranking_table(cfg, summary, runs, per_scenario, lstm["summary"])
     printed_parts = decomposition_table(cfg, parts)
@@ -553,5 +544,5 @@ def run(cfg: dict, force: bool = False) -> None:
                    "Root-cause ranking by fault scenario", "evaluation")
     io.save_figure(attribution_figure(cfg, results["importance"]), "6.6", "SHAP attribution in a probe fault run",
                    "evaluation")
-    for line in ranking_message(cfg, ranking, summary, lstm, gaps, orders) + decomposition_message(cfg, printed_parts):
-        log.info(line)
+    io.report(ranking_message(cfg, ranking, summary, lstm, gaps, orders))
+    io.report(decomposition_message(cfg, printed_parts))
