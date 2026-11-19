@@ -1,4 +1,4 @@
-"""Tests for causal_rca.preprocessing on small synthetic event logs."""
+"""tests of core.preprocessing on small synthetic event logs."""
 
 from __future__ import annotations
 
@@ -9,10 +9,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from causal_rca import preprocessing as pp
+from core import preprocessing as pp
+from utils import io
+from utils.config import load_config
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-RAW_DIR = REPO_ROOT / "data" / "raw" / "causRCA"
+RAW_DIR = io.raw_dir()
 
 
 def make_info(recording_id: str = "rec_a", source: str = "dig_twin") -> pp.RecordingInfo:
@@ -373,13 +374,11 @@ def test_discover_recordings_rejects_unexpected_names(tmp_path):
         pp.discover_recordings(raw)
 
 
-def test_config_loads_repository_yaml_and_rejects_unknown_keys(tmp_path):
-    config = pp.PreprocessingConfig.from_yaml(REPO_ROOT / "configs" / "preprocessing.yaml")
+def test_config_loads_repository_yaml_and_rejects_unknown_keys():
+    config = pp.PreprocessingConfig.from_dict(load_config()["preprocessing"])
     assert config.duplicate_policy == "last" and config.sampling_interval_s == 1.0
-    bad = tmp_path / "bad.yaml"
-    bad.write_text("sampling_interval: 1.0\n")
     with pytest.raises(ValueError):
-        pp.PreprocessingConfig.from_yaml(bad)
+        pp.PreprocessingConfig.from_dict({"sampling_interval": 1.0})
     with pytest.raises(ValueError):
         pp.PreprocessingConfig(sampling_interval_s=0)
 

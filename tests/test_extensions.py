@@ -5,9 +5,9 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from causal_rca import counterfactuals as cfx
-from causal_rca import interventions as itv
-from causal_rca import scm as sc
+from core import counterfactuals as cfx
+from core import interventions as itv
+from core import scm as sc
 from test_core import faulty_run, fitted_scm
 
 

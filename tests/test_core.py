@@ -1,4 +1,4 @@
-"""tests for the stage-1 helpers in data.py and the view file format."""
+"""tests of the data helpers, view files, discovery aggregation, graph metrics, scm, rca and counterfactuals."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from causal_rca import data
-from causal_rca import preprocessing as pp
+from core import data
+from core import preprocessing as pp
 
 
 def make_events(recordings: dict[str, list[tuple]], source: str = "dig_twin") -> pd.DataFrame:
@@ -158,12 +158,12 @@ def test_edge_onset_delays_keep_effects_logged_before_causes():
 
 # --- graph projection, metrics and perturbations ----------------------------
 
-from causal_rca import causal_discovery as cd
-from causal_rca import counterfactuals as cfx
-from causal_rca import graph_evaluation as ge
-from causal_rca import interventions as itv
-from causal_rca import root_cause_analysis as rca
-from causal_rca import scm as sc
+from core import discovery
+from core import counterfactuals as cfx
+from core import graphs
+from core import interventions as itv
+from core import rca
+from core import scm as sc
 
 
 def test_compare_graphs_known_values():
@@ -172,22 +172,22 @@ def test_compare_graphs_known_values():
     predicted.add_edge("a", "b", oriented=True)
     predicted.add_edge("c", "b", oriented=True)  # reversed
     predicted.add_edge("a", "c", oriented=False)  # extra, undirected
-    m = ge.compare_graphs(predicted, expert)
+    m = graphs.compare_graphs(predicted, expert)
     assert m["skeleton_precision"] == pytest.approx(2 / 3) and m["skeleton_recall"] == 1.0
     assert m["directed_precision"] == 0.5 and m["directed_recall"] == 0.5
     assert m["shd"] == 2  # one extra adjacency + one reversed mark
     assert m["orientation_accuracy"] == 0.5
 
     # restricting to testable pairs removes the extra edge from the comparison
-    restricted = ge.compare_graphs(predicted, expert, pairs=[frozenset("ab"), frozenset("bc")])
+    restricted = graphs.compare_graphs(predicted, expert, pairs=[frozenset("ab"), frozenset("bc")])
     assert restricted["skeleton_precision"] == 1.0
 
 
 def regime_result(variables, graph, p=None):
     p = np.zeros(graph.shape) if p is None else p
-    return cd.RegimeResult(regime="r1", recording_ids=["x"], variables=variables, graph=graph,
+    return discovery.RegimeResult(regime="r1", recording_ids=["x"], variables=variables, graph=graph,
                            val_matrix=np.ones(graph.shape), p_matrix=p, n_samples=10, runtime_s=0.0,
-                           config=cd.DiscoveryConfig())
+                           config=discovery.DiscoveryConfig())
 
 
 def test_links_table_lists_contemporaneous_pairs_once_and_orients_lagged_links():
@@ -195,11 +195,11 @@ def test_links_table_lists_contemporaneous_pairs_once_and_orients_lagged_links()
     g[0, 1, 2] = "-->"  # a(t-2) -> b(t)
     g[1, 2, 0], g[2, 1, 0] = "o-o", "o-o"  # b - c unoriented
     g[0, 0, 1] = "-->"  # autodependency
-    links = cd.links_table(regime_result(["a", "b", "c"], g))
+    links = discovery.links_table(regime_result(["a", "b", "c"], g))
     assert len(links) == 3
     contemp = links[links.kind == "contemporaneous"]
     assert len(contemp) == 1 and contemp.link.iloc[0] == "o-o"
-    relations = cd.regime_relations(links)
+    relations = discovery.regime_relations(links)
     assert set(zip(relations.a, relations.b, relations.relation)) == {("a", "b", "directed"), ("b", "c", "undirected")}
 
 
@@ -209,12 +209,12 @@ def test_aggregation_counts_only_testable_regimes():
         {"regime": "r1", "a": "c", "b": "d", "relation": "undirected", "basis": "contemporaneous (o-o)", "lags": [0]},
     ])
     variables = {"r1": ["a", "b", "c", "d"], "r2": ["a", "b"]}
-    pairs = cd.aggregate_relations(relations, variables, ["a", "b", "c", "d", "e"], threshold=0.5).set_index(["a", "b"])
+    pairs = discovery.aggregate_relations(relations, variables, ["a", "b", "c", "d", "e"], threshold=0.5).set_index(["a", "b"])
     assert pairs.loc[("a", "b"), "support"] == 0.5 and pairs.loc[("a", "b"), "decision"] == "a -> b"
     assert pairs.loc[("c", "d"), "n_testable"] == 1 and pairs.loc[("c", "d"), "decision"] == "undirected"
     assert pairs.loc[("a", "e"), "decision"] == "untestable"
     # leaving r1 out removes all evidence
-    assert cd.aggregate_relations(relations, variables, ["a", "b"], exclude=["r1"]).decision.iloc[0] == "absent"
+    assert discovery.aggregate_relations(relations, variables, ["a", "b"], exclude=["r1"]).decision.iloc[0] == "absent"
 
 
 def test_to_dag_drops_undirected_edges_and_breaks_cycles_at_the_weakest_edge():
@@ -222,7 +222,7 @@ def test_to_dag_drops_undirected_edges_and_breaks_cycles_at_the_weakest_edge():
     g.add_edge("a", "b", oriented=True, support=1.0)
     g.add_edge("b", "a", oriented=True, support=0.5)
     g.add_edge("b", "c", oriented=False, support=1.0)
-    dag, log = ge.to_dag(g)
+    dag, log = graphs.to_dag(g)
     assert nx.is_directed_acyclic_graph(dag)
     assert list(dag.edges()) == [("a", "b")]
     assert set(log.action) == {"dropped (undirected)", "dropped (breaks cycle)"}
@@ -231,7 +231,7 @@ def test_to_dag_drops_undirected_edges_and_breaks_cycles_at_the_weakest_edge():
 @pytest.mark.parametrize("kind", ["delete", "insert", "reverse"])
 def test_perturbations_keep_graphs_acyclic(kind):
     base = nx.DiGraph([("a", "b"), ("b", "c"), ("c", "d"), ("a", "d")])
-    out = ge.perturb_graph(base, kind, 0.5, seed=1)
+    out = graphs.perturb_graph(base, kind, 0.5, seed=1)
     assert nx.is_directed_acyclic_graph(out)
     changed = set(base.edges()) ^ set(out.edges())
     if kind == "delete":
@@ -240,7 +240,7 @@ def test_perturbations_keep_graphs_acyclic(kind):
         assert out.number_of_edges() == 6 and set(base.edges()) < set(out.edges())
     else:
         assert out.number_of_edges() == 4 and len(changed) == 4  # two edges flipped
-    assert ge.perturb_graph(base, kind, 0.5, seed=1).edges() == out.edges()
+    assert graphs.perturb_graph(base, kind, 0.5, seed=1).edges() == out.edges()
 
 
 # --- synthetic scm with a known structure -----------------------------------
@@ -376,7 +376,7 @@ def test_counterfactual_contract():
     assert not bad.feasible and not bad.valid()
 
 
-# --- audit corrections (stage 03) --------------------------------------------
+# --- orientation conflicts, corrected p-values and undirected edges -------------
 
 
 def test_aggregation_reports_orientation_conflicts():
@@ -387,11 +387,11 @@ def test_aggregation_reports_orientation_conflicts():
         {"regime": "r4", "a": "a", "b": "b", "relation": "undirected", "basis": "contemporaneous (o-o)", "lags": [0]},
     ])
     variables = {r: ["a", "b"] for r in ["r1", "r2", "r3", "r4"]}
-    pair = cd.aggregate_relations(relations, variables, ["a", "b"], threshold=0.5).iloc[0]
+    pair = discovery.aggregate_relations(relations, variables, ["a", "b"], threshold=0.5).iloc[0]
     # majority direction is kept, but the opposite evidence is reported
     assert pair.decision == "a -> b" and pair.support_b_to_a == 0.25
     assert pair.orientation_conflict and pair.mixed_marks
-    edges = cd.static_edges(pd.DataFrame([pair]))
+    edges = discovery.static_edges(pd.DataFrame([pair]))
     assert edges.orientation_conflict.tolist() == [True]
 
 
@@ -399,7 +399,7 @@ def test_links_table_marks_which_p_values_are_corrected():
     g = np.full((2, 2, 2), "", dtype="<U3")
     g[0, 1, 1] = "-->"
     g[0, 1, 0], g[1, 0, 0] = "o-o", "o-o"
-    links = cd.links_table(regime_result(["a", "b"], g)).set_index("lag")
+    links = discovery.links_table(regime_result(["a", "b"], g)).set_index("lag")
     # tigramite bh-corrects lagged p-values only
     assert bool(links.loc[1, "p_corrected"]) and not bool(links.loc[0, "p_corrected"])
 
@@ -412,7 +412,7 @@ def test_scm_rejects_undirected_edges():
     with pytest.raises(ValueError):
         sc.fit_scm(vd, g, list(vd.arrays), {}, interval_s=1.0)
     # after to_dag the undirected edge is dropped, not oriented
-    dag, log = ge.to_dag(g)
+    dag, log = graphs.to_dag(g)
     assert dag.number_of_edges() == 0 and log.action.tolist() == ["dropped (undirected)"]
 
 
@@ -495,20 +495,20 @@ def test_edge_lags_follow_the_aggregation_rules_and_exclude_held_out_regimes():
     relations = lag_relations([("r1", "a", "b", [10]), ("r2", "a", "b", [10, 11])])
     variables = {"r1": ["a", "b"], "r2": ["a", "b"], "r3": ["a", "b"], "r4": ["a"]}  # r3 testable, r4 not
     dag = nx.DiGraph([("a", "b")])
-    lags, log = cd.edge_lags(relations, variables, dag)
+    lags, log = discovery.edge_lags(relations, variables, dag)
     assert lags == {("a", "b"): (10,)}  # lag 11: 1 of 3 testable regimes < 0.5
     assert log.set_index("lag").loc[11, "decision"] == "excluded (below support threshold)"
-    assert cd.edge_lags(relations, variables, dag, exclude=["r1"])[0] == {("a", "b"): (10, 11)}
-    held_out = cd.edge_lags(relations, variables, dag, exclude=["r2"])
+    assert discovery.edge_lags(relations, variables, dag, exclude=["r1"])[0] == {("a", "b"): (10, 11)}
+    held_out = discovery.edge_lags(relations, variables, dag, exclude=["r2"])
     assert held_out[0] == {("a", "b"): (10,)} and not held_out[1].regimes.str.contains("r2").any()
     # an edge that is not in the scm graph gets no lags
-    assert cd.edge_lags(relations, variables, nx.DiGraph([("b", "a")]))[0] == {}
+    assert discovery.edge_lags(relations, variables, nx.DiGraph([("b", "a")]))[0] == {}
 
 
 def test_edge_lags_use_only_the_direction_of_the_scm_edge():
     relations = lag_relations([("r1", "a", "b", [1, 3]), ("r2", "b", "a", [5])])
     variables = {"r1": ["a", "b"], "r2": ["a", "b"]}
-    lags, log = cd.edge_lags(relations, variables, nx.DiGraph([("a", "b")]))
+    lags, log = discovery.edge_lags(relations, variables, nx.DiGraph([("a", "b")]))
     assert lags == {("a", "b"): (3,)}
     decisions = {(r.source, r.target, r.lag): r.decision for r in log.itertuples()}
     assert decisions[("b", "a", 5)] == "excluded (opposite direction)"

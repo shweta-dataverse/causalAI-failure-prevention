@@ -3,13 +3,11 @@ __pycache__/
 *.py[codz]
 *$py.class
 
-
-data/raw/
-
+# processed data, caches (pcmci+ runs, fitted scms, lstm models) and the run log are rebuilt by main.py
 data/processed/
-
-# run cache of the stage-12 discovery study (rebuilt by scripts/run_discovery_study.py)
 data/cache/
+logs/
+# outputs/ is tracked
 
 
 # C extensions
