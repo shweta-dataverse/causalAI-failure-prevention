@@ -393,20 +393,7 @@ def state_durations(events: pd.DataFrame, types: tuple[str, ...] = ("Binary",)) 
     ).reset_index(drop=True)
 
 
-# coverage, splits, expert-edge timing and scopes
-
-
-def variable_coverage(events: pd.DataFrame, nodes: list[str]) -> pd.DataFrame:
-    """true where a recording has at least one event of the variable (missing means unknown, never healthy)."""
-    counts = events[events["node"].isin(nodes)].groupby(["recording_id", "node"]).size().unstack(fill_value=0)
-    ids = sorted(events["recording_id"].unique())
-    return (counts > 0).reindex(index=ids, columns=list(nodes), fill_value=False)
-
-
-def co_observation(coverage: pd.DataFrame) -> pd.DataFrame:
-    """number of recordings in which both variables are recorded (0 = untestable pair)."""
-    observed = coverage.astype(int)
-    return observed.T @ observed
+# splits and scopes
 
 
 def make_splits(
@@ -432,27 +419,6 @@ def make_splits(
     fault["split"] = "fault"
     fault["fold"] = fault["experiment_id"]
     return pd.concat([normal[columns], fault[columns]], ignore_index=True)
-
-
-def edge_onset_delays(events: pd.DataFrame, runs: pd.DataFrame, graph: nx.MultiDiGraph) -> pd.DataFrame:
-    """per expert edge and fault run: first change of cause and effect after cause_start_at and their difference."""
-    fault = events[(events["source"] == "dig_twin") & events["is_change"]]
-    onset = (
-        fault.merge(runs[["recording_id", "cause_start_at"]], on="recording_id")
-        .query("time_s >= cause_start_at")
-        .groupby(["recording_id", "node"])["time_s"]
-        .min()
-        .rename("onset_s")
-        .reset_index()
-    )
-    edges = pd.DataFrame(sorted(set(nx.DiGraph(graph).edges())), columns=["cause", "effect"])
-    pairs = (
-        onset.rename(columns={"node": "cause", "onset_s": "cause_onset_s"})
-        .merge(edges, on="cause")
-        .merge(onset.rename(columns={"node": "effect", "onset_s": "effect_onset_s"}), on=["recording_id", "effect"])
-    )
-    pairs["delay_s"] = pairs["effect_onset_s"] - pairs["cause_onset_s"]
-    return pairs.merge(runs[["recording_id", "experiment_id"]], on="recording_id")
 
 
 def manipulated_by_recording(runs: pd.DataFrame, experiments: pd.DataFrame) -> dict[str, set[str]]:

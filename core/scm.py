@@ -64,11 +64,6 @@ class Mechanism:
         return sum(self.n_rows.values()) > 0
 
     @property
-    def supported(self) -> bool:
-        """true when training data contained at least one change of this variable."""
-        return sum(self.n_changes.values()) > 0
-
-    @property
     def width(self) -> int:
         return 2 * len(self.parents) + sum(len(self.lags.get(p, ())) for p in self.parents)
 
@@ -76,11 +71,6 @@ class Mechanism:
     def max_lag(self) -> int:
         """longest lag the features look back (1 for the first-order model)."""
         return max([1, *(lag for p in self.parents for lag in self.lags.get(p, ()))])
-
-    @property
-    def parent_label(self) -> str:
-        return ", ".join(p + (f" (lags {', '.join(map(str, self.lags[p]))})" if self.lags.get(p) else "")
-                         for p in self.parents)
 
     def prob_one(self, prev: np.ndarray, features: np.ndarray) -> np.ndarray:
         """p(x[t] = 1) for each row, given the previous state and binary parent features."""
@@ -199,18 +189,11 @@ class TemporalSCM:
         interventions: dict[str, tuple[float, int]] | None = None,
         fixed: dict[str, float] | None = None,
         history: dict[str, np.ndarray] | None = None,
-        releases: dict[str, int] | None = None,
     ) -> dict[str, np.ndarray]:
         """roll the equations forward for noise of shape (samples, steps); returns variable -> (samples, steps)."""
-        # interventions[v] = (value, first step) replaces the equation until releases[v], if given;
+        # interventions[v] = (value, first step) replaces the equation from that step on;
         # fixed holds context variables at one value; history[v] holds observed states before step 0
         interventions = interventions or {}
-        releases = releases or {}
-        for v, step in releases.items():
-            if v not in interventions:
-                raise ValueError(f"release given for {v}, which is not intervened on")
-            if step <= interventions[v][1]:
-                raise ValueError(f"release of {v} at step {step} must come after its intervention step {interventions[v][1]}")
         history = history or {}
         fixed = {**{v: self.fills[v] for v, m in self.mechanisms.items() if not m.has_data}, **(fixed or {})}
         n_samples, n_steps = next(iter(noise.values())).shape
@@ -229,7 +212,7 @@ class TemporalSCM:
 
         for t in range(1, n_steps):
             for v in order:
-                if v in interventions and t >= interventions[v][1] and not (v in releases and t >= releases[v]):
+                if v in interventions and t >= interventions[v][1]:
                     out[v][:, t] = interventions[v][0]
                     continue
                 if v in fixed:

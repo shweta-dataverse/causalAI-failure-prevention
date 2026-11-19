@@ -12,17 +12,6 @@ paths:
 subsystems: [coolant, probe]              # analysed subsystems
 graphs: [expert, discovered]
 
-# event logs -> state tables and model views
-preprocessing:
-  raw_dir: data/raw/causRCA
-  output_dir: data/processed
-  report_dir: data/processed/reports
-  sampling_interval_s: 1.0                # archival state table
-  sensitivity_intervals_s: [0.1, 0.25, 0.5, 1.0, 2.0, 5.0]
-  duplicate_policy: last                  # same (recording, node, time_s): last | first | error
-  strict_binary: true                     # reject binary/alarm values other than true/false/1/0
-  counter_first_differences: false
-
 # state views <subsystem>_dt<interval> in data/processed: a schema view encodes the expert node
 # list without any fitted step; the fitted 1 s coolant view serves the sensitivity analysis
 state_views:
@@ -84,12 +73,6 @@ discovery:
     long_lag_s: 60.0
     long_lag_for: [selected, original]
     run_timeout_s: 10800
-    alternative_ci_test:
-      test: cmisymb
-      sig_samples: 200
-      seed: 0
-      for: [selected]
-      regimes: fault                      # the normal regime is infeasible with cmisymb
   bootstrap:
     n_boot: 20
     seed: 0

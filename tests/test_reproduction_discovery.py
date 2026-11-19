@@ -86,11 +86,6 @@ def view_fingerprint(directory: Path, name: str) -> str:
     return digest.hexdigest()
 
 
-# ---------------------------------------------------------------------------
-# contract files and state views
-# ---------------------------------------------------------------------------
-
-
 @pytest.mark.parametrize("name", ["splits", "discovered_graphs", "discovery_settings"])
 def test_contract_file_equals_the_stored_results(name):
     assert_same_contract(name)
@@ -163,11 +158,6 @@ def test_selection_from_the_cache_reproduces_the_stored_settings_and_graph(subsy
     assert discovery.edge_key(graph) == discovery.edge_key(stored_edges)
 
 
-# ---------------------------------------------------------------------------
-# thesis tables and figures
-# ---------------------------------------------------------------------------
-
-
 @pytest.mark.parametrize("part, name", [("pipeline", n) for n in PIPELINE_TABLES] +
                                        [("evaluation", n) for n in EVALUATION_TABLES])
 def test_thesis_table_equals_the_latex_table(part, name):
@@ -202,11 +192,6 @@ def test_fault_timeline_figure_is_written():
 
 def test_number_parser_ignores_identifiers():
     assert numbers("LT_A_700317 drops in 5 of 6 runs; smallest p-value 0.14") == [5.0, 6.0, 0.14]
-
-
-# ---------------------------------------------------------------------------
-# reruns: stored files are only replaced on purpose
-# ---------------------------------------------------------------------------
 
 
 def small_view(directory: Path, value: float) -> None:

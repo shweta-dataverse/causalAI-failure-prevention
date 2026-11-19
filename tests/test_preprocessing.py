@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import numpy as np
@@ -11,7 +10,6 @@ import pytest
 
 from core import preprocessing as pp
 from utils import io
-from utils.config import load_config
 
 RAW_DIR = io.raw_dir()
 
@@ -44,9 +42,6 @@ def processed(*recordings: tuple[str, list[tuple]], source: str = "dig_twin") ->
 def column(states: pd.DataFrame, recording_id: str, node: str) -> list:
     values = states.loc[states["recording_id"] == recording_id, node]
     return [None if pd.isna(v) else v for v in values]
-
-
-# --- parsing ---------------------------------------------------------------
 
 
 def test_binary_strings_are_parsed_explicitly():
@@ -108,9 +103,6 @@ def test_wrong_columns_and_conflicting_types_raise():
         parsed([(0.0, "A", "True", "Binary"), (1.0, "A", "2.0", "Continuous")])
 
 
-# --- duplicates and changes -------------------------------------------------
-
-
 DUPLICATE_ROWS = [
     (0.0, "A", "False", "Binary"),
     (1.0, "A", "True", "Binary"),
@@ -140,9 +132,6 @@ def test_mark_changes_separates_initial_change_and_repeat():
     assert events["is_initial"].tolist() == [True, False, False]
     assert events["is_repeat"].tolist() == [False, True, False]
     assert events["is_change"].tolist() == [False, False, True]
-
-
-# --- state reconstruction ----------------------------------------------------
 
 
 def test_forward_fill_between_events():
@@ -196,9 +185,6 @@ def test_short_pulse_is_hidden_by_coarse_grid_but_counted():
     )
     coarse = pp.reconstruct_states(events, 1.0)
     assert 1 not in column(coarse, "rec_a", "A")
-    bins = pp.transitions_per_bin(events, 1.0)
-    assert bins[["step", "node", "n_changes"]].values.tolist() == [[2, "A", 2]]
-
     sensitivity = pp.sampling_sensitivity(events, [0.1, 1.0]).set_index(["interval_s", "variable_type"])
     assert sensitivity.loc[(1.0, "Binary"), "n_true_changes"] == 2
     assert sensitivity.loc[(1.0, "Binary"), "n_visible_transitions"] == 0
@@ -221,9 +207,6 @@ def test_multi_change_fraction_flags_simultaneous_changes():
     )
     row = pp.sampling_sensitivity(events, [1.0]).query("variable_type == 'ALL'").iloc[0]
     assert row["multi_change_step_fraction"] == pytest.approx(0.5)
-
-
-# --- verification and diagnostics -------------------------------------------
 
 
 def test_verification_passes_and_detects_corruption():
@@ -263,9 +246,6 @@ def test_event_statistics():
     assert stats.loc["A", "min_gap_s"] == 1.0 and stats.loc["A", "max_gap_s"] == 3.0
     assert bool(stats.loc["A", "has_t0_snapshot"]) and not bool(stats.loc["K", "has_t0_snapshot"])
     assert stats.loc["K", "n_counter_resets"] == 1
-
-
-# --- model views -------------------------------------------------------------
 
 
 def view_fixture() -> tuple[pd.DataFrame, dict[str, str]]:
@@ -340,9 +320,6 @@ def test_view_rejects_unknown_kind_and_missing_training_ids():
         pp.ModelView.fit(states, types, ["nope"], "discrete")
 
 
-# --- discovery, config and pipeline -----------------------------------------
-
-
 def write_raw_tree(root: Path) -> Path:
     raw = root / "raw"
     (raw / "real_op").mkdir(parents=True)
@@ -372,36 +349,6 @@ def test_discover_recordings_rejects_unexpected_names(tmp_path):
     (raw / "real_op" / "notes.csv").write_text("x")
     with pytest.raises(pp.SchemaError):
         pp.discover_recordings(raw)
-
-
-def test_config_loads_repository_yaml_and_rejects_unknown_keys():
-    config = pp.PreprocessingConfig.from_dict(load_config()["preprocessing"])
-    assert config.duplicate_policy == "last" and config.sampling_interval_s == 1.0
-    with pytest.raises(ValueError):
-        pp.PreprocessingConfig.from_dict({"sampling_interval": 1.0})
-    with pytest.raises(ValueError):
-        pp.PreprocessingConfig(sampling_interval_s=0)
-
-
-def test_run_preprocessing_writes_outputs(tmp_path):
-    config = pp.PreprocessingConfig(
-        raw_dir=write_raw_tree(tmp_path),
-        output_dir=tmp_path / "processed",
-        report_dir=tmp_path / "reports",
-        sensitivity_intervals_s=(0.5, 1.0),
-    )
-    report = pp.run_preprocessing(config)
-    assert report["verification"]["passed"]
-    states = pd.read_parquet(config.output_dir / "states_dt1.parquet")
-    assert set(states["recording_id"]) == {"real_op_42", "probe_exp_2_3_run_1"}
-    assert column(states, "probe_exp_2_3_run_1", "L") == [None, None, None]
-    for name in ["data_quality.json", "data_quality.md", "sampling_sensitivity.csv", "view_exclusions_real_op.csv"]:
-        assert (config.report_dir / name).exists()
-    saved = json.loads((config.report_dir / "data_quality.json").read_text())
-    assert saved["numeric_looking_categoricals"] == ["L"]
-
-
-# --- real data ---------------------------------------------------------------
 
 
 @pytest.mark.integration

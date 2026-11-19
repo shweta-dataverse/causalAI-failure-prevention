@@ -18,11 +18,6 @@ from core.preprocessing import ViewData
 from utils.config import load_config
 
 
-# ---------------------------------------------------------------------------
-# configurations and lag conversion
-# ---------------------------------------------------------------------------
-
-
 @pytest.mark.parametrize("tau_s, steps", [(5.0, 10), (10.0, 20), (20.0, 40), (60.0, 120)])
 def test_lag_seconds_convert_to_grid_steps(tau_s, steps):
     config = discovery.StudyConfig(tau_max_s=tau_s)
@@ -68,11 +63,6 @@ def test_aggregation_settings_do_not_change_the_run_key():
     assert spec(replace(base, max_conds=(2, 2, 2))).key() != spec(base).key()
     assert spec(replace(base, tau_max_s=20.0)).key() != spec(base).key()
     assert view.var_names == ["X", "Y"]
-
-
-# ---------------------------------------------------------------------------
-# aggregation, fdr filter and held-out exclusion
-# ---------------------------------------------------------------------------
 
 
 def link(regime, source, target, lag, significant=True, link="-->"):
@@ -138,11 +128,6 @@ def test_graph_metrics_count_unresolved_orientations_and_coverage():
     assert row["reference_edges_testable"] == 2 and row["reference_edge_coverage"] == pytest.approx(2 / 3)
 
 
-# ---------------------------------------------------------------------------
-# selection rule
-# ---------------------------------------------------------------------------
-
-
 def table(rows):
     base = {"skeleton_f1": 0.5, "tau_max_s": 10.0, "pc_alpha": 0.01, "support_threshold": 0.5, "run_status": "ok"}
     return pd.DataFrame([{**base, **r} for r in rows])
@@ -185,11 +170,6 @@ def test_incomplete_configurations_are_never_selected():
         discovery.select(t[t.config_id == "a"])
 
 
-# ---------------------------------------------------------------------------
-# tigramite sample cut and availability
-# ---------------------------------------------------------------------------
-
-
 def test_tigramite_tests_cut_two_tau_max_steps_per_recording():
     from tigramite import data_processing as tg_pp
     from tigramite.independence_tests.independence_tests_base import CondIndTest
@@ -200,15 +180,6 @@ def test_tigramite_tests_cut_two_tau_max_steps_per_recording():
     frame = tg_pp.DataFrame(data, analysis_mode="multiple")
     array, *_ = frame.construct_array(X=[(0, -1)], Y=[(1, 0)], Z=[], tau_max=4, cut_off="2xtau_max")
     assert array.shape[1] == (50 - 8) + (30 - 8)
-
-
-def test_sample_availability_counts_rows_and_changes_after_the_cut():
-    view = toy_view()
-    info = discovery.sample_availability(view, ["a", "b"], ["X", "Y"], tau_max=3)
-    # a: 20 rows, b: 5 rows (shorter than 2 * 3 + 1 contributes nothing)
-    assert info["rows"] == 25 and info["rows_after_cut"] == 14 and info["recordings_contributing"] == 1
-    # x changes at t = 4 and t = 10 in recording a (only t >= 6 survives), y never changes
-    assert info["state_changes"] == 2 + 1 and info["state_changes_after_cut"] == 1
 
 
 def toy_view() -> ViewData:
@@ -228,11 +199,6 @@ def test_bootstrap_draws_resample_recordings_within_every_regime():
         expected = {r: list(rng.choice(ids, size=len(ids), replace=True)) for r, ids in regimes.items()}
         assert draw == expected
     assert discovery.bootstrap_regimes(regimes, 3, 0) == draws
-
-
-# ---------------------------------------------------------------------------
-# cache and process execution
-# ---------------------------------------------------------------------------
 
 
 def write_view(directory: Path, name: str, view: ViewData) -> None:
@@ -288,11 +254,6 @@ def test_timeouts_and_changed_data_are_logged_not_hidden(tmp_path):
     runs = discovery.load_runs(cache, [specs[0]])
     row, _ = discovery.evaluate_config(runs, discovery.StudyConfig(tau_max_s=2.0), ["X", "Y"], nx.DiGraph([("X", "Y")]))
     assert row["run_status"].startswith("incomplete")
-
-
-# ---------------------------------------------------------------------------
-# what tigramite 5.2's fdr option does inside pcmci+ (the basis of the post-hoc filter)
-# ---------------------------------------------------------------------------
 
 
 def test_pcmciplus_fdr_corrects_lagged_p_values_only_and_leaves_the_graph_unchanged():

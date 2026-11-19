@@ -67,11 +67,6 @@ def rankings(coolant):
     return table[table["subsystem"] == coolant.name]
 
 
-# ---------------------------------------------------------------------------
-# helpers
-# ---------------------------------------------------------------------------
-
-
 def test_printed_numbers_round_half_up_like_the_tables():
     assert io.printed(0.945) == "0.95"
     assert io.printed(0.8355) == "0.84"
@@ -97,11 +92,6 @@ def test_missing_recommendations_name_the_stage_to_run(monkeypatch, tmp_path):
     monkeypatch.setattr(io, "tables_dir", lambda part="pipeline": tmp_path)
     with pytest.raises(MissingInputError, match=r'run "python main.py run counterfactuals" first'):
         io.read_input("recommendation_refits")
-
-
-# ---------------------------------------------------------------------------
-# reproduction of the stored results
-# ---------------------------------------------------------------------------
 
 
 @pytest.mark.integration
@@ -156,11 +146,6 @@ def test_evaluation_detail_files_match_the_stored_results(name):
     if not file.exists():
         pytest.skip('run "python main.py evaluate counterfactuals" first')
     assert_same(pd.read_csv(file), expected(DETAIL_FILES[name]), skip=("example",))
-
-
-# ---------------------------------------------------------------------------
-# thesis tables
-# ---------------------------------------------------------------------------
 
 
 def test_thesis_tables_from_the_stored_results(cfg, coolant, rankings):

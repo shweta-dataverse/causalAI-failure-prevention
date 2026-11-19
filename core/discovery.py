@@ -9,7 +9,7 @@ import os
 import time
 import traceback
 from collections.abc import Callable, Sequence
-from dataclasses import asdict, dataclass, field, replace
+from dataclasses import dataclass, field, replace
 from importlib.metadata import version
 from pathlib import Path
 from typing import Any
@@ -47,14 +47,6 @@ class DiscoveryConfig:
     def tau_max(self) -> int:
         """maximum lag in grid steps."""
         return max(1, int(round(self.tau_max_s / self.interval_s)))
-
-    @property
-    def label(self) -> str:
-        fdr = "" if self.apply_fdr_to_graph else "_nofdrfilter"
-        return f"dt{self.interval_s:g}_tau{self.tau_max_s:g}s_alpha{self.pc_alpha:g}{fdr}"
-
-    def to_dict(self) -> dict[str, Any]:
-        return {**asdict(self), "tau_max": self.tau_max, "label": self.label}
 
 
 @dataclass
@@ -105,16 +97,14 @@ def regime_variables(view_data: ViewData, recording_ids: Sequence[str], min_chan
 # running pcmci+
 
 
-def run_pcmciplus(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str], config: DiscoveryConfig,
-                  cond_ind_test: Any = None) -> dict[str, Any]:
-    """pcmci+ with each recording a separate dataset (g-squared test unless cond_ind_test is given)."""
+def run_pcmciplus(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str],
+                  config: DiscoveryConfig) -> dict[str, Any]:
+    """pcmci+ with the g-squared test and each recording a separate dataset."""
     columns = [view_data.var_names.index(v) for v in variables]
     frame = tg_pp.DataFrame({k: view_data.arrays[r][:, columns].astype(float) for k, r in enumerate(recording_ids)},
                             mask={k: view_data.masks[r][:, columns] for k, r in enumerate(recording_ids)},
                             analysis_mode="multiple", var_names=list(variables))
-    if cond_ind_test is None:
-        cond_ind_test = Gsquared(significance="analytic", mask_type="xyz")
-    pcmci = PCMCI(dataframe=frame, cond_ind_test=cond_ind_test, verbosity=0)
+    pcmci = PCMCI(dataframe=frame, cond_ind_test=Gsquared(significance="analytic", mask_type="xyz"), verbosity=0)
     return pcmci.run_pcmciplus(tau_min=0, tau_max=config.tau_max, pc_alpha=config.pc_alpha,
                                fdr_method=config.fdr_method, max_conds_dim=config.max_conds_dim,
                                max_conds_px=config.max_conds_px, max_conds_py=config.max_conds_py)
@@ -126,13 +116,12 @@ def run_regime(
     recording_ids: Sequence[str],
     variables: Sequence[str],
     config: DiscoveryConfig,
-    cond_ind_test: Any = None,
 ) -> RegimeResult:
     """pcmci+ on one regime."""
     if len(variables) < 2:
         raise ValueError(f"regime {regime!r} has fewer than two usable variables")
     start = time.perf_counter()
-    results = run_pcmciplus(view_data, recording_ids, variables, config, cond_ind_test)
+    results = run_pcmciplus(view_data, recording_ids, variables, config)
     runtime = time.perf_counter() - start
     return RegimeResult(
         regime=regime,
@@ -282,44 +271,6 @@ def edges_to_graph(edges: pd.DataFrame, nodes: Sequence[str]) -> nx.DiGraph:
     return graph
 
 
-LAG_LOG_COLUMNS = ["source", "target", "lag", "regimes", "n_testable", "lag_support", "decision"]
-
-
-def edge_lags(
-    relations: pd.DataFrame,
-    variables_by_regime: dict[str, Sequence[str]],
-    dag: nx.DiGraph,
-    exclude: Sequence[str] = (),
-    threshold: float = 0.5,
-    min_lag: int = 2,
-) -> tuple[dict[tuple[str, str], tuple[int, ...]], pd.DataFrame]:
-    """discovered lags >= min_lag of the scm edges by the support rule; returns {(u, v): lags} and a log."""
-    regimes = [r for r in variables_by_regime if r not in set(exclude)]
-    directed = relations[(relations["relation"] == "directed") & relations["regime"].isin(regimes)]
-    selected, log = {}, []
-    for u, v in sorted(dag.edges):
-        testable = [r for r in regimes if u in variables_by_regime[r] and v in variables_by_regime[r]]
-        for (a, b), direction in (((u, v), "same"), ((v, u), "opposite")):
-            found: dict[int, set[str]] = {}
-            for row in directed[(directed["a"] == a) & (directed["b"] == b) & directed["regime"].isin(testable)].itertuples(index=False):
-                for lag in row.lags:
-                    found.setdefault(int(lag), set()).add(row.regime)
-            for lag, regs in sorted(found.items()):
-                support = len(regs) / len(testable)
-                if direction == "opposite":
-                    decision = "excluded (opposite direction)"
-                elif lag < min_lag:
-                    decision = "covered by lag 0/1 terms"
-                elif support < threshold:
-                    decision = "excluded (below support threshold)"
-                else:
-                    decision = "selected"
-                    selected.setdefault((u, v), []).append(lag)
-                log.append({"source": a, "target": b, "lag": lag, "regimes": ",".join(sorted(regs)),
-                            "n_testable": len(testable), "lag_support": support, "decision": decision})
-    return {e: tuple(sorted(l)) for e, l in selected.items()}, pd.DataFrame(log, columns=LAG_LOG_COLUMNS)
-
-
 # edge identities
 
 
@@ -337,9 +288,6 @@ def jaccard(a: set, b: set) -> float:
 
 
 # study configurations
-
-
-CI_TESTS = ("gsq", "cmisymb")
 
 # the selection order of discovery.selection.order in config.yaml (checked by a test)
 SELECTION_ORDER: tuple[tuple[str, str], ...] = (
@@ -364,11 +312,9 @@ class StudyConfig:
     fdr_method: str = "fdr_bh"
     apply_fdr_to_graph: bool = True
     support_threshold: float = 0.5
-    sig_samples: int | None = None  # permutation draws, cmisymb only
-    seed: int | None = None  # permutation seed, cmisymb only
 
     def __post_init__(self) -> None:
-        if self.ci_test not in CI_TESTS:
+        if self.ci_test != "gsq":
             raise ValueError(f"unknown ci test {self.ci_test!r}")
         steps = self.tau_max_s / self.interval_s
         if self.tau_max_s < self.interval_s or abs(steps - round(steps)) > 1e-9:
@@ -379,8 +325,6 @@ class StudyConfig:
             raise ValueError("support_threshold must lie in (0, 1]")
         if len(self.max_conds) != 3 or any(int(c) != c or c < 1 for c in self.max_conds):
             raise ValueError("max_conds must be three positive integers")
-        if self.ci_test == "cmisymb" and not self.sig_samples:
-            raise ValueError("cmisymb needs sig_samples")
         object.__setattr__(self, "max_conds", tuple(int(c) for c in self.max_conds))
 
     @property
@@ -399,11 +343,8 @@ class StudyConfig:
 
     def run_settings(self) -> dict[str, Any]:
         """settings that change a pcmci+ run (support threshold and fdr filter only aggregate)."""
-        settings = {"ci_test": self.ci_test, "interval_s": self.interval_s, "tau_max": self.tau_max,
-                    "pc_alpha": self.pc_alpha, "max_conds": list(self.max_conds), "fdr_method": self.fdr_method}
-        if self.ci_test == "cmisymb":
-            settings.update(sig_samples=self.sig_samples, seed=self.seed)
-        return settings
+        return {"ci_test": self.ci_test, "interval_s": self.interval_s, "tau_max": self.tau_max,
+                "pc_alpha": self.pc_alpha, "max_conds": list(self.max_conds), "fdr_method": self.fdr_method}
 
     @property
     def run_id(self) -> str:
@@ -439,15 +380,6 @@ def grid_configs(grid: dict[str, Any]) -> list[StudyConfig]:
     fixed = config_from_dict(grid["fixed"])
     return [replace(fixed, pc_alpha=a, tau_max_s=t, support_threshold=s)
             for a in grid["pc_alpha"] for t in grid["tau_max_s"] for s in grid["support_threshold"]]
-
-
-def make_cond_ind_test(config: StudyConfig):
-    """the tigramite test object for a configuration."""
-    if config.ci_test == "gsq":
-        return None  # run_pcmciplus then uses the analytic g-squared test
-    from tigramite.independence_tests.cmisymb import CMIsymb  # needs numba
-    return CMIsymb(significance="shuffle_test", sig_samples=int(config.sig_samples), mask_type="xyz",
-                   seed=config.seed)
 
 
 # run specifications and the on-disk cache
@@ -488,8 +420,7 @@ class RunSpec:
     def cost(self) -> float:
         """rough relative cost, used only to start expensive runs first."""
         n = len(self.variables)
-        factor = self.config.sig_samples or 1
-        return float(n * n * self.config.tau_max * factor * max(1, len(self.recording_ids)))
+        return float(n * n * self.config.tau_max * max(1, len(self.recording_ids)))
 
 
 def make_specs(subsystem: str, view_name: str, view_data: ViewData, regimes: dict[str, list[str]],
@@ -569,7 +500,7 @@ def execute_spec(spec: RunSpec, processed_dir: str, out_path: str) -> None:
         if regime_fingerprint(view_data, spec.recording_ids, spec.variables) != spec.data_sha1:
             raise RuntimeError("data fingerprint changed since the spec was made")
         result = run_regime(view_data, spec.regime, list(spec.recording_ids), list(spec.variables),
-                               spec.config.discovery_config(), cond_ind_test=make_cond_ind_test(spec.config))
+                            spec.config.discovery_config())
         entry.update(status="ok", error="", runtime_s=result.runtime_s, n_samples=result.n_samples,
                      links=links_table(result).to_dict(orient="records"))
     except Exception as exc:  # logged, never hidden
@@ -750,28 +681,7 @@ def select(table: pd.DataFrame, order: Sequence[tuple[str, str]] = SELECTION_ORD
                   "n_tied_objective_and_first_tiebreak": int(same2.sum())}
 
 
-# diagnostics
-
-
-def sample_availability(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str],
-                        tau_max: int) -> dict[str, Any]:
-    """rows and state changes that tigramite tests can use at a maximum lag (the first 2 * tau_max steps are cut)."""
-    columns = [view_data.var_names.index(v) for v in variables]
-    rows = rows_after = changes = changes_after = contributing = 0
-    for r in recording_ids:
-        x, m = view_data.arrays[r][:, columns], view_data.masks[r][:, columns]
-        c = np.zeros(x.shape, dtype=bool)
-        c[1:] = (np.diff(x, axis=0) != 0) & ~m[1:] & ~m[:-1]
-        cut = 2 * tau_max
-        rows += len(x)
-        rows_after += max(0, len(x) - cut)
-        contributing += int(len(x) > cut)
-        changes += int(c.sum())
-        changes_after += int(c[cut:].sum())
-    return {"recordings": len(recording_ids), "recordings_contributing": contributing, "rows": rows,
-            "rows_after_cut": rows_after, "row_share_after_cut": rows_after / rows if rows else np.nan,
-            "state_changes": changes, "state_changes_after_cut": changes_after,
-            "change_share_after_cut": changes_after / changes if changes else np.nan}
+# bootstrap and reruns
 
 
 def bootstrap_regimes(regimes: dict[str, list[str]], n_boot: int, seed: int) -> list[dict[str, list[str]]]:

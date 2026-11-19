@@ -57,11 +57,6 @@ def cfg():
     return load_config()
 
 
-# ---------------------------------------------------------------------------
-# tables from the stored results (no pipeline run needed)
-# ---------------------------------------------------------------------------
-
-
 def selected_tables(cfg: dict) -> dict:
     tables = {"discovery_settings": pd.read_csv(EXPECTED / "discovery_settings.csv", keep_default_na=False),
               "scm_graphs": pd.read_csv(EXPECTED / "scm_graphs.csv"),
@@ -112,11 +107,6 @@ def test_directions_follow_the_numbers():
     assert comparisons.direction("0.48/0.56", "0.67/0.63") == "raise"
     assert comparisons.direction("1.00", "1.00") == "keep"
     assert comparisons.direction("0.44/0.24", "0.40/0.53") == "change"
-
-
-# ---------------------------------------------------------------------------
-# alternative runs of "python main.py evaluate comparisons"
-# ---------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize("name", ["rca_runs", "scm_prediction", "replay", "recommendations", "recommendation_refits"])

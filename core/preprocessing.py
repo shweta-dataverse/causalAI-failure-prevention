@@ -60,55 +60,7 @@ class DuplicateEventError(PreprocessingError):
     """several events share (recording, node, time_s)."""
 
 
-class VerificationError(PreprocessingError):
-    """the reconstructed state table disagrees with the raw events."""
-
-
-# configuration and recording discovery
-
-
-@dataclass(frozen=True)
-class PreprocessingConfig:
-    raw_dir: Path = Path("data/raw/causRCA")
-    output_dir: Path = Path("data/processed")
-    report_dir: Path = Path("data/processed/reports")
-    sampling_interval_s: float = 1.0
-    sensitivity_intervals_s: tuple[float, ...] = (0.1, 0.25, 0.5, 1.0, 2.0, 5.0)
-    duplicate_policy: DuplicatePolicy = "last"
-    strict_binary: bool = True
-    counter_first_differences: bool = False
-
-    def __post_init__(self) -> None:
-        intervals = (self.sampling_interval_s, *self.sensitivity_intervals_s)
-        if any(not np.isfinite(dt) or dt <= 0 for dt in intervals):
-            raise ValueError(f"Sampling intervals must be positive, got {intervals}")
-        if self.duplicate_policy not in ("last", "first", "error"):
-            raise ValueError(f"Unknown duplicate_policy: {self.duplicate_policy!r}")
-
-    @classmethod
-    def from_dict(cls, settings: dict[str, Any]) -> PreprocessingConfig:
-        """config from the `preprocessing` section of config.yaml (paths relative to the repository)."""
-        data = dict(settings or {})
-        unknown = set(data) - set(cls.__dataclass_fields__)
-        if unknown:
-            raise ValueError(f"Unknown preprocessing config keys: {sorted(unknown)}")
-        for key in ("raw_dir", "output_dir", "report_dir"):
-            if key in data:
-                data[key] = Path(data[key])
-        if "sensitivity_intervals_s" in data:
-            data["sensitivity_intervals_s"] = tuple(float(x) for x in data["sensitivity_intervals_s"])
-        if "sampling_interval_s" in data:
-            data["sampling_interval_s"] = float(data["sampling_interval_s"])
-        return cls(**data)
-
-    def to_dict(self) -> dict[str, Any]:
-        data = asdict(self)
-        for key, value in data.items():
-            if isinstance(value, Path):
-                data[key] = value.as_posix()
-            elif isinstance(value, tuple):
-                data[key] = list(value)
-        return data
+# recording discovery
 
 
 @dataclass(frozen=True)
@@ -404,19 +356,6 @@ def _reconstruct_recording(
     return pd.concat([pd.DataFrame(meta, index=grid), pd.DataFrame(columns, index=grid)], axis=1)
 
 
-def transitions_per_bin(events: pd.DataFrame, interval_s: float) -> pd.DataFrame:
-    """number of value changes per (recording, grid step, node), including changes the grid hides."""
-    marked = events if "is_change" in events.columns else mark_changes(events)
-    changes = marked[marked["is_change"]]
-    return (
-        changes.assign(step=grid_index(changes["time_s"], interval_s))
-        .groupby(["recording_id", "step", "node"])
-        .size()
-        .rename("n_changes")
-        .reset_index()
-    )
-
-
 # verification against raw events
 
 
@@ -432,9 +371,6 @@ class VerificationResult:
     @property
     def passed(self) -> bool:
         return self.n_mismatches == 0 and self.n_grid_errors == 0
-
-    def to_dict(self) -> dict[str, Any]:
-        return {**asdict(self), "passed": self.passed}
 
 
 def verify_states(
@@ -619,167 +555,6 @@ def sampling_sensitivity(events: pd.DataFrame, intervals_s: Sequence[float]) -> 
             row["multi_change_step_fraction"] = float((steps > 1).mean()) if len(steps) else np.nan
             rows.append(row)
     return pd.DataFrame(rows)
-
-
-def transition_bins(events: pd.DataFrame, interval_s: float) -> pd.DataFrame:
-    """per (recording, node, grid step with events): changes inside the step, and whether the grid shows them."""
-    marked = events if "is_change" in events.columns else mark_changes(events)
-    ordered = marked.sort_values(["recording_id", "time_s", "event_seq"], kind="mergesort")
-    ordered = ordered.assign(_key=_value_key(ordered), step=grid_index(ordered["time_s"], interval_s))
-    bins = (
-        ordered.groupby(["recording_id", "node", "step"], sort=True)
-        .agg(
-            source=("source", "first"),
-            type=("type", "first"),
-            key=("_key", "last"),
-            n_changes=("is_change", "sum"),
-        )
-        .reset_index()
-    )
-    previous = bins.groupby(["recording_id", "node"])["key"].shift()
-    bins["visible"] = previous.notna() & (bins["key"] != previous)
-    bins["masked"] = (bins["n_changes"] > 0) & ~bins["visible"]
-    return bins.drop(columns="key")
-
-
-def build_quality_report(
-    infos: Sequence[RecordingInfo],
-    events: pd.DataFrame,
-    duplicate_log: pd.DataFrame,
-    stats: pd.DataFrame,
-    verification: VerificationResult,
-    config: PreprocessingConfig,
-) -> dict[str, Any]:
-    recordings = pd.DataFrame([asdict(info) for info in infos])
-    in_file_order = events.sort_values(["recording_id", "event_seq"])
-    out_of_order = int((in_file_order.groupby("recording_id")["time_s"].diff() < 0).sum())
-    after_start = events[events["time_s"] > 0]
-    sharing = after_start.duplicated(["recording_id", "time_s"], keep=False).mean() if len(after_start) else 0.0
-    durations = events.groupby("recording_id").agg(source=("source", "first"), t_end=("time_s", "max"))
-
-    boolean = events[events["type"].isin(BOOLEAN_TYPES)]
-    categorical = events[events["type"] == "Categorical"]
-    numeric_looking = sorted(
-        node
-        for node, values in categorical.groupby("node")["raw_value"]
-        if pd.to_numeric(values, errors="coerce").notna().all()
-    )
-
-    nodes_by_source: dict[str, Any] = {}
-    for source, group in stats.groupby("source"):
-        n_recordings = group["recording_id"].nunique()
-        coverage = group.groupby("node")["recording_id"].nunique()
-        changes = group.groupby("node")["n_changes"].sum()
-        nodes_by_source[source] = {
-            "n_recordings": int(n_recordings),
-            "n_nodes_observed": int(len(coverage)),
-            "nodes_missing_in_some_recordings": sorted(coverage[coverage < n_recordings].index),
-            "nodes_never_changing": sorted(changes[changes == 0].index),
-        }
-
-    resets = stats[stats["n_counter_resets"] > 0].groupby("node")["n_counter_resets"].sum()
-    dropped = int((~duplicate_log["kept"]).sum()) if len(duplicate_log) else 0
-    return {
-        "config": config.to_dict(),
-        "policies": {
-            "timestamps": "OPC UA publish times; ties broken by file row order, not interpreted causally",
-            "duplicates": f"same (recording, node, time_s): keep {config.duplicate_policy}",
-            "state": "zero-order hold (forward fill) within a recording; NA before first event; no backfill",
-            "grid": "t_k = k * interval_s from 0 to the first grid point at or after the last event",
-            "categorical": "kept as strings, never converted to numbers",
-        },
-        "recordings": {
-            "total": len(recordings),
-            "by_source": recordings["source"].value_counts().sort_index().to_dict(),
-            "by_subsystem": recordings["subsystem"].dropna().value_counts().sort_index().to_dict(),
-            "naming_notes": recordings.dropna(subset=["naming_note"])[["recording_id", "naming_note"]].to_dict("records"),
-        },
-        "duration_s": {
-            source: {
-                "min": float(group["t_end"].min()),
-                "median": float(group["t_end"].median()),
-                "max": float(group["t_end"].max()),
-            }
-            for source, group in durations.groupby("source")
-        },
-        "events": {
-            "total_after_duplicate_policy": len(events),
-            "duplicate_events": len(duplicate_log),
-            "duplicates_dropped": dropped,
-            "out_of_order_rows": out_of_order,
-            "share_sharing_timestamp_with_other_node": float(sharing),
-            "repeat_events_without_change": int(events["is_repeat"].sum()),
-        },
-        "variable_types": events.drop_duplicates("node")["type"].value_counts().sort_index().to_dict(),
-        "boolean_raw_encodings": boolean["raw_value"].value_counts().sort_index().to_dict(),
-        "numeric_looking_categoricals": numeric_looking,
-        "nodes": {
-            "n_total": int(events["node"].nunique()),
-            "without_t0_snapshot": sorted(stats.loc[~stats["has_t0_snapshot"], "node"].unique()),
-            "by_source": nodes_by_source,
-        },
-        "counter_resets": {node: int(n) for node, n in resets.items()},
-        "verification": verification.to_dict(),
-    }
-
-
-def render_quality_markdown(report: dict[str, Any]) -> str:
-    rec, ev, nodes = report["recordings"], report["events"], report["nodes"]
-    lines = [
-        "# causRCA preprocessing: data-quality report",
-        "",
-        "## Policies",
-        "",
-        *[f"- **{key}**: {value}" for key, value in report["policies"].items()],
-        "",
-        "## Recordings",
-        "",
-        f"- Total: {rec['total']} ({', '.join(f'{k}: {v}' for k, v in rec['by_source'].items())})",
-        f"- Fault runs per subsystem: {', '.join(f'{k}: {v}' for k, v in rec['by_subsystem'].items())}",
-        *[
-            f"- Duration ({source}): min {d['min']:.1f} s, median {d['median']:.1f} s, max {d['max']:.1f} s"
-            for source, d in report["duration_s"].items()
-        ],
-    ]
-    if rec["naming_notes"]:
-        lines.append(f"- Naming notes ({len(rec['naming_notes'])}): {rec['naming_notes'][0]['naming_note']}")
-    lines += [
-        "",
-        "## Events",
-        "",
-        f"- Events after duplicate policy: {ev['total_after_duplicate_policy']}",
-        f"- Duplicate events: {ev['duplicate_events']} (dropped {ev['duplicates_dropped']})",
-        f"- Out-of-order rows in files: {ev['out_of_order_rows']}",
-        f"- Events (t > 0) sharing their timestamp with another node: "
-        f"{ev['share_sharing_timestamp_with_other_node']:.1%}",
-        f"- Re-published values without change: {ev['repeat_events_without_change']}",
-        f"- Binary/Alarm raw encodings: {report['boolean_raw_encodings']}",
-        f"- Numeric-looking categoricals kept as strings: {', '.join(report['numeric_looking_categoricals']) or 'none'}",
-        f"- Counter resets: {report['counter_resets'] or 'none'}",
-        "",
-        "## Nodes",
-        "",
-        f"- Distinct nodes: {nodes['n_total']}; types: {report['variable_types']}",
-        f"- Nodes without a t = 0 snapshot in some recording: {', '.join(nodes['without_t0_snapshot']) or 'none'}",
-    ]
-    for source, info in nodes["by_source"].items():
-        lines += [
-            f"- **{source}**: {info['n_nodes_observed']} nodes observed in {info['n_recordings']} recordings",
-            f"  - missing in some recordings: {', '.join(info['nodes_missing_in_some_recordings']) or 'none'}",
-            f"  - never change ({len(info['nodes_never_changing'])}): "
-            f"{', '.join(info['nodes_never_changing']) or 'none'}",
-        ]
-    ver = report["verification"]
-    lines += [
-        "",
-        "## State-table verification",
-        "",
-        f"- Interval {ver['interval_s']} s, {ver['n_recordings']} recordings, {ver['n_cells_checked']} cells checked",
-        f"- Mismatches: {ver['n_mismatches']}, grid errors: {ver['n_grid_errors']} -> "
-        f"**{'PASSED' if ver['passed'] else 'FAILED'}**",
-        "",
-    ]
-    return "\n".join(lines)
 
 
 # model-ready views
@@ -995,70 +770,6 @@ def _type_exclusion(variable_type: str, kind: str, counter_first_differences: bo
     if kind == "discrete" and variable_type in NUMERIC_TYPES:
         return "numeric_type_not_in_discrete_view"
     return None
-
-
-# full run
-
-
-def run_preprocessing(config: PreprocessingConfig, max_recordings_per_source: int | None = None) -> dict[str, Any]:
-    """run the full preprocessing, write every output and return the quality report."""
-    infos = discover_recordings(config.raw_dir)
-    if max_recordings_per_source is not None:
-        kept: dict[str, int] = {}
-        selected = []
-        for info in infos:
-            if kept.get(info.source, 0) < max_recordings_per_source:
-                selected.append(info)
-                kept[info.source] = kept.get(info.source, 0) + 1
-        infos = selected
-    logger.debug("processing %d recordings", len(infos))
-
-    events = parse_values(load_all_events(infos, config.raw_dir), strict_binary=config.strict_binary)
-    events, duplicate_log = resolve_duplicates(events, config.duplicate_policy)
-    events = mark_changes(events)
-    types = node_types(events)
-
-    stats = event_statistics(events)
-    sensitivity = sampling_sensitivity(events, config.sensitivity_intervals_s)
-    states = reconstruct_states(events, config.sampling_interval_s)
-    verification = verify_states(events, states, config.sampling_interval_s)
-    report = build_quality_report(infos, events, duplicate_log, stats, verification, config)
-
-    # diagnostic only: columns each view would drop if fitted on all normal recordings
-    normal_ids = [info.recording_id for info in infos if info.source == "real_op"]
-    exclusions = pd.DataFrame(
-        [
-            {"view": kind, **item}
-            for kind in VIEW_KINDS
-            if normal_ids
-            for item in ModelView.fit(
-                states, types, normal_ids, kind, counter_first_differences=config.counter_first_differences
-            ).exclusions
-        ],
-        columns=["view", "column", "reason"],
-    )
-
-    config.output_dir.mkdir(parents=True, exist_ok=True)
-    config.report_dir.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame([asdict(info) for info in infos]).to_csv(config.output_dir / "recordings.csv", index=False)
-    events.to_parquet(config.output_dir / "events.parquet", index=False)
-    states.to_parquet(config.output_dir / f"states_dt{config.sampling_interval_s:g}.parquet", index=False)
-
-    stats.to_csv(config.report_dir / "variable_event_stats.csv", index=False)
-    sensitivity.to_csv(config.report_dir / "sampling_sensitivity.csv", index=False)
-    duplicate_log.to_csv(config.report_dir / "duplicates_log.csv", index=False)
-    exclusions.to_csv(config.report_dir / "view_exclusions_real_op.csv", index=False)
-    _write_json(config.report_dir / "verification.json", verification.to_dict())
-    _write_json(config.report_dir / "data_quality.json", report)
-    (config.report_dir / "data_quality.md").write_text(render_quality_markdown(report), encoding="utf-8")
-    logger.debug("wrote processed data to %s and reports to %s", config.output_dir, config.report_dir)
-
-    if not verification.passed:
-        raise VerificationError(
-            f"State table failed verification: {verification.n_mismatches} mismatches, "
-            f"{verification.n_grid_errors} grid errors (see {config.report_dir / 'verification.json'})"
-        )
-    return report
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:

@@ -17,11 +17,6 @@ EXPECTED = Path(__file__).parent / "expected"
 THESIS = EXPECTED / "thesis"
 
 
-# ---------------------------------------------------------------------------
-# helpers
-# ---------------------------------------------------------------------------
-
-
 def written(part: str, name: str, **read_csv_args) -> pd.DataFrame:
     """a table written by a command; skipped when the command has not been run."""
     file = io.tables_dir(part) / f"{name}.csv"
@@ -74,11 +69,6 @@ def printed(value: str, decimals: int) -> str:
     return f"{float(value):.{decimals}f}"
 
 
-# ---------------------------------------------------------------------------
-# selection rules (no data needed)
-# ---------------------------------------------------------------------------
-
-
 def test_ties_go_to_the_baseline_then_no_lag_then_the_closest_smoothing():
     base = (0.5, None)
     tied = {(0.01, 2): 1.0, (0.5, None): 1.0, (1.0, None): 1.0}
@@ -119,11 +109,6 @@ def test_a_graph_that_ranks_the_same_with_both_settings_is_printed_once():
     assert table["SCM settings"].tolist() == ["Default"]
 
 
-# ---------------------------------------------------------------------------
-# scm stage
-# ---------------------------------------------------------------------------
-
-
 @pytest.mark.parametrize("name", ["scm_graphs", "dag_removals", "scm_settings", "scm_selection_inner"])
 def test_scm_stage_reproduces_the_contract_files(name):
     assert_same(written("pipeline", name), pd.read_csv(EXPECTED / f"{name}.csv"))
@@ -149,11 +134,6 @@ def test_every_selected_scm_is_saved():
         assert scm.fitted_path(row.subsystem, row.graph, row.scope).exists()
 
 
-# ---------------------------------------------------------------------------
-# rca stage
-# ---------------------------------------------------------------------------
-
-
 @pytest.mark.parametrize("name", ["rca_runs", "rca_rankings"])
 def test_rca_stage_reproduces_the_contract_files(name):
     assert_same(written("pipeline", name), pd.read_csv(EXPECTED / f"{name}.csv"))
@@ -161,11 +141,6 @@ def test_rca_stage_reproduces_the_contract_files(name):
 
 def test_table_a_6_matches_the_thesis():
     assert cells(numbered("pipeline", "table_a_6")) == thesis_rows("table_a_6")
-
-
-# ---------------------------------------------------------------------------
-# scm evaluation
-# ---------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize("name", ["scm_prediction", "scm_prediction_per_variable", "scm_refit_stability",
@@ -195,11 +170,6 @@ def test_table_a_9_matches_the_thesis():
     actual = numbered("evaluation", "table_a_9").astype(str).values.tolist()
     actual = [[scenario, runs, *(printed(v, 2) for v in values)] for scenario, runs, *values in actual]
     assert actual == thesis_rows("table_a_9")
-
-
-# ---------------------------------------------------------------------------
-# rca evaluation
-# ---------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize("name", ["rca_per_scenario", "rca_summary", "rca_decomposition"])

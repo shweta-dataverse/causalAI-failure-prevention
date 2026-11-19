@@ -7,8 +7,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from core import data
+from core import counterfactuals as cfx
+from core import data, discovery, graphs, rca
+from core import interventions as itv
 from core import preprocessing as pp
+from core import scm as sc
 
 
 def make_events(recordings: dict[str, list[tuple]], source: str = "dig_twin") -> pd.DataFrame:
@@ -28,24 +31,6 @@ def make_events(recordings: dict[str, list[tuple]], source: str = "dig_twin") ->
         frames.append(pp.parse_values(pp.prepare_events(raw, info)))
     events, _ = pp.resolve_duplicates(pd.concat(frames, ignore_index=True))
     return pp.mark_changes(events)
-
-
-def test_variable_coverage_and_co_observation():
-    events = make_events(
-        {
-            "run_a": [(0.0, "A", "True", "Binary"), (0.0, "B", "False", "Binary")],
-            "run_b": [(0.0, "A", "True", "Binary"), (1.0, "C", "True", "Alarm")],
-        }
-    )
-    coverage = data.variable_coverage(events, ["A", "B", "C"])
-    assert coverage.loc["run_a"].tolist() == [True, True, False]
-    assert coverage.loc["run_b"].tolist() == [True, False, True]
-
-    co = data.co_observation(coverage)
-    assert co.loc["A", "A"] == 2
-    assert co.loc["A", "B"] == 1 and co.loc["B", "A"] == 1
-    # never recorded together -> untestable pair
-    assert co.loc["B", "C"] == 0
 
 
 def splits_fixture() -> pd.DataFrame:
@@ -121,51 +106,6 @@ def test_view_files_round_trip(tmp_path):
     assert loaded.masks["run_a"][:, b].tolist() == [True, True, True, True, False]
 
 
-def test_transition_bins_flag_hidden_pulse():
-    events = make_events(
-        {"run_a": [(0.0, "A", "False", "Binary"), (1.2, "A", "True", "Binary"), (1.6, "A", "False", "Binary")]}
-    )
-    coarse = pp.transition_bins(events, 1.0).set_index("step")
-    assert coarse.loc[2, "n_changes"] == 2
-    assert not coarse.loc[2, "visible"] and coarse.loc[2, "masked"]
-
-    fine = pp.transition_bins(events, 0.1)
-    assert fine.visible.sum() == 2 and not fine.masked.any()
-
-
-def test_edge_onset_delays_keep_effects_logged_before_causes():
-    events = make_events(
-        {
-            "run_a": [
-                (0.0, "U", "True", "Binary"),
-                (0.0, "V", "False", "Binary"),
-                (2.0, "U", "False", "Binary"),  # before cause_start_at: ignored
-                (3.0, "U", "True", "Binary"),
-                (9.8, "V", "True", "Binary"),
-                (10.0, "U", "False", "Binary"),
-            ]
-        }
-    )
-    runs = pd.DataFrame({"recording_id": ["run_a"], "experiment_id": ["exp_1"], "cause_start_at": [5.0]})
-    graph = nx.MultiDiGraph([("U", "V")])
-    delays = data.edge_onset_delays(events, runs, graph)
-    assert len(delays) == 1
-    row = delays.iloc[0]
-    assert (row.cause, row.effect) == ("U", "V")
-    assert row.cause_onset_s == 10.0 and row.effect_onset_s == 9.8
-    assert row.delay_s == pytest.approx(-0.2)
-
-
-# --- graph projection, metrics and perturbations ----------------------------
-
-from core import discovery
-from core import counterfactuals as cfx
-from core import graphs
-from core import interventions as itv
-from core import rca
-from core import scm as sc
-
-
 def test_compare_graphs_known_values():
     expert = nx.DiGraph([("a", "b"), ("b", "c")])
     predicted = nx.DiGraph()
@@ -228,24 +168,6 @@ def test_to_dag_drops_undirected_edges_and_breaks_cycles_at_the_weakest_edge():
     assert set(log.action) == {"dropped (undirected)", "dropped (breaks cycle)"}
 
 
-@pytest.mark.parametrize("kind", ["delete", "insert", "reverse"])
-def test_perturbations_keep_graphs_acyclic(kind):
-    base = nx.DiGraph([("a", "b"), ("b", "c"), ("c", "d"), ("a", "d")])
-    out = graphs.perturb_graph(base, kind, 0.5, seed=1)
-    assert nx.is_directed_acyclic_graph(out)
-    changed = set(base.edges()) ^ set(out.edges())
-    if kind == "delete":
-        assert out.number_of_edges() == 2 and set(out.edges()) < set(base.edges())
-    elif kind == "insert":
-        assert out.number_of_edges() == 6 and set(base.edges()) < set(out.edges())
-    else:
-        assert out.number_of_edges() == 4 and len(changed) == 4  # two edges flipped
-    assert graphs.perturb_graph(base, kind, 0.5, seed=1).edges() == out.edges()
-
-
-# --- synthetic scm with a known structure -----------------------------------
-
-
 def view(series: dict[str, dict[str, list[float]]]) -> pp.ViewData:
     names = sorted(next(iter(series.values())))
     arrays = {r: np.column_stack([np.array(v[n], dtype=float) for n in names]) for r, v in series.items()}
@@ -289,7 +211,7 @@ def test_scm_learns_known_mechanisms():
     assert c.prob_one(np.array([0.0]), np.array([[0, 0]]))[0] < 0.05
     # the root never changed outside the manipulated run: its change is very unlikely
     assert model.mechanisms["r"].prob_one(np.array([1.0]), np.zeros((1, 0)))[0] > 0.99
-    assert not model.mechanisms["r"].supported and model.mechanisms["r"].has_data
+    assert sum(model.mechanisms["r"].n_changes.values()) == 0 and model.mechanisms["r"].has_data
 
 
 def test_simulated_intervention_replaces_the_equation():
@@ -325,9 +247,6 @@ def test_ranking_metrics_with_multiple_causes():
     assert chance["top1"] == pytest.approx(0.5, abs=0.05)
 
 
-# --- interventions and counterfactuals --------------------------------------
-
-
 def test_feasibility_rules():
     ok, problems = itv.check_feasibility([itv.Action("HP_Pump_Ok", 1.0, 5)], recorded={"HP_Pump_Ok"})
     assert ok and not problems
@@ -340,8 +259,6 @@ def test_feasibility_rules():
     assert not itv.check_feasibility([itv.Action("HP_Pump_Ok", 1.0, 5)], recorded={"LP_Pump_Ok"})[0]
     many = [itv.Action(v, itv.allowed_value(v), 5) for v in ["CLF_Filter_Ok", "F_Filter_Ok", "HP_Pump_Ok", "LP_Pump_Ok"]]
     assert not itv.check_feasibility(many)[0]
-    table = itv.actionability_table(["HP_A_700304", "HP_Pump_Ok", "unknown_var"], {"HP_A_700304": "Alarm"})
-    assert table.set_index("variable").actionable.to_dict() == {"HP_A_700304": False, "HP_Pump_Ok": True, "unknown_var": False}
 
 
 def test_counterfactual_contract():
@@ -374,9 +291,6 @@ def test_counterfactual_contract():
     # acting on an alarm is never feasible
     bad = cfx.counterfactual(model, s, [itv.Action("a", 0.0, 30)], ["a"], 20, 20, rng, recorded=set(s))
     assert not bad.feasible and not bad.valid()
-
-
-# --- orientation conflicts, corrected p-values and undirected edges -------------
 
 
 def test_aggregation_reports_orientation_conflicts():
@@ -431,8 +345,6 @@ def test_first_activation_needs_a_rise_from_zero():
         itv.first_activation(traj, start=0)
 
 
-# --- lag-aware scm variant --------------------------------------------------
-
 DELAY = 10
 DELAY_GRAPH = nx.DiGraph([("c", "a")])
 DELAY_GRAPH.add_node("z")
@@ -471,7 +383,7 @@ def test_lags_none_is_the_first_order_model():
         other = sc.fit_scm(vd, GRAPH, ids, {"train_fault": {"r"}}, interval_s=1.0, lags=lags)
         for v, m in model.mechanisms.items():
             o = other.mechanisms[v]
-            assert o.lags == {} and o.width == 2 * len(o.parents) and o.parent_label == ", ".join(o.parents)
+            assert o.lags == {} and o.width == 2 * len(o.parents)
             assert all(np.array_equal(m.tables[s], o.tables[s]) and m.n_rows[s] == o.n_rows[s] for s in (0, 1))
     s = sc.recording_series(vd, "train_0")
     expected = np.column_stack([s["p"][1:], s["p"][:-1]])
@@ -484,35 +396,6 @@ def test_lags_none_is_the_first_order_model():
     plain = model.simulate(init, noise)
     with_history = model.simulate(init, noise, history={v: np.ones(15) for v in model.mechanisms})
     assert all(np.array_equal(plain[v], with_history[v]) for v in plain)
-
-
-def lag_relations(rows):
-    return pd.DataFrame([{"regime": r, "a": a, "b": b, "relation": "directed", "basis": "lagged", "lags": l}
-                         for r, a, b, l in rows])
-
-
-def test_edge_lags_follow_the_aggregation_rules_and_exclude_held_out_regimes():
-    relations = lag_relations([("r1", "a", "b", [10]), ("r2", "a", "b", [10, 11])])
-    variables = {"r1": ["a", "b"], "r2": ["a", "b"], "r3": ["a", "b"], "r4": ["a"]}  # r3 testable, r4 not
-    dag = nx.DiGraph([("a", "b")])
-    lags, log = discovery.edge_lags(relations, variables, dag)
-    assert lags == {("a", "b"): (10,)}  # lag 11: 1 of 3 testable regimes < 0.5
-    assert log.set_index("lag").loc[11, "decision"] == "excluded (below support threshold)"
-    assert discovery.edge_lags(relations, variables, dag, exclude=["r1"])[0] == {("a", "b"): (10, 11)}
-    held_out = discovery.edge_lags(relations, variables, dag, exclude=["r2"])
-    assert held_out[0] == {("a", "b"): (10,)} and not held_out[1].regimes.str.contains("r2").any()
-    # an edge that is not in the scm graph gets no lags
-    assert discovery.edge_lags(relations, variables, nx.DiGraph([("b", "a")]))[0] == {}
-
-
-def test_edge_lags_use_only_the_direction_of_the_scm_edge():
-    relations = lag_relations([("r1", "a", "b", [1, 3]), ("r2", "b", "a", [5])])
-    variables = {"r1": ["a", "b"], "r2": ["a", "b"]}
-    lags, log = discovery.edge_lags(relations, variables, nx.DiGraph([("a", "b")]))
-    assert lags == {("a", "b"): (3,)}
-    decisions = {(r.source, r.target, r.lag): r.decision for r in log.itertuples()}
-    assert decisions[("b", "a", 5)] == "excluded (opposite direction)"
-    assert decisions[("a", "b", 1)] == "covered by lag 0/1 terms"
 
 
 def test_lag_features_are_aligned_and_early_rows_are_explicit():
@@ -538,10 +421,11 @@ def test_lag_aware_scm_reproduces_a_10_step_delay():
     initial = {"c": 1.0, "a": 0.0, "z": 1.0}
     delays = {}
     for name, model in (("base", base), ("lagged", lagged)):
-        resp = itv.alarm_response(model, initial, ["a"], {"c": (0.0, 5)}, 60, 300, np.random.default_rng(0))
-        delays[name] = resp.set_index("alarm").loc["a", "median_delay_steps"]
-        sim = itv.simulate_from_state(model, initial, 60, 300, np.random.default_rng(0), {"c": (0.0, 5)})
+        rng = np.random.default_rng(0)
+        noise = {v: rng.uniform(size=(300, 60)) for v in model.mechanisms}
+        sim = model.simulate(initial, noise, interventions={"c": (0.0, 5)})
         onset = itv.first_activation(sim["a"], start=5) - 5
+        delays[name] = np.nanmedian(onset)
         delays[name + "_iqr"] = np.nanpercentile(onset, 75) - np.nanpercentile(onset, 25)
     assert delays["lagged"] == DELAY and delays["lagged_iqr"] == 0
     # the first-order model turns the fixed delay into a constant hazard
@@ -587,8 +471,6 @@ def test_abduction_and_counterfactuals_with_lagged_mechanisms():
         # repairing at the drop prevents the alarm
         early = cfx.counterfactual(lagged, s, [itv.Action("c", 1.0, 30)], ["a"], 25, 100, rng, recorded=set(s))
         assert early.valid()
-        effects = itv.effect_matrix(lagged, ["c"], ["a"], 60, 200, rng)
-        assert effects.set_index("outcome").loc["a", "effect"] > 0.9
     finally:
         del itv.ACTIONABILITY["c"]
     # a failure 10 steps earlier moves the counterfactual alarm 10 steps earlier (delayed propagation)

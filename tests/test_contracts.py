@@ -109,8 +109,8 @@ def test_scm_graphs_are_the_dag_conversion_of_the_discovered_graphs():
         for scope, part in edges[edges.subsystem == sub].groupby("scope"):
             dag, _ = graphs.to_dag(discovery.edges_to_graph(part, nodes))
             rows = scm_graphs[(scm_graphs.subsystem == sub) & (scm_graphs.scope == scope)]
-            stored = graphs.scm_graph(rows[rows.graph == "discovered"], nodes)
-            assert set(stored.edges) == set(dag.edges) and list(stored.nodes) == list(dag.nodes)
+            discovered = rows[rows.graph == "discovered"]
+            assert set(zip(discovered.source, discovered.target)) == set(dag.edges) and list(dag.nodes) == nodes
             assert set(zip(rows.loc[rows.graph == "expert", "source"], rows.loc[rows.graph == "expert", "target"])) \
                 == set(expert.edges)
 

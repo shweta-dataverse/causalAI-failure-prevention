@@ -1,4 +1,4 @@
-"""comparison with the expert graph, dag conversion, perturbations and drawing of graphs."""
+"""comparison with the expert graph, dag conversion and drawing of graphs."""
 
 from __future__ import annotations
 
@@ -144,63 +144,6 @@ def to_dag(graph: nx.DiGraph) -> tuple[nx.DiGraph, pd.DataFrame]:
         dag.remove_edge(weakest[0], weakest[1])
         log.append({"source": weakest[0], "target": weakest[1], "action": "dropped (breaks cycle)"})
     return dag, pd.DataFrame(log, columns=["source", "target", "action"])
-
-
-# perturbations of the expert graph
-
-
-def perturb_graph(graph: nx.DiGraph, kind: str, fraction: float, seed: int) -> nx.DiGraph:
-    """copy of a dag with a share of edges deleted, inserted or reversed, kept acyclic."""
-    if kind not in ("delete", "insert", "reverse"):
-        raise ValueError(f"unknown perturbation {kind!r}")
-    rng = np.random.default_rng(seed)
-    base = simple_digraph(graph)
-    if not nx.is_directed_acyclic_graph(base):
-        raise ValueError("perturb_graph expects an acyclic graph")
-    out = base.copy()
-    edges = sorted(base.edges())
-    n = int(round(fraction * len(edges)))
-    if n == 0:
-        return out
-
-    if kind == "delete":
-        for k in rng.choice(len(edges), size=min(n, len(edges)), replace=False):
-            out.remove_edge(*edges[k])
-    elif kind == "reverse":
-        done = 0
-        for k in rng.permutation(len(edges)):
-            u, v = edges[k]
-            out.remove_edge(u, v)
-            out.add_edge(v, u)
-            if nx.is_directed_acyclic_graph(out):
-                done += 1
-            else:
-                out.remove_edge(v, u)
-                out.add_edge(u, v)
-            if done == n:
-                break
-    else:
-        nodes = sorted(base.nodes)
-        absent = [(u, v) for u in nodes for v in nodes if u != v and not base.has_edge(u, v) and not base.has_edge(v, u)]
-        done = 0
-        for k in rng.permutation(len(absent)):
-            u, v = absent[k]
-            out.add_edge(u, v)
-            if nx.is_directed_acyclic_graph(out):
-                done += 1
-            else:
-                out.remove_edge(u, v)
-            if done == n:
-                break
-    return out
-
-
-def scm_graph(edges: pd.DataFrame, nodes: Sequence[str]) -> nx.DiGraph:
-    """scm graph from source/target rows; node order matters (it fixes the order of the random draws)."""
-    graph = nx.DiGraph()
-    graph.add_nodes_from(nodes)
-    graph.add_edges_from(zip(edges["source"], edges["target"]))
-    return graph
 
 
 def edge_class(u: str, v: str, oriented: bool, reference: nx.DiGraph) -> str:
