@@ -877,3 +877,73 @@ def bootstrap_regimes(regimes: dict[str, list[str]], n_boot: int, seed: int) -> 
     rng = np.random.default_rng(seed)
     return [{r: [str(x) for x in rng.choice(ids, size=len(ids), replace=True)] for r, ids in regimes.items()}
             for _ in range(n_boot)]
+
+
+class RefreshCache(RunCache):
+    """run cache that treats entries written before ``since`` (a unix time) as missing, so they are rerun."""
+
+    def __init__(self, directory: Path, since: float):
+        super().__init__(directory)
+        self.since = since
+
+    def has(self, spec: RunSpec) -> bool:
+        path = self.path(spec)
+        return path.exists() and path.stat().st_mtime >= self.since
+
+
+# ---------------------------------------------------------------------------
+# why an expert edge is missing
+# ---------------------------------------------------------------------------
+
+
+def state_changes(view_data: ViewData, recording_id: str, variable: str) -> list[tuple[int, int]]:
+    """(step, new value) of every observed change of one variable."""
+    j = view_data.var_names.index(variable)
+    x, m = view_data.arrays[recording_id][:, j], view_data.masks[recording_id][:, j]
+    steps = np.flatnonzero((np.diff(x) != 0) & ~m[1:] & ~m[:-1]) + 1
+    return [(int(i), int(x[i])) for i in steps]
+
+
+def fault_intervals(view_data: ViewData, recording_id: str, variable: str) -> list[tuple[int, int]]:
+    """[first step at 0, recovery step) of every period in which a health state is 0."""
+    intervals, start = [], None
+    for step, value in state_changes(view_data, recording_id, variable):
+        if value == 0:
+            start = step
+        elif start is not None:
+            intervals.append((start, step))
+            start = None
+    if start is not None:
+        intervals.append((start, len(view_data.arrays[recording_id])))
+    return intervals
+
+
+def pair_separation(view_data: ViewData, recording_ids: Sequence[str], variables: Sequence[str],
+                    config: StudyConfig, a: str, b: str) -> tuple[float, list[dict[str, Any]]]:
+    """smallest p-value of the pair in one pcmci+ run and the conditioning sets that separated it."""
+    columns = [view_data.var_names.index(v) for v in variables]
+    frame = tg_pp.DataFrame({k: view_data.arrays[r][:, columns].astype(float) for k, r in enumerate(recording_ids)},
+                            mask={k: view_data.masks[r][:, columns] for k, r in enumerate(recording_ids)},
+                            analysis_mode="multiple", var_names=list(variables))
+    pcmci = PCMCI(dataframe=frame, cond_ind_test=Gsquared(significance="analytic", mask_type="xyz"), verbosity=0)
+    settings = config.discovery_config()
+    results = pcmci.run_pcmciplus(tau_min=0, tau_max=settings.tau_max, pc_alpha=settings.pc_alpha,
+                                  fdr_method=settings.fdr_method, max_conds_dim=settings.max_conds_dim,
+                                  max_conds_px=settings.max_conds_px, max_conds_py=settings.max_conds_py)
+    i, j = list(variables).index(a), list(variables).index(b)
+    p_min = float(np.nanmin(np.r_[results["p_matrix"][i, j, :], results["p_matrix"][j, i, :]]))
+    separations = []
+    for ((x, lag), y), conditions in (results.get("sepsets") or {}).items():
+        if {x, y} == {i, j} and conditions:
+            separations.append({"x": variables[x], "lag": int(lag), "y": variables[y],
+                                "conditions": [(variables[c], int(t)) for c, t in conditions]})
+    return p_min, separations
+
+
+def pair_links(runs: dict[str, RegimeRun], a: str, b: str) -> pd.DataFrame:
+    """links between two variables in cached regime runs (kept or removed by the fdr filter)."""
+    frames = [run.links.assign(regime=regime) for regime, run in runs.items() if run.status == "ok" and len(run.links)]
+    if not frames:
+        return pd.DataFrame(columns=LINK_COLUMNS)
+    links = pd.concat(frames, ignore_index=True)
+    return links[((links["source"] == a) & (links["target"] == b)) | ((links["source"] == b) & (links["target"] == a))]

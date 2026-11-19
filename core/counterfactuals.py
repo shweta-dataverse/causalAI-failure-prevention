@@ -234,3 +234,27 @@ def reevaluate_validity(
     low, high = wilson_interval(valid, n)
     return {"n_worlds": n, "n_valid_worlds": valid, "validity_independent": valid / n,
             "wilson_low": low, "wilson_high": high}
+
+
+def independent_worlds(
+    scm: TemporalSCM,
+    series: dict[str, np.ndarray],
+    actions: Sequence[Action],
+    seed_sequence: np.random.SeedSequence,
+    n_batches: int = 10,
+    batch_size: int = 200,
+) -> dict[str, np.ndarray]:
+    """the counterfactual worlds behind reevaluate_validity (same batches and order of draws)."""
+    fixed = {v: x for v, x in unrecorded_context(scm, series).items() if v not in {a.variable for a in actions}}
+    interventions = {a.variable: (a.value, a.start_step) for a in actions}
+    batches = []
+    for child in seed_sequence.spawn(n_batches):
+        noise = scm.abduct_noise(series, batch_size, np.random.default_rng(child))
+        batches.append(scm.simulate(initial_state(scm, series), noise, interventions=interventions, fixed=fixed))
+    return {v: np.concatenate([b[v] for b in batches]) for v in batches[0]}
+
+
+def persistence(scm: TemporalSCM, alarm: str) -> float:
+    """fitted p(alarm stays active) when every parent feature of its mechanism is 1 (healthy)."""
+    mechanism = scm.mechanisms[alarm]
+    return float(mechanism.tables[1][(1 << mechanism.width) - 1])

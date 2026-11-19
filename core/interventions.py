@@ -222,3 +222,12 @@ def replay_paired(
             "p_returns_after_release": float(back.mean()) if released else np.nan,
         })
     return alarm_rows, pd.DataFrame(target_rows), identical
+
+
+def onset_steps(changes: pd.DataFrame, interval_s: float) -> dict[tuple[str, str], int]:
+    """(run, manipulated variable) -> grid step of its first change after the fault start."""
+    steps = {}
+    for rid, variable, t in zip(changes["recording_id"], changes["variable"], changes["first_change_after_start_s"]):
+        if not np.isnan(t):
+            steps[(rid, variable)] = int(np.ceil(round(t / interval_s, 9)))
+    return steps

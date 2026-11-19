@@ -21,10 +21,13 @@ PRODUCERS = {
     "scm_graphs": "scm",
     "dag_removals": "scm",
     "scm_settings": "scm",
+    "scm_selection_inner": "scm",
     "rca_rankings": "rca",
     "rca_runs": "rca",
     "replay": "interventions",
     "recommendations": "counterfactuals",
+    "tried_action_sets": "counterfactuals",
+    "recommendation_refits": "counterfactuals",
 }
 
 

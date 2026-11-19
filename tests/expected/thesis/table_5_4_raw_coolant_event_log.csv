@@ -1,0 +1,6 @@
+time_s,node,value,type
+0.0,HP_A_700304,False,Alarm
+0.0,HP_Pump_Ok,True,Binary
+0.0,HP_Pump_isOff,True,Binary
+0.0,LP_Pump_On,False,Binary
+0.0,LT_A_700317,False,Alarm

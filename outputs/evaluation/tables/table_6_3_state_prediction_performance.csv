@@ -1,0 +1,7 @@
+Subsystem,Data,Expert LL,Expert Brier,Expert LL changes,Discovered LL,Discovered Brier,Discovered LL changes
+Coolant,Validation,0.01,0.002,4.48,0.01,0.002,4.47
+Coolant,Test,0.013,0.003,4.22,0.013,0.003,4.21
+Coolant,Fault scenarios,0.174,0.051,2.98,0.174,0.051,2.88
+Probe,Validation,0.008,0.001,2.0,0.009,0.002,2.24
+Probe,Test,0.009,0.002,1.63,0.009,0.002,1.79
+Probe,Fault scenarios,0.022,0.004,2.09,0.026,0.005,2.62

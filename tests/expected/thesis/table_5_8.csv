@@ -1,0 +1,9 @@
+32,0.00921,0.00885,0.00955,0.00984
+64,0.00905,0.00883,0.00970,0.00957
+128,0.00957,0.00872,0.00998,0.00982
+Fixed in advance
+Optimiser; learning rate; batch size,Adam; 0.001; 512
+"Epochs (early stopping, patience 2)",at most 30
+Seeds per fold,3
+Explained steps; attribution,20 most anomalous; absolute
+SHAP method; background; samples,expected gradients; 100; 50

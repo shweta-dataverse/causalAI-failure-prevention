@@ -23,6 +23,16 @@ preprocessing:
   strict_binary: true                     # reject binary/alarm values other than true/false/1/0
   counter_first_differences: false
 
+# state views <subsystem>_dt<interval> in data/processed: a schema view encodes the expert node
+# list without any fitted step; the fitted 1 s coolant view serves the sensitivity analysis
+state_views:
+  - {subsystem: coolant, interval_s: 0.5, encoding: schema}
+  - {subsystem: probe, interval_s: 0.5, encoding: schema}
+  - {subsystem: coolant, interval_s: 1.0, encoding: fitted}
+manipulated_kinds:                        # wording of the subsystem table
+  coolant: pumps, filters, tank levels
+  probe: arm position sensors
+
 model_interval_s: 0.5                     # grid of the model views <subsystem>_dt0.5
 split_fractions: [0.7, 0.15, 0.15]        # normal recordings by number: train, validation, test
 
@@ -96,6 +106,8 @@ discovery:
 graph_evaluation:
   random_draws: 2000                      # random graphs with the same number of edges
   seed: 0
+  stable_edge_share: 0.95                 # an edge is stable when it appears in this share of bootstrap draws
+  missed_edges_for: [coolant]             # subsystems whose missed expert edges are traced
 
 # scm settings: smoothing pseudo-count x extra lag, chosen by held-out one-step log loss
 scm:
@@ -105,11 +117,16 @@ scm:
   max_table_features: 20                  # extra lag only on edges whose child keeps <= 2^20 configurations
   normal_refits: 10                       # bootstrap refits of the all-scenario expert model
   seed: 0
+  behaviour_samples: 20                   # simulated runs per normal test recording (simulated behaviour)
+  abduction_samples: 20                   # replays of the abducted noise without an action
+  residual_seed: 0                        # randomized quantile residuals
+  diagnostics_subsystem: coolant          # residuals and simulated behaviour of its normal-prediction model
   # appendix study: selection objective of the scm settings
   objective_study:
     objectives: [log_loss, ap3]
     graphs: [expert, discovered, empty]
     metrics: [top1, hit@3, ap@3, rr]
+    table_subsystem: probe                # subsystem of the per-scenario table
 
 rca:
   window_before_s: 60.0                   # before the first observed alarm onset
@@ -120,10 +137,12 @@ rca:
   seed: 0
 
 interventions:
+  subsystem: coolant                      # actionability is defined for the coolant variables only
   replay_worlds: 200
   seed: 0
 
 counterfactuals:
+  subsystem: coolant
   selection_worlds: 200
   selection_seed: 0
   top_k: 3
@@ -147,6 +166,28 @@ counterfactuals:
       - [0.01, null, pseudo-count only]
       - [0.5, 2, extra lag only]
       - [0.01, 2, selected]
+  # plain names used in the recommendation and example tables
+  component_names:
+    HP_Pump_Ok: high-pressure pump
+    CLF_Filter_Ok: coolant filter
+    LP_Pump_Ok: low-pressure pump
+    F_Filter_Ok: fleece filter
+    LT_Level_Ok: lifting-tank level
+    CLT_Level_lt_Min: coolant tank level
+    LP_Pump_On: low-pressure pump command
+  alarm_names:
+    HP_A_700304: pump alarm
+  # the three example runs, chosen by a fixed rule
+  examples:
+    success:
+      title: valid run with the highest alarm coverage
+      limitation: Prevention is predicted by the SCM, not observed
+    lowest_coverage:
+      title: lowest alarm coverage
+      limitation: No action set met the threshold within the evaluated search; the level fault cannot reach the pump alarm
+    lowest_validity:
+      title: lowest validity
+      limitation: The latched pump alarm is nearly impossible under the SCM of the fold
 
 # lstm + shap baseline
 lstm:
@@ -164,6 +205,7 @@ lstm:
   step_variants: {top10: 10, top20: 20, all: null}   # explained anomalous steps
   aggregations: [abs, pos]
   main: [top20, abs]                      # fixed in advance
+  sensitivity_subsystem: probe            # subsystem of the sensitivity table and the graph/settings decomposition
   workers: 4
   threads_per_worker: 3
 

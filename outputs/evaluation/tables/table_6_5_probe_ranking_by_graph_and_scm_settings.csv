@@ -1,0 +1,6 @@
+Graph,SCM settings,Top-1,MAP@3,Scenario avg. AP@3,Orders
+Expert,Default,0.44,0.48,0.43,30
+Expert,Selected,0.62,0.67,0.64,32
+"Discovered, original settings",Default,0.24,0.56,0.61,4
+"Discovered, selected settings",Default,0.44,0.47,0.41,32
+"Discovered, selected settings",Selected,0.53,0.63,0.57,31

@@ -1,0 +1,3 @@
+Subsystem,Nodes,Edges,Scenarios,Runs,Manipulated variables per scenario
+Coolant,15,10,4,25,"2–3 (pumps, filters, tank levels)"
+Probe,11,15,6,34,1–2 (arm position sensors)

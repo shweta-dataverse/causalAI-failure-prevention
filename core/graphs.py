@@ -9,6 +9,7 @@ knowledge, not proof of the true causal structure.
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
+from dataclasses import dataclass
 from typing import Any
 
 import matplotlib.pyplot as plt
@@ -16,8 +17,9 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
+from matplotlib.patches import FancyArrowPatch
 
-from core.plots import INK, TYPE_COLORS
+from core.plots import COLORS, INK, TYPE_COLORS
 
 Pair = frozenset
 
@@ -331,3 +333,216 @@ def type_legend_handles(types: Iterable[str], highlight_label: str | None = None
                    markeredgecolor=INK["primary"], markeredgewidth=2.5, label=highlight_label)
         )
     return handles
+
+
+# ---------------------------------------------------------------------------
+# expert and discovered graph side by side (tikz and matplotlib)
+# ---------------------------------------------------------------------------
+
+# edge class: legend label, colour, line style
+COMPARISON_CLASSES = {
+    "correct direction": ("Correct direction", COLORS[0], "solid"),
+    "reversed": ("Reversed direction", COLORS[2], "solid"),
+    "extra": ("Directed, not in expert graph", COLORS[1], "solid"),
+    "undirected, adjacency correct": ("Undirected, adjacent in expert graph", COLORS[0], "dashed"),
+    "undirected, extra": ("Undirected, not in expert graph", COLORS[1], "dashed"),
+    "missed": ("Expert edge not found", INK["muted"], "dotted"),
+}
+TIKZ_EDGE = {
+    "expert": "->, draw=black!70, line width=0.7pt",
+    "correct direction": "->, draw=figblue, line width=1.1pt",
+    "reversed": "->, draw=figgreen, line width=1.1pt",
+    "extra": "->, draw=figorange, line width=1.1pt",
+    "undirected, adjacency correct": "draw=figblue, line width=1.1pt, dashed",
+    "undirected, extra": "draw=figorange, line width=1.1pt, dashed",
+    "missed": "->, draw=figgrey, line width=0.9pt, densely dotted",
+}
+TIKZ_HEADER = [
+    r"\definecolor{figblue}{HTML}{2A78D6}\definecolor{figorange}{HTML}{EB6834}%",
+    r"\definecolor{figgreen}{HTML}{1BAF7A}\definecolor{figgrey}{HTML}{898781}%",
+    r"\begin{tikzpicture}[>=latex,",
+    r"  st/.style={draw=figblue, fill=figblue!15, rounded corners=2pt, inner sep=2.5pt, font=\footnotesize\ttfamily},",
+    r"  al/.style={draw=figorange, fill=figorange!15, rounded corners=2pt, inner sep=2.5pt, font=\footnotesize\ttfamily}]",
+]
+# matplotlib connection styles of the routed tikz edges
+ROUTE_STYLES = {
+    "out=0, in=0": "arc,angleA=0,angleB=0,armA={arm},armB={arm},rad=6",
+    "out=-90, in=-90": "arc,angleA=-90,angleB=-90,armA={arm},armB={arm},rad=6",
+    "bend left": "arc3,rad=-0.25",
+}
+
+
+@dataclass
+class GraphLayout:
+    """hand-placed node positions in cm (both panels), routed edges and the gap above the legend."""
+
+    positions: dict[str, tuple[float, float]]
+    routes: dict[frozenset, tuple[str, str, str]]  # pair -> (anchor of u, anchor of v, tikz options)
+    y_scale: float
+    legend_gap: float
+
+    @property
+    def height(self) -> float:
+        return -self.y_scale * min(y for _, y in self.positions.values())
+
+    @property
+    def panel_shift(self) -> float:
+        return -(self.height + 2.3)
+
+    @property
+    def centre(self) -> float:
+        xs = [x for x, _ in self.positions.values()]
+        return (min(xs) + max(xs)) / 2
+
+
+def comparison_edges(discovered: nx.DiGraph, expert: nx.DiGraph) -> tuple[list[tuple[str, str, str]], dict[str, int]]:
+    """discovered edges with their class, then the expert edges that were not found, and the count per class."""
+    edges, counts = [], {}
+    for u, v, attrs in discovered.edges(data=True):
+        cls = edge_class(u, v, attrs.get("oriented", True), expert)
+        counts[cls] = counts.get(cls, 0) + 1
+        edges.append((u, v, cls))
+    missed = [(u, v, "missed") for u, v in expert.edges if not (discovered.has_edge(u, v) or discovered.has_edge(v, u))]
+    counts["missed"] = len(missed)
+    return edges + missed, counts
+
+
+def comparison_titles(expert: nx.DiGraph, discovered: nx.DiGraph) -> tuple[str, str]:
+    # a pair found in both directions is drawn as two arrows but counts as one adjacency
+    adjacencies = len({frozenset(e) for e in discovered.edges})
+    return (f"(a) Expert graph: {expert.number_of_edges()} edges",
+            f"(b) Discovered summary graph, before DAG conversion: {adjacencies} adjacencies")
+
+
+def _tex(name: str) -> str:
+    return name.replace("_", r"\_")
+
+
+def _tikz_panel(prefix: str, layout: GraphLayout, kinds: dict[str, str], edges: list[tuple[str, str, str]],
+                title: str, top: float) -> list[str]:
+    out = [rf"\node[anchor=south west, font=\normalsize] at (-1.7, {top + 0.55:.2f}) {{{title}}};"]
+    for n, (x, y) in layout.positions.items():
+        style = "al" if kinds[n] == "Alarm" else "st"
+        out.append(rf"\node[{style}] ({prefix}{n.replace('_', '-')}) at ({x}, {layout.y_scale * y + top:.2f}) {{{_tex(n)}}};")
+    for u, v, cls in edges:
+        a, b = prefix + u.replace("_", "-"), prefix + v.replace("_", "-")
+        route = layout.routes.get(frozenset({u, v}))
+        if route:
+            out.append(rf"\draw[{TIKZ_EDGE[cls]}] ({a}.{route[0]}) to[{route[2]}] ({b}.{route[1]});")
+        else:
+            out.append(rf"\draw[{TIKZ_EDGE[cls]}] ({a}) -- ({b});")
+    return out
+
+
+def comparison_tikz(expert: nx.DiGraph, discovered: nx.DiGraph, layout: GraphLayout, comment: str) -> str:
+    """tikz picture: (a) the expert graph, (b) the discovered summary graph with edge classes, and a legend."""
+    kinds = {n: expert.nodes[n]["kind"] for n in expert.nodes}
+    edges, counts = comparison_edges(discovered, expert)
+    title_a, title_b = comparison_titles(expert, discovered)
+    lines = [f"% {comment}", *TIKZ_HEADER]
+    lines += _tikz_panel("a-", layout, kinds, [(u, v, "expert") for u, v in expert.edges], title_a, 0)
+    lines += _tikz_panel("b-", layout, kinds, edges, title_b, layout.panel_shift)
+    rows = [rf"\tikz[baseline=-0.6ex]\draw[{TIKZ_EDGE[k]}] (0,0) -- (0.8,0); & {label} ({counts[k]})"
+            for k, (label, _, _) in COMPARISON_CLASSES.items() if counts.get(k, 0) > 0]
+    rows += [r"\tikz[baseline=-0.6ex]\node[st, minimum width=8mm] {};& State",
+             r"\tikz[baseline=-0.6ex]\node[al, minimum width=8mm] {};& Alarm"]
+    half = (len(rows) + 1) // 2
+    legend_y = layout.panel_shift - layout.height - layout.legend_gap
+    lines.append(rf"\node[anchor=north, font=\footnotesize] at ({layout.centre:.2f}, {legend_y:.2f}) "
+                 r"{\begin{tabular}{@{}cl@{\hspace{6mm}}cl@{}}")
+    lines += [rows[i] + " & " + (rows[i + half] if i + half < len(rows) else "&") + r" \\" for i in range(half)]
+    lines += [r"\end{tabular}};", r"\end{tikzpicture}"]
+    return "\n".join(lines) + "\n"
+
+
+def draw_comparison(expert: nx.DiGraph, discovered: nx.DiGraph, layout: GraphLayout) -> plt.Figure:
+    """the tikz picture drawn with matplotlib: same positions (1 data unit = 1 cm), edge classes and legend."""
+    kinds = {n: expert.nodes[n]["kind"] for n in expert.nodes}
+    edges, counts = comparison_edges(discovered, expert)
+    titles = comparison_titles(expert, discovered)
+    xs = [x for x, _ in layout.positions.values()]
+    left, right = -1.8, max(xs) + 1.9
+    bottom, top = layout.panel_shift - layout.height - layout.legend_gap - 0.3, 1.2
+    fig = plt.figure(figsize=((right - left) / 2.54, (top - bottom) / 2.54))
+    ax = fig.add_axes((0, 0, 1, 1))
+    ax.set_xlim(left, right)
+    ax.set_ylim(bottom, top)
+    ax.axis("off")
+    for title, shift, panel in ((titles[0], 0.0, [(u, v, "expert") for u, v in expert.edges]),
+                                (titles[1], layout.panel_shift, edges)):
+        ax.text(-1.7, shift + 0.55, title, ha="left", va="bottom", fontsize=10)
+        boxes = _draw_nodes(fig, ax, layout, kinds, shift)
+        for u, v, cls in panel:
+            _draw_edge(ax, boxes, layout.routes.get(frozenset({u, v})), u, v, cls)
+    handles = [Line2D([], [], color=color, linestyle=style if style != "dotted" else (0, (1, 1.5)), linewidth=1.1,
+                      label=f"{label} ({counts[k]})") for k, (label, color, style) in COMPARISON_CLASSES.items()
+               if counts.get(k, 0) > 0]
+    handles += [Line2D([], [], marker="s", markersize=9, linestyle="", markerfacecolor=_tint(TYPE_COLORS[kind]),
+                       markeredgecolor=TYPE_COLORS[kind], label=label) for kind, label in (("Binary", "State"), ("Alarm", "Alarm"))]
+    legend_y = layout.panel_shift - layout.height - layout.legend_gap
+    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(layout.centre, legend_y), bbox_transform=ax.transData,
+              ncol=2, frameon=False, fontsize=8, handlelength=2.2, columnspacing=2.0)
+    return fig
+
+
+def _tint(color: str, share: float = 0.15) -> tuple[float, float, float]:
+    rgb = np.array([int(color[i:i + 2], 16) for i in (1, 3, 5)]) / 255
+    return tuple(share * rgb + (1 - share))
+
+
+def _draw_nodes(fig: plt.Figure, ax: plt.Axes, layout: GraphLayout, kinds: dict[str, str],
+                shift: float) -> dict[str, tuple[float, float, float, float]]:
+    """node boxes; returns their extent (x0, y0, x1, y1) in cm."""
+    texts = {}
+    for n, (x, y) in layout.positions.items():
+        color = TYPE_COLORS["Alarm" if kinds[n] == "Alarm" else "Binary"]
+        texts[n] = ax.text(x, layout.y_scale * y + shift, n, ha="center", va="center", fontsize=7.5, family="monospace",
+                           bbox={"boxstyle": "round,pad=0.25,rounding_size=0.2", "facecolor": _tint(color),
+                                 "edgecolor": color, "linewidth": 0.8})
+    fig.canvas.draw()
+    inverse = ax.transData.inverted()
+    boxes = {}
+    for n, text in texts.items():
+        (x0, y0), (x1, y1) = inverse.transform(text.get_bbox_patch().get_window_extent())
+        boxes[n] = (x0, y0, x1, y1)
+    return boxes
+
+
+def _anchor(box: tuple[float, float, float, float], name: str) -> tuple[float, float]:
+    x0, y0, x1, y1 = box
+    xs = {"west": x0, "east": x1}
+    ys = {"south": y0, "north": y1}
+    x = next((xs[k] for k in xs if k in name), (x0 + x1) / 2)
+    y = next((ys[k] for k in ys if k in name), (y0 + y1) / 2)
+    return x, y
+
+
+def _border_point(box: tuple[float, float, float, float], towards: tuple[float, float]) -> tuple[float, float]:
+    """where the line from the box centre to a point leaves the box."""
+    x0, y0, x1, y1 = box
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    dx, dy = towards[0] - cx, towards[1] - cy
+    scale = min((x1 - cx) / abs(dx) if dx else np.inf, (y1 - cy) / abs(dy) if dy else np.inf)
+    return cx + dx * scale, cy + dy * scale
+
+
+def _draw_edge(ax: plt.Axes, boxes: dict, route: tuple[str, str, str] | None, u: str, v: str, cls: str) -> None:
+    if cls == "expert":
+        color, style, width = INK["secondary"], "solid", 0.7
+    else:
+        _, color, style = COMPARISON_CLASSES[cls]
+        width = 0.9 if cls == "missed" else 1.1
+    if route:
+        start, end = _anchor(boxes[u], route[0]), _anchor(boxes[v], route[1])
+        key = next(k for k in ROUTE_STYLES if route[2].startswith(k))
+        looseness = float(route[2].split("looseness=")[1]) if "looseness=" in route[2] else 1.0
+        connection = ROUTE_STYLES[key].format(arm=round(22 * looseness))
+    else:
+        centre_u = ((boxes[u][0] + boxes[u][2]) / 2, (boxes[u][1] + boxes[u][3]) / 2)
+        centre_v = ((boxes[v][0] + boxes[v][2]) / 2, (boxes[v][1] + boxes[v][3]) / 2)
+        start, end = _border_point(boxes[u], centre_v), _border_point(boxes[v], centre_u)
+        connection = "arc3,rad=0"
+    directed = not cls.startswith("undirected")
+    ax.add_patch(FancyArrowPatch(start, end, arrowstyle="-|>" if directed else "-", mutation_scale=8, color=color,
+                                 linewidth=width, linestyle=style if style != "dotted" else (0, (1, 1.5)),
+                                 connectionstyle=connection, shrinkA=0, shrinkB=0))

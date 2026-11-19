@@ -1,0 +1,12 @@
+Metric,"Expert graph, all","Expert graph, valid","Discovered graph, all","Discovered graph, valid"
+Reaching 0.90 in the search (200 simulations),18 / 25,,19 / 25,
+"Valid recommendations (2,000 simulations)",19 / 25,,19 / 25,
+Mean validity,0.933,0.960,0.936,0.963
+Lowest lower limit of the 95% Wilson interval,0.82,0.90,0.80,0.90
+"Alarm coverage, count of activations",37/56,31/44,37/56,31/44
+"Alarm coverage, mean per run",0.66,0.71,0.66,0.71
+Mean number of actions,1.48,1.63,1.48,1.63
+Mean reduction in time with an active alarm,0.36,0.30,0.36,0.31
+Action precision,1.00,1.00,1.00,1.00
+Action recall,0.66,0.71,0.66,0.71
+Valid for all five resampled SCMs,19 / 25,,19 / 25,

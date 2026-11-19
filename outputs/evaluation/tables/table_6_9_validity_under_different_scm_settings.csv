@@ -1,0 +1,5 @@
+SCM setting of the exp_22 fold,Persistence,Validity (expert),Valid runs
+"a = 0.5, no extra lag (original)",0.46,0.94–0.96,6 / 6
+"a = 0.01, no extra lag",0.46,1.00,6 / 6
+"a = 0.5, extra lag 2 steps",0.07,0.79–0.83,0 / 6
+"a = 0.01, extra lag 2 steps (selected)",0.002,0.84–0.87,0 / 6

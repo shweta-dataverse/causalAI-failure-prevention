@@ -1,0 +1,5 @@
+Subsystem,"(τmax, α, κ)",Dir. F1,Skel. F1,SHD,Edges,Ties,Boot. F1,Jacc.
+Coolant,"Original (10, 0.01, 0.5)",0.75,0.80,6,10,–,0.64,0.64
+Coolant,"Selected (5, 0.01, 0.5)",0.75,0.80,6,10,4,0.65,0.68
+Probe,"Original (10, 0.01, 0.5)",0.00,0.52,17,8,–,0.14,0.44
+Probe,"Selected (20, 0.01, 0.25)",0.42,0.59,18,19,1,0.39,0.34

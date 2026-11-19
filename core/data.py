@@ -9,7 +9,7 @@ from __future__ import annotations
 import ast
 import json
 from collections import Counter
-from itertools import chain
+from itertools import chain, combinations
 from pathlib import Path
 from collections.abc import Sequence
 from typing import Any
@@ -483,6 +483,39 @@ def related_partners(path: Path = RELATED_PATH) -> dict[str, set[str]]:
         for r in ids:
             out[r] = ids - {r}
     return out
+
+
+def raw_rows_after_start(raw_dir: Path = RAW_DIR) -> dict[str, set[tuple[str, str, str]]]:
+    """recording id -> its raw (time_s, node, value) rows after t = 0, as the original strings."""
+    rows = {}
+    for info in pp.discover_recordings(raw_dir):
+        raw = pd.read_csv(Path(raw_dir) / info.source_file, dtype=str, keep_default_na=False)
+        raw = raw[raw["time_s"].astype(float) > 0]
+        rows[info.recording_id] = set(zip(raw["time_s"], raw["node"], raw["value"]))
+    return rows
+
+
+def recording_similarity(rows: dict[str, set[tuple[str, str, str]]]) -> pd.DataFrame:
+    """every pair of recordings that shares at least one row, with the jaccard share of its rows."""
+    holders: dict[tuple[str, str, str], list[str]] = {}
+    for recording_id, recording_rows in rows.items():
+        for row in recording_rows:
+            holders.setdefault(row, []).append(recording_id)
+    shared = Counter(pair for ids in holders.values() for pair in combinations(ids, 2))
+    table = pd.DataFrame(
+        [{"a": a, "b": b, "rows_a": len(rows[a]), "rows_b": len(rows[b]), "shared_rows": n,
+          "jaccard": n / len(rows[a] | rows[b])} for (a, b), n in shared.items()],
+        columns=["a", "b", "rows_a", "rows_b", "shared_rows", "jaccard"],
+    )
+    return table.sort_values(["jaccard", "a", "b"], ascending=[False, True, True], ignore_index=True)
+
+
+def near_duplicate_groups(similarity: pd.DataFrame, threshold: float) -> list[set[str]]:
+    """connected groups of recordings whose pairwise jaccard reaches the threshold."""
+    graph = nx.Graph()
+    close = similarity[similarity["jaccard"] >= threshold]
+    graph.add_edges_from(zip(close["a"], close["b"]))
+    return sorted((set(g) for g in nx.connected_components(graph)), key=sorted)
 
 
 def protected_ids(ids: Sequence[str]) -> set[str]:
