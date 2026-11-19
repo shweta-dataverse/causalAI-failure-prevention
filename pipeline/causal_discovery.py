@@ -22,17 +22,10 @@ def run(cfg: dict, force: bool = False) -> None:
     edges, settings = [], []
     for sub in setting(cfg, "subsystems"):
         context = Subsystem(cfg, sub, splits)
-        scopes = context.scopes()
-        # the support threshold only aggregates, so one pcmci+ run serves three configurations
-        runs_needed = {c.run_id: c for c in grid}.values()
-        run_missing(cfg, context, [discovery.make_specs(sub, context.view_name, context.view, context.regimes(held), c)[0]
-                                   for held in scopes for c in runs_needed], force, started)
-        for held in scopes:
-            best_row, best_edges = select_scope(context, held, grid, order)
-            settings.append(best_row)
-            edges.append(best_edges)
-        log.debug(f"{sub}: {len(scopes)} scopes selected")
-    edges, settings = pd.concat(edges, ignore_index=True), pd.DataFrame(settings)
+        sub_edges, sub_settings = discover(cfg, context, grid, order, context.scopes(), force, started)
+        edges.append(sub_edges)
+        settings.append(sub_settings)
+    edges, settings = pd.concat(edges, ignore_index=True), pd.concat(settings, ignore_index=True)
     io.write_output(edges, "discovered_graphs")
     io.write_output(settings, "discovery_settings")
     counts = settings.groupby("subsystem", sort=False).size()
@@ -44,8 +37,9 @@ def run(cfg: dict, force: bool = False) -> None:
 class Subsystem:
     """state view, splits, expert graph and regimes of one subsystem."""
 
-    def __init__(self, cfg: dict, subsystem: str, splits: pd.DataFrame):
+    def __init__(self, cfg: dict, subsystem: str, splits: pd.DataFrame, exclude_related: bool = True):
         self.name = subsystem
+        self.exclude_related = exclude_related
         self.view_name = f"{subsystem}_dt{setting(cfg, 'model_interval_s'):g}"
         self.view = load_view(self.view_name)
         # row order matters: the bootstrap draws recordings by position
@@ -63,8 +57,10 @@ class Subsystem:
         return [()] + [(k,) for k in self.folds] + [tuple(p) for p in permutations(self.folds, 2)]
 
     def regimes(self, held: tuple[str, ...]) -> dict[str, list[str]]:
-        """regimes without the held-out scenarios and without the near-duplicates of their runs."""
-        return discovery.define_regimes(self.splits, held) if held else self.all_regimes
+        """regimes without the held-out scenarios and, unless switched off, the near-duplicates of their runs."""
+        if not held:
+            return self.all_regimes
+        return discovery.define_regimes(self.splits, held, exclude_related=self.exclude_related)
 
     def runs(self, config: discovery.StudyConfig, regimes: dict[str, list[str]]) -> dict[str, discovery.RegimeRun]:
         """cached regime runs of a configuration (support thresholds share them, so they are read once)."""
@@ -109,6 +105,23 @@ def run_missing(cfg: dict, context: Subsystem, spec_lists: list[list[discovery.R
     if missing:
         discovery.run_specs(specs, cache, io.processed_dir(), workers=setting(cfg, "discovery", "runtime", "workers"),
                             timeout_s=setting(cfg, "discovery", "shortlist", "run_timeout_s"), log=log.info)
+
+
+def discover(cfg: dict, context: Subsystem, grid: list[discovery.StudyConfig], order: list[tuple[str, str]],
+             scopes: list[tuple[str, ...]], force: bool, started: float) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """edges and settings row of the configuration selected from the grid for every scope."""
+    # the support threshold only aggregates, so one pcmci+ run serves three configurations
+    runs_needed = {c.run_id: c for c in grid}.values()
+    run_missing(cfg, context, [discovery.make_specs(context.name, context.view_name, context.view,
+                                                    context.regimes(held), c)[0]
+                               for held in scopes for c in runs_needed], force, started)
+    edges, settings = [], []
+    for held in scopes:
+        best_row, best_edges = select_scope(context, held, grid, order)
+        settings.append(best_row)
+        edges.append(best_edges)
+    log.debug(f"{context.name}: {len(scopes)} scopes selected")
+    return pd.concat(edges, ignore_index=True), pd.DataFrame(settings)
 
 
 def select_scope(context: Subsystem, held: tuple[str, ...], grid: list[discovery.StudyConfig],

@@ -324,20 +324,21 @@ def extra_lags(graph: nx.DiGraph, lag: int | None, max_features: int) -> dict[tu
     return {(u, v): [lag] for u, v in graph.edges if 3 * graph.in_degree(v) <= max_features}
 
 
-def fitted_path(subsystem: str, graph: str, scope: str) -> Path:
-    return io.cache_dir("scm") / f"{subsystem}_{graph}_{scope}.pkl"
+def fitted_path(subsystem: str, graph: str, scope: str, directory: Path | None = None) -> Path:
+    """<directory>/<subsystem>_<graph>_<scope>.pkl, by default in data/cache/scm."""
+    return (directory or io.cache_dir("scm")) / f"{subsystem}_{graph}_{scope}.pkl"
 
 
-def save_fitted(model: TemporalSCM, subsystem: str, graph: str, scope: str) -> None:
-    """store a fitted scm in data/cache/scm/<subsystem>_<graph>_<scope>.pkl."""
-    path = fitted_path(subsystem, graph, scope)
+def save_fitted(model: TemporalSCM, subsystem: str, graph: str, scope: str, directory: Path | None = None) -> None:
+    """store a fitted scm (by default in data/cache/scm)."""
+    path = fitted_path(subsystem, graph, scope, directory)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(pickle.dumps(model))
 
 
-def load_fitted(subsystem: str, graph: str, scope: str) -> TemporalSCM:
+def load_fitted(subsystem: str, graph: str, scope: str, directory: Path | None = None) -> TemporalSCM:
     """a fitted scm written by the scm stage."""
-    path = fitted_path(subsystem, graph, scope)
+    path = fitted_path(subsystem, graph, scope, directory)
     if not path.exists():
         raise MissingInputError(f"{io.relative(path)} not found: run \"python main.py run scm\" first")
     return pickle.loads(path.read_bytes())

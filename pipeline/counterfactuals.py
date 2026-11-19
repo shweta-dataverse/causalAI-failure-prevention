@@ -297,11 +297,9 @@ def example_figure(cfg: dict, s: Setting, runs: pd.DataFrame, rankings: pd.DataF
     return fig
 
 
-def run(cfg: dict, force: bool = False) -> None:
-    s = load_setting(cfg, setting(cfg, "counterfactuals", "subsystem"))
-    rankings = read_input("rca_rankings")
-    rankings = rankings[rankings["subsystem"] == s.subsystem]
-    scm_settings = read_input("scm_settings")
+def explain_all(cfg: dict, s: Setting, rankings: pd.DataFrame,
+                scm_settings: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """recommendations, tried action sets and refit validities of every fault run with both graphs."""
     streams = independent_streams(cfg, s)
     run_rows, tried, refit_rows = [], [], []
     for graph in setting(cfg, "graphs"):
@@ -309,10 +307,17 @@ def run(cfg: dict, force: bool = False) -> None:
         run_rows += rows
         tried.append(tried_sets)
         refit_rows += refits
-    runs = pd.DataFrame(run_rows)
+    return pd.DataFrame(run_rows), pd.concat(tried, ignore_index=True), pd.DataFrame(refit_rows)
+
+
+def run(cfg: dict, force: bool = False) -> None:
+    s = load_setting(cfg, setting(cfg, "counterfactuals", "subsystem"))
+    rankings = read_input("rca_rankings")
+    rankings = rankings[rankings["subsystem"] == s.subsystem]
+    runs, tried, refits = explain_all(cfg, s, rankings, read_input("scm_settings"))
     file = write_output(runs, "recommendations")
-    write_output(pd.concat(tried, ignore_index=True), "tried_action_sets")
-    write_output(pd.DataFrame(refit_rows), "recommendation_refits")
+    write_output(tried, "tried_action_sets")
+    write_output(refits, "recommendation_refits")
     n_valid = {g: int(d["valid_independent"].astype(bool).sum()) for g, d in runs.groupby("graph", sort=False)}
     log.info(f"counterfactual explanations done. {len(runs)} recommendations "
              f"({', '.join(f'{g} {n} valid' for g, n in n_valid.items())} of {runs['recording_id'].nunique()} runs) "

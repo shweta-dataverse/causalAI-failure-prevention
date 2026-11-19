@@ -1,5 +1,6 @@
 from collections import Counter
 from dataclasses import dataclass
+from pathlib import Path
 
 import networkx as nx
 import numpy as np
@@ -150,16 +151,17 @@ def select_normal(cfg: dict, sub: Subsystem, graph: nx.DiGraph, kind: str) -> tu
     return inner, scores
 
 
-def select_fold(cfg: dict, sub: Subsystem, dags: dict, kind: str, outer: str) -> tuple[list[dict], dict]:
+def select_fold(cfg: dict, sub: Subsystem, dags: dict, kind: str, outer: str,
+                exclude_related: bool = True) -> tuple[list[dict], dict]:
     """inner leave-one-scenario-out over the scenarios other than the outer one, pooled log loss."""
     max_features = setting(cfg, "scm", "max_table_features")
     totals = {choice: [0.0, 0] for choice in grid(cfg)}
-    protected = data.protected_ids(sub.runs_of(outer))
+    protected = data.protected_ids(sub.runs_of(outer)) if exclude_related else set()
     inner = []
     for j in sub.folds:
         if j == outer:
             continue
-        train = data.fold_training_ids(sub.splits, (outer, j))
+        train = data.fold_training_ids(sub.splits, (outer, j), exclude_related=exclude_related)
         # near-duplicates of the outer runs are never scored
         scored = [r for r in sub.runs_of(j) if r not in protected]
         left_out = sorted(set(data.fold_training_ids(sub.splits, None)) - set(train) - set(sub.runs_of(outer))
@@ -176,7 +178,8 @@ def select_fold(cfg: dict, sub: Subsystem, dags: dict, kind: str, outer: str) ->
     return inner, {choice: total / rows for choice, (total, rows) in totals.items()}
 
 
-def select_settings(cfg: dict, sub: Subsystem, dags: dict) -> tuple[list[dict], list[dict]]:
+def select_settings(cfg: dict, sub: Subsystem, dags: dict,
+                    exclude_related: bool = True) -> tuple[list[dict], list[dict]]:
     base = baseline(cfg)
     inner_rows, setting_rows = [], []
     for kind in setting(cfg, "graphs"):
@@ -184,7 +187,7 @@ def select_settings(cfg: dict, sub: Subsystem, dags: dict) -> tuple[list[dict], 
         inner_rows += inner
         scopes = [("all", scores, "normal validation recordings")]
         for outer in sub.folds:
-            inner, scores = select_fold(cfg, sub, dags, kind, outer)
+            inner, scores = select_fold(cfg, sub, dags, kind, outer, exclude_related)
             inner_rows += inner
             others = ",".join(j for j in sub.folds if j != outer)
             scopes.append((data.scope_name(outer), scores, f"inner scenarios {others}"))
@@ -206,15 +209,16 @@ def chosen_setting(row) -> tuple[float, int | None]:
     return float(row.alpha), None if pd.isna(row.lag) else int(row.lag)
 
 
-def fit_selected(cfg: dict, sub: Subsystem, dags: dict, settings: pd.DataFrame) -> int:
-    """the model of every graph and scope with its selected settings, saved to data/cache/scm."""
+def fit_selected(cfg: dict, sub: Subsystem, dags: dict, settings: pd.DataFrame, exclude_related: bool = True,
+                 directory: Path | None = None) -> int:
+    """the model of every graph and scope with its selected settings, saved to data/cache/scm by default."""
     max_features = setting(cfg, "scm", "max_table_features")
     saved = 0
     for row in settings[settings.subsystem == sub.name].itertuples():
         held = data.scope_held_out(row.scope)
-        train = data.fold_training_ids(sub.splits, held)
+        train = data.fold_training_ids(sub.splits, held, exclude_related=exclude_related)
         model = fit(sub, graph_for(sub, dags, row.graph, held), train, chosen_setting(row), max_features)
-        scm.save_fitted(model, sub.name, row.graph, row.scope)
+        scm.save_fitted(model, sub.name, row.graph, row.scope, directory)
         saved += 1
     return saved
 

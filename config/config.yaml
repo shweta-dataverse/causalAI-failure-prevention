@@ -219,3 +219,11 @@ figure_examples:
 near_duplicates:
   jaccard_threshold: 0.9
   min_events: 5
+
+# appendix comparisons: original configuration and no near-duplicate exclusion
+comparisons:
+  # rows of the original/selected table per subsystem, in printed order
+  original_rows:
+    coolant: [directed_f1, normal_change_log_loss, fault_log_loss, fault_change_log_loss, map, activation_error,
+              valid_recommendations, mean_validity, lowest_refit_validity]
+    probe: [directed_f1_scm_edges, normal_change_log_loss, fault_change_log_loss, top1, map, scenario_ap]

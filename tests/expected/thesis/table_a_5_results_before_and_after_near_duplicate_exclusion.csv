@@ -1,0 +1,8 @@
+Result,Without,With
+LL at changes (E/D),2.05/2.93,2.09/2.62
+Top-1 (E/D/L),0.62/0.65/0.56,0.62/0.53/0.56
+MAP@3 (E/D/L),0.67/0.65/0.59,0.67/0.63/0.58
+Scenario-average AP@3 (E/D/L),0.64/0.63/0.52,0.64/0.57/0.51
+AP@3 of the four runs with a near-duplicate (E/D/L),0.21/0.25/0.49,0.21/0.15/0.46
+AP@3 of the other 30 runs (E/D/L),0.73/0.70/0.60,0.73/0.69/0.60
+Discovered fold graphs with changed settings,–,3 of 6

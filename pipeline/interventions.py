@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -22,12 +23,14 @@ class Setting:
     manipulated: dict[str, set[str]]
     alarms: list[str]
     folds: list[str]
+    # fitted scms, data/cache/scm when not set
+    scm_dir: Path | None = None
 
     def runs_of(self, fold: str) -> list[str]:
         return self.splits.loc[self.splits["fold"] == fold, "recording_id"].tolist()
 
     def fold_model(self, graph: str, fold: str) -> scm.TemporalSCM:
-        return scm.load_fitted(self.subsystem, graph, data.scope_name(fold))
+        return scm.load_fitted(self.subsystem, graph, data.scope_name(fold), self.scm_dir)
 
 
 def load_setting(cfg: dict, subsystem: str) -> Setting:

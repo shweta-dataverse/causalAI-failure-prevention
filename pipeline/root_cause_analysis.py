@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -45,12 +47,13 @@ def rank_run(cfg: dict, sub: Subsystem, model: scm.TemporalSCM, rid: str) -> tup
     return metrics, ranking
 
 
-def rank_subsystem(cfg: dict, sub: Subsystem, graph: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """every held-out run ranked with the scm of its fold."""
+def rank_subsystem(cfg: dict, sub: Subsystem, graph: str,
+                   directory: Path | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """every held-out run ranked with the scm of its fold (fitted scms from data/cache/scm by default)."""
     run_rows, rankings = [], []
     for fold in sub.folds:
         scope = data.scope_name(fold)
-        model = scm.load_fitted(sub.name, graph, scope)
+        model = scm.load_fitted(sub.name, graph, scope, directory)
         for rid in sub.runs_of(fold):
             metrics, ranking = rank_run(cfg, sub, model, rid)
             run_rows.append({"fold": fold, **metrics, "subsystem": sub.name, "graph": graph,

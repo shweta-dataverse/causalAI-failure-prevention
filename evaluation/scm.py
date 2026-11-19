@@ -1,4 +1,5 @@
 from decimal import ROUND_HALF_UP, Decimal
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -91,11 +92,11 @@ def macro(pred: pd.DataFrame, scenario: dict | None = None) -> dict:
             "share_rows_mechanism_without_data": float((~pred.mechanism_has_data).mean()) if len(pred) else np.nan}
 
 
-def normal_prediction(cfg: dict, sub: Subsystem) -> tuple[list[dict], list[dict]]:
+def normal_prediction(cfg: dict, sub: Subsystem, directory: Path | None = None) -> tuple[list[dict], list[dict]]:
     """the model without a held-out scenario scored on every normal split, overall and per variable."""
     rows, per_variable = [], []
     for graph in setting(cfg, "graphs"):
-        model = scm.load_fitted(sub.name, graph, "all")
+        model = scm.load_fitted(sub.name, graph, "all", directory)
         for split in NORMAL_SPLITS:
             pred = predictions(model, sub, sub.ids(split))
             rows.append({"subsystem": sub.name, "track": "N", "graph": graph, "split": split,
@@ -108,13 +109,14 @@ def normal_prediction(cfg: dict, sub: Subsystem) -> tuple[list[dict], list[dict]
     return rows, per_variable
 
 
-def fault_prediction(cfg: dict, sub: Subsystem) -> tuple[list[dict], pd.DataFrame]:
+def fault_prediction(cfg: dict, sub: Subsystem, directory: Path | None = None) -> tuple[list[dict], pd.DataFrame]:
     """every held-out scenario predicted by the model of its fold, then all scenarios with equal weight."""
     scenario = dict(zip(sub.splits.recording_id, sub.splits.fold))
     rows, frames = [], []
     for graph in setting(cfg, "graphs"):
         for fold in sub.folds:
-            pred = predictions(scm.load_fitted(sub.name, graph, data.scope_name(fold)), sub, sub.runs_of(fold))
+            model = scm.load_fitted(sub.name, graph, data.scope_name(fold), directory)
+            pred = predictions(model, sub, sub.runs_of(fold))
             frames.append(pred.assign(subsystem=sub.name, graph=graph, fold=fold))
             for label, part in ((NON_MANIPULATED, pred[~pred.manipulated]), (MANIPULATED, pred[pred.manipulated])):
                 rows.append({"subsystem": sub.name, "track": "F", "graph": graph, "split": f"held-out {fold}",
