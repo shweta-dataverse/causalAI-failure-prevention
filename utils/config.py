@@ -25,7 +25,7 @@ def load_config(path: Path = CONFIG_PATH) -> dict[str, Any]:
 
 
 def setting(cfg: dict[str, Any], *keys: str) -> Any:
-    """nested value cfg[k1][k2]...; a missing key raises ConfigError naming the full path."""
+    """nested value cfg[k1][k2]... a missing key raises ConfigError naming the full path."""
     value: Any = cfg
     for depth, key in enumerate(keys):
         if not isinstance(value, dict) or key not in value:

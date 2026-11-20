@@ -401,7 +401,7 @@ def prediction_message(cfg: dict, table: pd.DataFrame) -> list[str]:
                    else f"on normal test states {winners_clause(normal)}")
     fault_text = ("both graphs predict state changes in unseen faults equally well" if not any(fault.values())
                   else f"at state changes in unseen faults {winners_clause(fault)}")
-    lines.append(f"{normal_text}; {fault_text}, in model-based one-step predictions.")
+    lines.append(f"{normal_text}, and {fault_text}, in model-based one-step predictions.")
     return lines
 
 

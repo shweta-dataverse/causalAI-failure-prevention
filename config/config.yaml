@@ -93,7 +93,7 @@ graph_evaluation:
 # scm settings: smoothing pseudo-count x extra lag, chosen by held-out one-step log loss
 scm:
   alphas: [0.01, 0.1, 0.5, 1.0]
-  lags: [null, 2, 4]                      # extra lag in steps; null = first order
+  lags: [null, 2, 4]                      # extra lag in steps, null = first order
   baseline: {alpha: 0.5, lag: null}       # first tie-break
   max_table_features: 20                  # extra lag only on edges whose child keeps <= 2^20 configurations
   normal_refits: 10                       # bootstrap refits of the all-scenario expert model

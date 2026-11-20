@@ -252,7 +252,7 @@ def ranking_message(cfg: dict, table: pd.DataFrame, summary: pd.DataFrame, lstm:
     low = f"map{k}_run_mean_ci_low (runs, ignores scenario dependence)"
     row = io.metric_row
     cell = 7
-    lines = ["root-cause ranking (means over runs; scenario avg. weights scenarios equally)",
+    lines = ["root-cause ranking (means over runs, scenario avg. weights scenarios equally)",
              row("", "".join(f"{h:<{cell}}" for h in ("top-1", f"hit@{k}", f"rec@{k}", f"map@{k}", "mrr", "scen.")))]
     for r in table.itertuples(index=False):
         lines.append(row(f"{r[0]} {r[1]}".lower(), "".join(f"{v:<{cell}.2f}" for v in r[2:])))
@@ -295,7 +295,7 @@ def ranking_sentence(cfg: dict, table: pd.DataFrame, ci: pd.DataFrame, low: str)
         if best.startswith("Causal") and bounds[low].max() < bounds[f"map{k}_run_mean_ci_high"].min():
             clause += ", though the run intervals of the two graphs overlap"
         clauses.append(clause)
-    return "; ".join(clauses) + " (retrospective diagnosis of injected faults)."
+    return ", and ".join(clauses) + " (retrospective diagnosis of injected faults)."
 
 
 def method_name(method: str) -> str:
@@ -308,7 +308,7 @@ def method_name(method: str) -> str:
 def decomposition_message(cfg: dict, table: pd.DataFrame) -> list[str]:
     k = setting(cfg, "rca", "top_k")
     row = io.metric_row
-    lines = ["probe ranking by graph and scm settings (fold models; means over runs)",
+    lines = ["probe ranking by graph and scm settings (fold models, means over runs)",
              row("", "top-1", f"map@{k}", "scenario avg.", "rankings")]
     graph_labels = {"Expert": "expert", "Discovered, original settings": "discovered (original)",
                     "Discovered, selected settings": "discovered (selected)"}

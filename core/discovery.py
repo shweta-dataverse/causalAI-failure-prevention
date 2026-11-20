@@ -38,7 +38,7 @@ class DiscoveryConfig:
     max_conds_dim: int | None = 3
     max_conds_px: int | None = 3
     max_conds_py: int | None = 3
-    # pcmci+ decides links with uncorrected tests and bh-corrects only lagged p-values;
+    # pcmci+ decides links with uncorrected tests and bh-corrects only lagged p-values.
     # the filter removes lagged links whose corrected p-value exceeds pc_alpha afterwards
     apply_fdr_to_graph: bool = True
     support_threshold: float = 0.5
@@ -263,7 +263,7 @@ def static_edges(pairs: pd.DataFrame) -> pd.DataFrame:
 
 
 def edges_to_graph(edges: pd.DataFrame, nodes: Sequence[str]) -> nx.DiGraph:
-    """directed graph; undirected edges are stored once with oriented=False."""
+    """directed graph. undirected edges are stored once with oriented=False."""
     graph = nx.DiGraph()
     graph.add_nodes_from(nodes)
     for row in edges.itertuples(index=False):
@@ -275,7 +275,7 @@ def edges_to_graph(edges: pd.DataFrame, nodes: Sequence[str]) -> nx.DiGraph:
 
 
 def edge_key(edges: pd.DataFrame) -> set[tuple[str, str, bool]]:
-    """comparable edge identities; undirected edges use sorted endpoints."""
+    """comparable edge identities. undirected edges use sorted endpoints."""
     keys = set()
     for row in edges.itertuples(index=False):
         a, b = (row.source, row.target) if row.oriented else tuple(sorted((row.source, row.target)))
@@ -511,7 +511,7 @@ def execute_spec(spec: RunSpec, processed_dir: str, out_path: str) -> None:
 
 def run_specs(specs: Sequence[RunSpec], cache: RunCache, processed_dir: Path, workers: int = 4,
               timeout_s: float | None = None, log: Callable[[str], None] = print) -> list[dict[str, Any]]:
-    """run every uncached spec in parallel processes with a timeout; one event row per executed spec."""
+    """run every uncached spec in parallel processes with a timeout, one event row per executed spec."""
     pending, seen = [], set()
     for spec in specs:
         if spec.key() not in seen and not cache.has(spec):
@@ -581,7 +581,7 @@ def load_runs(cache: RunCache, specs: Sequence[RunSpec]) -> dict[str, RegimeRun]
 
 
 def run_relations(runs: dict[str, RegimeRun], apply_fdr_to_graph: bool) -> pd.DataFrame:
-    """static relations per regime of cached runs; with the filter only significant links are used."""
+    """static relations per regime of cached runs. with the filter, only significant links are used."""
     frames = [r.links for r in runs.values() if r.status == "ok" and len(r.links)]
     if not frames:
         return pd.DataFrame(columns=["regime", "a", "b", "relation", "basis", "lags"])
@@ -630,7 +630,7 @@ def graph_metrics(pairs: pd.DataFrame, edges: pd.DataFrame, reference: nx.DiGrap
 
 def evaluate_config(runs: dict[str, RegimeRun], config: StudyConfig, nodes: Sequence[str], reference: nx.DiGraph,
                     exclude: Sequence[str] = ()) -> tuple[dict[str, Any], pd.DataFrame]:
-    """one result row and the edge table; incomplete when a regime in scope did not finish."""
+    """one result row and the edge table. incomplete when a regime in scope did not finish."""
     in_scope = {r: run for r, run in runs.items() if r not in set(exclude)}
     bad = {r: run.status for r, run in in_scope.items() if run.status != "ok"}
     row: dict[str, Any] = {

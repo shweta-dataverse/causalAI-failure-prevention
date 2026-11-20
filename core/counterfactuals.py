@@ -163,7 +163,7 @@ def explain_runs(
     top_k: int = 3,
     validity_threshold: float = 0.9,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """counterfactual recommendation for every held-out run; one row per run and per tried set."""
+    """counterfactual recommendation for every held-out run, one row per run and per tried set."""
     rng = np.random.default_rng(seed)
     run_rows, tried_rows = [], []
     for fold, model in scms.items():

@@ -127,7 +127,7 @@ def select_scope(context: DiscoveryContext, held: tuple[str, ...], grid: list[di
         runs = context.runs(config, regimes)
         bad = sorted(r for r, regime_run in runs.items() if regime_run.status != "ok")
         if bad:
-            raise DataError(f"{context.name} {config.run_id}: regime runs {bad} did not finish; "
+            raise DataError(f"{context.name} {config.run_id}: regime runs {bad} did not finish. "
                             "rerun \"python main.py run discovery --force\"")
         row, edges[config.config_id] = discovery.evaluate_config(runs, config, context.nodes, context.expert, exclude=held)
         rows.append({"subsystem": context.name, "scope": data.scope_name(held), **row})

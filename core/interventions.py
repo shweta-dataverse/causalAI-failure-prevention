@@ -10,7 +10,7 @@ import pandas as pd
 
 from core.scm import TemporalSCM
 
-# actionable coolant variables from the node comments of the expert graph: (kind, value an action may set, repair);
+# actionable coolant variables from the node comments of the expert graph: (kind, value an action may set, repair).
 # a maintenance action only restores a component, a control command may be set to 0 or 1
 ACTIONABILITY: dict[str, tuple[str, float | None, str]] = {
     "CLF_Filter_Ok": ("maintenance", 1.0, "clean or replace the fine-particle coolant filter"),

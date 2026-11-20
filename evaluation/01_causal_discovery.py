@@ -16,7 +16,7 @@ from utils.logger import log
 FIGURES = {"coolant": ("6.1", "Expert and discovered coolant graphs"),
            "probe": ("6.2", "Expert and discovered probe graphs")}
 
-# node positions in cm, placed by hand so that no edge passes behind another node; both panels use them
+# node positions in cm, placed by hand so that no edge passes behind another node. both panels use them
 LAYOUTS = {
     "coolant": GraphLayout(
         positions={
@@ -364,8 +364,8 @@ def metric_block(r: Result, stable_share: float) -> list[str]:
     ]
     for edge in r.missed:
         u, v = edge["edge"]
-        lines.append(row(f"missed {u} → {v}", f"{lower_first(lost_in(edge['conditions']))}; "
-                         f"{lower_first(change_text(edge))}; adjacent in {edge['bootstrap_share']:.0%} of the draws"))
+        lines.append(row(f"missed {u} → {v}", f"{lower_first(lost_in(edge['conditions']))}, "
+                         f"{lower_first(change_text(edge))}, adjacent in {edge['bootstrap_share']:.0%} of the draws"))
     for pair in r.extra_alarm_pairs:
         lines.append(row(f"extra {pair['pair'][0]} – {pair['pair'][1]}",
                          f"both alarms reset in the same step in {pair['same_reset']} of {pair['runs']} runs"))

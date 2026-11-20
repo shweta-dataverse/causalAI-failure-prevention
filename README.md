@@ -189,7 +189,7 @@ causalAI-failure-prevention/
 │   ├── processed/               coolant_states.csv, probe_states.csv, splits.csv
 │   ├── graphs/                  discovered graphs, the DAGs used by the SCMs, discovery settings
 │   ├── models/                  fitted SCMs (scm/), their settings, LSTM models (lstm/)
-│   ├── results/                 rankings, replays, recommendations; evaluation/ details;
+│   ├── results/                 rankings, replays, recommendations, evaluation/ details,
 │   │                            comparisons/ for the reruns with other settings
 │   └── cache/                   PCMCI+ test results, one file per regime run
 │
@@ -284,7 +284,7 @@ state.
 is never used. Models are fitted for both the expert and the discovered graph.
 
 - **Input:** discovered graphs, expert graphs, state tables, splits
-- **Output:** `data/graphs/scm_graphs.csv`, `dag_removals.csv`; `data/models/scm_settings.csv`,
+- **Output:** `data/graphs/scm_graphs.csv`, `dag_removals.csv`, `data/models/scm_settings.csv`,
   `data/models/scm/*.pkl`
 - **Thesis items:** Table 5.7, Table A.2
 
@@ -525,16 +525,16 @@ drawn in LaTeX. No code produces them.
 ## 8. Settings
 
 All settings are in `config/config.yaml`:
-- the file locations;
-- the subsystems;
-- the 0.5 s time grid and the data split fractions;
-- the discovery settings grid and its selection rule;
-- the SCM pseudo-counts and extra lags;
-- the root cause analysis window;
-- the numbers of simulations;
-- the 0.90 validity threshold;
-- the LSTM grid;
-- the random seeds.
+- the file locations
+- the subsystems
+- the 0.5 s time grid and the data split fractions
+- the discovery settings grid and its selection rule
+- the SCM pseudo-counts and extra lags
+- the root cause analysis window
+- the numbers of simulations
+- the 0.90 validity threshold
+- the LSTM grid
+- the random seeds
 
 Changing a value there changes the run. No setting is hidden in the code.
 

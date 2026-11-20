@@ -3,7 +3,7 @@ class PipelineError(Exception):
 
 
 class MissingInputError(PipelineError):
-    """an input file of a stage is missing; the message names the command that writes it."""
+    """an input file of a stage is missing. the message names the command that writes it."""
 
 
 class DataError(PipelineError):

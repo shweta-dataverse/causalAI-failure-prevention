@@ -327,7 +327,7 @@ def original_clause(cells: pd.DataFrame) -> str:
     """'raise graph agreement and diagnosis' for the original and selected cells of one subsystem."""
     names = {"directed_f1": "graph agreement", "map": "diagnosis", "valid_recommendations": "valid recommendations"}
     pairs = {metric: (row.Original, row.Selected) for metric, row in cells.iterrows()}
-    # the graph row may also hold the scm edges; its first number is the directed f1
+    # the graph row may also hold the scm edges. its first number is the directed f1
     graph_row = next(metric for metric in pairs if metric.startswith("directed_f1"))
     pairs["directed_f1"] = tuple(text.split("/")[0] for text in pairs[graph_row])
     verbs: dict[str, list[str]] = {}
@@ -347,7 +347,7 @@ def original_message(table: pd.DataFrame) -> list[str]:
     clauses = [f"for {sub.lower()} " + ("the selected settings " if i == 0 else "they ")
                + original_clause(rows.set_index("_metric"))
                for i, (sub, rows) in enumerate(table.groupby("Subsystem", sort=False))]
-    lines.append("; ".join(clauses) + "; agreement is judged against the expert graph used for selection.")
+    lines.append(", and ".join(clauses) + ". agreement is judged against the expert graph used for selection.")
     return lines
 
 
@@ -369,7 +369,7 @@ def exclusion_message(cfg: dict, table: pd.DataFrame, without: dict, main: dict,
         effect = f"moves map@{k} of every method by at most {shift:.2f}"
     else:
         effect = f"leaves map@{k} of {and_list(unchanged)} unchanged and moves {and_list(moved)} by at most {shift:.2f}"
-    lines.append(f"excluding the near-duplicates {effect}; the shift mixes recording dependence, less training data "
+    lines.append(f"excluding the near-duplicates {effect}. the shift mixes recording dependence, less training data "
                  "and changed settings.")
     return lines
 

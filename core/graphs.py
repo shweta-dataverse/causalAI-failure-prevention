@@ -19,7 +19,7 @@ Pair = frozenset
 
 
 def simple_digraph(graph: nx.Graph, nodes: Sequence[str] | None = None) -> nx.DiGraph:
-    """directed graph without self-loops or duplicate edges; keeps edge attributes of the first copy."""
+    """directed graph without self-loops or duplicate edges. keeps edge attributes of the first copy."""
     simple = nx.DiGraph()
     # keep node attributes (kind, io, ...) when no explicit node list is given
     simple.add_nodes_from(graph.nodes(data=True) if nodes is None else nodes)
@@ -65,7 +65,7 @@ def compare_graphs(
     skel_tp = len(pred_skel & true_skel)
     sp, sr, sf = _prf(skel_tp, len(pred_skel), len(true_skel))
 
-    # directed edges: a -> b counts once per direction; undirected edges never count
+    # directed edges: a -> b counts once per direction. undirected edges never count
     pred_dir = {(u, v) for u, v, a in predicted.edges(data=True)
                 if a.get("oriented", True) and Pair((u, v)) in pred_marks}
     true_dir = {(u, v) for u, v in reference.edges() if Pair((u, v)) in true_marks}
@@ -126,7 +126,7 @@ def random_reference(
 
 
 def to_dag(graph: nx.DiGraph) -> tuple[nx.DiGraph, pd.DataFrame]:
-    """oriented edges only, cycles broken at the lowest-support edge; returns the dag and a removal log."""
+    """oriented edges only, cycles broken at the lowest-support edge. returns the dag and a removal log."""
     dag = nx.DiGraph()
     dag.add_nodes_from(graph.nodes)
     log = []
@@ -192,7 +192,7 @@ def draw_graph(
     edge_color: str | None = None,
     pos: dict | None = None,
 ) -> None:
-    """node colour = variable type, dark ring = highlighted node; label_side 'alternate', 'above' or 'right'."""
+    """node colour = variable type, dark ring = highlighted node. label_side is 'alternate', 'above' or 'right'."""
     node_types = node_types or {}
     highlight = set(highlight)
     simple = nx.DiGraph(graph)
@@ -200,7 +200,7 @@ def draw_graph(
     pos = pos if pos is not None else graph_layout(simple)
     nodes = list(simple.nodes)
 
-    # oriented edges get arrows; edges marked oriented=False are dashed without arrows
+    # oriented edges get arrows. edges marked oriented=False are dashed without arrows
     oriented = [(u, v) for u, v, a in simple.edges(data=True) if a.get("oriented", True)]
     unoriented = [(u, v) for u, v, a in simple.edges(data=True) if not a.get("oriented", True)]
 
@@ -362,7 +362,7 @@ def _tint(color: str, share: float = 0.15) -> tuple[float, float, float]:
 
 def _draw_nodes(fig: plt.Figure, ax: plt.Axes, layout: GraphLayout, kinds: dict[str, str],
                 shift: float) -> dict[str, tuple[float, float, float, float]]:
-    """node boxes; returns their extent (x0, y0, x1, y1) in cm."""
+    """draw the node boxes and return their extent (x0, y0, x1, y1) in cm."""
     texts = {}
     for n, (x, y) in layout.positions.items():
         color = TYPE_COLORS["Alarm" if kinds[n] == "Alarm" else "Binary"]

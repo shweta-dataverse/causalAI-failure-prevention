@@ -27,7 +27,7 @@ def analysis_window(
     series: dict[str, np.ndarray], alarms: Sequence[str], interval_s: float,
     before_s: float = 60.0, after_s: float = 5.0,
 ) -> tuple[int, int] | None:
-    """steps [first alarm onset - before_s, last alarm onset + after_s]; None without any alarm."""
+    """steps [first alarm onset - before_s, last alarm onset + after_s], or None without any alarm."""
     onsets = alarm_onsets(series, alarms)
     if not onsets:
         return None

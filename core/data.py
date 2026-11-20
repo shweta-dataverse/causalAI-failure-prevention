@@ -58,7 +58,7 @@ def _graph_paths(raw_dir: Path, subsystem: str | None) -> tuple[Path, Path, Path
         base = Path(raw_dir) / "expert_graph"
         return base / "all_nodes.csv", base / "all_edges.csv", base / "expert_graph.gml"
     if subsystem not in SUBSYSTEMS:
-        raise ValueError(f"unknown subsystem {subsystem!r}; expected one of {SUBSYSTEMS}")
+        raise ValueError(f"unknown subsystem {subsystem!r}. expected one of {SUBSYSTEMS}")
     base = Path(raw_dir) / "dig_twin" / f"exp_{subsystem}"
     return base / f"{subsystem}_nodes.csv", base / f"{subsystem}_edges.csv", base / f"{subsystem}_expert_graph.gml"
 
@@ -365,7 +365,7 @@ def variable_suitability(
 
 
 def timestamp_batches(events: pd.DataFrame) -> pd.DataFrame:
-    """events per (recording, timestamp) after t = 0; more than one means nodes published together."""
+    """events per (recording, timestamp) after t = 0. more than one means nodes published together."""
     after_start = events[events["time_s"] > 0]
     return (
         after_start.groupby(["recording_id", "time_s"])
@@ -375,7 +375,7 @@ def timestamp_batches(events: pd.DataFrame) -> pd.DataFrame:
 
 
 def state_durations(events: pd.DataFrame, types: tuple[str, ...] = ("Binary",)) -> pd.DataFrame:
-    """how long each state lasted before the node changed again; the last state is censored."""
+    """how long each state lasted before the node changed again. the last state is censored."""
     starts = events[(events["is_initial"] | events["is_change"]) & events["type"].isin(types)]
     starts = starts.sort_values(["recording_id", "node", "time_s", "event_seq"])
     ends = events.groupby("recording_id")["time_s"].max()
@@ -508,7 +508,7 @@ def scope_name(held_out: str | Sequence[str] | None) -> str:
 
 
 def scope_held_out(scope: str) -> tuple[str, ...]:
-    """inverse of scope_name; scenario ids all start with 'exp_' and may contain underscores."""
+    """inverse of scope_name. scenario ids all start with 'exp_' and may contain underscores."""
     if scope == "all":
         return ()
     if not scope.startswith("without_exp_"):

@@ -90,7 +90,7 @@ def build_states(subsystem: str, interval: float, events: pd.DataFrame, recordin
 
 
 def check_near_duplicates(cfg: dict, runs: pd.DataFrame, experiments: pd.DataFrame) -> list[dict]:
-    """pairs of recordings that share most raw rows; the groups must equal the frozen manifest."""
+    """pairs of recordings that share most raw rows. the groups must equal the frozen manifest."""
     threshold = setting(cfg, "near_duplicates", "jaccard_threshold")
     rows = data.raw_rows_after_start()
     similarity = data.recording_similarity(rows)
@@ -101,7 +101,7 @@ def check_near_duplicates(cfg: dict, runs: pd.DataFrame, experiments: pd.DataFra
     close = similarity["jaccard"] >= threshold
     rest = similarity[~close]
     log.info(f"near-duplicate check: {int(close.sum())} pairs in {len(groups)} groups, as in "
-             f"{io.relative(io.related_recordings_path())}; every other pair shares at most {rest['jaccard'].max():.1%} "
+             f"{io.relative(io.related_recordings_path())}. every other pair shares at most {rest['jaccard'].max():.1%} "
              f"of its rows ({rest.loc[rest['shared_rows'] > 1, 'jaccard'].max():.1%} with more than one shared row)")
     manipulated = data.manipulated_by_recording(runs, experiments)
     pairs = []
@@ -147,7 +147,7 @@ def subsystem_table(cfg: dict, runs: pd.DataFrame, experiments: pd.DataFrame) ->
 
 
 def scenario_table(cfg: dict, runs: pd.DataFrame, experiments: pd.DataFrame, views: dict[str, pp.ViewData]) -> pd.DataFrame:
-    """manipulated variables and expected alarms per scenario; a dagger marks an alarm of a single scenario."""
+    """manipulated variables and expected alarms per scenario. a dagger marks an alarm of a single scenario."""
     interval = setting(cfg, "model_interval_s")
     manipulated = data.manipulated_by_recording(runs, experiments)
     rows = []

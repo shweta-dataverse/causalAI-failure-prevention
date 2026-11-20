@@ -66,7 +66,7 @@ class DuplicateEventError(PreprocessingError):
 class RecordingInfo:
     recording_id: str
     source: str  # "real_op" (normal operation) or "dig_twin" (fault run)
-    subsystem: str | None  # coolant / hydraulics / probe; None for normal operation
+    subsystem: str | None  # coolant / hydraulics / probe, None for normal operation
     experiment_id: str | None  # experiment folder name, e.g. "exp_2_3"
     run_id: str | None  # e.g. "run_1"
     source_file: str  # posix path relative to the raw dataset directory
@@ -74,7 +74,7 @@ class RecordingInfo:
 
 
 def discover_recordings(raw_dir: Path) -> list[RecordingInfo]:
-    """every recording of the raw dataset in a fixed order; ids come from the folders, not the file names."""
+    """every recording of the raw dataset in a fixed order. ids come from the folders, not the file names."""
     raw_dir = Path(raw_dir)
     if not raw_dir.is_dir():
         raise FileNotFoundError(f"Raw dataset directory not found: {raw_dir}")
@@ -116,7 +116,7 @@ def _fault_recording_info(path: Path, raw_dir: Path) -> RecordingInfo:
         raise SchemaError(f"File name {path.name} contradicts its folder {run_dir}")
     note = None
     if f"exp_{file_experiment}" != exp_dir.name:
-        note = f"file name refers to exp{file_experiment}; folder {exp_dir.name} is used as experiment_id"
+        note = f"file name refers to exp{file_experiment}, folder {exp_dir.name} is used as experiment_id"
     return RecordingInfo(
         recording_id=f"{subsystem}_{exp_dir.name}_{run_dir.name}",
         source="dig_twin",
@@ -236,7 +236,7 @@ def node_types(events: pd.DataFrame) -> dict[str, str]:
 def resolve_duplicates(
     events: pd.DataFrame, policy: DuplicatePolicy = "last"
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """sort events by (recording, time, file order) and apply the duplicate policy; returns events and a log."""
+    """sort events by (recording, time, file order) and apply the duplicate policy. returns events and a log."""
     if policy not in ("last", "first", "error"):
         raise ValueError(f"Unknown duplicate policy: {policy!r}")
     ordered = events.sort_values(["recording_id", "time_s", "event_seq"], kind="mergesort").reset_index(drop=True)
@@ -305,7 +305,7 @@ def reconstruct_states(
     required = {"recording_id", "time_s", "event_seq", "node", "type", "value_num", "value_cat"}
     missing = required - set(events.columns)
     if missing:
-        raise SchemaError(f"Events lack columns {sorted(missing)}; run parse_values first")
+        raise SchemaError(f"Events lack columns {sorted(missing)}. Run parse_values first")
     if events.duplicated(["recording_id", "node", "time_s"]).any():
         raise DuplicateEventError("Resolve duplicate events before reconstructing states")
 
@@ -561,11 +561,11 @@ def sampling_sensitivity(events: pd.DataFrame, intervals_s: Sequence[float]) -> 
 
 @dataclass
 class ViewData:
-    """per-recording arrays for an estimator; lags never cross recordings."""
+    """per-recording arrays for an estimator. lags never cross recordings."""
 
     var_names: list[str]
-    arrays: dict[str, np.ndarray]  # recording_id -> (T, N); unknown cells hold 0
-    masks: dict[str, np.ndarray]  # recording_id -> (T, N); True where the state is unknown
+    arrays: dict[str, np.ndarray]  # recording_id -> (T, N), unknown cells hold 0
+    masks: dict[str, np.ndarray]  # recording_id -> (T, N), True where the state is unknown
     data_type: np.ndarray  # (N,): 0 continuous, 1 discrete (tigramite convention)
 
 
@@ -588,7 +588,7 @@ class ModelView:
     def from_schema(cls, types: dict[str, str], nodes: Sequence[str], kind: ViewKind) -> ModelView:
         """view from a predeclared node list (binary/alarm only), without any data-dependent step."""
         if kind not in VIEW_KINDS:
-            raise ValueError(f"Unknown view kind {kind!r}; expected one of {VIEW_KINDS}")
+            raise ValueError(f"Unknown view kind {kind!r}. Expected one of {VIEW_KINDS}")
         exclusions, columns, column_types, sources = [], [], {}, {}
         for node in nodes:
             if node not in types:
@@ -663,7 +663,7 @@ def states_file(directory: Path, subsystem: str) -> Path:
 
 
 def write_states(view_data: ViewData, file: Path, interval_s: float) -> Path:
-    """one row per recording and grid step, one column per variable; unknown states are left empty."""
+    """one row per recording and grid step, one column per variable. unknown states are left empty."""
     frames = []
     for recording_id, values in view_data.arrays.items():
         frame = pd.DataFrame(values, columns=view_data.var_names).astype("Int64")
@@ -678,7 +678,7 @@ def write_states(view_data: ViewData, file: Path, interval_s: float) -> Path:
 
 
 def read_states(file: Path) -> ViewData:
-    """read what write_states wrote; every variable is binary or an alarm, so all are discrete."""
+    """read what write_states wrote. every variable is binary or an alarm, so all are discrete."""
     table = pd.read_csv(file, dtype={"recording_id": str})
     var_names = [c for c in table.columns if c not in ("recording_id", "step", "t_s")]
     arrays, masks = {}, {}

@@ -24,7 +24,7 @@ from utils import io
 from utils.config import load_config, setting
 from utils.logger import log
 
-# windows per forward pass when scoring; changes only the summation order of the loss
+# windows per forward pass when scoring. changes only the summation order of the loss
 EVAL_CHUNK = 4096
 
 
@@ -42,7 +42,7 @@ def run_arrays(view: ViewData, rid: str, fills: dict[str, float],
 
 
 def make_windows(arrays: Sequence[tuple[np.ndarray, np.ndarray]], lookback: int) -> dict:
-    """every (look-back window, next row) pair; a recording start is padded with its first row."""
+    """every (look-back window, next row) pair. a recording start is padded with its first row."""
     blocks, wblocks, idx, offset = [], [], [], 0
     for a, w in arrays:
         blocks.append(np.vstack([np.repeat(a[:1], lookback, axis=0), a]))
@@ -85,7 +85,7 @@ def val_loss(model: nn.Module, win: dict) -> float:
 
 def train(train_win: dict, val_win: dict, n_vars: int, hidden: int, seed: int, learning_rate: float,
           batch_size: int, max_epochs: int, patience: int, min_improvement: float) -> tuple[nn.Module, float, list]:
-    """adam training with early stopping on the validation loss; returns the best model, its loss and the history."""
+    """adam training with early stopping on the validation loss. returns the best model, its loss and the history."""
     torch.manual_seed(seed)
     rng = np.random.default_rng(seed)
     model = Forecaster(n_vars, hidden)
@@ -137,7 +137,7 @@ class AnomalyScore(nn.Module):
 def explain(model: nn.Module, view: ViewData, rid: str, fills: dict[str, float], alarms: Sequence[str],
             nodes: Sequence[str], background: torch.Tensor, lookback: int, interval_s: float, shap_samples: int,
             step_variants: dict[str, int | None]) -> tuple[list[str], dict, np.ndarray] | None:
-    """candidates, attributions per (steps variant, abs/pos) and anomaly scores; None without alarm."""
+    """candidates, attributions per (steps variant, abs/pos) and anomaly scores, or None without alarm."""
     series = recording_series(view, rid)
     window = analysis_window(series, alarms, interval_s)
     if window is None:
@@ -184,7 +184,7 @@ def _subsystem(name: str) -> Subsystem:
 
 
 def _windows(sub: Subsystem, ids: list[str], fills: dict, lookback: int, weighted: bool = False) -> dict:
-    """look-back windows; with weighted, manipulated variables of a fault run are left out of the loss."""
+    """look-back windows. with weighted, manipulated variables of a fault run are left out of the loss."""
     arrays = [run_arrays(sub.view, r, fills, sub.manipulated.get(r, set()) if weighted else frozenset())
               for r in ids]
     return make_windows(arrays, lookback)
@@ -288,7 +288,7 @@ def _fold_file(job: tuple) -> Path:
 
 
 def lstm_results(cfg: dict, exclude_related: bool = True, force: bool = False) -> dict:
-    """tuning, chosen settings, rankings and attributions of the lstm + shap baseline; folds cached in data/models/lstm."""
+    """tuning, chosen settings, rankings and attributions of the lstm + shap baseline. folds are cached in data/models/lstm."""
     tuning = lstm_tuning(cfg, force)
     chosen = lstm_choice(tuning)
     jobs = [(sub, fold, seed, *chosen[sub], exclude_related)
@@ -297,7 +297,7 @@ def lstm_results(cfg: dict, exclude_related: bool = True, force: bool = False) -
     missing = [job for job in jobs if force or not _fold_file(job).exists()]
     if missing:
         log.info(f"training the lstm + shap baseline ({len(missing)} fold models, the slowest step of the "
-                 f"evaluation); results are cached in {io.relative(io.models_dir('lstm'))}")
+                 f"evaluation). results are cached in {io.relative(io.models_dir('lstm'))}")
         for job, result in zip(missing, _pool_map(cfg, _fold_job, missing)):
             _fold_file(job).parent.mkdir(parents=True, exist_ok=True)
             _fold_file(job).write_bytes(pickle.dumps(result))

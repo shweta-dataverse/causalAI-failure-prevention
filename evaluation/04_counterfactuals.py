@@ -449,7 +449,7 @@ def counterfactual_message(cfg: dict, runs: pd.DataFrame, refits: pd.DataFrame, 
     below = sorted({f for g in graphs for f in stats[g]["below_folds"]})
     lines.append(lead + (", all stable under refitting" if stable else ", not all stable under refitting")
                  + (f", while the {' and '.join(below)} proposals stay below {threshold:.2f}" if below else "")
-                 + "; validity is model-based, not observed prevention.")
+                 + ". validity is model-based, not observed prevention.")
     return lines
 
 

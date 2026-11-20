@@ -121,7 +121,7 @@ def step_file(name: str) -> Path:
 
 
 def read_input(name: str, **read_csv_args: Any) -> pd.DataFrame:
-    """a file written by an earlier stage; missing -> MissingInputError naming that stage."""
+    """a file written by an earlier stage. if it is missing, MissingInputError names that stage."""
     file = step_file(name)
     if not file.exists():
         raise MissingInputError(f"{relative(file)} not found: run \"python main.py run {STEP_FILES[name][1]}\" first")
@@ -139,7 +139,7 @@ def save_result(table: pd.DataFrame, name: str) -> Path:
 
 
 def write_csv(table: pd.DataFrame, file: Path) -> Path:
-    """csv without index; list, set and dict cells become json text."""
+    """csv without index. list, set and dict cells become json text."""
     file.parent.mkdir(parents=True, exist_ok=True)
     out = table.copy()
     for column in out.columns:

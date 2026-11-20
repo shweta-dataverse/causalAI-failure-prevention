@@ -190,9 +190,9 @@ class TemporalSCM:
         fixed: dict[str, float] | None = None,
         history: dict[str, np.ndarray] | None = None,
     ) -> dict[str, np.ndarray]:
-        """roll the equations forward for noise of shape (samples, steps); returns variable -> (samples, steps)."""
-        # interventions[v] = (value, first step) replaces the equation from that step on;
-        # fixed holds context variables at one value; history[v] holds observed states before step 0
+        """roll the equations forward for noise of shape (samples, steps). returns variable -> (samples, steps)."""
+        # interventions[v] = (value, first step) replaces the equation from that step on.
+        # fixed holds context variables at one value. history[v] holds observed states before step 0
         interventions = interventions or {}
         history = history or {}
         fixed = {**{v: self.fills[v] for v, m in self.mechanisms.items() if not m.has_data}, **(fixed or {})}
@@ -255,7 +255,7 @@ def fit_scm(
     smoothing: float = SMOOTHING,
     lags: dict[tuple[str, str], Sequence[int]] | None = None,
 ) -> TemporalSCM:
-    """one mechanism per graph node; repeated train ids keep their multiplicity, lags adds extra lags."""
+    """one mechanism per graph node. repeated train ids keep their multiplicity, lags adds extra lags."""
     lags = {e: tuple(sorted(int(l) for l in ls)) for e, ls in (lags or {}).items() if len(ls)}
     for (u, v), ls in lags.items():
         if not graph.has_edge(u, v):
@@ -267,7 +267,7 @@ def fit_scm(
     # an undirected discovered edge must never become a parent by accident (use to_dag first)
     undirected = [(u, v) for u, v, a in graph.edges(data=True) if a.get("oriented", True) is False]
     if undirected:
-        raise ValueError(f"graph contains undirected edges {undirected}; convert it with core.graphs.to_dag")
+        raise ValueError(f"graph contains undirected edges {undirected}. convert it with core.graphs.to_dag")
     fills = fill_values(view_data, train_ids)
     # one entry per listed recording: a recording drawn twice in a bootstrap sample counts twice
     cache = {r: recording_series(view_data, r) for r in dict.fromkeys(train_ids)}
@@ -332,7 +332,7 @@ def held_out_predictions(scm: TemporalSCM, view_data: ViewData, recording_ids: S
 
 
 def quantile_residuals(predictions: pd.DataFrame, rng: np.random.Generator) -> np.ndarray:
-    """randomized quantile residuals (dunn and smyth) for binary outcomes; normal(0, 1) if the model is right."""
+    """randomized quantile residuals (dunn and smyth) for binary outcomes. normal(0, 1) if the model is right."""
     from scipy.stats import norm
 
     p, y = predictions["p"].to_numpy(), predictions["y"].to_numpy()
