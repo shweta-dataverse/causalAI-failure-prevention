@@ -1,11 +1,10 @@
-"""event-log preprocessing: parsing, duplicates, zero-order-hold states and model views."""
+"""event-log preprocessing: parsing, duplicates, zero-order-hold states and state tables."""
 
 from __future__ import annotations
 
-import json
 import re
 from collections.abc import Sequence
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal
 
@@ -586,69 +585,6 @@ class ModelView:
     counter_first_differences: bool = False
 
     @classmethod
-    def fit(
-        cls,
-        states: pd.DataFrame,
-        types: dict[str, str],
-        train_ids: Sequence[str],
-        kind: ViewKind,
-        nodes: Sequence[str] | None = None,
-        counter_first_differences: bool = False,
-    ) -> ModelView:
-        if kind not in VIEW_KINDS:
-            raise ValueError(f"Unknown view kind {kind!r}; expected one of {VIEW_KINDS}")
-        train_ids = sorted(set(train_ids))
-        absent = set(train_ids) - set(states["recording_id"])
-        if not train_ids or absent:
-            raise KeyError(f"Training recordings missing from states: {sorted(absent) or 'none given'}")
-
-        exclusions: list[dict[str, str]] = []
-        sources: dict[str, str] = {}
-        column_types: dict[str, str] = {}
-        for node in state_node_columns(states) if nodes is None else nodes:
-            if node not in states.columns or node not in types:
-                exclusions.append({"column": node, "reason": "not_observed"})
-                continue
-            reason = _type_exclusion(types[node], kind, counter_first_differences)
-            if reason:
-                exclusions.append({"column": node, "reason": reason})
-                continue
-            name = f"{node}__diff" if types[node] == "Counter" else node
-            sources[name] = node
-            column_types[name] = types[node]
-
-        view = cls(
-            kind=kind,
-            train_ids=train_ids,
-            columns=[],
-            column_types={},
-            sources={},
-            means={},
-            stds={},
-            vocabularies={},
-            exclusions=exclusions,
-            counter_first_differences=counter_first_differences,
-        )
-        train = view._source_frame(states[states["recording_id"].isin(train_ids)], sources, column_types)
-        for name, node in sources.items():
-            values = train[name].dropna()
-            if values.empty:
-                exclusions.append({"column": name, "reason": "all_missing_in_training"})
-                continue
-            if values.nunique() <= 1:
-                exclusions.append({"column": name, "reason": "constant_in_training"})
-                continue
-            view.columns.append(name)
-            view.sources[name] = node
-            view.column_types[name] = column_types[name]
-            if column_types[name] in NUMERIC_TYPES:
-                view.means[name] = float(values.astype(float).mean())
-                view.stds[name] = float(values.astype(float).std(ddof=0))
-            elif column_types[name] == "Categorical":
-                view.vocabularies[name] = sorted(values.astype(str).unique())
-        return view
-
-    @classmethod
     def from_schema(cls, types: dict[str, str], nodes: Sequence[str], kind: ViewKind) -> ModelView:
         """view from a predeclared node list (binary/alarm only), without any data-dependent step."""
         if kind not in VIEW_KINDS:
@@ -663,7 +599,7 @@ class ModelView:
                 exclusions.append({"column": node, "reason": reason})
                 continue
             if types[node] not in BOOLEAN_TYPES:
-                raise ValueError(f"{node}: type {types[node]!r} needs a fitted encoding; use ModelView.fit")
+                raise ValueError(f"{node}: type {types[node]!r} is not binary")
             columns.append(node)
             column_types[node] = types[node]
             sources[node] = node
@@ -721,45 +657,36 @@ class ModelView:
             return (values.to_numpy(dtype=float) - self.means[name]) / self.stds[name]
         return values.to_numpy(dtype=float)
 
-    def to_dict(self) -> dict[str, Any]:
-        return {**asdict(self), "data_type": self.data_type.tolist()}
+
+def states_file(directory: Path, subsystem: str) -> Path:
+    return Path(directory) / f"{subsystem}_states.csv"
 
 
-def save_view_data(
-    view: ModelView, view_data: ViewData, directory: Path, name: str, interval_s: float
-) -> tuple[Path, Path]:
-    """write arrays and masks to <name>.npz and the view spec to <name>.json."""
-    directory = Path(directory)
-    directory.mkdir(parents=True, exist_ok=True)
-    ids = list(view_data.arrays)
-    arrays = {f"data__{rid}": view_data.arrays[rid] for rid in ids}
-    arrays.update({f"mask__{rid}": view_data.masks[rid] for rid in ids})
-    npz_path = directory / f"{name}.npz"
-    np.savez_compressed(
-        npz_path,
-        var_names=np.array(view_data.var_names),
-        data_type=view_data.data_type,
-        recording_ids=np.array(ids),
-        **arrays,
-    )
-    spec_path = directory / f"{name}.json"
-    _write_json(spec_path, {"name": name, "interval_s": interval_s, "recording_ids": ids, **view.to_dict()})
-    return npz_path, spec_path
+def write_states(view_data: ViewData, file: Path, interval_s: float) -> Path:
+    """one row per recording and grid step, one column per variable; unknown states are left empty."""
+    frames = []
+    for recording_id, values in view_data.arrays.items():
+        frame = pd.DataFrame(values, columns=view_data.var_names).astype("Int64")
+        frame = frame.mask(pd.DataFrame(view_data.masks[recording_id], columns=view_data.var_names))
+        frame.insert(0, "t_s", np.arange(len(frame)) * interval_s)
+        frame.insert(0, "step", range(len(frame)))
+        frame.insert(0, "recording_id", recording_id)
+        frames.append(frame)
+    file.parent.mkdir(parents=True, exist_ok=True)
+    pd.concat(frames, ignore_index=True).to_csv(file, index=False)
+    return file
 
 
-def load_view_data(directory: Path, name: str) -> tuple[ViewData, dict[str, Any]]:
-    """read what save_view_data wrote."""
-    directory = Path(directory)
-    with np.load(directory / f"{name}.npz", allow_pickle=False) as npz:
-        ids = [str(rid) for rid in npz["recording_ids"]]
-        view_data = ViewData(
-            var_names=[str(v) for v in npz["var_names"]],
-            arrays={rid: npz[f"data__{rid}"] for rid in ids},
-            masks={rid: npz[f"mask__{rid}"] for rid in ids},
-            data_type=npz["data_type"],
-        )
-    spec = json.loads((directory / f"{name}.json").read_text(encoding="utf-8"))
-    return view_data, spec
+def read_states(file: Path) -> ViewData:
+    """read what write_states wrote; every variable is binary or an alarm, so all are discrete."""
+    table = pd.read_csv(file, dtype={"recording_id": str})
+    var_names = [c for c in table.columns if c not in ("recording_id", "step", "t_s")]
+    arrays, masks = {}, {}
+    for recording_id, rows in table.groupby("recording_id", sort=False):
+        values = rows[var_names]
+        masks[recording_id] = values.isna().to_numpy()
+        arrays[recording_id] = values.fillna(0).to_numpy(dtype=float)
+    return ViewData(var_names=var_names, arrays=arrays, masks=masks, data_type=np.ones(len(var_names), dtype=int))
 
 
 def _type_exclusion(variable_type: str, kind: str, counter_first_differences: bool) -> str | None:
@@ -770,15 +697,3 @@ def _type_exclusion(variable_type: str, kind: str, counter_first_differences: bo
     if kind == "discrete" and variable_type in NUMERIC_TYPES:
         return "numeric_type_not_in_discrete_view"
     return None
-
-
-def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.write_text(json.dumps(payload, indent=2, default=_json_default), encoding="utf-8")
-
-
-def _json_default(value: Any) -> Any:
-    if isinstance(value, np.generic):
-        return value.item()
-    if isinstance(value, Path):
-        return value.as_posix()
-    raise TypeError(f"Not JSON serializable: {type(value).__name__}")

@@ -23,7 +23,7 @@ from tigramite.pcmci import PCMCI
 
 from core.data import protected_ids
 from core.graphs import compare_graphs, simple_digraph
-from core.preprocessing import ViewData, load_view_data
+from core.preprocessing import ViewData, read_states, states_file
 
 LINK_COLUMNS = ["regime", "source", "target", "lag", "link", "kind", "p_value", "p_corrected", "g_stat", "significant"]
 
@@ -495,7 +495,7 @@ def execute_spec(spec: RunSpec, processed_dir: str, out_path: str) -> None:
     try:
         key = (processed_dir, spec.view_name)
         if key not in _VIEW_CACHE:
-            _VIEW_CACHE[key] = load_view_data(Path(processed_dir), spec.view_name)[0]
+            _VIEW_CACHE[key] = read_states(states_file(Path(processed_dir), spec.subsystem))
         view_data = _VIEW_CACHE[key]
         if regime_fingerprint(view_data, spec.recording_ids, spec.variables) != spec.data_sha1:
             raise RuntimeError("data fingerprint changed since the spec was made")

@@ -291,12 +291,12 @@ def extra_lags(graph: nx.DiGraph, lag: int | None, max_features: int) -> dict[tu
 
 
 def fitted_path(subsystem: str, graph: str, scope: str, directory: Path | None = None) -> Path:
-    """<directory>/<subsystem>_<graph>_<scope>.pkl, by default in data/cache/scm."""
-    return (directory or io.cache_dir("scm")) / f"{subsystem}_{graph}_{scope}.pkl"
+    """<directory>/<subsystem>_<graph>_<scope>.pkl, by default in data/models/scm."""
+    return (directory or io.models_dir("scm")) / f"{subsystem}_{graph}_{scope}.pkl"
 
 
 def save_fitted(model: TemporalSCM, subsystem: str, graph: str, scope: str, directory: Path | None = None) -> None:
-    """store a fitted scm (by default in data/cache/scm)."""
+    """store a fitted scm (by default in data/models/scm)."""
     path = fitted_path(subsystem, graph, scope, directory)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(pickle.dumps(model))

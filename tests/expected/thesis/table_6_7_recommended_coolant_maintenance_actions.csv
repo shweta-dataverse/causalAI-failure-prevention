@@ -1,5 +1,0 @@
-Scenario,Recommended action,Alarm addressed (time before observed alarm),Alarm without training data,"Validity, expert (discovered)",Valid
-exp_27,Keep the high-pressure pump healthy (HP_Pump_Ok),HP_A_700304 (0–0.5 s),CLT_A_700310,1.00 (1.00),7 / 7
-exp_28,Keep the coolant filter (CLF_Filter_Ok) and the low-pressure pump (LP_Pump_Ok) healthy,"CLF_A_700307 (5.0–5.5 s), LP_A_700301 (0–0.5 s)",F_A_700313,0.94–0.96 (0.95–0.96),6 / 6
-exp_35,Keep the coolant filter (CLF_Filter_Ok) and the low-pressure pump (LP_Pump_Ok) healthy,"CLF_A_700307 (5.0–5.5 s), LP_A_700301 (0–0.5 s)",–,0.92–0.93 (0.91–0.94),6 / 6
-exp_22,Proposal below the validity threshold: keep the high-pressure pump healthy (HP_Pump_Ok),HP_A_700304 (0–0.5 s),LT_A_700317,0.84–0.87 (0.82–0.88),0 / 6

@@ -2,27 +2,25 @@
 # paths are relative to the repository root.
 
 paths:
-  raw: data/raw/causRCA
-  processed: data/processed
-  cache: data/cache                       # discovery_study/, scm/ and lstm/ below it
-  outputs: outputs                        # pipeline/ and evaluation/, each with tables/ and figures/
+  raw: data/raw/causRCA                   # causRCA dataset 1.0.0
+  processed: data/processed               # state tables and data splits
+  graphs: data/graphs                     # discovered graphs, dags used by the scms, discovery settings
+  models: data/models                     # fitted scms, scm settings, lstm models
+  results: data/results                   # rankings, replays, recommendations, detailed evaluation results
+  cache: data/cache                       # pcmci+ test results, one json file per regime run
+  tables: outputs/tables                  # thesis tables
+  figures: outputs/figures                # thesis figures
   log_file: logs/run.log
   related_recordings: config/related_recordings.csv   # frozen near-duplicate groups
 
 subsystems: [coolant, probe]              # analysed subsystems
 graphs: [expert, discovered]
 
-# state views <subsystem>_dt<interval> in data/processed: a schema view encodes the expert node
-# list without any fitted step; the fitted 1 s coolant view serves the sensitivity analysis
-state_views:
-  - {subsystem: coolant, interval_s: 0.5, encoding: schema}
-  - {subsystem: probe, interval_s: 0.5, encoding: schema}
-  - {subsystem: coolant, interval_s: 1.0, encoding: fitted}
 manipulated_kinds:                        # wording of the subsystem table
   coolant: pumps, filters, tank levels
   probe: arm position sensors
 
-model_interval_s: 0.5                     # grid of the model views <subsystem>_dt0.5
+model_interval_s: 0.5                     # time grid of the state tables (seconds)
 split_fractions: [0.7, 0.15, 0.15]        # normal recordings by number: train, validation, test
 
 # preprocessing example of the setup chapter

@@ -105,3 +105,7 @@ def bootstrap_ci(values: Sequence[float], n_boot: int = 2000, seed: int = 0, lev
     means = rng.choice(values, size=(n_boot, values.size), replace=True).mean(axis=1)
     alpha = (1 - level) / 2
     return float(np.quantile(means, alpha)), float(np.quantile(means, 1 - alpha))
+
+
+def metric_names(k: int) -> list[str]:
+    return ["top1", f"hit@{k}", f"recall@{k}", f"ap@{k}", "rr"]

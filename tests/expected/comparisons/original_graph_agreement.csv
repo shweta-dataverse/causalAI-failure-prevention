@@ -1,5 +1,0 @@
-subsystem,stage,n_pred_edges,directed_f1
-coolant,raw,10,0.7499999999999999
-coolant,scm dag,6,0.7499999999999999
-probe,raw,8,0.0
-probe,scm dag,1,0.0

@@ -2,16 +2,27 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
+import pickle
 from collections.abc import Sequence
+from multiprocessing import get_context
+from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import shap
 import torch
 from torch import nn
 
+from core import data, rca, scm
+from core.data import Subsystem, load_subsystem
 from core.preprocessing import ViewData
-from core.rca import analysis_window, candidates
+from core.rca import analysis_window, candidates, metric_names
 from core.scm import recording_series
+from utils import io
+from utils.config import load_config, setting
+from utils.logger import log
 
 # windows per forward pass when scoring; changes only the summation order of the loss
 EVAL_CHUNK = 4096
@@ -157,3 +168,177 @@ def importance_ranking(vector: np.ndarray, var_names: Sequence[str],
     """candidates by decreasing attribution (ties by name) and the attribution of each."""
     importance = {v: float(vector[list(var_names).index(v)]) for v in cands}
     return sorted(cands, key=lambda v: (-importance[v], v)), importance
+
+
+# training and ranking over the evaluation folds
+
+
+_SUBSYSTEMS: dict[str, Subsystem] = {}
+
+
+def _subsystem(name: str) -> Subsystem:
+    """data of a subsystem, loaded once per worker process."""
+    if name not in _SUBSYSTEMS:
+        _SUBSYSTEMS[name] = load_subsystem(load_config(), name)
+    return _SUBSYSTEMS[name]
+
+
+def _windows(sub: Subsystem, ids: list[str], fills: dict, lookback: int, weighted: bool = False) -> dict:
+    """look-back windows; with weighted, manipulated variables of a fault run are left out of the loss."""
+    arrays = [run_arrays(sub.view, r, fills, sub.manipulated.get(r, set()) if weighted else frozenset())
+              for r in ids]
+    return make_windows(arrays, lookback)
+
+
+def _train(lc: dict, train_win: dict, val_win: dict, n_vars: int, hidden: int, seed: int):
+    return train(train_win, val_win, n_vars, hidden, seed, lc["learning_rate"], lc["batch_size"],
+                           lc["max_epochs"], lc["patience"], lc["min_improvement"])
+
+
+def _tuning_job(args: tuple) -> dict:
+    """one grid point, trained on the normal training recordings and scored on normal validation."""
+    name, hidden, lookback = args
+    cfg = load_config()
+    lc = setting(cfg, "lstm")
+    torch.set_num_threads(lc["threads_per_worker"])
+    sub = _subsystem(name)
+    train_ids = sub.ids("train")
+    fills = scm.fill_values(sub.view, train_ids)
+    _, loss, history = _train(lc, _windows(sub, train_ids, fills, lookback),
+                              _windows(sub, sub.ids("validation"), fills, lookback),
+                              len(sub.view.var_names), hidden, lc["seeds"][0])
+    return {"subsystem": name, "hidden": hidden, "lookback_steps": lookback,
+            "lookback_s": lookback * sub.interval_s, "normal_validation_loss": loss, "epochs": len(history)}
+
+
+def _fold_job(args: tuple) -> tuple[list[dict], list[dict]]:
+    """train the chosen setting without the held-out scenario and rank the candidates of its runs."""
+    name, fold, seed, hidden, lookback, exclude_related = args
+    cfg = load_config()
+    lc = setting(cfg, "lstm")
+    torch.set_num_threads(lc["threads_per_worker"])
+    sub = _subsystem(name)
+    train_ids = data.fold_training_ids(sub.splits, fold, exclude_related=exclude_related)
+    fills = scm.fill_values(sub.view, train_ids)
+    model, loss, history = _train(lc, _windows(sub, train_ids, fills, lookback, weighted=True),
+                                  _windows(sub, sub.ids("validation"), fills, lookback),
+                                  len(sub.view.var_names), hidden, seed)
+    background = background_windows(_windows(sub, sub.ids("train"), fills, lookback),
+                                              lc["shap_background"], lc["shap_background_seed"])
+    main = tuple(lc["main"])
+    rows, importance_rows = [], []
+    for rid in sub.runs_of(fold):
+        base = {"subsystem": name, "fold": fold, "recording_id": rid, "seed": seed}
+        result = explain(model, sub.view, rid, fills, sub.alarms, sub.nodes, background, lookback,
+                                   sub.interval_s, lc["shap_samples"], lc["step_variants"])
+        if result is None:
+            rows.append({**base, "scored": False})
+            continue
+        cands, importance, _ = result
+        truth = set(sub.manipulated[rid])
+        chance = rca.chance_metrics(cands, truth, setting(cfg, "rca", "top_k"), setting(cfg, "rca", "chance_draws"),
+                                    setting(cfg, "rca", "seed"))
+        for (steps, aggregation), vector in importance.items():
+            ranking, scores = importance_ranking(vector, sub.view.var_names, cands)
+            rows.append({**base, "scored": True, "steps": steps, "aggregation": aggregation,
+                         "n_candidates": len(cands), "n_causes": len(truth), "epochs": len(history),
+                         "fold_validation_loss": loss, "ranking": " > ".join(ranking),
+                         **rca.ranking_metrics(ranking, truth, setting(cfg, "rca", "top_k")),
+                         **{f"chance_{m}": x for m, x in chance.items()}})
+            if (steps, aggregation) == main:
+                importance_rows += [{**base, "variable": v, "importance": scores[v], "is_cause": v in truth}
+                                    for v in cands]
+    return rows, importance_rows
+
+
+def _pool_map(cfg: dict, job, jobs: list):
+    """results of the jobs in order, each as soon as it and the jobs before it are done."""
+    with get_context("spawn").Pool(setting(cfg, "lstm", "workers")) as pool:
+        yield from pool.imap(job, jobs)
+
+
+def lstm_tuning(cfg: dict, force: bool = False) -> pd.DataFrame:
+    """normal validation loss of every (hidden units, look-back) pair, cached in data/models/lstm."""
+    file = io.models_dir("lstm") / "tuning.csv"
+    if file.exists() and not force:
+        return pd.read_csv(file)
+    lc = setting(cfg, "lstm")
+    jobs = [(sub, h, lb) for sub in setting(cfg, "subsystems") for h in lc["hidden"] for lb in lc["lookback_steps"]]
+    log.info(f"tuning the lstm ({len(jobs)} settings)")
+    table = pd.DataFrame(list(_pool_map(cfg, _tuning_job, jobs)))
+    io.write_csv(table, file)
+    return table
+
+
+def lstm_choice(tuning: pd.DataFrame) -> dict[str, tuple[int, int]]:
+    """lowest validation loss per subsystem (ties: fewer hidden units, shorter look-back)."""
+    chosen = {}
+    for sub, part in tuning.groupby("subsystem"):
+        best = part.sort_values(["normal_validation_loss", "hidden", "lookback_steps"]).iloc[0]
+        chosen[sub] = (int(best.hidden), int(best.lookback_steps))
+    return chosen
+
+
+def _fold_file(job: tuple) -> Path:
+    """cache file of one fold model, keyed by its training recordings (folds without near-duplicates are shared)."""
+    name, fold, seed, hidden, lookback, exclude_related = job
+    train_ids = data.fold_training_ids(_subsystem(name).splits, fold, exclude_related=exclude_related)
+    digest = hashlib.sha1(json.dumps([hidden, lookback, train_ids]).encode()).hexdigest()[:12]
+    return io.models_dir("lstm") / "folds" / f"{name}_{fold}_seed{seed}_{digest}.pkl"
+
+
+def lstm_results(cfg: dict, exclude_related: bool = True, force: bool = False) -> dict:
+    """tuning, chosen settings, rankings and attributions of the lstm + shap baseline; folds cached in data/models/lstm."""
+    tuning = lstm_tuning(cfg, force)
+    chosen = lstm_choice(tuning)
+    jobs = [(sub, fold, seed, *chosen[sub], exclude_related)
+            for sub in setting(cfg, "subsystems") for fold in _subsystem(sub).folds
+            for seed in setting(cfg, "lstm", "seeds")]
+    missing = [job for job in jobs if force or not _fold_file(job).exists()]
+    if missing:
+        log.info(f"training the lstm + shap baseline ({len(missing)} fold models, the slowest step of the "
+                 f"evaluation); results are cached in {io.relative(io.models_dir('lstm'))}")
+        for job, result in zip(missing, _pool_map(cfg, _fold_job, missing)):
+            _fold_file(job).parent.mkdir(parents=True, exist_ok=True)
+            _fold_file(job).write_bytes(pickle.dumps(result))
+    results = [pickle.loads(_fold_file(job).read_bytes()) for job in jobs]
+    return {"tuning": tuning, "chosen": chosen,
+            "runs": pd.DataFrame([r for rows, _ in results for r in rows]),
+            "importance": pd.DataFrame([r for _, rows in results for r in rows])}
+
+
+def lstm_per_run(cfg: dict, runs: pd.DataFrame, steps: str, aggregation: str) -> pd.DataFrame:
+    """metrics of one explanation variant, averaged over the seeds of each run."""
+    k = setting(cfg, "rca", "top_k")
+    part = runs[runs.scored.astype(bool) & (runs.steps == steps) & (runs.aggregation == aggregation)]
+    return part.groupby(["subsystem", "fold", "recording_id"])[metric_names(k) + [f"chance_ap@{k}"]].mean().reset_index()
+
+
+def lstm_summaries(cfg: dict, results: dict) -> dict[str, pd.DataFrame]:
+    """per-scenario results and summary of the fixed variant, and every variant for the sensitivity check."""
+    k = setting(cfg, "rca", "top_k")
+    columns = metric_names(k) + [f"chance_ap@{k}"]
+    main = tuple(setting(cfg, "lstm", "main"))
+    runs = results["runs"]
+    variants = sorted(runs.dropna(subset=["steps"]).groupby(["steps", "aggregation"]).groups)
+    per_run = {v: lstm_per_run(cfg, runs, *v) for v in variants}
+    per_scenario = {v: part.groupby(["subsystem", "fold"])[columns].mean().reset_index() for v, part in per_run.items()}
+    sensitivity = [{"subsystem": sub, "steps": v[0], "aggregation": v[1], "main": v == main,
+                    "top1_run_mean": part.top1.mean(), f"map{k}_run_mean": part[f"ap@{k}"].mean(),
+                    f"ap{k}_scenario_macro": per_scenario[v].loc[per_scenario[v].subsystem == sub, f"ap@{k}"].mean()}
+                   for v in variants for sub, part in per_run[v].groupby("subsystem")]
+    main_runs = runs[(runs.steps == main[0]) & (runs.aggregation == main[1])]
+    seeds = main_runs.groupby(["subsystem", "seed"])[["top1", f"ap@{k}"]].mean()
+    summary = []
+    for sub, part in per_run[main].groupby("subsystem"):
+        hidden, lookback = results["chosen"][sub]
+        summary.append({"subsystem": sub, "hidden": hidden, "lookback_s": lookback * setting(cfg, "model_interval_s"),
+                        "runs": len(part), "top1_run_mean": part.top1.mean(),
+                        f"hit{k}_run_mean": part[f"hit@{k}"].mean(), f"recall{k}_run_mean": part[f"recall@{k}"].mean(),
+                        f"map{k}_run_mean": part[f"ap@{k}"].mean(), "mrr_run_mean": part.rr.mean(),
+                        f"ap{k}_scenario_macro": per_scenario[main].loc[per_scenario[main].subsystem == sub,
+                                                                        f"ap@{k}"].mean(),
+                        f"chance_map{k}_run_mean": part[f"chance_ap@{k}"].mean(),
+                        f"map{k}_seed_min": seeds.loc[sub, f"ap@{k}"].min(), f"map{k}_seed_max": seeds.loc[sub, f"ap@{k}"].max(),
+                        "top1_seed_min": seeds.loc[sub, "top1"].min(), "top1_seed_max": seeds.loc[sub, "top1"].max()})
+    return {"summary": pd.DataFrame(summary), "per_scenario": per_scenario[main], "sensitivity": pd.DataFrame(sensitivity)}

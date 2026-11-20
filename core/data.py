@@ -8,6 +8,7 @@ from collections import Counter
 from itertools import chain, combinations
 from pathlib import Path
 from collections.abc import Sequence
+from dataclasses import dataclass
 from typing import Any
 
 import networkx as nx
@@ -15,7 +16,10 @@ import numpy as np
 import pandas as pd
 
 from core import preprocessing as pp
+from core import scm
+from core.graphs import simple_digraph
 from utils import io
+from utils.config import setting
 
 RAW_DIR = io.raw_dir()
 # frozen groups of near-duplicate recordings
@@ -511,3 +515,54 @@ def scope_held_out(scope: str) -> tuple[str, ...]:
         raise ValueError(f"unknown scope {scope!r}")
     body = scope.removeprefix("without_")
     return tuple("exp_" + part for part in body.removeprefix("exp_").split("_exp_"))
+
+
+# one subsystem
+
+
+@dataclass
+class Subsystem:
+    """data of one subsystem shared by the scm, rca and evaluation steps."""
+
+    name: str
+    view: pp.ViewData
+    splits: pd.DataFrame
+    manipulated: dict[str, set[str]]
+    expert: nx.DiGraph
+    interval_s: float
+    # fitted scms, data/models/scm when not set
+    scm_dir: Path | None = None
+
+    @property
+    def nodes(self) -> list[str]:
+        return sorted(self.expert.nodes)
+
+    @property
+    def alarms(self) -> list[str]:
+        return sorted(n for n in self.nodes if self.expert.nodes[n]["kind"] == "Alarm")
+
+    @property
+    def folds(self) -> list[str]:
+        return sorted(self.splits.loc[self.splits.split == "fault", "fold"].unique())
+
+    def ids(self, split: str) -> list[str]:
+        return self.splits.loc[self.splits.split == split, "recording_id"].tolist()
+
+    def runs_of(self, fold: str) -> list[str]:
+        return self.splits.loc[self.splits.fold == fold, "recording_id"].tolist()
+
+    def fold_model(self, graph: str, fold: str) -> scm.TemporalSCM:
+        return scm.load_fitted(self.name, graph, scope_name(fold), self.scm_dir)
+
+
+def load_subsystem(cfg: dict, name: str) -> Subsystem:
+    """state table, splits, ground truth and expert graph of one subsystem."""
+    interval = setting(cfg, "model_interval_s")
+    view = io.load_states(name)
+    splits = io.read_input("splits")
+    # keep the row order: bootstrap draws depend on it
+    splits = splits[splits.subsystem == name].reset_index(drop=True)
+    manipulated = manipulated_by_recording(load_fault_runs(), load_experiments())
+    # node-table order of the expert graph fixes the order of the mechanisms
+    expert = simple_digraph(load_expert_graph(subsystem=name))
+    return Subsystem(name, view, splits, manipulated, expert, interval)

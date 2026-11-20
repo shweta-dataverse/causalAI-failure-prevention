@@ -1,0 +1,15 @@
+subsystem,graph,scope,alpha,lag,selection_log_loss,baseline_log_loss,selection_data
+probe,expert,all,0.01,2,0.007834958073719662,0.00882555716597143,normal validation recordings
+probe,expert,without_exp_1,0.01,2,0.020196501210880444,0.021282164948979436,"inner scenarios exp_2_3,exp_4,exp_5,exp_6,exp_7"
+probe,expert,without_exp_2_3,0.1,2,0.021886025699953186,0.024713544511710418,"inner scenarios exp_1,exp_4,exp_5,exp_6,exp_7"
+probe,expert,without_exp_4,0.1,2,0.038630497311374086,0.04128893104259573,"inner scenarios exp_1,exp_2_3,exp_5,exp_6,exp_7"
+probe,expert,without_exp_5,0.1,2,0.039874300564396545,0.04253090920759314,"inner scenarios exp_1,exp_2_3,exp_4,exp_6,exp_7"
+probe,expert,without_exp_6,0.1,2,0.021573128181222805,0.02443323861244724,"inner scenarios exp_1,exp_2_3,exp_4,exp_5,exp_7"
+probe,expert,without_exp_7,0.1,2,0.020560110193471245,0.023378413317160264,"inner scenarios exp_1,exp_2_3,exp_4,exp_5,exp_6"
+probe,discovered,all,0.01,4,0.008860786715586592,0.009650301736350606,normal validation recordings
+probe,discovered,without_exp_1,0.5,2,0.02783383467838899,0.028515367923764016,"inner scenarios exp_2_3,exp_4,exp_5,exp_6,exp_7"
+probe,discovered,without_exp_2_3,0.01,4,0.029580727653935136,0.030384671805932593,"inner scenarios exp_1,exp_4,exp_5,exp_6,exp_7"
+probe,discovered,without_exp_4,0.5,,0.051362356437721184,0.051362356437721184,"inner scenarios exp_1,exp_2_3,exp_5,exp_6,exp_7"
+probe,discovered,without_exp_5,0.01,4,0.04807373397311336,0.05010221318034,"inner scenarios exp_1,exp_2_3,exp_4,exp_6,exp_7"
+probe,discovered,without_exp_6,0.01,2,0.029929587934871986,0.030481441473080788,"inner scenarios exp_1,exp_2_3,exp_4,exp_5,exp_7"
+probe,discovered,without_exp_7,0.1,4,0.025766093842823783,0.028781959635633434,"inner scenarios exp_1,exp_2_3,exp_4,exp_5,exp_6"

@@ -1,35 +1,30 @@
-"""command line: python main.py run [stage] | evaluate <part> [--force]."""
-
 import argparse
 import importlib
 import sys
 
 import matplotlib
 
-# figures are only written to files
-matplotlib.use("Agg")
+from utils.config import load_config
+from utils.errors import PipelineError
+from utils.io import log_file
+from utils.logger import log, setup_logging
 
-from utils.config import load_config  # noqa: E402
-from utils.errors import PipelineError  # noqa: E402
-from utils.io import log_file  # noqa: E402
-from utils.logger import log, setup_logging  # noqa: E402
-
-# command -> name -> module with run(cfg, force=False); stages are listed in pipeline order
+# command -> name -> file, stages listed in pipeline order
 COMMANDS = {
     "run": {
-        "preprocessing": "pipeline.preprocessing",
-        "discovery": "pipeline.causal_discovery",
-        "scm": "pipeline.scm_fitting",
-        "rca": "pipeline.root_cause_analysis",
-        "interventions": "pipeline.interventions",
-        "counterfactuals": "pipeline.counterfactuals",
+        "preprocessing": "pipeline.01_preprocessing",
+        "discovery": "pipeline.02_causal_discovery",
+        "scm": "pipeline.03_scm_fitting",
+        "rca": "pipeline.04_root_cause_analysis",
+        "interventions": "pipeline.05_interventions",
+        "counterfactuals": "pipeline.06_counterfactuals",
     },
     "evaluate": {
-        "discovery": "evaluation.discovery",
-        "scm": "evaluation.scm",
-        "rca": "evaluation.rca",
-        "counterfactuals": "evaluation.counterfactuals",
-        "comparisons": "evaluation.comparisons",
+        "discovery": "evaluation.01_causal_discovery",
+        "scm": "evaluation.02_scm",
+        "rca": "evaluation.03_root_cause_analysis",
+        "counterfactuals": "evaluation.04_counterfactuals",
+        "comparisons": "evaluation.05_comparisons",
     },
 }
 
@@ -58,6 +53,8 @@ def dispatch(command: str, names: list[str], force: bool) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
+    # figures are only written to files
+    matplotlib.use("Agg")
     try:
         setup_logging(log_file())
     except PipelineError as exc:
