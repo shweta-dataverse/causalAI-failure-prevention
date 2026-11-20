@@ -351,19 +351,16 @@ python main.py evaluate counterfactuals
 ---
 
 ## 6. Evaluation
-
-Each part reproduces the thesis results exactly.
-
 ### 6.1 Causal discovery
 
-Compares the discovered graph with the expert graph. Random graphs with the same number of edges provide
-a chance reference (random baseline).
+Compares the discovered graph with the expert graph. Random graphs with the same number of edges give
+the chance level.
 
 ```bash
 python main.py evaluate discovery
 ```
 
-| Metric | Coolant | Coolant, random graphs | Probe | Probe, random graphs |
+| Metric | Coolant | Coolant, random | Probe | Probe, random |
 |---|---|---|---|---|
 | Skeleton F1 | 0.80 | 0.09 | 0.59 | 0.30 |
 | Directed F1 | 0.75 | 0.05 | 0.42 | 0.15 |
@@ -412,7 +409,7 @@ python main.py evaluate scm
 
 Measures how high the injected causes are ranked. Top-1 counts the runs with an injected cause in
 first place, and MAP@3 rewards all injected causes among the first three. LSTM + SHAP is a baseline
-without a causal graph. Chance (random baseline) is the expected score from randomly ranking the same candidates.
+without a causal graph.
 
 ```bash
 python main.py evaluate rca
@@ -422,11 +419,11 @@ python main.py evaluate rca
 |---|---|---|---|---|
 | Coolant | Causal, both graphs | 1.00 | 1.00 | 1.00 |
 | Coolant | LSTM + SHAP | 1.00 | 1.00 | 1.00 |
-| Coolant | Chance (random baseline) | 0.47 | 0.47 | 0.47 |
+| Coolant | Chance | 0.47 | 0.47 | 0.47 |
 | Probe | Causal, expert graph | 0.62 | 0.67 | 0.64 |
 | Probe | Causal, discovered graph | 0.53 | 0.63 | 0.57 |
 | Probe | LSTM + SHAP | 0.56 | 0.58 | 0.51 |
-| Probe | Chance (random baseline) | 0.14 | 0.21 | 0.21 |
+| Probe | Chance | 0.14 | 0.21 | 0.21 |
 
 - **Coolant: every method ranks all injected causes at the top**, because these causes never change
   during normal operation. The median score gap to the next candidate is 7.42 nats.
@@ -437,14 +434,8 @@ python main.py evaluate rca
   overlap, [0.54, 0.79] and [0.49, 0.76].
 - **The selected SCM hyperparameters bring most of the improvement:** +0.19 MAP@3 for the expert
   graph and +0.16 for the discovered graph.
-- **LSTM + SHAP shows complementary strengths, not consistent superiority:** lower MAP@3 than both
-  causal models, but a higher Top-1 than the discovered graph (0.56 against 0.53). It leads in exp_2_3
-  and exp_7, and its MAP@3 varies between 0.54 and 0.63 across training seeds.
-- **SHAP often ranks the machine's reaction above the injected cause:** in run 1 of exp_1, the
-  faulty arm sensor `MPA_WorkPos` ranks only sixth, behind reacting
-  variables such as `MP_Inactive` and `MPC_Closed`.
-- **Only the causal framework continues beyond diagnosis:** LSTM + SHAP gives rankings, but no
-  intervention analysis or counterfactual recommendations.
+- **LSTM + SHAP has a higher Top-1 than the discovered graph** (0.56 against 0.53), and its MAP@3
+  varies between 0.54 and 0.63 across training seeds.
 
 ### 6.4 Interventions and counterfactual explanations
 
