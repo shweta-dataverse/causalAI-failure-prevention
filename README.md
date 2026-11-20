@@ -509,8 +509,8 @@ Every table and figure of the thesis that comes from code is saved under its the
 | Table A.8 SCM settings by selection objective | `tables/table_a_8_...` | `evaluate scm` |
 | Table A.9 Probe diagnosis by selection objective | `tables/table_a_9_...` | `evaluate scm` |
 | Figure 5.1 Machine states during a coolant fault | `figures/figure_5_1_...` | `run preprocessing` |
-| Figure 6.1 Expert and discovered coolant graphs | `figures/figure_6_1_...` (PDF and TikZ) | `evaluate discovery` |
-| Figure 6.2 Expert and discovered probe graphs | `figures/figure_6_2_...` (PDF and TikZ) | `evaluate discovery` |
+| Figure 6.1 Expert and discovered coolant graphs | `figures/figure_6_1_...` | `evaluate discovery` |
+| Figure 6.2 Expert and discovered probe graphs | `figures/figure_6_2_...` | `evaluate discovery` |
 | Figure 6.3 State-prediction loss across data splits | `figures/figure_6_3_...` | `evaluate scm` |
 | Figure 6.4 Root-cause scores during a coolant fault | `figures/figure_6_4_...` | `run rca` |
 | Figure 6.5 Root-cause ranking by fault scenario | `figures/figure_6_5_...` | `evaluate rca` |

@@ -275,23 +275,7 @@ COMPARISON_CLASSES = {
     "undirected, extra": ("Undirected, not in expert graph", COLORS[1], "dashed"),
     "missed": ("Expert edge not found", INK["muted"], "dotted"),
 }
-TIKZ_EDGE = {
-    "expert": "->, draw=black!70, line width=0.7pt",
-    "correct direction": "->, draw=figblue, line width=1.1pt",
-    "reversed": "->, draw=figgreen, line width=1.1pt",
-    "extra": "->, draw=figorange, line width=1.1pt",
-    "undirected, adjacency correct": "draw=figblue, line width=1.1pt, dashed",
-    "undirected, extra": "draw=figorange, line width=1.1pt, dashed",
-    "missed": "->, draw=figgrey, line width=0.9pt, densely dotted",
-}
-TIKZ_HEADER = [
-    r"\definecolor{figblue}{HTML}{2A78D6}\definecolor{figorange}{HTML}{EB6834}%",
-    r"\definecolor{figgreen}{HTML}{1BAF7A}\definecolor{figgrey}{HTML}{898781}%",
-    r"\begin{tikzpicture}[>=latex,",
-    r"  st/.style={draw=figblue, fill=figblue!15, rounded corners=2pt, inner sep=2.5pt, font=\footnotesize\ttfamily},",
-    r"  al/.style={draw=figorange, fill=figorange!15, rounded corners=2pt, inner sep=2.5pt, font=\footnotesize\ttfamily}]",
-]
-# matplotlib connection styles of the routed tikz edges
+# matplotlib connection styles of the routed edges
 ROUTE_STYLES = {
     "out=0, in=0": "arc,angleA=0,angleB=0,armA={arm},armB={arm},rad=6",
     "out=-90, in=-90": "arc,angleA=-90,angleB=-90,armA={arm},armB={arm},rad=6",
@@ -304,7 +288,7 @@ class GraphLayout:
     """hand-placed node positions in cm (both panels), routed edges and the gap above the legend."""
 
     positions: dict[str, tuple[float, float]]
-    routes: dict[frozenset, tuple[str, str, str]]  # pair -> (anchor of u, anchor of v, tikz options)
+    routes: dict[frozenset, tuple[str, str, str]]  # pair -> (anchor of u, anchor of v, route style)
     y_scale: float
     legend_gap: float
 
@@ -341,49 +325,8 @@ def comparison_titles(expert: nx.DiGraph, discovered: nx.DiGraph) -> tuple[str, 
             f"(b) Discovered summary graph, before DAG conversion: {adjacencies} adjacencies")
 
 
-def _tex(name: str) -> str:
-    return name.replace("_", r"\_")
-
-
-def _tikz_panel(prefix: str, layout: GraphLayout, kinds: dict[str, str], edges: list[tuple[str, str, str]],
-                title: str, top: float) -> list[str]:
-    out = [rf"\node[anchor=south west, font=\normalsize] at (-1.7, {top + 0.55:.2f}) {{{title}}};"]
-    for n, (x, y) in layout.positions.items():
-        style = "al" if kinds[n] == "Alarm" else "st"
-        out.append(rf"\node[{style}] ({prefix}{n.replace('_', '-')}) at ({x}, {layout.y_scale * y + top:.2f}) {{{_tex(n)}}};")
-    for u, v, cls in edges:
-        a, b = prefix + u.replace("_", "-"), prefix + v.replace("_", "-")
-        route = layout.routes.get(frozenset({u, v}))
-        if route:
-            out.append(rf"\draw[{TIKZ_EDGE[cls]}] ({a}.{route[0]}) to[{route[2]}] ({b}.{route[1]});")
-        else:
-            out.append(rf"\draw[{TIKZ_EDGE[cls]}] ({a}) -- ({b});")
-    return out
-
-
-def comparison_tikz(expert: nx.DiGraph, discovered: nx.DiGraph, layout: GraphLayout, comment: str) -> str:
-    """tikz picture: (a) the expert graph, (b) the discovered summary graph with edge classes, and a legend."""
-    kinds = {n: expert.nodes[n]["kind"] for n in expert.nodes}
-    edges, counts = comparison_edges(discovered, expert)
-    title_a, title_b = comparison_titles(expert, discovered)
-    lines = [f"% {comment}", *TIKZ_HEADER]
-    lines += _tikz_panel("a-", layout, kinds, [(u, v, "expert") for u, v in expert.edges], title_a, 0)
-    lines += _tikz_panel("b-", layout, kinds, edges, title_b, layout.panel_shift)
-    rows = [rf"\tikz[baseline=-0.6ex]\draw[{TIKZ_EDGE[k]}] (0,0) -- (0.8,0); & {label} ({counts[k]})"
-            for k, (label, _, _) in COMPARISON_CLASSES.items() if counts.get(k, 0) > 0]
-    rows += [r"\tikz[baseline=-0.6ex]\node[st, minimum width=8mm] {};& State",
-             r"\tikz[baseline=-0.6ex]\node[al, minimum width=8mm] {};& Alarm"]
-    half = (len(rows) + 1) // 2
-    legend_y = layout.panel_shift - layout.height - layout.legend_gap
-    lines.append(rf"\node[anchor=north, font=\footnotesize] at ({layout.centre:.2f}, {legend_y:.2f}) "
-                 r"{\begin{tabular}{@{}cl@{\hspace{6mm}}cl@{}}")
-    lines += [rows[i] + " & " + (rows[i + half] if i + half < len(rows) else "&") + r" \\" for i in range(half)]
-    lines += [r"\end{tabular}};", r"\end{tikzpicture}"]
-    return "\n".join(lines) + "\n"
-
-
 def draw_comparison(expert: nx.DiGraph, discovered: nx.DiGraph, layout: GraphLayout) -> plt.Figure:
-    """the tikz picture drawn with matplotlib: same positions (1 data unit = 1 cm), edge classes and legend."""
+    """expert and discovered graphs side by side: hand-placed positions (1 data unit = 1 cm), edge classes and legend."""
     kinds = {n: expert.nodes[n]["kind"] for n in expert.nodes}
     edges, counts = comparison_edges(discovered, expert)
     titles = comparison_titles(expert, discovered)
