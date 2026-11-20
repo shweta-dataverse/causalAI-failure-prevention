@@ -200,16 +200,9 @@ causalAI-failure-prevention/
 └── notebooks/01_EDA.ipynb       exploration of the dataset
 ```
 
-**Why `pipeline/` and `core/` are separate.** A file in `pipeline/` is one step: it reads the step's
-input, calls the methods, and saves the step's results, tables and figures. A file in `core/`
-holds the method itself, for example how the SCM is fitted or how a root cause is scored. The same
-method is used by several steps and evaluation parts. For example, the root cause scores are needed by
-the root cause step, the counterfactual step and three evaluation parts. Keeping each method in one
-place means all of them use exactly the same code.
-
-**What `data/cache/` is for.** PCMCI+ is the slowest part of the framework. Selecting the discovery
-settings and the bootstrap needs about 950 PCMCI+ runs, one per regime and setting (about 20 CPU
-hours in total). Every run is saved as one small file, named after its data, variables and settings. When the same run is needed
+**What `data/cache/` contains:** PCMCI+ is the slowest part of the framework. Selecting the discovery
+settings and the bootstrap needs about 950 PCMCI+ runs, one per regime and setting **(about 20 CPU
+hours in total)**. Every run is saved as one small file, named after its data, variables and settings. When the same run is needed
 again, it is read from this folder instead of being recomputed.
 
 **What the state tables look like.** `data/processed/coolant_states.csv` has one row per recording
@@ -229,21 +222,45 @@ recorded yet.
 
 ## 5. The pipeline, step by step
 
-Every step reads the files the earlier steps saved, so the steps run in this order. If an input is
-missing, the step says which command to run first.
+The six steps build on each other: each step reads what the steps before it saved. If an input is
+missing, the step tells you which command to run first. Every step below shows two commands: **Run**
+does the step, and **Check** runs the evaluation part that measures how well it worked.
+
+| Step | Run | Check |
+|---|---|---|
+| 1 Preprocessing | `python main.py run preprocessing` | checks itself while it runs |
+| 2 Causal discovery | `python main.py run discovery` | `python main.py evaluate discovery` |
+| 3 SCM fitting | `python main.py run scm` | `python main.py evaluate scm` |
+| 4 Root cause analysis | `python main.py run rca` | `python main.py evaluate rca` |
+| 5 Intervention analysis | `python main.py run interventions` | `python main.py evaluate counterfactuals` |
+| 6 Counterfactual explanations | `python main.py run counterfactuals` | `python main.py evaluate counterfactuals` |
 
 ### Step 1: Preprocessing
 
+**Run:**
 ```bash
 python main.py run preprocessing
 ```
+**Check:** the step checks its own output while it runs. Tables 5.4 and 5.5 in `outputs/tables/` show
+the same recording before and after.
 
-The step turns the raw event logs into state tables. The state of every variable is read every 0.5 s,
-keeping the last recorded value of each variable (zero-order hold). Every cell is checked against the
-raw events. Normal recordings are split by number into training, validation and test (70/15/15). Fault
-runs are grouped by scenario, so that each scenario can be held out in turn (leave-one-scenario-out).
-The step also checks for near-duplicate recordings, which must not be in training while their partner
-is being tested.
+**What it does.** The machine does not log its state at fixed times. It logs an event only when
+something changes, for example `LP_Pump_On` switching to 0. This step turns those events into a
+regular table: one row every 0.5 s, one column per variable. Each cell holds the last value the
+variable reported (zero-order hold). Before a variable's first event, its cell stays empty, because
+its state is unknown. It is never guessed.
+
+The step then splits the data. The 170 normal recordings go into 119 for training, 26 for validation
+and 25 for testing. The fault runs are grouped by scenario, so that each scenario can be held out in
+turn and tested on a model that has never seen it (leave-one-scenario-out).
+
+**Found along the way.** Two pairs of probe recordings from *different* scenarios are almost
+identical. Run 3 of exp_1 and run 2 of exp_6 share 634 of their 635 rows. If one were tested while
+its twin was in training, the model would already have seen the answer. These near-duplicates are
+therefore never in training while their partner is tested.
+
+**Why you can trust it.** An independent rebuild from the raw events matched all 11.7 million cells
+of the state tables.
 
 - **Input:** `data/raw/causRCA/`
 - **Output:** `data/processed/coolant_states.csv`, `probe_states.csv`, `splits.csv`
@@ -251,37 +268,63 @@ is being tested.
 
 ### Step 2: Causal discovery
 
+**Run:**
 ```bash
 python main.py run discovery
 ```
+**Check:**
+```bash
+python main.py evaluate discovery
+```
 
-The step learns a causal graph from the state tables. PCMCI+ with the G² test runs separately in
-each regime: normal operation forms one regime, and each fault scenario forms another. A
-false-discovery-rate filter removes weak lagged links. The links of all regimes are then combined by
-how often they appear (support).
+**What it does.** This step learns from the data which variable affects which, for example that a
+failing pump raises a pump alarm. It uses PCMCI+ with the G² test, which looks for dependencies that
+remain after the other variables are taken into account.
 
-The discovery settings (maximum lag, significance level α, support threshold) are chosen from a grid
-by agreement with the expert graph. One graph is learned for every evaluation fold, without the
-scenario held out in that fold.
+The key idea is to learn **per regime**. Normal operation is one regime, and each fault scenario is
+another. Why? A fault scenario records only some of the variables, and many fault causes never change
+in normal operation. If all recordings were simply pooled, a variable that is missing or constant
+would look unrelated to everything else. So PCMCI+ runs separately in each regime. A false discovery
+rate filter removes weak lagged links, and a link enters the final graph when enough regimes support
+it (the support threshold).
+
+The settings (maximum lag, significance level α, support threshold) are picked from a grid by how well
+the graph agrees with the expert graph. One graph is learned for every evaluation fold, without the
+scenario that the fold holds out.
+
+**Found along the way.** Normal operation alone could not reveal the coolant faults. In the normal
+training regime, only 3 of the 15 coolant variables are usable. The fault scenarios carry the
+information, with 7 usable variables in exp_22 and 8 in exp_28.
 
 - **Input:** state tables, splits
 - **Output:** `data/graphs/discovered_graphs.csv`, `discovery_settings.csv`
 
 ### Step 3: SCM fitting
 
+**Run:**
 ```bash
 python main.py run scm
 ```
+**Check:**
+```bash
+python main.py evaluate scm
+```
 
-The step converts each graph to an acyclic graph (DAG), removing undirected edges and breaking cycles
-at the weakest edge. On that graph it fits a binary transition SCM. Each variable switches between 0
-and 1 with a probability that depends on its previous state and on its parents. The probabilities are
-counted from the training data, with a pseudo-count *a* so that unseen cases never get probability
-zero. An optional extra lag lets a variable's switching depend on how long it has stayed in its
-state.
+**What it does.** A graph shows which variable affects which, but not how strongly. The SCM adds that.
+First, the graph is made acyclic (a DAG): undirected edges are removed, and every cycle is broken at
+its weakest edge. Then each variable gets its own small model, called its mechanism. It gives the
+probability that the variable is 0 or 1 at the next step, from its previous state and the states of
+its parents. In the expert graph, for example, `LP_Pump_On` depends on whether `LP_Pump_Ok` reports a
+healthy pump.
 
-*a* and the extra lag are chosen per fold by log loss on inner folds, so that the held-out scenario
-is never used. Models are fitted for both the expert and the discovered graph.
+The probabilities are counted from the training data. A pseudo-count *a* keeps unseen cases from ever
+getting probability zero. An optional extra lag lets a variable's next state depend on how long it
+has stayed in its current state. *a* and the extra lag are chosen per fold on inner folds, so the
+held-out scenario never influences its own model. Models are fitted for both the expert and the
+discovered graph.
+
+**Found along the way.** For coolant, both graphs end up with the same settings: a pseudo-count of
+0.01 and an extra lag of four steps (2 s).
 
 - **Input:** discovered graphs, expert graphs, state tables, splits
 - **Output:** `data/graphs/scm_graphs.csv`, `dag_removals.csv`, `data/models/scm_settings.csv`,
@@ -290,14 +333,29 @@ is never used. Models are fitted for both the expert and the discovered graph.
 
 ### Step 4: Root cause analysis
 
+**Run:**
 ```bash
 python main.py run rca
 ```
+**Check:**
+```bash
+python main.py evaluate rca
+```
 
-For every held-out fault run, the step scores each candidate variable by how strongly it breaks its
-learned mechanism. The score is the surprise (negative log-likelihood) of its observed state, taken at
-its highest point in the window around the first alarms. The candidates are then ranked from most to
-least surprising, so the injected cause should come first.
+**What it does.** When a fault happens, which variable started it? The idea is simple: the root cause
+is the variable that breaks its own mechanism. Every candidate gets a **surprise score**, which says
+how unlikely its observed state was under its mechanism (the negative log-likelihood, in nats). A
+variable that just follows its parents is not surprising. A variable that suddenly does something its
+parents cannot explain is.
+
+The score is taken at its highest point in an analysis window around the alarms. The window starts
+60 s before the first alarm onset and ends 5 s after the last one. In run 1 of exp_6, for example,
+the alarm comes on at 100.5 s, so the window spans 40.5–105.5 s. The candidates are then ranked from
+most to least surprising, so the injected cause should come out on top.
+
+**Found along the way.** The coolant fault causes stay healthy in all the training data. So when one
+of them changes, the model is very surprised: up to 16.43 nats, a probability of about 1 in
+14 million. That is why every coolant cause is found.
 
 - **Input:** fitted SCMs, state tables
 - **Output:** `data/results/rca_rankings.csv`, `rca_runs.csv`
@@ -305,31 +363,56 @@ least surprising, so the injected cause should come first.
 
 ### Step 5: Intervention analysis
 
+**Run:**
 ```bash
 python main.py run interventions
 ```
+**Check:**
+```bash
+python main.py evaluate counterfactuals
+```
 
-The step replays every recorded fault injection as an intervention in the SCM, with 200 simulations
-per run. It records which alarms the model activates and when, and compares this with the alarms
-recorded in the run.
+**What it does.** Before a model is trusted with advice, it should reproduce what actually happened.
+This step replays every recorded fault injection inside the SCM. With the do-operator, the injected
+variable is set to its recorded fault value from its observed onset time, and the model simulates the
+run 200 times. The
+step records which alarms come on and when, so that they can be compared with the alarms the machine
+actually raised.
+
+**Found along the way.** The 25 coolant runs contain 56 alarm activations, but only 37 can be
+simulated. The other 19 belong to three alarms that occur in only one scenario. When that scenario
+is held out, the model has never seen the alarm, so it cannot predict it.
 
 - **Input:** fitted SCMs, state tables, fault annotations
 - **Output:** `data/results/replay.csv`
 
 ### Step 6: Counterfactual explanations
 
+**Run:**
 ```bash
 python main.py run counterfactuals
 ```
+**Check:**
+```bash
+python main.py evaluate counterfactuals
+```
 
-For every coolant fault run, the step asks: which small set of allowed actions would have kept the
-alarms off? An example action is keeping a pump healthy from a given time. The noise of the SCM is
-first inferred from the observed run (abduction). Candidate actions are then taken from the root
-cause ranking and simulated.
+**What it does.** This step asks the maintenance question: *what small action would have kept the
+alarms off?* An action keeps one component healthy from a given time, for example
+`do(HP_Pump_Ok = 1)`, "keep the high-pressure pump healthy". The step works in three moves:
 
-A set is valid when the alarms stay off in at least 90% of the simulations. It must reach this in the
-search (200 simulations) and again in 2,000 new, independent simulations. Valid sets are also checked
-on five SCMs refitted on resampled training data.
+1. **Abduction:** infer the hidden noise of the SCM from the observed run, so the simulation starts
+   from what really happened.
+2. **Action:** apply a set of allowed actions. The candidates come from the root cause ranking, and
+   each action starts when its fault was detected.
+3. **Prediction:** simulate the run again and check whether the alarms stay off.
+
+A set is **valid** when the alarms stay off in at least 90% of the simulations. It must reach this
+twice: in the search (200 simulations), and again in 2,000 new, independent simulations. Valid sets
+are also tested on five SCMs refitted on resampled training data.
+
+**Found along the way.** In all seven runs of exp_27, keeping the high-pressure pump healthy keeps
+its alarm off, with a validity of 1.00.
 
 - **Input:** fitted SCMs, root cause rankings, state tables
 - **Output:** `data/results/recommendations.csv`, `tried_action_sets.csv`, `recommendation_refits.csv`
@@ -339,18 +422,21 @@ on five SCMs refitted on resampled training data.
 
 ## 6. The evaluation, part by part
 
-Each part reads the pipeline results and is run on its own. The numbers below are the thesis results,
-which the commands reproduce exactly.
+Each part reads the pipeline results and runs on its own. The numbers below are the thesis results,
+and the commands reproduce them exactly. Each part names the pipeline steps it needs.
 
 ### Part 1: Causal discovery
 
+**Run:**
 ```bash
 python main.py evaluate discovery
 ```
+**Needs:** steps 1–2
 
-This part asks how close the discovered graph is to the expert graph. It compares their connections
-(skeleton F1), their directions (directed F1) and the number of edits between them (structural Hamming
-distance, SHD). Random graphs with the same number of edges serve as a reference.
+**The question.** How close is the learned graph to the expert graph? Three scores compare them:
+skeleton F1 checks the connections, directed F1 also checks their direction, and the structural
+Hamming distance (SHD) counts the edits needed to turn one graph into the other. Random graphs with
+the same number of edges show what chance would give.
 
 | Metric | Coolant | Coolant, random | Probe | Probe, random |
 |---|---|---|---|---|
@@ -358,27 +444,37 @@ distance, SHD). Random graphs with the same number of edges serve as a reference
 | Directed F1 | 0.75 | 0.05 | 0.42 | 0.15 |
 | SHD | 6 | 18.6 | 18 | 26.2 |
 
-**What it means.** For coolant, discovery recovers 8 of the 10 expert connections and orients every
-directed edge correctly. For probe, it recovers 10 of 15 connections but orients only 7 of its 18
-directed edges correctly.
+**What we found.**
+- **Coolant comes out well.** Discovery recovers 8 of the 10 expert connections, and every edge it
+  orients points the right way.
+- **Time order helps.** Every connection with lagged evidence is correct and correctly oriented. All
+  the errors are among connections seen only within the same time step.
+- **The data explains the misses.** `LP_Pump_Ok` → `LP_Pump_On` is never found. The pump command is
+  already off in all 12 pump-fault intervals, so the data never shows it switching off in response.
+- **The two extra edges have a reason too.** Each links two alarms whose causes are injected together.
+  The alarms come on at different times but reset in the same grid step.
+- **Probe is harder.** Discovery recovers 10 of 15 connections, but orients only 7 of its 18 directed
+  edges correctly.
 
-**Stability.** In 20 bootstrap draws, the coolant graph stays close to the selected graph (mean
+**How stable it is.** In 20 bootstrap draws, the coolant graph stays close to the selected graph (mean
 Jaccard similarity 0.68, directed F1 0.65). The probe graph changes much more (Jaccard 0.34).
 
-These scores measure agreement with the expert graph that was also used to select the discovery
-settings. They are not an independent test of accuracy.
+**Keep in mind.** The expert graph also chose the discovery settings. These scores show agreement with
+that graph, not an independent test of accuracy.
 
 **Thesis items:** Tables 6.1, 6.2 and A.1, Figures 6.1 and 6.2
 
 ### Part 2: SCM
 
+**Run:**
 ```bash
 python main.py evaluate scm
 ```
+**Needs:** steps 1–3
 
-This part asks how well each SCM predicts the next state, measured by log loss in nats (lower is
-better). Log loss at changes is the loss on only the steps where a variable changes. Those steps are
-the hard part to predict.
+**The question.** How well does each SCM predict the next state? The score is log loss in nats, where
+lower is better. Most steps are easy, because nothing changes. The real test is **log loss at
+changes**: only the steps where a variable actually changes.
 
 | Subsystem | Data | Expert log loss | Discovered log loss | Expert, at changes | Discovered, at changes |
 |---|---|---|---|---|---|
@@ -387,24 +483,30 @@ the hard part to predict.
 | Probe | Test | 0.009 | 0.009 | 1.63 | 1.79 |
 | Probe | Fault scenarios | 0.022 | 0.026 | 2.09 | 2.62 |
 
-**What it means.** Both graphs predict normal test data equally well. At state changes in unseen
-faults, the discovered graph is slightly better for coolant and the expert graph is better for probe.
+**What we found.**
+- **On normal data, the graphs tie.** Only three coolant variables change during normal operation, so
+  there is little room for the graph to make a difference.
+- **In unseen faults, the graph starts to matter.** The discovered graph is slightly better for coolant
+  (2.88 against 2.98). The expert graph is clearly better for probe (2.09 against 2.62).
 
-**Stability.** The predicted probabilities are well calibrated on normal data: the quantile
-residuals have standard deviation 1.00. Refitting the coolant SCM on resampled training data changes
-the log loss at changes by only 0.05–0.06 nats.
+**How stable it is.** The predicted probabilities are well calibrated on normal data: the quantile
+residuals have a standard deviation of 1.00, as they should. Refitting the coolant SCM on resampled
+training data moves the log loss at changes by only 0.05–0.06 nats.
 
 **Thesis items:** Table 6.3, Tables A.8 and A.9, Figure 6.3
 
 ### Part 3: Root cause analysis
 
+**Run:**
 ```bash
 python main.py evaluate rca
 ```
+**Needs:** steps 1–4
 
-This part asks how often the injected cause is ranked first (Top-1), and how high the injected causes
-are ranked on average (MAP@3). The LSTM + SHAP baseline uses no graph. It is an anomaly detector whose
-SHAP attributions rank the variables. Chance is the average of random rankings.
+**The question.** Does the injected cause come out on top? Top-1 is how often it is ranked first.
+MAP@3 rewards finding all injected causes near the top of the list. The baseline, LSTM + SHAP, uses no
+graph. It is an anomaly detector whose SHAP attributions rank the variables. Chance is the average of
+random rankings.
 
 | Subsystem | Method | Top-1 | MAP@3 | Scenario avg. AP@3 |
 |---|---|---|---|---|
@@ -416,26 +518,39 @@ SHAP attributions rank the variables. Chance is the average of random rankings.
 | Probe | LSTM + SHAP | 0.56 | 0.58 | 0.51 |
 | Probe | Chance | 0.14 | 0.21 | 0.21 |
 
-**What it means.** Every method finds all injected coolant causes. For probe, the causal model with
-the expert graph ranks best, followed by the discovered graph and then LSTM + SHAP. Selecting the SCM
-settings, not the new graph, gives most of the gain over the original configuration.
+**What we found.**
+- **Coolant is solved by every method.** The causes never change in normal operation, so their first
+  change stands out. For the expert graph, the median gap between the lowest injected cause and the
+  best other candidate is 7.42 nats.
+- **Probe is the real test.** Its fault sensors also switch during normal machining, so a change alone
+  proves nothing. Here the expert graph ranks best (MAP@3 0.67), then the discovered graph (0.63),
+  then LSTM + SHAP (0.58).
+- **No method wins everywhere.** LSTM + SHAP has a higher Top-1 than the discovered graph (0.56
+  against 0.53). The discovered graph beats the expert graph in one scenario, exp_2_3 (0.79 against
+  0.42).
+- **The SCM settings bring most of the gain.** Selecting them raises probe MAP@3 by 0.19 for the
+  expert graph and 0.16 for the discovered graph.
 
-**Stability.** The 95% run intervals of probe MAP@3 overlap: [0.54, 0.79] for the expert graph and
-[0.49, 0.76] for the discovered graph. No graph is therefore significantly better. LSTM + SHAP varies
-between 0.54 and 0.63 MAP@3 across training seeds.
+**How stable it is.** The 95% run intervals of probe MAP@3 overlap: [0.54, 0.79] for the expert graph
+and [0.49, 0.76] for the discovered graph. Neither graph is therefore clearly better. LSTM + SHAP
+ranges from 0.54 to 0.63 MAP@3 across training seeds.
 
-This is a retrospective diagnosis of injected faults.
+**Keep in mind.** This is a retrospective diagnosis of injected faults: the window also uses
+observations after the alarms.
 
 **Thesis items:** Table 5.8, Tables 6.4–6.6, Figures 6.5 and 6.6
 
 ### Part 4: Interventions and counterfactual explanations
 
+**Run:**
 ```bash
 python main.py evaluate counterfactuals
 ```
+**Needs:** steps 1–6
 
-This part asks two questions. Does the SCM reproduce the alarms when the recorded faults are replayed?
-And how many runs receive a valid preventive recommendation?
+**The question.** Two questions. When the recorded faults are replayed, does the SCM raise the right
+alarms at the right time? And how many runs get a valid recommendation that would have kept the
+alarms off?
 
 | Coolant, 25 held-out runs | Expert graph | Discovered graph |
 |---|---|---|
@@ -446,30 +561,45 @@ And how many runs receive a valid preventive recommendation?
 | Alarm coverage (activations with training data) | 37 / 56 | 37 / 56 |
 | Valid on all five refitted SCMs | 19 / 19 | 19 / 19 |
 
-**What it means.** Both graphs give the same valid recommendations for 19 of 25 runs. Each
-recommendation keeps one or two components healthy, for example the high-pressure pump in scenario
-exp_27. The six runs of scenario exp_22 stay below the 0.90 threshold. The selected extra lag makes
-their long alarm activity unlikely, and with the original SCM settings all six are valid.
+**What we found.**
+- **The replay matches the machine.** Every evaluated alarm comes on in at least 199 of 200
+  simulations. The median timing error is 0.5 s, and the largest is 2.0 s.
+- **19 of 25 runs get a valid recommendation, with the same actions for both graphs.** For exp_27,
+  keep the high-pressure pump healthy. For exp_28 and exp_35, keep the coolant filter and the
+  low-pressure pump healthy.
+- **Every recommended action targets an injected cause** (action precision 1.00).
+- **An imperfect graph can give the same advice.** The discovered graph has errors, but none on the
+  paths from the components to the alarms that matter here.
+- **exp_22 shows the limit.** Its six proposals reach only 0.84–0.87, below the 0.90 threshold. The
+  selected extra lag makes the long alarm activity in these runs unlikely. With the original SCM
+  settings, all six are valid.
 
-**Stability.** All 19 valid recommendations stay valid on all five refitted SCMs.
+**How stable it is.** All 19 valid recommendations stay valid on all five refitted SCMs.
 
-Validity is predicted by the SCM, not observed prevention on the machine.
+**Keep in mind.** Validity is predicted by the SCM. It is not prevention observed on the machine.
 
 **Thesis items:** Tables 6.8–6.10, Figures 6.7 and 6.8
 
 ### Part 5: Comparisons (appendix)
 
+**Run:**
 ```bash
 python main.py evaluate comparisons
 ```
+**Needs:** steps 1–6
 
-This part reruns the pipeline twice: with the original discovery and SCM settings, and for probe
-without the near-duplicate exclusion. It compares both reruns with the main results.
+**The question.** Do the choices made along the way matter? This part reruns the pipeline twice: once
+with the original discovery and SCM settings, and once, for probe, without the near-duplicate
+exclusion. Both reruns are compared with the main results.
 
-**What it means.** For coolant, the selected settings keep graph agreement and diagnosis but give
-fewer valid recommendations (19 instead of 25). For probe, they raise the discovered graph's directed
-F1 from 0.00 to 0.42 and the expert graph's MAP@3 from 0.48 to 0.67. Excluding the near-duplicates leaves the expert graph's
-MAP@3 unchanged. It moves the discovered graph and LSTM + SHAP by at most 0.02.
+**What we found.**
+- **For probe, selecting the settings made the biggest difference.** The original discovered graph kept a
+  single edge for the SCM and reached a directed F1 of 0.00. The selected settings raise it to 0.42.
+  The expert graph's MAP@3 rises from 0.48 to 0.67.
+- **For coolant, there is a trade-off.** The selected settings keep graph agreement and diagnosis but
+  give fewer valid recommendations (19 instead of 25).
+- **The near-duplicates barely matter.** Excluding them leaves the expert graph's MAP@3 unchanged and
+  moves the discovered graph and LSTM + SHAP by at most 0.02.
 
 **Thesis items:** Tables A.3 and A.5
 
